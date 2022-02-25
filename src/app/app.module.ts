@@ -10,6 +10,7 @@ import { ProductosComponent } from './home/productos/productos.component';
 import { UsuariosComponent } from './home/usuarios/usuarios.component';
 import { LoginComponent } from './home/usuarios/login/login.component';
 import { RegisterComponent } from './home/usuarios/register/register.component';
+import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass.component';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -19,7 +20,8 @@ import { RegisterComponent } from './home/usuarios/register/register.component';
     ProductosComponent,
     UsuariosComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RecoverypassComponent
   ],
   imports: [
     BrowserModule,

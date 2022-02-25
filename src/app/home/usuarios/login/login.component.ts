@@ -15,4 +15,12 @@ export class LoginComponent{
   ingresar(){
     this.router.navigate(['']);
   }
+
+  registro(){
+    this.router.navigate(['registro']);
+  }
+
+  recovery(){
+    this.router.navigate(['recovery']);
+  }
 }

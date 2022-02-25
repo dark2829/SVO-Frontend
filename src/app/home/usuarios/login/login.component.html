@@ -22,16 +22,26 @@
                         <input class="form-control" type="password" name="contraseña" id="" placeholder="Contraseña">
                     </div>
 
-                    <button class="btn btn-success rounded" (click)="ingresar()">Iniciar sesión</button>
+                    <button class="btn btn-success rounded-pill" (click)="ingresar()">Iniciar sesión</button>
                 </form>
             </div>
         </div>
         <div class="card-footer bg-light text-primary text-center">
             <div class="container">
-                <h6>¿Olvidaste tu contraseña?</h6>
-                <button class="btn btn-success">
-                    <span class="small">Recuperar contraseña</span>
-                </button>
+                <div class="row">
+                    <div class="col">
+                        <h6>¿Olvidaste tu contraseña?</h6>
+                        <button class="btn btn-success rounded-pill" (click)="recovery()">
+                            <span class="small">Recuperar contraseña</span>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <h6>¿No tienes una cuenta?</h6>
+                        <button class="btn btn-success rounded-pill" (click)="registro()">
+                            <span class="small">Registrate aquí</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
