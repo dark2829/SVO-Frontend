@@ -6,6 +6,7 @@ import { CartaProductoComponent } from './home/carta-producto/carta-producto.com
 import { LoginComponent } from './home/usuarios/login/login.component';
 import { RegisterComponent } from './home/usuarios/register/register.component';
 import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass.component';
+import { ProductoComponent } from './home/producto/producto.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'registro', component: RegisterComponent },
   {path: 'recovery', component: RecoverypassComponent },
+  {path: 'buynow', component: ProductoComponent },
 ]
 
 

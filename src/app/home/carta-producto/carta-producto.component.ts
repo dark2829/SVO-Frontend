@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,5 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./carta-producto.component.css']
 })
 export class CartaProductoComponent {
+  
+  constructor(
+    private router:Router
+  ){
 
+  }
+  buynow(){
+    this.router.navigate(['buynow'])
+  }
 }
