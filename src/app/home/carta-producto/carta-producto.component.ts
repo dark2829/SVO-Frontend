@@ -13,7 +13,7 @@ export class CartaProductoComponent {
   ){
 
   }
-  buynow(){
-    this.router.navigate(['buynow'])
+  product(){
+    this.router.navigate(['extendProduct'])
   }
 }

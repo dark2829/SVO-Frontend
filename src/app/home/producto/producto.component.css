@@ -1,0 +1,15 @@
+.product{
+    border-radius: 5vh !important;
+    -webkit-border-radius: 5vh !important;
+    -moz-border-radius: 5vh !important;
+    -ms-border-radius: 5vh !important;
+    -o-border-radius: 5vh !important;
+}
+
+.card{
+    border-radius: 2vh !important;
+    -webkit-border-radius: 2vh !important;
+    -moz-border-radius: 2vh !important;
+    -ms-border-radius: 2vh !important;
+    -o-border-radius: 2vh !important;
+}

@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'registro', component: RegisterComponent },
   {path: 'recovery', component: RecoverypassComponent },
-  {path: 'buynow', component: ProductoComponent },
+  {path: 'extendProduct', component: ProductoComponent },
 ]
 
 
