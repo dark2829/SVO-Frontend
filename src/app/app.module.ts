@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CartaProductoComponent } from './home/carta-producto/carta-producto.component';
 import { HomeComponent } from './home/home.component';
-import { ProductosComponent } from './home/productos/productos.component';
+import { ProductoComponent } from './home/producto/producto.component';
 import { UsuariosComponent } from './home/usuarios/usuarios.component';
 import { LoginComponent } from './home/usuarios/login/login.component';
 import { RegisterComponent } from './home/usuarios/register/register.component';
@@ -17,7 +17,7 @@ import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass
     AppComponent,
     CartaProductoComponent,
     HomeComponent,
-    ProductosComponent,
+    ProductoComponent,
     UsuariosComponent,
     LoginComponent,
     RegisterComponent,
