@@ -2,37 +2,40 @@
     <span class="h3 text-white">Tu felicidad es lo mas importante para nosotros</span>
 </nav>
 
-<div class="container mt-5" style="width: 35%;">
-    <div class="card bg-primary text-white">
-        <div class="card-body text-center roundes-bottom">
-            <span class="mt-5 mb-5">
-                <h3>Registro</h3>
-            </span>
-            <div class="container w-75 mt-5                                                                                 ">
-                <form class="">
-                    <div class="mb-3">
-                        <input class="form-control" type="text" name="nombre" id="" placeholder="Nombre">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col col-12 col-sm-12 col-md-9 col-lg-6  d-flex justify-content-center align-items-center">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center roundes-bottom">
+                    <span class="mt-5 mb-5">
+                        <h3>Registro</h3>
+                    </span>
+                    <div class="container w-75 mt-5                                                                                 ">
+                        <form class="">
+                            <div class="mb-3">
+                                <input class="form-control" type="text" name="nombre" id="" placeholder="Nombre">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" name="apellido" id="" placeholder="Apellido">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" name="correo" id="" placeholder="Correo">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="password" name="contraseña" id="" placeholder="Contraseña">
+                            </div>
+                            <button class="btn btn-success rounded-pill" (click)="home()" >Registrarse</button>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <input class="form-control" type="text" name="apellido" id="" placeholder="Apellido">
+                </div>
+                <div class="card-footer bg-light text-primary text-center">
+                    <div class="container">
+                        <h6>Si tienes una cuenta puedes iniciar sesión</h6>
+                        <button class="btn btn-success rounded-pill" (click)="login()">
+                            <span class="small">Iniciar sesión</span>
+                        </button>
                     </div>
-                    <div class="mb-3">
-                        <input class="form-control" type="text" name="correo" id="" placeholder="Correo">
-                    </div>
-                    <div class="mb-3">
-                        <input class="form-control" type="password" name="contraseña" id="" placeholder="Contraseña">
-                    </div>
-
-                    <button class="btn btn-success rounded-pill" (click)="home()" >Registrarse</button>
-                </form>
-            </div>
-        </div>
-        <div class="card-footer bg-light text-primary text-center">
-            <div class="container">
-                <h6>Si tienes una cuenta puedes iniciar sesión</h6>
-                <button class="btn btn-success rounded-pill" (click)="login()">
-                    <span class="small">Iniciar sesión</span>
-                </button>
+                </div>
             </div>
         </div>
     </div>
