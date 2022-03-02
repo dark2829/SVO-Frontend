@@ -16,4 +16,8 @@ export class CartaProductoComponent {
   product(){
     this.router.navigate(['extendProduct'])
   }
+
+  alert(){
+    alert("Producto agregado a carrito");
+  }
 }

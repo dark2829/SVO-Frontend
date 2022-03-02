@@ -13,3 +13,9 @@
     -ms-border-radius: 2vh !important;
     -o-border-radius: 2vh !important;
 }
+
+.like{
+    position: absolute;
+    top: 7%;
+    left: 90%;
+}

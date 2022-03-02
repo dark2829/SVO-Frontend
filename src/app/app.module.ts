@@ -11,6 +11,8 @@ import { UsuariosComponent } from './home/usuarios/usuarios.component';
 import { LoginComponent } from './home/usuarios/login/login.component';
 import { RegisterComponent } from './home/usuarios/register/register.component';
 import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass.component';
+import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/perfil-modify.component';
+import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophistory.component';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -21,7 +23,9 @@ import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass
     UsuariosComponent,
     LoginComponent,
     RegisterComponent,
-    RecoverypassComponent
+    RecoverypassComponent,
+    PerfilModifyComponent,
+    ShophistoryComponent, 
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { LoginComponent } from './home/usuarios/login/login.component';
 import { RegisterComponent } from './home/usuarios/register/register.component';
 import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass.component';
 import { ProductoComponent } from './home/producto/producto.component';
+import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/perfil-modify.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'registro', component: RegisterComponent },
   {path: 'recovery', component: RecoverypassComponent },
   {path: 'extendProduct', component: ProductoComponent },
+  {path: 'modifyPerfil', component: PerfilModifyComponent },
 ]
 
 

@@ -2,61 +2,116 @@
     <img class="img-fluid position-absolute" src="../../../assets/img/fongo-geometrico.png" alt="" style="width: 100vw; height: 40vh;">
 </div> -->
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <div class="col col-5 col-sm-5 col-md-1 col-lg-4 pb-2">
+        <a class="navbar-brand" href="#">López Vázquez</a>
+      </div>
+      <div class="col col-12 col-sm-6 col-md-4 col-lg-4 pb-2">
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+          <button class="btn btn-success" type="button">Buscar</button>
+        </form>
+      </div>
+      <div class="col col-1 col-sm-1 col-md-1">
+        <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-0 my-0 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100vw;">
+          <li class="nav-item col-4 col-sm-2 col-md-2 col-lg-6 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="bi bi-person-circle text-white" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+              </svg>
+            <a class="nav-link" aria-current="page" type="button" (click)="login()">Iniciar sesión</a>
+          </li>
+          <li class="nav-item col-4 col-sm-2 col-md-2 col-lg-7 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart4 text-white"
+              viewBox="0 0 16 16">
+              <path
+                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+            </svg>
+            <a class="nav-link small" href="#">Carrito de compras</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 <div class="product container bg-light text-dark rounded mt-5 my-5 p-1 border border-dark">
     <div class="row">
+        <div class="col text-center  d-flex justify-content-center align-items-center">
+            <p class="h4 fw-bold bg-primary w-50 rounded-pill text-white pt-1 pb-1">Limpieza</p>
+        </div>
+    </div>
+    <div class="row mt-2 mb-2">
         <div class="col col-12 col-sm-12 col-md-6 align-items-center">
             <p class="text-center"><img src="../../../assets/img/jabon.png" class="img-fluid w-75"
                     alt="Imagen de producto"></p>
         </div>
-        <div class="col col-12 col-sm-12 col-md-6">
+        <div class="col col-12 col-sm-12 col-md-6 d-flex justify-content-center align-items-center">
             <div class="container">
-                <div class="row">
-                    <div class="card m-2 rounded border border-dark w-75">
-                        <div class="card-title h6 p-2">Detergente Roma Multiusos 1kg En Polvo</div>
-                        <div class="card-text">
-                            <p>Marca: <span class="text-primary">Roma</span></p> 
+                <div class="card  mx-auto rounded border border-dark w-100">
+                    
+                    <span class="like position-absolute translate-middle badge rounded-pill">
+                        <button class="btn btn-outline-danger rounded-circle p-0 m-0" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="15" fill="currentColor" class="bi bi-heart"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                            </svg>
+                        </button>
+                    </span>
 
-                            <p><span class="text-decoration-line-through text-secondary">$40.50</span> 
-                                &nbsp; 
-                                <span class="text-success fs-5">
-                                    $26.50
-                                </span>
-                            </p>
-
-                            <p>Vendido por <span class="text-primary">Abarrotes López Vázquez</span></p>
-
-                            <span>
-                                Incluye
-                                <ul>
-                                    <li>Un jabón liquido</li>
-                                </ul>
+                    <div class="card-title h5 p-2 fw-bold">Detergente Roma Multiusos 1kg En Polvo</div>
+                    <div class="card-text m-2">
+                        <p>Marca: <span class="text-primary">Roma</span></p>
+                        <p><span class="text-decoration-line-through text-secondary">$40.50</span>
+                            &nbsp;
+                            <span class="text-success fs-5">
+                                $26.50
                             </span>
-
-                            <p>Stock disponible</p>
-
-                            <p>Cantidad: 1 Unidad</p> 
-                            <form class="w-25">
-                                <select class="form-select form-select-sm w-100">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                            </form>
+                        </p>
+                        <span class="small">
+                            Incluye
+                            <ul>
+                                <li>Un jabón liquido</li>
+                            </ul>
+                        </span>
+                        <p class="small">Stock disponible</p>
+                        <div class="row">
+                            <div class="col col-7 ">
+                                <p>Cantidad: 1 Unidad</p>
+                            </div>
+                            <div class="col col-5">
+                                <form class="w-75">
+                                    <select class="form-select form-select-sm w-100">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="card m-2 rounded border border-dark w-75 text-center">
-                        <div class="card-title h6 p-2 m-1">
-                            <button class="btn btn-primary text-white rounded-pill">Agregar a carrito</button>
-                        </div>
-                        <div class="card-text">
-                        </div>
+                </div>
+                <div class="card mx-auto mt-2 rounded border border-dark w-100 text-center">
+                    <div class="card-title h6 p-2 m-1">
+                        <button class="btn btn-primary text-white rounded-pill">Agregar a carrito</button>
+                    </div>
+                    <div class="card-text">
                     </div>
                 </div>
             </div>

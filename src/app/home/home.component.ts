@@ -13,8 +13,15 @@ export class HomeComponent {
   ){
 
   }
+  home(){
+  this.router.navigate (['']);
+  }
 
   login(){
     this.router.navigate(['login']);//agregamos la ruta con el nombre especificado en app-routing.module.ts
+  }
+
+  modificarPerfil(){
+    this.router.navigate(['modifyPerfil']);
   }
 }
