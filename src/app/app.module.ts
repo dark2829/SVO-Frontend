@@ -13,6 +13,8 @@ import { RegisterComponent } from './home/usuarios/register/register.component';
 import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass.component';
 import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/perfil-modify.component';
 import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophistory.component';
+import { CancelRequestComponent } from './home/usuarios/cliente/cancel-request/cancel-request.component';
+import { FavoriteComponent } from './home/usuarios/cliente/favorite/favorite.component';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -25,7 +27,9 @@ import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophi
     RegisterComponent,
     RecoverypassComponent,
     PerfilModifyComponent,
-    ShophistoryComponent, 
+    ShophistoryComponent,
+    CancelRequestComponent,
+    FavoriteComponent, 
   ],
   imports: [
     BrowserModule,

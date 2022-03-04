@@ -24,4 +24,12 @@ export class HomeComponent {
   modificarPerfil(){
     this.router.navigate(['modifyPerfil']);
   }
+
+  shopHistory(){
+    this.router.navigate(['shopHistory']);
+  }
+
+  favoritos(){
+    this.router.navigate(['favoritos']);
+  }
 }

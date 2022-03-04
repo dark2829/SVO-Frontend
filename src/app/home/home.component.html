@@ -28,13 +28,13 @@
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
-                      Another action
+                    <a class="dropdown-item" (click)="shopHistory()">
+                      Historial de compras
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
-                      Something else here
+                    <a class="dropdown-item" (click)="favoritos()">
+                      Favoritos
                     </a>
                   </li>
                 </ul>
@@ -84,24 +84,21 @@
 
 <section class="container mt-3 bg-light">
   <div class="row">
-    <div class="col col-sm-4 bg-primary d-flex align-items-center justify-content-center pe-0 me-0">
+    <div class="col col-12 col-12 col-sm-4 bg-primary d-flex align-items-center justify-content-center pe-0 me-0">
       <span class="text-center text-white h4 bg-dark bg-opacity-50">
         Productos de temporada
       </span>
     </div>
-    <div class="col col-sm-4 ps-0 ms-0 me-0 pe-0 d-flex align-items-center justify-content-center">
-      <div class="container-fluid">
+    <div class="col col-12 col-sm-12 col-md-4 ps-0 ms-0 me-0 pe-0 d-flex align-items-center justify-content-center">
         <div class="row">
-          <div class="col bg-success d-flex align-items-center justify-content-center">
+          <div class="col col-12 col-sm-12 col-md-12 bg-success d-flex align-items-center justify-content-center">
+            <p class="text-center text-white h4 bg-dark bg-opacity-50">Productos de populares</p>
+          </div>
+
+          <div class="col col-12 col-sm-12 col-md-12 ps-0 ms-0 me-0 pe-0 bg-success d-flex align-items-center justify-content-center">
             <p class="text-center text-white h4 bg-dark bg-opacity-50">Productos de populares</p>
           </div>
         </div>
-        <div class="row">
-          <div class="col col-sm-12 ps-0 ms-0 me-0 pe-0 bg-success d-flex align-items-center justify-content-center">
-            <p class="text-center text-white h4 bg-dark bg-opacity-50">Productos de populares</p>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="col col-sm-4 ps-0 ms-0 me-0 pe-0 bg-primary d-flex align-items-center justify-content-center">
       <span class="text-center text-white h4 bg-dark bg-opacity-50">Productos de populares</span>

@@ -2,16 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-productos',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  selector: 'app-favorite',
+  templateUrl: './favorite.component.html',
+  styleUrls: ['./favorite.component.css']
 })
-export class ProductoComponent implements OnInit {
+export class FavoriteComponent implements OnInit {
+
   constructor(
-    private router: Router
+    private router : Router
   ) { }
 
   ngOnInit(): void {
+  }
+
+  home() {
+    this.router.navigate(['']);
   }
 
   login(){

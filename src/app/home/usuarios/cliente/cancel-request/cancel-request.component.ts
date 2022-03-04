@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-shophistory',
-  templateUrl: './shophistory.component.html',
-  styleUrls: ['./shophistory.component.css']
+  selector: 'app-cancel-request',
+  templateUrl: './cancel-request.component.html',
+  styleUrls: ['./cancel-request.component.css']
 })
-export class ShophistoryComponent implements OnInit {
-  //Variables 
-  fecha = "12 de febrero de 2022";
-  codigo = "abcdefgh";
-  productos = "jabón roma";
-
+export class CancelRequestComponent implements OnInit {
+  
+  fecha = new Date();
+  codigo = 123143; 
+  productos = "Producto de ejemplo";
 
   constructor(
     private router: Router
@@ -19,7 +18,7 @@ export class ShophistoryComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   home() {
     this.router.navigate(['']);
   }
@@ -28,7 +27,4 @@ export class ShophistoryComponent implements OnInit {
     this.router.navigate(['login']);//agregamos la ruta con el nombre especificado en app-routing.module.ts
   }
 
-  solicitudCancelacion(){
-    this.router.navigate(['cancel-request']);
-  }
 }
