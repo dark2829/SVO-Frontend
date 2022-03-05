@@ -15,6 +15,10 @@ import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/per
 import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophistory.component';
 import { CancelRequestComponent } from './home/usuarios/cliente/cancel-request/cancel-request.component';
 import { FavoriteComponent } from './home/usuarios/cliente/favorite/favorite.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { FooterComponent } from './footer/footer.component';
+import { ShoppingCartComponent } from './home/usuarios/cliente/shopping-cart/shopping-cart.component';
+import { HomeEmpleadoComponent } from './home/usuarios/empleado/home-empleado/home-empleado.component';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -29,7 +33,11 @@ import { FavoriteComponent } from './home/usuarios/cliente/favorite/favorite.com
     PerfilModifyComponent,
     ShophistoryComponent,
     CancelRequestComponent,
-    FavoriteComponent, 
+    FavoriteComponent,
+    NavBarComponent,
+    FooterComponent,
+    ShoppingCartComponent,
+    HomeEmpleadoComponent, 
   ],
   imports: [
     BrowserModule,

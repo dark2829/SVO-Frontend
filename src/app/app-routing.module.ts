@@ -11,6 +11,7 @@ import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/per
 import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophistory.component';
 import { CancelRequestComponent } from './home/usuarios/cliente/cancel-request/cancel-request.component';
 import { FavoriteComponent } from './home/usuarios/cliente/favorite/favorite.component';
+import { ShoppingCartComponent } from './home/usuarios/cliente/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'shopHistory', component: ShophistoryComponent },
   {path: 'cancel-request', component: CancelRequestComponent },
   {path: 'favoritos', component: FavoriteComponent },
+  {path: 'shopping-cart', component: ShoppingCartComponent },
 ]
 
 

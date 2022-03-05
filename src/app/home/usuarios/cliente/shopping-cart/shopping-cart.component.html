@@ -1,0 +1,211 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid mt-5 mb-5">
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <span>
+                    <h3>Productos</h3>
+                </span>
+                <div class="row border border-dark">
+                    <!-- Productos -->
+                    <div class="col col-12 col-sm-12 col-md-6 col-lg-4 border border-dark">
+                        <div class="container-fluid m-1 mt-2 p-0 border border-primary rounded">
+                            <div class="row">
+                                <!-- Imagen -->
+                                <div class="col col-4 col-sm-4 col-md-5">
+                                    <img src="../../../../../assets/img/jabon.png" alt="Imagen de producto"
+                                        class="img-fluid text-start w-75">
+                                </div>
+                                <!-- Descripción -->
+                                <div class="col col-8 col-sm-8 col-md-6">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h6> {{producto}} </h6>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <span
+                                                        class="text-secondary tachado small"><del>${{precioAntes}}</del></span>
+                                                    <span class="h6 text-success"> ${{precioReal}}</span>
+                                                </div>
+                                                <div class="col">
+                                                    <span class="ms-5">
+                                                        <button class="btn">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                height="20" fill="currentColor"
+                                                                class="bi bi-trash3-fill text-dark" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                            </svg>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row  mt-3 mb-3">
+                                                <div class="col col-6">
+                                                    <form>
+                                                        <input type="number" class="form form-controll w-100" min=1
+                                                            step=1>
+                                                    </form>
+                                                </div>
+                                                <div class="col col-4"><span class="h5 text-success">${{total}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metodos de pago y entrega -->
+                    <div class="col col-12 col-sm-12 col-md-6 col-lg-4 border border-dark">
+                        <div class="row mb-3">
+                            <div class="col col-12 mt-3">
+                                <h5>Seleccionar método de pago</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Efectivo
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Tarjeta
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col col-12 mt-3">
+                                <h5>Método de entrega</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Domicilio
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Recoger en tienda
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col col-12 mt-3">
+                                <h5>¿Su compra sera facturada?</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Productos individuales -->
+                    <div class="col col-12 col-sm-12 col-md-12 col-lg-4 border border-dark">
+                        <div class="row">
+                            <div class="col">
+                                <div class="container mt-4 rounded border border-primary">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>{{producto}}</p>
+                                            <p>Precio unitario: {{precioReal}} </p>
+                                            <p>Cantidad: {{cantidad}}</p>
+                                            <p>Total: {{cantidad * precioReal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-12 mt-3">
+                                <h5>Total: {{cantidad * precioReal}}</h5>
+                                <hr>
+                                <p>Mas envio: {{cantidad}}</p>
+
+                                <p class="text-center">
+                                    <button class="btn btn-success rounded rounded-pill" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        Continuar con la compra
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Método de pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1"
+                                checked>Tarjeta
+                            <label class="form-check-label" for="radio1"></label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="radio2" name="optradio"
+                                value="option2" disabled>
+                                Efectivo
+                            <label class="form-check-label" for="radio2"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <form class="m-3 border border-primary bg-light rounded p-3">
+                                        <label>Nombre de propietario</label>
+                                        <input type="email" class="form-control" placeholder="Nombre" name="nombre">
+                                        <label>Numero de tarjeta</label>
+                                        <input type="number" class="form-control" placeholder="Numero" name="nombre">
+                                        <label>Fecha de vencimiento</label>
+                                        <input type="date" class="form-control w-50" placeholder="Nombre" name="nombre">
+                                        <label>CVV</label>
+                                        <input type="number" class="form-control w-50" placeholder="CVV" name="nombre">
+                                    </form>                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success rounded rounded-pill">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
