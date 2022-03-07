@@ -30,4 +30,8 @@ export class HomeAdminComponent implements OnInit {
   empleados(){
     this.router.navigate(['empleados']);
   }
+
+  alert(){
+    this.router.navigate(['alerta']);
+  }
 }

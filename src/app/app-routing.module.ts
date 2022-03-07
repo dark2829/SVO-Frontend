@@ -25,6 +25,7 @@ import { EmpleadosComponent } from './home/usuarios/admin/empleados/empleados.co
 import { EmpleadoRegisterComponent } from './home/usuarios/admin/empleado-register/empleado-register.component';
 import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/empleado-modify.component';
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
+import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path: 'empleado-register', component: EmpleadoRegisterComponent },
   {path: 'empleado-modify', component: EmpleadoModifyComponent },
   {path: 'cancel', component: PedidoRequestComponent },
+  {path: 'alert', component: AlertComponent },
 
 ]
 
