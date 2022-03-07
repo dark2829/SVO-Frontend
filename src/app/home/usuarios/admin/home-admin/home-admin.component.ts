@@ -32,6 +32,6 @@ export class HomeAdminComponent implements OnInit {
   }
 
   alert(){
-    this.router.navigate(['alerta']);
+    this.router.navigate(['alert']);
   }
 }
