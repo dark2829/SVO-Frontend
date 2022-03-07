@@ -7,10 +7,9 @@ import { AppComponent } from './app.component';
 import { CartaProductoComponent } from './home/carta-producto/carta-producto.component';
 import { HomeComponent } from './home/home.component';
 import { ProductoComponent } from './home/producto/producto.component';
-import { UsuariosComponent } from './home/usuarios/usuarios.component';
-import { LoginComponent } from './home/usuarios/login/login.component';
-import { RegisterComponent } from './home/usuarios/register/register.component';
-import { RecoverypassComponent } from './home/usuarios/recoverypass/recoverypass.component';
+import { LoginComponent } from './home/usuarios/todos/login/login.component';
+import { RegisterComponent } from './home/usuarios/todos/register/register.component';
+import { RecoverypassComponent } from './home/usuarios/todos/recoverypass/recoverypass.component';
 import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/perfil-modify.component';
 import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophistory.component';
 import { CancelRequestComponent } from './home/usuarios/cliente/cancel-request/cancel-request.component';
@@ -19,6 +18,19 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShoppingCartComponent } from './home/usuarios/cliente/shopping-cart/shopping-cart.component';
 import { HomeEmpleadoComponent } from './home/usuarios/empleado/home-empleado/home-empleado.component';
+import { PedidosComponent } from './home/usuarios/emp-adm/pedidos/pedidos.component';
+import { InventarioComponent } from './home/usuarios/emp-adm/inventario/inventario.component';
+import { ProductRegisterComponent } from './home/usuarios/emp-adm/product-register/product-register.component';
+import { ProductModifyComponent } from './home/usuarios/emp-adm/product-modify/product-modify.component';
+import { HomeAdminComponent } from './home/usuarios/admin/home-admin/home-admin.component';
+import { ProveedoresComponent } from './home/usuarios/admin/proveedores/proveedores.component';
+import { ProveedorRegisterComponent } from './home/usuarios/admin/proveedor-register/proveedor-register.component';
+import { ProveedorModifyComponent } from './home/usuarios/admin/proveedor-modify/proveedor-modify.component';
+import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
+import { EmpleadosComponent } from './home/usuarios/admin/empleados/empleados.component';
+import { EmpleadoRegisterComponent } from './home/usuarios/admin/empleado-register/empleado-register.component';
+import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/empleado-modify.component';
+import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -26,7 +38,6 @@ import { HomeEmpleadoComponent } from './home/usuarios/empleado/home-empleado/ho
     CartaProductoComponent,
     HomeComponent,
     ProductoComponent,
-    UsuariosComponent,
     LoginComponent,
     RegisterComponent,
     RecoverypassComponent,
@@ -37,7 +48,20 @@ import { HomeEmpleadoComponent } from './home/usuarios/empleado/home-empleado/ho
     NavBarComponent,
     FooterComponent,
     ShoppingCartComponent,
-    HomeEmpleadoComponent, 
+    HomeEmpleadoComponent,
+    PedidosComponent,
+    InventarioComponent,
+    ProductRegisterComponent,
+    ProductModifyComponent,
+    HomeAdminComponent,
+    ProveedoresComponent,
+    ProveedorRegisterComponent,
+    ProveedorModifyComponent,
+    AlertComponent,
+    EmpleadosComponent,
+    EmpleadoRegisterComponent,
+    EmpleadoModifyComponent,
+    PedidoRequestComponent,
   ],
   imports: [
     BrowserModule,

@@ -38,4 +38,8 @@ export class NavBarComponent implements OnInit {
     shopping_cart(){
       this.router.navigate(['shopping-cart']);
     }
+
+    cancelRequest(){
+      this.router.navigate(['cancel-request']);
+    }
 }

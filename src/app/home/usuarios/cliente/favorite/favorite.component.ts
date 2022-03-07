@@ -15,12 +15,4 @@ export class FavoriteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  home() {
-    this.router.navigate(['']);
-  }
-
-  login(){
-    this.router.navigate(['login']);//agregamos la ruta con el nombre especificado en app-routing.module.ts
-  }
-
 }

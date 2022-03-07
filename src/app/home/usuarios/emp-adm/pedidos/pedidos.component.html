@@ -1,0 +1,103 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col mt-5">
+            <div class="container bg-secondary bg-opacity-25 rounded">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="row mt-2">
+                            <div class="col">
+                                <a type="button" class="btn btn-primary rounded rounded-pill w-100">
+                                    Recoger en tienda
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a type="button" class="btn btn-light rounded rounded-pill w-100">
+                                    Pedidos a enviar
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a type="button" class="btn btn-danger rounded rounded-pill w-100">
+                                    Cancelados
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a type="button" class="btn btn-warning rounded rounded-pill w-100">
+                                    Solicitudes
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a type="button" class="btn btn-success rounded rounded-pill w-100">
+                                    Entregados
+                                </a>
+                            </div>
+                            <div class="col">
+                                <p class="ps-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                        class="bi bi-card-list text-primary" viewBox="0 0 16 16">
+                                        <path
+                                            d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                        <path
+                                            d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                                    </svg>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Código de compra</th>
+                                            <th scope="col">Método de entrega</th>
+                                            <th scope="col">Dirección</th>
+                                            <th scope="col">Fecha de entrega</th>
+                                            <th scope="col">Cancelación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">ATF40220221</th>
+                                            <td>Domicilio</td>
+                                            <td>Avenida siempre viva #405</td>
+                                            <td>6/03/2022</td>
+                                            <td></td>
+                                        </tr>
+                                        <!-- Ejemplo de pedido entregado -->
+                                        <tr class="table-success">
+                                            <th scope="row">ATF40220221</th>
+                                            <td>Domicilio</td>
+                                            <td>Avenida siempre viva #405</td>
+                                            <td>6/03/2022</td>
+                                            <td>
+                                                <a type="button" aria-valuemax="btn" (click)="cancelacion()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        fill="currentColor" class="bi bi-arrows-fullscreen"
+                                                        viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

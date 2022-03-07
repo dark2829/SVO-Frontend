@@ -1,0 +1,89 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-flui">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="container bg-secondary bg-opacity-25 border border-secondary rounded">
+                <!-- Botones and icon -->
+                <div class="row">
+                    <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
+                        <button class="btn btn-light rounded-pill w-100 border border-primary" (click)="reigstro()">
+                            <div class="row">
+                                <div class="col col-9">Registrar Producto</div>
+                                <div class="col col-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-plus rounded rounded-circle text-white bg-success m-0 p-0 me-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
+                        <a type="button" class="btn btn-light rounded-pill w-100 border border-primary" (click)="modify()">
+                            <div class="row">
+                                <div class="col col-9">Modificar Producto </div>
+                                <div class="col col-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-pencil-square rounded rounded-circle text-white bg-success"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd"
+                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col col-12 col-sm-12 col-md-4 text-end">
+                        <span class="text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                class="bi bi-box2 m-2 pt-1 text-primary" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3L2.95.4ZM7.5 1H3.75L1.5 4h6V1Zm1 0v3h6l-2.25-3H8.5ZM15 5H1v10h14V5Z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <!-- Table content -->
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Código de producto</th>
+                                <th scope="col">Nombre de producto</th>
+                                <th scope="col">Descripción </th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Precio de compra</th>
+                                <th scope="col">Precio de venta</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">AJSKN2123</th>
+                                <td>Jabón Escudo</td>
+                                <td>Jabon liquido</td>
+                                <td>10</td>
+                                <td>Completo</td>
+                                <td>20</td>
+                                <td>26</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
