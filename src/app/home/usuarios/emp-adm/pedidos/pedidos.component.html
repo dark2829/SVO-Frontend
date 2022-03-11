@@ -23,7 +23,7 @@
                             </div>
                             <div class="col col-12 col-sm-12 col-md-2 mt-2">
                                 <a type="button" class="btn btn-light rounded rounded-pill w-100">
-                                    Pedidos a enviar
+                                    Domicilio
                                 </a>
                             </div>
                             <div class="col col-12 col-sm-12 col-md-2 mt-2">
@@ -62,8 +62,9 @@
                                             <th scope="col">Código de compra</th>
                                             <th scope="col">Método de entrega</th>
                                             <th scope="col">Dirección</th>
+                                            <th scope="col">Estatus</th>
                                             <th scope="col">Fecha de entrega</th>
-                                            <th scope="col">Cancelación</th>
+                                            <th scope="col">Solicitudes</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,6 +72,7 @@
                                             <th scope="row">ATF40220221</th>
                                             <td>Domicilio</td>
                                             <td>Avenida siempre viva #405</td>
+                                            <td>En proceso</td>
                                             <td>6/03/2022</td>
                                             <td></td>
                                         </tr>
@@ -79,6 +81,7 @@
                                             <th scope="row">ATF40220221</th>
                                             <td>Domicilio</td>
                                             <td>Avenida siempre viva #405</td>
+                                            <td>Realizado</td>
                                             <td>6/03/2022</td>
                                             <td>
                                                 <a type="button" aria-valuemax="btn" (click)="cancelacion()">
