@@ -29,7 +29,7 @@
           </button>
         </div>
         <!-- Formulario de búsqueda -->
-        <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2">
+        <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2 mt-1">
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
             <button class="btn btn-success" type="button">Buscar</button>
@@ -67,6 +67,9 @@
   </div>
 </nav>
 
+
+
+
 <!-- Menu lateral desplegable -->
 <div class="offcanvas offcanvas-start bg-primary text-white" tabindex="-1" id="offcanvasExample"
   aria-labelledby="offcanvasExampleLabel">
@@ -74,12 +77,14 @@
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">López Vázquez</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
+  <!-- Cuerpo del menu desplegable-->
   <div class="offcanvas-body">
+    
     <div class="row mt-1 mb-1">
       <div class="col">
-        <div class="btn btn-outline-light w-100 text-start" (click)="modificarPerfil()">
+        <div class="btn btn-outline-light w-100 text-start">
           <a>
-            Perfil
+            Carnes Frías
           </a>
         </div>
       </div>
@@ -87,9 +92,9 @@
 
     <div class="row mt-1 mb-1">
       <div class="col">
-        <div class="btn btn-outline-light w-100 text-start" (click)="shopHistory()">
+        <div class="btn btn-outline-light w-100 text-start">
           <a>
-            Historial de compra
+            Lácteos
           </a>
         </div>
       </div>
@@ -97,9 +102,9 @@
 
     <div class="row mt-1 mb-1">
       <div class="col">
-        <div class="btn btn-outline-light w-100 text-start" (click)="favoritos()">
+        <div class="btn btn-outline-light w-100 text-start">
           <a>
-            Favoritos
+            Higiene Personal
           </a>
         </div>
       </div>
@@ -107,9 +112,9 @@
 
     <div class="row mt-1 mb-1">
       <div class="col">
-        <div class="btn btn-outline-light w-100 text-start" (click)="cancelRequest()">
+        <div class="btn btn-outline-light w-100 text-start">
           <a>
-            Solicitud de cancelación
+            Botanas
           </a>
         </div>
       </div>
@@ -117,14 +122,67 @@
 
     <div class="row mt-1 mb-1">
       <div class="col">
-        <div class="btn btn-outline-danger w-100 text-start text-white">
+        <div class="btn btn-outline-light w-100 text-start">
           <a>
-            Cerrar sesión
+            Farmacia
           </a>
         </div>
       </div>
     </div>
 
+    <div class="row mt-1 mb-1">
+      <div class="col">
+        <div class="btn btn-outline-light w-100 text-start">
+          <a>
+            Limpieza del hogar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-1 mb-1">
+      <div class="col">
+        <div class="btn btn-outline-light w-100 text-start">
+          <a>
+            Enlatados
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-1 mb-1">
+      <div class="col">
+        <div class="btn btn-outline-light w-100 text-start">
+          <a>
+            Frutas y verduras
+          </a>
+        </div>
+      </div>
+    </div>
+
+   <div class="row mt-1 mb-1">
+      <div class="col">
+        <div class="dropdown">
+          <button class="btn btn-outline-light w-100 text-start dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+            <span style="margin-right:80%;">Perfil</span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>
+              <a class="dropdown-item" (click)="modificarPerfil()">Perfil</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="shopHistory()">Historial de compra</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="favoritos()">Favoritos</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="cancelRequest()">Cerrar sesión</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> 
 
   </div>
 </div>

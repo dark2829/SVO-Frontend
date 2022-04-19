@@ -27,6 +27,14 @@ import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/e
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
 import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
 
+/*
+  Para acceder a empleado o admin solo en la url se debe colocar 
+  /home-admin
+  /home-empleado 
+
+  segun sea el caso
+*/
+
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {path: 'carta', component: CartaProductoComponent },

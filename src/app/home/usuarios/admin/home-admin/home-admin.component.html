@@ -1,16 +1,14 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
+<div class="container-fluid text-center jumbo">
 </div>
 
-<div class="container-fluid">
+
+<div class="container-fluid position-relative" >
     <div class="row vh-100 justify-content-center align-items-center">
         <div class="col">
 
-            <div class="container">
+            <div class="container" style="margin-top: 20vh;">
                 <div class="row">
 
                     <div class="col">
@@ -44,28 +42,11 @@
                                     </p>
                                 </a>
                             </div>
-
-                            <div class="col mt-5 col-12 col-sm-12 col-md-4">
-                                <a type="button" class="btn btn-primary w-100">
-                                    Finanzas
-
-                                    <p class="mt-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                            fill="currentColor" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
-                                        </svg>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
+                            
                             <div class="col mt-5 col-12 col-sm-12 col-md-4">
                                 <a type="button" class="btn btn-primary w-100" (click)="proveedores()">
                                     Proveedores
-
+    
                                     <p class="mt-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
@@ -75,6 +56,10 @@
                                     </p>
                                 </a>
                             </div>
+                        </div>
+
+                        <div class="row">
+
 
                             <div class="col mt-5 col-12 col-sm-12 col-md-4">
                                 <a type="button" class="btn btn-primary w-100" (click)="empleados()">

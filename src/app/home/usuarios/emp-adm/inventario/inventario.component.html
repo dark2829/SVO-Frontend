@@ -1,19 +1,19 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container-flui">
-    <div class="row">
-        <div class="col"></div>
-    </div>
+<div class="container-fluid text-center jumbo">
 </div>
 
-<div class="container">
+<div class="container position-relative">
     <div class="row vh-100 justify-content-center align-items-center">
         <div class="col">
-            <div class="container bg-secondary bg-opacity-25 border border-secondary rounded">
+            
+            <h1 class="text-center mt-5 text-white mb-0 pb-0">Inventario</h1>
+
+            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded" style="margin-top: 8vh;">
                 <!-- Botones and icon -->
                 <div class="row">
-                    <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
-                        <button class="btn btn-light rounded-pill w-100 border border-primary" (click)="reigstro()">
+                    <div class="col col-12 col-sm-12 col-md-8 col-lg-8 mt-2 mb-2">
+                        <button class="btn btn-light rounded-pill w-75 border border-primary" (click)="reigstro()">
                             <div class="row">
                                 <div class="col col-9">Registrar Producto</div>
                                 <div class="col col-3">
@@ -27,7 +27,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
+                    <!-- <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
                         <a type="button" class="btn btn-light rounded-pill w-100 border border-primary" (click)="modify()">
                             <div class="row">
                                 <div class="col col-9">Modificar Producto </div>
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                     <div class="col col-12 col-sm-12 col-md-4 text-end">
                         <span class="text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
@@ -57,30 +57,38 @@
                 <!-- Table content -->
                 <div class="row">
                     <div class="col">
-                        <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th scope="col">Código de producto</th>
-                                <th scope="col">Nombre de producto</th>
-                                <th scope="col">Descripción </th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Precio de compra</th>
-                                <th scope="col">Precio de venta</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">AJSKN2123</th>
-                                <td>Jabón Escudo</td>
-                                <td>Jabon liquido</td>
-                                <td>10</td>
-                                <td>Completo</td>
-                                <td>20</td>
-                                <td>26</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Código de producto</th>
+                                    <th scope="col">Nombre de producto</th>
+                                    <th scope="col">Categoría</th>
+                                    <th scope="col">Cantidad </th>
+                                    <th scope="col">Precio de compra</th>
+                                    <th scope="col">Previo de venta</th>
+                                    <th scope="col">Previo descuento</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">AJSKN2123</th>
+                                    <td>Jabón Escudo</td>
+                                    <td>Limpieza</td>
+                                    <td>50</td>
+                                    <td>20</td>
+                                    <td>26</td>
+                                    <td>10</td>
+                                    <td>Jabon liquido</td>
+                                    <td>Estado</td>
+                                    <td>a/b</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
                     </div>
                 </div>
             </div>
