@@ -6,7 +6,7 @@
 <div class="container position-relative">
     <div class="row vh-100 justify-content-center align-items-center">
         <div class="col">
-            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded">
+            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded" style="margin-top: 25vh;">
                 <!-- Botones and icon -->
                 <div class="row">
 
@@ -71,12 +71,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>José de Jesús</td>
-                                        <td>2411302419</td>
-                                        <td>lacteosMexico@lacteos.com</td>
-                                        <td>Avenida siempre muerta #123 Buenos Aires México </td>
-                                        <td>Lácteos</td>
+                                    <tr *ngFor="let proveedor of proveedores">
+                                        <td> {{proveedor.nombre}} </td>
+                                        <td>{{proveedor.telefono}}</td>
+                                        <td>{{proveedor.correo}}</td>
+                                        <td>{{proveedor.direccion}}</td>
+                                        <td>{{proveedor.provee}}</td>
                                         <td>
                                             <button type="button" class="btn" (click)="modify()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-pencil-square text-primary"

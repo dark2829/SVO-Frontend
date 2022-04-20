@@ -32,7 +32,7 @@ import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
   /home-admin
   /home-empleado 
 
-  segun sea el caso
+  según sea el caso
 */
 
 const routes: Routes = [

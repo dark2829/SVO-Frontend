@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
+//Manejo de rutas
 import { AppComponent } from './app.component';
 import { CartaProductoComponent } from './home/carta-producto/carta-producto.component';
 import { HomeComponent } from './home/home.component';
@@ -14,8 +15,8 @@ import { PerfilModifyComponent } from './home/usuarios/cliente/perfil-modify/per
 import { ShophistoryComponent } from './home/usuarios/cliente/shophistory/shophistory.component';
 import { CancelRequestComponent } from './home/usuarios/cliente/cancel-request/cancel-request.component';
 import { FavoriteComponent } from './home/usuarios/cliente/favorite/favorite.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { FooterComponent } from './footer/footer.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FooterComponent } from './components//footer/footer.component';
 import { ShoppingCartComponent } from './home/usuarios/cliente/shopping-cart/shopping-cart.component';
 import { HomeEmpleadoComponent } from './home/usuarios/empleado/home-empleado/home-empleado.component';
 import { PedidosComponent } from './home/usuarios/emp-adm/pedidos/pedidos.component';
@@ -31,6 +32,9 @@ import { EmpleadosComponent } from './home/usuarios/admin/empleados/empleados.co
 import { EmpleadoRegisterComponent } from './home/usuarios/admin/empleado-register/empleado-register.component';
 import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/empleado-modify.component';
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
+
+//Import de servicios
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -66,7 +70,8 @@ import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/ped
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
