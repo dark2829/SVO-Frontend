@@ -1,18 +1,16 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container-flui">
-    <div class="row">
-        <div class="col"></div>
-    </div>
+<div class="container-fluid text-center jumbo">
 </div>
 
-<div class="container mt-5">
+<div class="container position-relative">
     <div class="row vh-100 justify-content-center align-items-start">
         <div class="col">
-            <div class="container bg-secondary bg-opacity-25 border border-secondary rounded">
+            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded" style="margin-top: 30vh;">
                 <!-- Botones and icon -->
                 <div class="row">
-                    <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
+
+                    <div class="col col-10 col-sm-10 col-md-6 mt-2 mb-2">
                         <button class="btn btn-light rounded-pill w-100 border border-primary" (click)="reigstro()">
                             <div class="row">
                                 <div class="col col-9">Registrar Empleado</div>
@@ -27,7 +25,8 @@
                             </div>
                         </button>
                     </div>
-                    <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
+
+                    <!-- <div class="col col-12 col-sm-12 col-md-4 mt-2 mb-2">
                         <a type="button" class="btn btn-light rounded-pill w-100 border border-primary"
                             (click)="modify()">
                             <div class="row">
@@ -44,8 +43,9 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
-                    <div class="col col-12 col-sm-12 col-md-4 text-end">
+                    </div> -->
+                    
+                    <div class="col col-2 col-sm-2 col-md-6 text-end">
                         <span class="text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                                 class="bi bi-person-badge m-2 pt-1 text-primary " viewBox="0 0 16 16">
@@ -60,28 +60,56 @@
                 <!-- Table content -->
                 <div class="row">
                     <div class="col">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre de empleado</th>
-                                    <th scope="col">Teléfono</th>
-                                    <th scope="col">Correo electrónico </th>
-                                    <th scope="col">Puesto</th>
-                                    <th scope="col">Salario</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">01</th>
-                                    <td>José de Jesús</td>
-                                    <td>2411302419</td>
-                                    <td>juanPapasito@lacteos.com</td>
-                                    <td>Repartidor</td>
-                                    <td>150</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nombre de empleado</th>
+                                        <th scope="col">Teléfono</th>
+                                        <th scope="col">Correo electrónico </th>
+                                        <th scope="col">Puesto</th>
+                                        <th scope="col">Salario</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">01</th>
+                                        <td>José de Jesús</td>
+                                        <td>2411302419</td>
+                                        <td>juanPapasito@lacteos.com</td>
+                                        <td>Repartidor</td>
+                                        <td>150</td>
+                                        <td>
+                                            <div class="row">
+                                                <!-- Editar -->
+                                                <div class="col col-6">
+                                                    <button type="button" class="btn" (click)="modify()">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-pencil-square text-primary"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                            <path fill-rule="evenodd"
+                                                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <!-- Ver -->
+                                                <div class="col col-6">
+                                                    <button type="button" class="btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye text-primary" viewBox="0 0 16 16">
+                                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                                          </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

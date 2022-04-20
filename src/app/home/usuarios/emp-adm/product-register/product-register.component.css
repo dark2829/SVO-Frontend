@@ -7,3 +7,10 @@
     -ms-border-radius: 2vh;
     -o-border-radius: 2vh;
 }
+
+.jumbo{
+    height: 50vh;
+    width: 100vw;
+    position: absolute;
+    background-image: url('../../../../../assets/img/Papel-Tapiz-Isabel-EN3501.png');
+}

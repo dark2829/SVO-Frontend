@@ -15,7 +15,7 @@ export class InventarioComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  reigstro(){
+  registro(){
     this.router.navigate(['product-register'])
   }
 

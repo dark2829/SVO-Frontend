@@ -1,15 +1,12 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col"></div>
-    </div>
+<div class="container-fluid text-center jumbo">
 </div>
 
-<div class="container mt-5 mb-5">
+<div class="container position-relative">
     <div class="row vh-100 justify-content-center align-items-center">
-        <div class="col col-12 col-sm-12 col-md-6 ">
-            <div class="card w-100 bg-secondary bg-opacity-25 border rounded">
+        <div class="col col-12 col-sm-12 col-md-6 " style="margin-top: 25vh;">
+            <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
                 <div class="container">
                     <!-- Titulo and icon -->
                     <div class="row m-2 ms-0">
@@ -46,7 +43,7 @@
                                         <label for="staticEmail2" class="mt-2">Código de producto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Código">
+                                        <input type="text" class="form-control" id="codigo" placeholder="TFA1234" disabled>
                                     </div>
                                 </div>
 
@@ -75,10 +72,28 @@
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
-                                        <label for="staticEmail2" class="mt-2">Precio</label>
+                                        <label for="staticEmail2" class="mt-2">Cantidad</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="precio" placeholder="$00.00">
+                                        <input type="number" class="form-control" id="cantidad" placeholder="00.00">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Precio de compra</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="number" class="form-control" id="precioCompra" placeholder="$00.00">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Precio de venta</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="number" class="form-control" id="precioVenta" placeholder="$00.00">
                                     </div>
                                 </div>
 
@@ -102,16 +117,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-2 mb-2">
-                                    <div class="col col-5">
-                                        <label for="staticEmail2" class="mt-2">Cantidad</label>
-                                    </div>
-                                    <div class="col col-7">
-                                        <input type="number" class="form-control" id="staticEmail2"
-                                            placeholder="$00.00">
-                                    </div>
-                                </div>
-
+                                <!-- Estado -->
                                 <div class="row mt-2 mb-2">
                                     <div class="col col-2">
                                         <label for="staticEmail2" class="mt-2">Estado</label>
