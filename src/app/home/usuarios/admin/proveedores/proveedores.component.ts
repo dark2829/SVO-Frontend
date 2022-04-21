@@ -12,6 +12,7 @@ export class ProveedoresComponent implements OnInit {
   
   //Variables
   proveedores: any = {};
+  public page: number = 1; 
 
   //Constructores
   constructor(
@@ -21,7 +22,6 @@ export class ProveedoresComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAllProveedores().subscribe(response => {
-      console.log(response);
       this.proveedores = response;
     });
   }

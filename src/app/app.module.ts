@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
+//Imports opcionales
+import { NgxPaginationModule } from 'ngx-pagination'; //? Sirve para paginar una tablita
+
 //Manejo de rutas
 import { AppComponent } from './app.component';
 import { CartaProductoComponent } from './home/carta-producto/carta-producto.component';
@@ -71,7 +74,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     AppRoutingModule, 
-    HttpClientModule
+    HttpClientModule, 
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
