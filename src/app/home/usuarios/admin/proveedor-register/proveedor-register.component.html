@@ -69,8 +69,19 @@
                                         <label for="staticEmail2" class="mt-2">Provee</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="staticEmail2"
-                                            placeholder="Frutas">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Selecciona una opción</option>
+                                            <option value="1">Carnes Frías</option>
+                                            <option value="2">Lácteos</option>
+                                            <option value="3">Higiene Personal</option>
+                                            <option value="2">Lácteos</option>
+                                            <option value="2">Higiene Personal</option>
+                                            <option value="2">Botanas</option>
+                                            <option value="2">Farmacia</option>
+                                            <option value="2">Limpieza del Hogar</option>
+                                            <option value="2">Enlatados</option>
+                                            <option value="2">Frutas y Verduras</option>
+                                          </select>
                                     </div>
                                 </div>
                             </form>
@@ -80,7 +91,7 @@
                     <!-- Botones -->
                     <div class="row m-3">
                         <div class="col text-center">
-                            <button class="btn btn-success rounded rounded-pill">
+                            <button type="submit" class="btn btn-success rounded rounded-pill" (click)="agregarProveedor()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                     class="bi bi-check2" viewBox="0 0 16 16">
                                     <path

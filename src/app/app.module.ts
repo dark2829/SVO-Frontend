@@ -1,6 +1,6 @@
 import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 //Imports opcionales
@@ -75,7 +75,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     AppRoutingModule, 
     HttpClientModule, 
-    NgxPaginationModule
+    NgxPaginationModule, 
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

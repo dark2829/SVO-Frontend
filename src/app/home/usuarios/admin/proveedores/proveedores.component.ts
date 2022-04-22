@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProveedoresService } from '../../../../services/proveedores.service';
 
@@ -9,12 +9,15 @@ import { ProveedoresService } from '../../../../services/proveedores.service';
   providers: [ProveedoresService]
 })
 export class ProveedoresComponent implements OnInit {
-  
-  //Variables
+  //* Salida
+  //* Entrada 
+  // @Output() idProveedor:  EventEmitter<number> = new EventEmitter();
+
+  //* Variables
   proveedores: any = {};
   public page: number = 1; 
 
-  //Constructores
+  //* Constructores
   constructor(
     private router: Router,
     private service: ProveedoresService
@@ -25,16 +28,15 @@ export class ProveedoresComponent implements OnInit {
       this.proveedores = response;
     });
   }
-  
 
-
-  //Métodos de navegación 
+  //* Métodos de navegación 
   reigstro(){
-    this.router.navigate(['proveedores-register'])
+    this.router.navigate(['proveedores-register']);
   }
 
-  modify(){
-    this.router.navigate(['proveedores-modify'])
+  modify(proveedorId: number){
+    // this.router.navigate(['proveedores-modify']);
   }
 
+  //* Gettters
 }

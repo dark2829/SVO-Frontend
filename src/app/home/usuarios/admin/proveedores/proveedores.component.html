@@ -4,9 +4,9 @@
 </div>
 
 <div class="container position-relative">
-    <div class="row vh-100 justify-content-center align-items-center">
+    <div class="row vh-100 justify-content-center align-items-center" style="padding-top: 20vh;">
         <div class="col">
-            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded" style="margin-top: 25vh;">
+            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded">
                 <!-- Botones and icon -->
                 <div class="row">
 
@@ -71,14 +71,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let proveedor of proveedores | paginate: { itemsPerPage: 5, currentPage: page}">
+                                    <tr *ngFor="let proveedor of proveedores | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
                                         <td> {{proveedor.nombre}} </td>
                                         <td>{{proveedor.telefono}}</td>
                                         <td>{{proveedor.correo}}</td>
                                         <td>{{proveedor.direccion}}</td>
                                         <td>{{proveedor.provee}}</td>
                                         <td>
-                                            <button type="button" class="btn" (click)="modify()">
+                                            <a type="submit" class="btn" [routerLink]="['/proveedor', proveedor.id]">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-pencil-square text-primary"
                                                     viewBox="0 0 16 16">
                                                     <path
@@ -86,10 +86,9 @@
                                                     <path fill-rule="evenodd"
                                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                                 </svg>
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
-
                                 </tbody>
                             </table>
                             <div class="row">
