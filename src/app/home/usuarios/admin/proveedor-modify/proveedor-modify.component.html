@@ -8,6 +8,8 @@
         <div class="col col-12 col-sm-12 col-md-6 " style="margin-top: 25vh;">
             <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
                 <div class="container">
+                    <!-- Alerta -->
+                    <div class="alert" #alerta id="alerta"></div>
                     <!-- Titulo and icon -->
                     <div class="row m-2 ms-0">
                         <div class="col col-9">
@@ -25,14 +27,14 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <form class="row" [formGroup]="form" (submit)="modifyProveedor()">
+                            <form class="row" [formGroup]="miFormulario" (submit)="modifyProveedor()">
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Nombre de Proveedor</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="nombre" ype="text" class="form-control" id="nombre" placeholder="Nombre" value=" {{nombre}} ">
+                                        <input formControlName="hproveedorNombre" ype="text" class="form-control" id="nombre" placeholder="Nombre" value="{{nombre}}">
                                     </div>
                                 </div>
 
@@ -41,7 +43,7 @@
                                         <label for="staticEmail2" class="mt-2">Numero de contacto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="telefono" type="text" class="form-control" id="telefono" placeholder="2418000101" value=" {{telefono}} ">
+                                        <input formControlName="hproveedorTelefono" type="number" min="10" max="10" class="form-control" id="telefono" placeholder="2418000101" value="{{telefono}}">
                                     </div>
                                 </div>
 
@@ -50,7 +52,7 @@
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="correo" type="text" class="form-control" id="correo" placeholder="correo@example.com" value=" {{correo}} ">
+                                        <input formControlName="hproveedorCorreo" type="text" class="form-control" id="correo" placeholder="correo@example.com" value="{{correo}}">
                                     </div>
                                 </div>
 
@@ -59,8 +61,7 @@
                                         <label for="staticEmail2" class="mt-2">Dirección de la empresa </label>
                                     </div>
                                     <div class="col col-7">
-                                        <textarea formControlName="direc" class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"> {{direccion}} </textarea>
+                                        <input formControlName="hproveedorDireccion"  type="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Calle 2001 texmelucan" value="{{adres}}">
                                     </div>
                                 </div>
 
@@ -69,34 +70,33 @@
                                         <label for="staticEmail2" class="mt-2">Provee</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="productos" type="text" class="form-control" id="provee" placeholder="Refrescos" value=" {{provee}} ">
+                                        <input formControlName="hproveedorProvee" type="text" class="form-control" id="provee" placeholder="Refrescos cocacola" value="{{provee}}">
                                     </div>
                                 </div>
-
 
                                 <!-- Botones -->
-                                <div class="row m-3">
-                                    <div class="col text-center">
-                                        <button class="btn btn-success rounded rounded-pill">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                            </svg>
-                                            Aceptar
-                                        </button>
-                                    </div>
-                                    <div class="col text-center">
-                                        <button class="btn btn-danger rounded rounded-pill" (click)="cancel()">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                            </svg>
-                                            Cancelar
-                                        </button>
-                                    </div>
+                            <div class="row m-3">
+                                <div class="col text-center">
+                                    <button class="btn btn-success rounded rounded-pill" name="Previous" type="submit" (click)="info()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                        </svg>
+                                        Aceptar
+                                    </button>
                                 </div>
+                                <div class="col text-center">
+                                    <button class="btn btn-danger rounded rounded-pill" (click)="cancel()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                        </svg>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
                             </form>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ export class ProveedoresService {
   
   //* Métodos Get
   public getAllProveedores(): Observable<any>{
-    return this.http.get<any>(this.API_Proveedores);
+    return this.http.get(this.API_Proveedores);
   }
 
   //* Métodos Post

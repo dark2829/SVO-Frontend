@@ -38,6 +38,7 @@ import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/ped
 
 //Import de servicios
 import { HttpClientModule } from '@angular/common/http';
+import { ErrorTailorModule} from '@ngneat/error-tailor';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -76,7 +77,16 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule, 
     HttpClientModule, 
     NgxPaginationModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    ErrorTailorModule.forRoot({
+      errors:{
+        useValue:{
+          required: 'Campo requerido',
+          minlenght: ({requiredLength, actualLength}) => `Expect ${requiredLength} but got ${actualLength}`,
+          invalidAddress: error => `Dirección invalida`
+        }
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
