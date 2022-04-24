@@ -79,11 +79,12 @@ import { ErrorTailorModule} from '@ngneat/error-tailor';
     NgxPaginationModule, 
     ReactiveFormsModule, 
     ErrorTailorModule.forRoot({
-      errors:{
-        useValue:{
+      errors: {
+        useValue: {
           required: 'Campo requerido',
-          minlenght: ({requiredLength, actualLength}) => `Expect ${requiredLength} but got ${actualLength}`,
-          invalidAddress: error => `Dirección invalida`
+          minlength: ({ requiredLength, actualLength }) => 
+                      `Se esperan ${requiredLength} pero solo hay ${actualLength}`,
+          invalidAddress: error => `Address isn't valid`
         }
       }
     })

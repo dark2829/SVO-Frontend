@@ -27,14 +27,14 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <form class="row" [formGroup]="miFormulario" (submit)="modifyProveedor()">
+                            <form class="row was-validated needs-validation" [formGroup]="miFormulario" errorTailor novalidate>
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Nombre de Proveedor</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input formControlName="hproveedorNombre" ype="text" class="form-control" id="nombre" placeholder="Nombre" value="{{nombre}}">
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="hproveedorNombre" ype="text" class="form-control" id="nombre" placeholder="Nombre" value="{{nombre}}" required >
                                     </div>
                                 </div>
 
@@ -42,8 +42,9 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Numero de contacto</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input formControlName="hproveedorTelefono" type="number" min="10" max="10" class="form-control" id="telefono" placeholder="2418000101" value="{{telefono}}">
+                                    <div class="col col-7 datosRequeridos">
+                                        <input [controlErrorsTpl]="phone" formControlName="hproveedorTelefono" type="text" min="10" max="10" class="form-control" id="telefono" placeholder="2418000101" value="{{telefono}}" required oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                        <ng-template let-error let-text="text" #phone>{{text}}</ng-template>
                                     </div>
                                 </div>
 
@@ -51,8 +52,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input formControlName="hproveedorCorreo" type="text" class="form-control" id="correo" placeholder="correo@example.com" value="{{correo}}">
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="hproveedorCorreo" type="text" class="form-control" id="correo" placeholder="correo@example.com" value="{{correo}}" required>
                                     </div>
                                 </div>
 
@@ -60,7 +61,7 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Dirección de la empresa </label>
                                     </div>
-                                    <div class="col col-7">
+                                    <div class="col col-7 datosRequeridos">
                                         <input formControlName="hproveedorDireccion"  type="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Calle 2001 texmelucan" value="{{adres}}">
                                     </div>
                                 </div>
@@ -69,15 +70,15 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Provee</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input formControlName="hproveedorProvee" type="text" class="form-control" id="provee" placeholder="Refrescos cocacola" value="{{provee}}">
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="hproveedorProvee" type="text" class="form-control" id="provee" placeholder="Refrescos cocacola" value="{{provee}}" required>
                                     </div>
                                 </div>
 
                                 <!-- Botones -->
                             <div class="row m-3">
                                 <div class="col text-center">
-                                    <button class="btn btn-success rounded rounded-pill" name="Previous" type="submit" (click)="info()">
+                                    <button type="submit" class="btn btn-success rounded rounded-pill" name="Previous" type="submit" (click)="info()">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2"
                                             viewBox="0 0 16 16">
                                             <path
@@ -87,7 +88,7 @@
                                     </button>
                                 </div>
                                 <div class="col text-center">
-                                    <button class="btn btn-danger rounded rounded-pill" (click)="cancel()">
+                                    <button type="button" class="btn btn-danger rounded rounded-pill" (click)="cancel()">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x"
                                             viewBox="0 0 16 16">
                                             <path

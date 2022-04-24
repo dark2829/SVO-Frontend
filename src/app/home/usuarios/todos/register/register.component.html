@@ -1,6 +1,14 @@
-<app-nav-bar></app-nav-bar>
+<!-- <app-nav-bar></app-nav-bar> -->
 
-<div class="container-fluid vh-100" style="margin-top: 15vh;">
+<div class="containter-fluid bg-primary">
+    <div class="row" style="height: 10vh;">
+        <div class="col">
+            <h2 class="h2 text-white text-center p-2 ">Bienvenido a López Vásquez </h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid vh-100 mb-3" style="margin-top: 0vh;">
     <div class="row justify-content-center align-items-center">
         <div class="col">
             <div class="container">
@@ -11,24 +19,28 @@
                                 <span class="mt-5 mb-5">
                                     <h3>Registro</h3>
                                 </span>
-                                <div class="container w-75 mt-5                                                                                 ">
-                                    <form class="">
-                                        <div class="mb-3">
-                                            <input class="form-control" type="text" name="nombre" id="" placeholder="Nombre">
+                                <div class="container w-75 mt-5">
+                                    <!-- Alerta -->
+                                    <div class="alert" #alerta id="alerta"></div>
+                                    <form class="row was-validated needs-validation" [formGroup]="formPersona" errorTailor novalidate>
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoFname" class="form-control" type="text" name="nombre" id="" placeholder="Nombre" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <input class="form-control" type="text" name="apellido" id="" placeholder="Apellido">
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoSname" class="form-control" type="text" name="apellido" id="" placeholder="Apellido" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <input class="form-control" type="text" name="correo" id="" placeholder="Correo">
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoEmail" class="form-control" type="text" name="correo" id="" placeholder="Correo" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <input class="form-control" type="password" name="contraseña" id="" placeholder="Contraseña">
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoPassw" class="form-control" type="password" name="contraseña" id="" placeholder="Contraseña" required maxlength="8">
                                         </div>
-                                        <button class="btn btn-success rounded-pill" (click)="home()" >Registrarse</button>
+                                        <!-- Botón de enviar formulario -->
+                                        <button type="submit" class="btn btn-success rounded-pill" (click)="enviar()">Registrarse</button>
                                     </form>
                                 </div>
                             </div>
+
                             <div class="card-footer bg-light text-primary text-center">
                                 <div class="container">
                                     <h6>Si tienes una cuenta puedes iniciar sesión</h6>

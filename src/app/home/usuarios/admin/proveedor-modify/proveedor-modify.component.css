@@ -4,3 +4,7 @@
     position: absolute;
     background-image: url('../../../../../assets/img/Papel-Tapiz-Isabel-EN3501.png');
 }
+
+form .datosRequeridos{
+    color: red;
+}

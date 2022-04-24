@@ -1,7 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupName } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupName, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { EnlacesService } from '../../../../services/enlaces.service';
 
 @Component({
   selector: 'app-proveedor-modify',
@@ -32,6 +33,7 @@ export class ProveedorModifyComponent implements OnInit {
     private route: ActivatedRoute, 
     private formBuilder: FormBuilder, 
     private router: Router,
+    private enlace: EnlacesService
   ) { }
 
   ngOnInit(): void {
@@ -47,15 +49,14 @@ export class ProveedorModifyComponent implements OnInit {
             this.telefono = phone;
             this.correo = elemento.correo; 
             this.adres = elemento.direccion; 
-            console.log(elemento.direccion);
             this.provee = elemento.provee;    
             
             this.miFormulario = this.formBuilder.group({      
-              hproveedorNombre: [elemento.nombre],
-              hproveedorTelefono: [elemento.telefono],
-              hproveedorCorreo: [elemento.correo],
+              hproveedorNombre: [elemento.nombre, [Validators.required]],
+              hproveedorTelefono: [elemento.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+              hproveedorCorreo: [elemento.correo, [Validators.email]],
               hproveedorDireccion: [elemento.direccion],
-              hproveedorProvee: [elemento.provee]
+              hproveedorProvee: [elemento.provee, [Validators.required]]
             });
           }
         });
@@ -67,22 +68,54 @@ export class ProveedorModifyComponent implements OnInit {
   }
 
   //* Métodos get
-  public modifyProveedor(){
-    if(this.informacion){
-     //Mandar Datos
-      this.service.saveProveedor(`http://localhost:8080/proveedores/update?id=${this.index}`,
-        {
-          nombre: this.miFormulario.value.hproveedorNombre,
-          telefono: this.miFormulario.value.hproveedorTelefono,
-          correo: this.miFormulario.value.hproveedorCorreo,
-          direccion: this.miFormulario.value.hproveedorDireccion,
-          provee: this.miFormulario.value.hproveedorProvee
+  public modifyProveedor() {
+    if (this.informacion) {
+      //Mandar Datos
+      try {
+        if (
+          this.miFormulario.value.hproveedorNombre != null &&
+          this.miFormulario.value.hproveedorTelefono != null &&
+          this.miFormulario.value.hproveedorCorreo != null &&
+          this.miFormulario.value.hproveedorProvee != null &&
+          this.miFormulario.value.hproveedorNombre != "" &&
+          this.miFormulario.value.hproveedorTelefono != "" &&
+          this.miFormulario.value.hproveedorCorreo != "" &&
+          this.miFormulario.value.hproveedorProvee != ""
+        ) {
+          this.service.saveProveedor(`${this.enlace.API_ENLACE_PROVEEDOR}${this.enlace.PROVEEDOR_UPDATE}${this.index}`,
+            {
+              nombre: this.miFormulario.value.hproveedorNombre.toString().trim(),
+              telefono: this.miFormulario.value.hproveedorTelefono.toString().trim(),
+              correo: this.miFormulario.value.hproveedorCorreo.toString().trim(),
+              direccion: this.miFormulario.value.hproveedorDireccion.toString().trim(),
+              provee: this.miFormulario.value.hproveedorProvee.toString().trim()
+            }
+          ).subscribe(
+            respuesta => this.information("Registro exitoso", "success"), 
+          error => {
+            switch(error.status){
+              case 0:
+                this.errores("Error de conexión", "danger");
+              break;
+              case 400: 
+                this.errores("El correo ya está registrado", "warning");
+              break; 
+              case 500: 
+                this.errores("Error en el servidor", "danger");
+              break; 
+            }
+            console.log("reject"+error.status);
+          }
+          );
+        } else {
+          this.errores("Campos invalidos", "warning");
         }
-      ).subscribe(response => {
-        this.appli();
-      }); 
+      } catch (error) {
+        alert(error);
+      }
+
     }
-    if(this.cancelar){
+    if (this.cancelar) {
 
     }
   }
@@ -90,50 +123,55 @@ export class ProveedorModifyComponent implements OnInit {
   public info(){
     this.informacion = true; 
     this.cancelar = false; 
+    this.modifyProveedor();
   } 
-
-  public appli() {
-    //? Agregar opciones de mensajes en vista
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-success alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡Modificado!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {this.listaProveedores()} , 3000);
-  }
 
   public cancel(){
     this.cancelar = true; 
     this.informacion = false; 
-    //? Agregar opciones de mensajes en vista
+    this.information("Cancelado", "danger");
+  }
+  
+  //? Estos metodos funcionan para mostrar las alertas
+  public information(texto: string, tipo: string){
+    //? Agregar opciones de mensajes en vista    
     const alertas: any = this.alerta.nativeElement; 
     alertas.innerHTML = `
                           <div 
-                          class="alert alert-danger alert-dismissible" 
+                          class="alert alert-${tipo} alert-dismissible" 
                           style=
                             "
                             position: fixed; top:25vh; right:0%;
                               
                             ">
                           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡Cancelado!</strong> redirigiendo a lista.
+                          <strong>¡${texto}!</strong> redirigiendo a lista.
                           </div>
     `;
-    setTimeout(() => {this.listaProveedores()} , 3000);
-    
+    setTimeout(() => {this.listaProveedores()} , 1000);
+  }
+
+  public errores(texto: string, tipo: string){
+    //? Agregar opciones de mensajes en vista    
+    const alertas: any = this.alerta.nativeElement; 
+    alertas.innerHTML = `
+                          <div 
+                          class="alert alert-${tipo} alert-dismissible" 
+                          style=
+                            "
+                            position: fixed; top:25vh; right:0%;
+                              
+                            ">
+                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          <strong>¡${texto}!</strong>
+                          </div>
+    `;
+    setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
   //* Métodos post
   //* Métodos update
   //* Métodos delete
-
+  
   //* Métodos navegación
   public listaProveedores(){
     this.router.navigate(['proveedores']);

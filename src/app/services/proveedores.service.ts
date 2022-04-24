@@ -1,19 +1,22 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { EnlacesService } from './enlaces.service';
 @Injectable(
   {
-  providedIn: 'root' 
+  providedIn: 'root'
   }
 )
 
 export class ProveedoresService {
 
   //Definir el endpoint a conectar
-  private API_Proveedores = "http://localhost:8080/proveedores/findAllProveedores"; 
+  private API_Proveedores = this.enlaces.API_ENLACE_PROVEEDOR.concat(this.enlaces.PROVEEDOR_BUSCAR); 
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private enlaces: EnlacesService
+    ) { }
   
   //* Métodos Get
   public getAllProveedores(): Observable<any>{
