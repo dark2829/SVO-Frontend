@@ -1,0 +1,76 @@
+<app-nav-bar></app-nav-bar>
+
+<section class="container bg-light mt-5 pt-5">
+  <div id="carouselExampleDark" class="carousel carousel-dark slide container-fluid" data-bs-ride="carousel"
+    style="width: 70%;">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <!-- Imágenes de carrusel -->
+    <div class="carousel-inner">
+
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="../../assets/img/temporada.png" class="d-block w-100" alt="Imágenes de productos de temporada">
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50">
+          <h5 class="text-white">Productos de temporada</h5>
+          <p class="text-white">
+            Las frutas y verduras mas importantes de esta temporada las encuentras aquí.
+          </p>
+        </div>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="../../assets/img/granel.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50">
+          <h5 class="text-white">Productos a granel</h5>
+          <p class="text-white">
+            Variedad de cereales y leguminosas
+          </p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="../../assets/img/clean.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50">
+          <h5 class="text-white">Productos de limpieza</h5>
+          <p class="text-white">
+            Aquí encontraras todos los productos mas vendidos para mantener tu hogar limpio.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles de carrusel -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <h1 class="h1 text-center text-primary mb-4">Descuentos</h1>
+    <div class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4">
+      <app-carta-producto></app-carta-producto>
+    </div>
+    <div class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4">
+      <app-carta-producto></app-carta-producto>
+    </div>
+    <div class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4">
+      <app-carta-producto></app-carta-producto>
+    </div>
+    <div class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4">
+      <app-carta-producto></app-carta-producto>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

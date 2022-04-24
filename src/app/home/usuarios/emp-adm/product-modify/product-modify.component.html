@@ -1,0 +1,186 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid text-center jumbo">
+</div>
+
+<div class="container position-relative">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col col-12 col-sm-12 col-md-6 " style="margin-top: 25vh;">
+            <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
+                <div class="container">
+                    <!-- Titulo and icon -->
+                    <div class="row m-2 ms-0">
+                        <div class="col col-9">
+                            <h4>Registrar producto</h4>
+                        </div>
+                        <div class="col col-3 text-end">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                class="bi bi-box2  text-primary" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3L2.95.4ZM7.5 1H3.75L1.5 4h6V1Zm1 0v3h6l-2.25-3H8.5ZM15 5H1v10h14V5Z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Img and changre img -->
+                    <div class="row justify-content-center">
+                        <div class="col col-5 col-sm-5 col-md-3">
+                            <div class="producto-img bg-white">
+                            </div>
+                        </div>
+                        <div class="col col-12 text-center">
+                            <button class="btn btn-primary w-50 rounded-pill mt-3"> Cambiar imagen</button>
+                        </div>
+                    </div>
+
+                    <!-- Formulario -->
+                    <div class="row mt-4">
+                        <div class="col">
+                            <form class="row">
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Código de producto</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="text" class="form-control" id="codigo" placeholder="TFA1234" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Nombre de producto</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Categoría</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected><small>Selecciona una opción del menu</small></option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Cantidad</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="number" class="form-control" id="cantidad" placeholder="00.00">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Precio de compra</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="number" class="form-control" id="precioCompra" placeholder="$00.00">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Precio de venta</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="number" class="form-control" id="precioVenta" placeholder="$00.00">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Precio con descuento</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="number" class="form-control" id="precioDescuento"
+                                            placeholder="$00.00">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="staticEmail2" class="mt-2">Descripción</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <textarea class="form-control" id="exampleFormControlTextarea1"
+                                            rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Estado -->
+                                <div class="row mt-2 mb-2">
+                                    <div class="col col-2">
+                                        <label for="staticEmail2" class="mt-2">Estado</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                <span>Disponible</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                <span>Agotado</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                <span class="small">Dado de baja</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="row m-3">
+                        <div class="col text-center">
+                            <button class="btn btn-success rounded rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                    class="bi bi-check2" viewBox="0 0 16 16">
+                                    <path
+                                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                </svg>
+                                Aceptar
+                            </button>
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-danger rounded rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                    class="bi bi-x" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

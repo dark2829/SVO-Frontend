@@ -1,0 +1,15 @@
+.modify{
+    position: absolute;
+    top: -8%;
+    left: 90%;
+}
+
+.jumbo{
+    height: 30vh;
+    position: absolute;
+    background-image: url('../../../../../assets/img/jumbo.png');
+}
+
+.info{
+    padding-top: 24vh;
+}

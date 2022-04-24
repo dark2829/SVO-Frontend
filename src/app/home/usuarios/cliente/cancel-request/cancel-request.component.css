@@ -1,0 +1,9 @@
+.jumbo{
+    height: 50vh;
+    position: absolute;
+    background-image: url('../../../../../assets/img/jumbo.png');
+}
+
+.info{
+    padding-top: 12vh;
+}

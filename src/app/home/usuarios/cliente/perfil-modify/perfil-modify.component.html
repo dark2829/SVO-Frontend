@@ -1,0 +1,316 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <p class="h3 m-0 p-0">Modificar Perfil</p>
+    </div>
+
+    <form>
+        <div class="row mt-3">
+            <div class="col col-6 col-sm-9 col-m-10 col-lg-10 d-flex justify-content-center align-items-center">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="165" height="165" fill="currentColor"
+                        class="bi bi-person-circle border border-primary text-primary p-2" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                    </svg>
+                    <div class="row">
+                        <div class="col text-center">
+                            <button class="btn btn-primary rounded-pill mt-2">
+                                <div class="row">
+                                    <div class="col col-3 d-flex justify-content-center align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                            class="bi bi-image" viewBox="0 0 16 16">
+                                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                            <path
+                                                d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                                        </svg>
+                                    </div>
+                                    <div class="col col-9 small">Cargar archivos</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col colo-6 col-sm-3 col-md-2 col-lg-2">
+                <button class="btn btn-success text-white w-100 rounded-pill"> Guardar Cambios</button>
+                <button class="btn btn-danger text-white w-100 rounded-pill mt-2"> Eliminar Cuenta</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <!-- Apartado 1 -->
+            <div class="col col-12 col-sm-12 col-md-12 col-lg-4">
+                <!-- Datos personales -->
+                <div class="container border border-primary">
+                    <div class="row">
+                        <div class="col">
+                            <p class="h5 m-2 ms-0">Datos personales</p>
+                            <form class="row mt-4 g-3">
+                                <div class="row mt-2">
+                                    <div class="col col-4">
+                                        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                                    </div>
+                                    <div class="col col-8">
+                                        <input type="text" class="form-control" id="idNombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col col-4">
+                                        <label for="exampleFormControlInput1" class="form-label">Apellidos Paterno</label>
+                                    </div>
+                                    <div class="col col-8">
+                                        <input type="text" class="form-control" id="idApellidos" placeholder="Apellido Paterno">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col col-4">
+                                        <label for="exampleFormControlInput1" class="form-label">Apellidos Materno</label>
+                                    </div>
+                                    <div class="col col-8">
+                                        <input type="text" class="form-control" id="idApellidos" placeholder="Apellido Materno">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col col-5">
+                                        <label for="exampleFormControlInput1" class="form-label">Fecha de nacimiento</label>
+                                    </div>
+                                    <div class="col col-7">
+                                        <input type="date" class="form-control" id="idApellidos" placeholder="Apellidos">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col col-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Genero</label>
+                                    </div>
+                                    <div class="col col-10">
+                                        <div class="row">
+                                            <div class="col-6 ps-5">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                        id="flexRadioDefault1">
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Masculino
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 ps-5">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                        id="flexRadioDefault2" checked>
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Femenino
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Datos de contacto -->
+                <div class="container border border-primary mt-5 mb-5">
+                    <div class="row">
+                        <div class="col">
+                            <p class="h5 m-2 ms-0">Datos de contacto</p>
+                            <form class="row mt-4 g-3">
+                                <div class="row mt-2">
+                                    <div class="col col-4">
+                                        <label for="exampleFormControlInput1" class="form-label">Correo</label>
+                                    </div>
+                                    <div class="col col-8">
+                                        <input type="text" class="form-control" id="idCorreo" placeholder="Correo">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col col-4">
+                                        <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                                    </div>
+                                    <div class="col col-8">
+                                        <input type="password" class="form-control" id="idContraseña"
+                                            placeholder="Contraseña">
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-2">
+                                    <div class="col col-4">
+                                        <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
+                                    </div>
+                                    <div class="col col-8">
+                                        <input type="text" class="form-control" id="idTelefono" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Apartado 2 -->
+            <div class="col col-12 col-sm-12 col-md-12 col-lg-4">
+                <!-- Direcciones -->
+                <div class="container border border-primary mb-5">
+                    <div class="row w-100 m-2 ms-0">
+                        <div class="col col-8 col-md-10">
+                            <p class="h5 m-2 ms-0">Dirección</p>
+                        </div>
+                        <div class="col col-4 col-md-2">
+                            <a type="button" class="btn btn-outline-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs p-0 m-0 small">
+                        <li class="nav-item">
+                            <a class="nav-link active small" href="#">Dirección 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link small" href="#">Dirección 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link small" href="#">Dirección 3</a>
+                        </li>
+                    </ul>
+                    <form class="row mt-1 g-3">
+                        <div class="row mt-1">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Calle</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="idCalle" placeholder="Calle">
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Colonia</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="idColonia" placeholder="Colonia">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Municipio</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="idMunicipio" placeholder="Municipio">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Estado</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="idEstado" placeholder="Estado">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Código Postal </label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="number" class="form-control" id="idCodigoPostal" placeholder="Código Postal ">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Numero interior </label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="number" class="form-control" id="idNinterior" placeholder="Numero interior ">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Numero exterior </label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="number" class="form-control" id="idNexterior" placeholder="Numero exterior ">
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Referencia </label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="number" class="form-control" id="idReferencia" placeholder="Referencia ">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Apartado 3 -->
+            <div class="col col-12 col-sm-12 col-md-12 col-lg-4">
+                <!-- Tarjetas -->
+                <div class="container border border-primary mb-5">
+                    <div class="row w-100 m-2 ms-0">
+                        <div class="col col-8 col-md-10">
+                            <p class="h5 m-2 ms-0">Tarjetas</p>
+                        </div>
+                        <div class="col col-4 col-md-2">
+                            <a type="button" class="btn btn-outline-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs p-0 m-0 small">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Tarjeta 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tarjeta 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tarjeta 3</a>
+                        </li>
+                    </ul>
+                    <form class="row mt-1 g-3">
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Propietario</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="idPropietario" placeholder="Propietario">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Tarjeta</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="idTarjeta" placeholder="Tarjeta">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">Fecha vencimiento</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="date" class="form-control" id="idFven" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col col-4">
+                                <label for="exampleFormControlInput1" class="form-label">CVV</label>
+                            </div>
+                            <div class="col col-8">
+                                <input type="number" class="form-control mb-2" id="idEstado" placeholder="CVV">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<app-footer></app-footer>

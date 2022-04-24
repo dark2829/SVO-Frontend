@@ -1,0 +1,17 @@
+.tachado{
+    text-decoration: line-through;
+}
+
+.like{
+    position: absolute;
+    top: 8%;
+    left: 88%;
+}
+
+.card{
+    border-radius: 4vh;
+    -webkit-border-radius: 4vh;
+    -moz-border-radius: 4vh;
+    -ms-border-radius: 4vh;
+    -o-border-radius: 4vh;
+}

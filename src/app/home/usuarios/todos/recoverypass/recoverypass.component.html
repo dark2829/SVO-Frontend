@@ -1,0 +1,52 @@
+<!-- <app-nav-bar></app-nav-bar> -->
+
+<div class="containter-fluid bg-primary">
+    <div class="row" style="height: 10vh;">
+        <div class="col">
+            <h2 class="h2 text-white text-center p-2 ">Bienvenido a López Vásquez </h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid vh-100" style="margin-top: 15vh;">
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="row vh-100 justify-content-center align-items-center">
+                    <div class="col col-12 col-sm-12 col-md-9 col-lg-6 ">
+                        <div class="card text-white border border-primary">
+                            <div class="card-body text-center bg-primary">
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30%" height="30%" fill="currentColor"
+                                        class="bi bi-person-circle m-4" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                </span>
+                                <div class="container w-75 mt-3">
+                                    <form class="">
+                                        <div class="mb-3">
+                                            <input class="form-control" type="text" name="correo" id="" placeholder="Correo electrónico">
+                                        </div>
+                                        <button class="btn btn-success mt-5 rounded-pill" (click)="login()">Recuperar contraseña</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light text-primary text-center border border-primary">
+                                <span>
+                                    <p class="small">
+                                        Revisa tu correo electrónico y da click en “Quiero cambiar mi contraseña”
+                                        El link que este en tu correo dejara de funcionar en 24H
+                                    </p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
