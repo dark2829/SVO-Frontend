@@ -30,7 +30,7 @@ export class ProveedorModifyComponent implements OnInit {
   //* Constructores
   constructor(
     private service: ProveedoresService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute, //Buscar con indice
     private formBuilder: FormBuilder, 
     private router: Router,
     private enlace: EnlacesService

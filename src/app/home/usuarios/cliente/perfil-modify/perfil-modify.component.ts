@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonasService } from 'src/app/services/personas.service';
@@ -12,12 +12,17 @@ import { PersonasService } from 'src/app/services/personas.service';
 export class PerfilModifyComponent implements OnInit {
   //* Salida
   //* Entrada
+  @ViewChild('alerta') alertaHTML: ElementRef;
 
   //* Variables
   //? Variables de formulario
-  formPerson: FormGroup; 
+  formPersonModify: FormGroup; 
 
   //? Variables de carga
+  //* Varaibles de busqueda 
+  index: number; 
+
+  //* Variables para carga automatica en cliente
   nombre: string; 
   apaterno: string; 
   amaterno: string; 
@@ -33,6 +38,7 @@ export class PerfilModifyComponent implements OnInit {
   cp: string; 
   interior: number; 
   exterior: number; 
+  referencia: string; 
   propietario: string; 
   tarjetanumero: string;
   vencimiento: string; 
@@ -41,22 +47,28 @@ export class PerfilModifyComponent implements OnInit {
   
   //* Constructores
   constructor(
-    private router: Router, 
+    private router: Router,    
     private enlaces: EnlacesService, 
     private formBuilder: FormBuilder, 
     private persona: PersonasService
   ) { }
 
   ngOnInit(): void {
-    this.formPerson = this.formBuilder.group({
-      formNombre:       [this.nombre, [Validators.required]],
-      formApaterno:     [this.apaterno],
-      formAmaterno:     [this.amaterno],
-      formFnacimiento:  [this.fnacimiento],
-      formGenero:       [this.genero],
-      formCorreo:       [this.correo, [Validators.required, Validators.email]],
-      formPassword:     [this.password, [Validators.required, Validators.maxLength(8)]],
-      formTelefono:     [this.telefono],
+    //Se necesita recuperar indice con un metodo desde el back
+    this.index = 2;
+
+    this.formPersonModify = this.formBuilder.group({
+      fpersonName:      [this.nombre, [Validators.required]],
+      fpersonFname:     [this.apaterno],
+      fpersonLname:     [this.amaterno],
+      fpersonBdate:     [this.fnacimiento],
+      fpersonGmale:     [this.genero],
+      fpersonGfale:     [this.genero],
+      // Datos de contacto
+      fpersonCorreo:    [this.correo, [Validators.required, Validators.email]],
+      fpersonPassw:     [this.password, [Validators.required, Validators.maxLength(8)]],
+      fpersonPhone:     [this.telefono],
+      // Datos de direccion
       formCalle:        [this.calle],
       formColonia:      [this.colonia],
       formMunicipio:    [this.municipio],
@@ -64,6 +76,8 @@ export class PerfilModifyComponent implements OnInit {
       formCp:           [this.cp],
       formInterior:     [this.interior],
       formExterior:     [this.exterior],
+      formReferencia:   [this.referencia],
+      // Datos tarjeta
       formPropietario:  [this.propietario],
       formTarjetanumero:[this.tarjetanumero],
       formVencimiento:  [this.vencimiento],
