@@ -22,6 +22,7 @@ export class PerfilModifyComponent implements OnInit {
   //? Variables de carga
   //* Varaibles de busqueda 
   index: number; 
+  idClient: number; 
 
   //* Variables para carga automatica en cliente
   enviarDatos = false; 
@@ -29,24 +30,24 @@ export class PerfilModifyComponent implements OnInit {
   informacionCliente = {
     nombre: null, 
     apaterno: null, 
-    amaterno: "", 
-    fnacimiento: "", 
-    genero: "M", 
+    amaterno: null, 
+    fnacimiento: null, 
+    genero: null, 
     correo: null, 
     password: null, 
-    telefono: "", 
-    calle: "", 
-    colonia: "", 
-    municipio: "", 
-    estado: "", 
-    cp: "", 
-    interior: "", 
-    exterior: "", 
-    referencia: "", 
-    propietario: "", 
-    tarjetanumero: "",
-    vencimiento: "", 
-    cvv: ""  
+    telefono: null, 
+    calle: null, 
+    colonia: null, 
+    municipio: null, 
+    estado: null, 
+    cp: null, 
+    interior: null, 
+    exterior: null, 
+    referencia: null, 
+    propietario: null, 
+    tarjetanumero: null,
+    vencimiento: null, 
+    cvv: null  
   }  
   
   //* Constructores
@@ -59,37 +60,65 @@ export class PerfilModifyComponent implements OnInit {
 
   ngOnInit(): void {
     //Se necesita recuperar indice con un metodo desde el back
-    this.index = 16;
+    this.index = 6;
+    this.idClient = 1;
+  
+    //? Preecargar datos
+    this.persona.getClientInfo(this.index.toString()).subscribe(response => {
+        this.informacionCliente.nombre = response.idPersona.nombre;
+        this.informacionCliente.apaterno = response.idPersona.apellido_paterno;
+        this.informacionCliente.amaterno = response.idPersona.apellido_materno;
+        this.informacionCliente.fnacimiento = response.idPersonafecha_nac;
+        this.informacionCliente.genero = response.idPersona.genero;
 
+        this.informacionCliente.correo = response.correo;
+        this.informacionCliente.password = response.contraseña;
+        this.informacionCliente.telefono= response.idPersona.telefono;
+
+        this.informacionCliente.calle = response.idPersona.direccion[0].calle;
+        this.informacionCliente.colonia = response.idPersona.direccion[0].colonia;
+        this.informacionCliente.municipio = response.idPersona.direccion[0].municipio;
+        this.informacionCliente.estado = response.idPersona.direccion[0].estado;
+        this.informacionCliente.cp = response.idPersona.direccion[0].cp;
+        this.informacionCliente.exterior = response.idPersona.direccion[0].n_exterior;
+        this.informacionCliente.interior = response.idPersona.direccion[0].n_interior;
+        this.informacionCliente.referencia = response.idPersona.direccion[0].referencia;
+
+        this.informacionCliente.propietario = response.idPersona.tarjeta[0].nombre_propietario;
+        this.informacionCliente.tarjetanumero = response.idPersona.tarjeta[0].numero;
+        this.informacionCliente.vencimiento = response.idPersona.tarjeta[0].fecha_vencimiento;
+        this.informacionCliente.cvv = response.idPersona.tarjeta[0].cvv;
+    });
+    
     this.formPersonModify = this.formBuilder.group({
       fpersonName:      [this.informacionCliente.nombre, [Validators.required]],
       fpersonFname:     [this.informacionCliente.apaterno, [Validators.required]],
-      fpersonLname:     [null],
-      fpersonBdate:     [null],
-      fpersonGender:    [null],
+      fpersonLname:     [this.informacionCliente.amaterno],
+      fpersonBdate:     [this.informacionCliente.fnacimiento],
+      fpersonGender:    [this.informacionCliente.genero],
       // Datos de contacto
       fpersonCorreo:    [this.informacionCliente.correo, [Validators.required, Validators.email]],
       fpersonPassw:     [this.informacionCliente.password, [Validators.required, Validators.maxLength(8)]],
-      fpersonPhone:     [null, [Validators.minLength(10), Validators.maxLength(10)]],
+      fpersonPhone:     [this.informacionCliente.telefono, [Validators.minLength(10), Validators.maxLength(10)]],
       // Datos de direccion
-      formCalle:        [null],
-      formColonia:      [null],
-      formMunicipio:    [null],
-      formEstado:       [null],
-      formCp:           [null],
-      formInterior:     [null],
-      formExterior:     [null],
-      formReferencia:   [null],
+      formCalle:        [this.informacionCliente.calle],
+      formColonia:      [this.informacionCliente.colonia],
+      formMunicipio:    [this.informacionCliente.municipio],
+      formEstado:       [this.informacionCliente.estado],
+      formCp:           [this.informacionCliente.cp],
+      formInterior:     [this.informacionCliente.exterior],
+      formExterior:     [this.informacionCliente.interior],
+      formReferencia:   [this.informacionCliente.referencia],
       // Datos tarjeta
-      formPropietario:  [null],
-      formTarjetanumero:[null],
-      formVencimiento:  [null],
-      formCvv:          [null]
-    })
+      formPropietario:  [this.informacionCliente.propietario],
+      formTarjetanumero:[this.informacionCliente.tarjetanumero],
+      formVencimiento:  [this.informacionCliente.vencimiento],
+      formCvv:          [this.informacionCliente.cvv]
+    });
   }
   
   public updatePerson() {
-    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.index+this.enlaces.PERSONA_UPDATE_U+"16";
+    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.index+this.enlaces.PERSONA_UPDATE_U+this.idClient;
 
     // Formatear Fecha
     let date = this.formPersonModify.value.fpersonBdate;
@@ -231,16 +260,9 @@ export class PerfilModifyComponent implements OnInit {
   public cancel(){
     this.cancelar = true; 
     this.enviarDatos = false; 
-    console.log(
-      this.formPersonModify.value.fpersonName != null &&
-          this.formPersonModify.value.fpersonFname != null &&
-          this.formPersonModify.value.fpersonCorreo != null &&
-          this.formPersonModify.value.fpersonPassw != null &&
-          this.formPersonModify.value.fpersonName != "" &&
-          this.formPersonModify.value.fpersonFname != "" &&
-          this.formPersonModify.value.fpersonCorreo != "" &&
-          this.formPersonModify.value.fpersonPassw != ""
-    );
+    this.persona.getClientInfo("16").subscribe(response => {
+      console.log(response)
+    });
     // this.information("Cancelado", "danger");
   }
   
@@ -285,6 +307,24 @@ export class PerfilModifyComponent implements OnInit {
   //* Métodos post
   //* Métodos update
   //* Métodos delete
+
+  public clearTarjeta() {
+    this.informacionCliente.propietario = null;
+    this.informacionCliente.tarjetanumero = null;
+    this.informacionCliente.vencimiento = null;
+    this.informacionCliente.cvv = null;
+  }
+
+  public clearDireccion() {
+    this.informacionCliente.calle = null;
+    this.informacionCliente.colonia = null;
+    this.informacionCliente.municipio = null;
+    this.informacionCliente.estado = null;
+    this.informacionCliente.cp = null;
+    this.informacionCliente.exterior = null;
+    this.informacionCliente.interior = null;
+    this.informacionCliente.referencia = null;
+  }
 
 }
 

@@ -6,7 +6,6 @@ import { PersonasService } from './personas.service';
 })
 export class EnlacesService {
   constructor(
-    private person: PersonasService
   ) { }
 
   //? Esta clase es para agregar un link universal y solo modificar rutas 
@@ -26,7 +25,7 @@ export class EnlacesService {
   public EMPLEADO_UPDATE = "/";
   //* Peronas
   public PERSONA_INSERT = "/insertNewUser";
-  public PERSONA_BUSCAR = "/";
+  public PERSONA_BUSCAR = "/findUserById?id=";
   public PERSONA_UPDATE_P = `/updateClient?id=`;
   public PERSONA_UPDATE_U = `&idUser=`;
 }

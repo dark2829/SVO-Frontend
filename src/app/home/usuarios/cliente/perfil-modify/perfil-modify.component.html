@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="col col-8 datosRequeridos">
                                         <input formControlName="fpersonName" type="text" class="form-control" id="idNombre"
-                                            placeholder="Nombre" required>
+                                            placeholder="Nombre" value="{{informacionCliente.nombre}}" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col col-8 datosRequeridos">
                                         <input formControlName="fpersonFname" type="text" class="form-control"
-                                            id="idApellidos" placeholder="Apellido Paterno" required>
+                                            id="idApellidos" placeholder="Apellido Paterno" value="{{informacionCliente.apaterno}}" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="col col-8">
                                         <input formControlName="fpersonLname" type="text" class="form-control"
-                                            id="idApellidos" placeholder="Apellido Materno">
+                                            id="idApellidos" placeholder="Apellido Materno" value="{{informacionCliente.amaterno}}">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="col col-7">
                                         <input formControlName="fpersonBdate" type="date" class="form-control"
-                                            id="idApellidos" placeholder="">
+                                            id="fnacimiento" placeholder="" value="{{informacionCliente.fnacimiento}}">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="col col-8 datosRequeridos">
                                         <input formControlName="fpersonCorreo" type="email" class="form-control"
-                                            id="idCorreo" placeholder="Correo" required>
+                                            id="idCorreo" placeholder="Correo" value="{{informacionCliente.correo}}" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="col col-8 datosRequeridos">
                                         <input formControlName="fpersonPassw" type="password" class="form-control"
-                                            id="idContraseña" placeholder="Contraseña" required maxlength="8">
+                                            id="idContraseña" placeholder="Contraseña" value="{{informacionCliente.password}}" required maxlength="8">
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">
@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="col col-8">
                                         <input formControlName="fpersonPhone" type="text" class="form-control"
-                                            id="idTelefono" placeholder="Teléfono">
+                                            id="idTelefono" placeholder="Teléfono" value="{{informacionCliente.telefono}}">
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
                                     <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Eliminar direccion" class="btn btn-outline-danger">
+                                        title="Eliminar direccion" class="btn btn-outline-danger" (click)="clearDireccion()">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
@@ -219,7 +219,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formCalle" type="text" class="form-control" id="idCalle"
-                                    placeholder="Calle">
+                                    placeholder="Calle" value="{{informacionCliente.calle}}">
                             </div>
                         </div>
                         <div class="row mt-1">
@@ -228,7 +228,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formColonia" type="text" class="form-control" id="idColonia"
-                                    placeholder="Colonia">
+                                    placeholder="Colonia" value="{{informacionCliente.colonia}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -237,7 +237,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formMunicipio" type="text" class="form-control" id="idMunicipio"
-                                    placeholder="Municipio">
+                                    placeholder="Municipio" value="{{informacionCliente.municipio}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -246,7 +246,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formEstado" type="text" class="form-control" id="idEstado"
-                                    placeholder="Estado">
+                                    placeholder="Estado" value="{{informacionCliente.estado}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -255,7 +255,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formCp" type="number" class="form-control" id="idCodigoPostal"
-                                    placeholder="Código Postal ">
+                                    placeholder="Código Postal " value="{{informacionCliente.cp}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -264,7 +264,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formInterior" type="number" class="form-control" id="idNinterior"
-                                    placeholder="Numero interior ">
+                                    placeholder="Numero interior " value="{{informacionCliente.interior}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -273,7 +273,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formExterior" type="number" class="form-control" id="idNexterior"
-                                    placeholder="Numero exterior ">
+                                    placeholder="Numero exterior " value="{{informacionCliente.exterior}}">
                             </div>
                         </div>
                         <div class="row mt-2 mb-2">
@@ -281,8 +281,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Referencia </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formReferencia" type="text" class="form-control" id="idReferencia"
-                                    placeholder="Referencia ">
+                                <textarea formControlName="formReferencia" type="text" class="form-control" id="idReferencia"
+                                    placeholder="Referencia " value="{{informacionCliente.referencia}}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
                                     <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Eliminar tarjeta" class="btn btn-outline-danger">
+                                        title="Eliminar tarjeta" class="btn btn-outline-danger" (click)="clearTarjeta()">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
@@ -347,7 +347,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formPropietario" type="text" class="form-control" id="idPropietario"
-                                    placeholder="Propietario">
+                                    placeholder="Propietario" value="{{informacionCliente.propietario}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -356,7 +356,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formTarjetanumero" type="text" class="form-control" id="idTarjeta"
-                                    placeholder="Tarjeta">
+                                    placeholder="Tarjeta" value="{{informacionCliente.tarjetanumero}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -365,7 +365,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formVencimiento" type="month" class="form-control"
-                                    id="idFven" placeholder="">
+                                    id="idFven" placeholder="" value="{{informacionCliente.vencimiento}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -374,7 +374,7 @@
                             </div>
                             <div class="col col-8">
                                 <input formControlName="formCvv" type="number" class="form-control mb-2" id="cvv"
-                                    placeholder="CVV">
+                                    placeholder="CVV" value="{{informacionCliente.cvv}}">
                             </div>
                         </div>
                     </div>
