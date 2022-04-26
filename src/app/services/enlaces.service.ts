@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { PersonasService } from './personas.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnlacesService {
-
-  constructor() { }
+  constructor(
+    private person: PersonasService
+  ) { }
 
   //? Esta clase es para agregar un link universal y solo modificar rutas 
   //* Direccion raiz
@@ -25,5 +27,6 @@ export class EnlacesService {
   //* Peronas
   public PERSONA_INSERT = "/insertNewUser";
   public PERSONA_BUSCAR = "/";
-  public PERSONA_UPDATE = "/updateClient";
+  public PERSONA_UPDATE_P = `/updateClient?id=`;
+  public PERSONA_UPDATE_U = `&idUser=`;
 }

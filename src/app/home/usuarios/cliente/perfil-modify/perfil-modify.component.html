@@ -35,18 +35,21 @@
                     </div>
                 </div>
             </div>
-
+    
             <!-- Botones de formulario, salvar informacion -->
             <div class="col colo-6 col-sm-3 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-success text-white w-100 rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title="Almacena los cambios"> Guardar Cambios</button>
-                <button type="button" class="btn btn-danger text-white w-100 rounded-pill mt-2 " data-bs-toggle="tooltip" data-bs-placement="top" title="Regresar sin modificar"> Eliminar Cuenta</button>
+                <button type="submit" class="btn btn-success text-white w-100 rounded-pill" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Almacena los cambios" (click)="enviar()"> Guardar Cambios</button>
+                <button type="button" (click)="cancel()" class="btn btn-danger text-white w-100 rounded-pill mt-2 "
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Regresar sin modificar"> Eliminar
+                    Cuenta</button>
             </div>
-
+    
         </div>
-        
+    
         <!-- Alerta -->
         <div class="alert" #alerta id="alerta"></div>
-
+    
         <div class="row mt-3">
             <!-- Apartado 1 -->
             <div class="col col-12 col-sm-12 col-md-12 col-lg-4">
@@ -55,21 +58,23 @@
                     <div class="row">
                         <div class="col">
                             <p class="h5 m-2 ms-0">Datos personales</p>
-                            <form class="row mt-4 g-3">
+                            <div class="row mt-4 g-3">
                                 <div class="row mt-2">
                                     <div class="col col-4">
                                         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
                                     </div>
-                                    <div class="col col-8">
-                                        <input formControlName="fpersonName" type="text" class="form-control" id="idNombre" placeholder="Nombre" required>
+                                    <div class="col col-8 datosRequeridos">
+                                        <input formControlName="fpersonName" type="text" class="form-control" id="idNombre"
+                                            placeholder="Nombre" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col col-4">
                                         <label for="exampleFormControlInput1" class="form-label">Apellidos Paterno</label>
                                     </div>
-                                    <div class="col col-8">
-                                        <input formControlName="fpersonFname"  type="text" class="form-control" id="idApellidos" placeholder="Apellido Paterno" required>
+                                    <div class="col col-8 datosRequeridos">
+                                        <input formControlName="fpersonFname" type="text" class="form-control"
+                                            id="idApellidos" placeholder="Apellido Paterno" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -77,7 +82,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Apellidos Materno</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formControlName="fpersonLname" type="text" class="form-control" id="idApellidos" placeholder="Apellido Materno">
+                                        <input formControlName="fpersonLname" type="text" class="form-control"
+                                            id="idApellidos" placeholder="Apellido Materno">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -85,37 +91,34 @@
                                         <label for="exampleFormControlInput1" class="form-label">Fecha de nacimiento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpersonBdate" type="date" class="form-control" id="idApellidos" placeholder="">
+                                        <input formControlName="fpersonBdate" type="date" class="form-control"
+                                            id="idApellidos" placeholder="">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col col-2">
                                         <label for="exampleFormControlInput1" class="form-label">Genero</label>
                                     </div>
+                                    <!-- Radio -->
                                     <div class="col col-10">
                                         <div class="row">
-                                            <div class="col-6 ps-5">
-                                                <div class="form-check">
-                                                    <input formControlName="fpersonGmale" class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault1">
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Masculino
-                                                    </label>
-                                                </div>
+                                            <div class="col-6 ps-5 form-check">
+                                                <label>
+                                                    <input formControlName="fpersonGender" type="radio" class="form-check-input" id="M" name="fpersonGender" value="M">
+                                                    Masculino
+                                                </label>
                                             </div>
-                                            <div class="col-6 ps-5">
-                                                <div class="form-check">
-                                                    <input formControlName="fpersonGfale" class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault2" checked>
-                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                        Femenino
-                                                    </label>
-                                                </div>
+                                            <div class="col-6 ps-5 form-check">
+                                                <label>
+                                                    <input formControlName="fpersonGender" type="radio" class="form-check-input" id="F" name="fpersonGender" value="F">
+                                                    Femenino
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
+                                
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,22 +127,23 @@
                     <div class="row">
                         <div class="col">
                             <p class="h5 m-2 ms-0">Datos de contacto</p>
-                            <form class="row mt-4 g-3">
+                            <div class="row mt-4 g-3">
                                 <div class="row mt-2">
                                     <div class="col col-4">
                                         <label for="exampleFormControlInput1" class="form-label">Correo</label>
                                     </div>
-                                    <div class="col col-8">
-                                        <input formControlName="fpersonCorreo" type="text" class="form-control" id="idCorreo" placeholder="Correo" required>
+                                    <div class="col col-8 datosRequeridos">
+                                        <input formControlName="fpersonCorreo" type="email" class="form-control"
+                                            id="idCorreo" placeholder="Correo" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col col-4">
                                         <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                     </div>
-                                    <div class="col col-8">
-                                        <input formControlName="fpersonPassw" type="password" class="form-control" id="idContraseña"
-                                            placeholder="Contraseña" required>
+                                    <div class="col col-8 datosRequeridos">
+                                        <input formControlName="fpersonPassw" type="password" class="form-control"
+                                            id="idContraseña" placeholder="Contraseña" required maxlength="8">
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">
@@ -147,15 +151,16 @@
                                         <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formControlName="fpersonPhone" type="text" class="form-control" id="idTelefono" placeholder="Teléfono">
+                                        <input formControlName="fpersonPhone" type="text" class="form-control"
+                                            id="idTelefono" placeholder="Teléfono">
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+    
             <!-- Apartado 2 -->
             <div class="col col-12 col-sm-12 col-md-12 col-lg-4">
                 <!-- Direcciones -->
@@ -169,7 +174,8 @@
                             <div class="row">
                                 <div class="col col-6">
                                     <!-- Boton agregar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar direccion" class="btn btn-outline-success">
+                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Guardar direccion" class="btn btn-outline-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-check2" viewBox="0 0 16 16">
                                             <path
@@ -179,7 +185,8 @@
                                 </div>
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar direccion" class="btn btn-outline-danger">
+                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Eliminar direccion" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
@@ -190,7 +197,7 @@
                             </div>
                         </div>
                     </div>
-                    
+    
                     <!-- Direcciones encabezado -->
                     <ul class="nav nav-tabs p-0 m-0 small">
                         <li class="nav-item">
@@ -203,15 +210,16 @@
                             <a class="nav-link small" href="#">Dirección 3</a>
                         </li>
                     </ul>
-                    
+    
                     <!-- Formulario direcciones -->
-                    <form class="row mt-1 g-3">
+                    <div class="row mt-1 g-3">
                         <div class="row mt-1">
                             <div class="col col-4">
                                 <label for="exampleFormControlInput1" class="form-label">Calle</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formCalle" type="text" class="form-control" id="idCalle" placeholder="Calle">
+                                <input formControlName="formCalle" type="text" class="form-control" id="idCalle"
+                                    placeholder="Calle">
                             </div>
                         </div>
                         <div class="row mt-1">
@@ -219,7 +227,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Colonia</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formColonia" type="text" class="form-control" id="idColonia" placeholder="Colonia">
+                                <input formControlName="formColonia" type="text" class="form-control" id="idColonia"
+                                    placeholder="Colonia">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -227,7 +236,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Municipio</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formMunicipio" type="text" class="form-control" id="idMunicipio" placeholder="Municipio">
+                                <input formControlName="formMunicipio" type="text" class="form-control" id="idMunicipio"
+                                    placeholder="Municipio">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -235,7 +245,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Estado</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formEstado" type="text" class="form-control" id="idEstado" placeholder="Estado">
+                                <input formControlName="formEstado" type="text" class="form-control" id="idEstado"
+                                    placeholder="Estado">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -243,7 +254,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Código Postal </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formCp" type="number" class="form-control" id="idCodigoPostal" placeholder="Código Postal ">
+                                <input formControlName="formCp" type="number" class="form-control" id="idCodigoPostal"
+                                    placeholder="Código Postal ">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -251,7 +263,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Numero interior </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formInterior" type="number" class="form-control" id="idNinterior" placeholder="Numero interior ">
+                                <input formControlName="formInterior" type="number" class="form-control" id="idNinterior"
+                                    placeholder="Numero interior ">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -259,7 +272,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Numero exterior </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formExterior" type="number" class="form-control" id="idNexterior" placeholder="Numero exterior ">
+                                <input formControlName="formExterior" type="number" class="form-control" id="idNexterior"
+                                    placeholder="Numero exterior ">
                             </div>
                         </div>
                         <div class="row mt-2 mb-2">
@@ -267,13 +281,14 @@
                                 <label for="exampleFormControlInput1" class="form-label">Referencia </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formReferencia" type="number" class="form-control" id="idReferencia" placeholder="Referencia ">
+                                <input formControlName="formReferencia" type="text" class="form-control" id="idReferencia"
+                                    placeholder="Referencia ">
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-
+    
             <!-- Apartado 3 -->
             <div class="col col-12 col-sm-12 col-md-12 col-lg-4">
                 <!-- Tarjetas -->
@@ -287,7 +302,8 @@
                             <div class="row">
                                 <div class="col col-6">
                                     <!-- Boton agregar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar tarjeta" class="btn btn-outline-success">
+                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Agregar tarjeta" class="btn btn-outline-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-check2" viewBox="0 0 16 16">
                                             <path
@@ -297,7 +313,8 @@
                                 </div>
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar tarjeta" class="btn btn-outline-danger">
+                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Eliminar tarjeta" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
@@ -308,7 +325,7 @@
                             </div>
                         </div>
                     </div>
-
+    
                     <!-- Tarjetas encabezado -->
                     <ul class="nav nav-tabs p-0 m-0 small">
                         <li class="nav-item">
@@ -321,15 +338,16 @@
                             <a class="nav-link" href="#">Tarjeta 3</a>
                         </li>
                     </ul>
-                    
+    
                     <!-- Formulario tarjetas -->
-                    <form class="row mt-1 g-3">
+                    <div class="row mt-1 g-3">
                         <div class="row mt-2">
                             <div class="col col-4">
                                 <label for="exampleFormControlInput1" class="form-label">Propietario</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formPropietario" type="text" class="form-control" id="idPropietario" placeholder="Propietario">
+                                <input formControlName="formPropietario" type="text" class="form-control" id="idPropietario"
+                                    placeholder="Propietario">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -337,7 +355,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Tarjeta</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formTarjetanumero" type="text" class="form-control" id="idTarjeta" placeholder="Tarjeta">
+                                <input formControlName="formTarjetanumero" type="text" class="form-control" id="idTarjeta"
+                                    placeholder="Tarjeta">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -345,7 +364,8 @@
                                 <label for="formVencimiento" class="form-label">Fecha vencimiento</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fpersonTargetFechaVencimiento" type="date" class="form-control" id="idFven" placeholder="">
+                                <input formControlName="formVencimiento" type="month" class="form-control"
+                                    id="idFven" placeholder="">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -353,16 +373,18 @@
                                 <label for="exampleFormControlInput1" class="form-label">CVV</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formCvv" type="number" class="form-control mb-2" id="idEstado" placeholder="CVV">
+                                <input formControlName="formCvv" type="number" class="form-control mb-2" id="cvv"
+                                    placeholder="CVV">
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-
+    
         </div>
-
+    
     </form>
+
 </div>
 
 <app-footer></app-footer>
