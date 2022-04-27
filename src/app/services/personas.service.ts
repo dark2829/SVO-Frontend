@@ -20,6 +20,7 @@ export class PersonasService {
   public getPerson(id: string): Observable<any>{
     return this.http.get(this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
   }
+
   //* Métodos post
   public insertClient(url: string, body: {
     nombre: string;
@@ -95,5 +96,9 @@ export class PersonasService {
     cvv: number; 
   }){
     return this.http.post(url, body);
+  }
+
+  public inicioSesion(url: string): Observable<any>{
+    return this.http.get(url);
   }
 }

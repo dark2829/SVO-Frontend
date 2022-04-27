@@ -30,5 +30,6 @@ export class EnlacesService {
   public PERSONA_UPDATE_P = `/updateClient?id=`;
   public PERSONA_UPDATE_U = `&idUser=`;
   //* Usuarios
-  public USUARIO_LOGIN = "/login"
+  public USUARIO_LOGIN_IDENTIFY = "/login?identificador=";
+  public USUARIO_LOGIN_PASSWORD = "&contrasena=";
 }

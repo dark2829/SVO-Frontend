@@ -60,7 +60,10 @@ export class ProveedorRegisterComponent implements OnInit {
             direccion: this.miFormulario.value.proveedorDireccion.toString().trim(),
             provee: this.miFormulario.value.proveedorProvee.toString().trim()
           }).subscribe(
-            respuesta => this.information("Registro exitoso", "success"), 
+            respuesta => {
+              this.information("Registro exitoso", "success")
+              setTimeout(() => {this.listaProveedores()} , 2500);
+            }, 
           error => {
             switch(error.status){
               case 0:
@@ -98,6 +101,7 @@ export class ProveedorRegisterComponent implements OnInit {
     this.regresar = true; 
     this.enviarDatos = false; 
     this.information("Cancelado", "danger");
+    setTimeout(() => {this.listaProveedores()} , 2500);
   }
 
   public information(texto: string, tipo: string){
