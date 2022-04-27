@@ -13,8 +13,9 @@ export class EnlacesService {
   public API_ENLACE_PROVEEDOR = "http://localhost:8080/proveedores";
   public API_ENLACE_EMPLEADO = "http://localhost:8080/empleados";
   public API_ENLACE_PERSONAS = "http://localhost:8080/personas";
+  public API_ENLACE_USUARIOS = "http://localhost:8080/usuarios";
 
-  //* Direcciones a metodos
+  //! Direcciones a metodos
   //* Proveedores
   public PROVEEDOR_INSERT = "/insert";
   public PROVEEDOR_BUSCAR = "/findAllProveedores";
@@ -28,4 +29,6 @@ export class EnlacesService {
   public PERSONA_BUSCAR = "/findUserById?id=";
   public PERSONA_UPDATE_P = `/updateClient?id=`;
   public PERSONA_UPDATE_U = `&idUser=`;
+  //* Usuarios
+  public USUARIO_LOGIN = "/login"
 }

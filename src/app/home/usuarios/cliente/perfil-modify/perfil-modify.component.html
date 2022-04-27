@@ -5,7 +5,7 @@
         <p class="h3 m-0 p-0">Modificar Perfil</p>
     </div>
 
-    <form class="was-validated needs-validation" [formGroup]="formPersonModify" errorTailor novalidate>
+    <form class="was-validated needs-validation" [formGroup]="formPerson"  errorTailor novalidate>
         <div class="row mt-3">
             <!-- Fotografia y boton de fotografia -->
             <div class="col col-6 col-sm-9 col-m-10 col-lg-10 d-flex justify-content-center align-items-center">
@@ -38,9 +38,9 @@
     
             <!-- Botones de formulario, salvar informacion -->
             <div class="col colo-6 col-sm-3 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-success text-white w-100 rounded-pill" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Almacena los cambios" (click)="enviar()"> Guardar Cambios</button>
-                <button type="button" (click)="cancel()" class="btn btn-danger text-white w-100 rounded-pill mt-2 "
+                <button type="submit" (click)="enviar()" class="btn btn-success text-white w-100 rounded-pill" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Almacena los cambios"> Guardar Cambios</button>
+                <button type="button" (click)="cancel()"  class="btn btn-danger text-white w-100 rounded-pill mt-2 "
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Regresar sin modificar"> Eliminar
                     Cuenta</button>
             </div>
@@ -64,8 +64,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fpersonName" type="text" class="form-control" id="idNombre"
-                                            placeholder="Nombre" value="{{informacionCliente.nombre}}" required>
+                                        <input formControlName="fname" type="text" class="form-control" id="idNombre"
+                                            placeholder="Nombre" value="{{_nombre}}" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -73,8 +73,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Apellidos Paterno</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fpersonFname" type="text" class="form-control"
-                                            id="idApellidos" placeholder="Apellido Paterno" value="{{informacionCliente.apaterno}}" required>
+                                        <input formControlName="fSame" type="text" class="form-control"
+                                            id="idApellidos" placeholder="Apellido Paterno" value="{{_apellidoP}}" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -82,8 +82,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Apellidos Materno</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formControlName="fpersonLname" type="text" class="form-control"
-                                            id="idApellidos" placeholder="Apellido Materno" value="{{informacionCliente.amaterno}}">
+                                        <input formControlName="fLame" type="text" class="form-control"
+                                            id="idApellidos" placeholder="Apellido Materno" value="{{_apellidoM}}">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -91,8 +91,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Fecha de nacimiento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpersonBdate" type="date" class="form-control"
-                                            id="fnacimiento" placeholder="" value="{{informacionCliente.fnacimiento}}">
+                                        <input formControlName="fBdate" type="date" class="form-control"
+                                            id="fnacimiento" placeholder="" value="{{Bdate}}">
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -104,13 +104,13 @@
                                         <div class="row">
                                             <div class="col-6 ps-5 form-check">
                                                 <label>
-                                                    <input formControlName="fpersonGender" type="radio" class="form-check-input" id="M" name="fpersonGender" value="M">
+                                                    <input formControlName="fGender" type="radio" class="form-check-input" id="M" name="fGender" value="{{_genero}}">
                                                     Masculino
                                                 </label>
                                             </div>
                                             <div class="col-6 ps-5 form-check">
                                                 <label>
-                                                    <input formControlName="fpersonGender" type="radio" class="form-check-input" id="F" name="fpersonGender" value="F">
+                                                    <input formControlName="fGender" type="radio" class="form-check-input" id="F" name="fGender" value="{{_genero}}">
                                                     Femenino
                                                 </label>
                                             </div>
@@ -133,8 +133,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Correo</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fpersonCorreo" type="email" class="form-control"
-                                            id="idCorreo" placeholder="Correo" value="{{informacionCliente.correo}}" required>
+                                        <input formControlName="fEmail" type="email" class="form-control"
+                                            id="idCorreo" placeholder="Correo" value="{{_correo}}" required>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -142,8 +142,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fpersonPassw" type="password" class="form-control"
-                                            id="idContraseña" placeholder="Contraseña" value="{{informacionCliente.password}}" required maxlength="8">
+                                        <input formControlName="fPass" type="password" class="form-control"
+                                            id="idContraseña" placeholder="Contraseña" value="{{_contrasena}}" required maxlength="8">
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">
@@ -151,8 +151,8 @@
                                         <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formControlName="fpersonPhone" type="text" class="form-control"
-                                            id="idTelefono" placeholder="Teléfono" value="{{informacionCliente.telefono}}">
+                                        <input formControlName="fPhone" type="text" class="form-control"
+                                            id="idTelefono" placeholder="Teléfono" value="{{_telefono}}">
                                     </div>
                                 </div>
                             </div>
@@ -185,8 +185,8 @@
                                 </div>
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Eliminar direccion" class="btn btn-outline-danger" (click)="clearDireccion()">
+                                    <a type="button" (click)="clearDireccion()" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Eliminar direccion" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
@@ -218,8 +218,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Calle</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formCalle" type="text" class="form-control" id="idCalle"
-                                    placeholder="Calle" value="{{informacionCliente.calle}}">
+                                <input formControlName="fCalle" type="text" class="form-control" id="idCalle"
+                                    placeholder="Calle" value="{{_calle}}">
                             </div>
                         </div>
                         <div class="row mt-1">
@@ -227,8 +227,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Colonia</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formColonia" type="text" class="form-control" id="idColonia"
-                                    placeholder="Colonia" value="{{informacionCliente.colonia}}">
+                                <input formControlName="fColonia" type="text" class="form-control" id="idColonia"
+                                    placeholder="Colonia" value="{{_colonia}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -236,8 +236,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Municipio</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formMunicipio" type="text" class="form-control" id="idMunicipio"
-                                    placeholder="Municipio" value="{{informacionCliente.municipio}}">
+                                <input formControlName="fMunicipio" type="text" class="form-control" id="idMunicipio"
+                                    placeholder="Municipio" value="{{_municipio}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -245,8 +245,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Estado</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formEstado" type="text" class="form-control" id="idEstado"
-                                    placeholder="Estado" value="{{informacionCliente.estado}}">
+                                <input formControlName="fEstado" type="text" class="form-control" id="idEstado"
+                                    placeholder="Estado" value="{{_estado}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -254,8 +254,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Código Postal </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formCp" type="number" class="form-control" id="idCodigoPostal"
-                                    placeholder="Código Postal " value="{{informacionCliente.cp}}">
+                                <input formControlName="fCp" type="number" class="form-control" id="idCodigoPostal"
+                                    placeholder="Código Postal " value="{{_cp}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -263,8 +263,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Numero interior </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formInterior" type="number" class="form-control" id="idNinterior"
-                                    placeholder="Numero interior " value="{{informacionCliente.interior}}">
+                                <input formControlName="fNinterior" type="number" class="form-control" id="idNinterior"
+                                    placeholder="Numero interior " value="{{_ninterior}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -272,8 +272,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Numero exterior </label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formExterior" type="number" class="form-control" id="idNexterior"
-                                    placeholder="Numero exterior " value="{{informacionCliente.exterior}}">
+                                <input formControlName="fNexterior" type="number" class="form-control" id="idNexterior"
+                                    placeholder="Numero exterior " value="{{_nexterior}}">
                             </div>
                         </div>
                         <div class="row mt-2 mb-2">
@@ -281,8 +281,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Referencia </label>
                             </div>
                             <div class="col col-8">
-                                <textarea formControlName="formReferencia" type="text" class="form-control" id="idReferencia"
-                                    placeholder="Referencia " value="{{informacionCliente.referencia}}"></textarea>
+                                <textarea formControlName="fReferenc" type="text" class="form-control" id="idReferencia"
+                                    placeholder="Referencia " value="{{_referenc}}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -313,8 +313,8 @@
                                 </div>
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Eliminar tarjeta" class="btn btn-outline-danger" (click)="clearTarjeta()">
+                                    <a type="button" (click)="clearTarjeta()" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Eliminar tarjeta" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
@@ -346,8 +346,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Propietario</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formPropietario" type="text" class="form-control" id="idPropietario"
-                                    placeholder="Propietario" value="{{informacionCliente.propietario}}">
+                                <input formControlName="fPropieta" type="text" class="form-control" id="idPropietario"
+                                    placeholder="Propietario" value="{{_propietario}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -355,8 +355,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Tarjeta</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formTarjetanumero" type="text" class="form-control" id="idTarjeta"
-                                    placeholder="Tarjeta" value="{{informacionCliente.tarjetanumero}}">
+                                <input formControlName="fTarjeta" type="text" class="form-control" id="idTarjeta"
+                                    placeholder="Tarjeta" value="{{_tarjeta}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -364,8 +364,8 @@
                                 <label for="formVencimiento" class="form-label">Fecha vencimiento</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formVencimiento" type="month" class="form-control"
-                                    id="idFven" placeholder="" value="{{informacionCliente.vencimiento}}">
+                                <input formControlName="fFechaVen" type="month" class="form-control"
+                                    id="idFven" placeholder="" value="{{_fechaVenc}}">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -373,8 +373,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">CVV</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="formCvv" type="number" class="form-control mb-2" id="cvv"
-                                    placeholder="CVV" value="{{informacionCliente.cvv}}">
+                                <input formControlName="fcvv" type="number" class="form-control mb-2" id="cvv"
+                                    placeholder="CVV" value="{{_cvv}}">
                             </div>
                         </div>
                     </div>

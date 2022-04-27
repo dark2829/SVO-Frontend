@@ -3,53 +3,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonasService } from 'src/app/services/personas.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-perfil-modify',
   templateUrl: './perfil-modify.component.html',
   styleUrls: ['./perfil-modify.component.css']
 })
-export class PerfilModifyComponent implements OnInit {
-  //* Salida
-  //* Entrada
+export class PerfilModifyComponent implements OnInit {  
+  
   @ViewChild('alerta') alerta: ElementRef;
 
-  //* Variables
-  //? Variables de formulario
-  formPersonModify: FormGroup; //controlsFormGroup
-  radioExample: FormControl = new FormControl(); //radioExample
-
-  //? Variables de carga
-  //* Varaibles de busqueda 
-  index: number; 
-  idClient: number; 
-
-  //* Variables para carga automatica en cliente
-  enviarDatos = false; 
-  cancelar = false; 
-  informacionCliente = {
-    nombre: null, 
-    apaterno: null, 
-    amaterno: null, 
-    fnacimiento: null, 
-    genero: null, 
-    correo: null, 
-    password: null, 
-    telefono: null, 
-    calle: null, 
-    colonia: null, 
-    municipio: null, 
-    estado: null, 
-    cp: null, 
-    interior: null, 
-    exterior: null, 
-    referencia: null, 
-    propietario: null, 
-    tarjetanumero: null,
-    vencimiento: null, 
-    cvv: null  
-  }  
-  
   //* Constructores
   constructor(
     private router: Router,    
@@ -57,75 +21,107 @@ export class PerfilModifyComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private persona: PersonasService
   ) { }
+  
+  //* Variables 
+  indexPerson: string; 
+  indexClient: string; 
+  Bdate: any; 
+  Vdate: any
+  enviarDatos = false; 
+  cancelar = false;
+
+  //? Variables compoartidas
+  _nombre: string; 
+  _apellidoP: string; 
+  _apellidoM: string; 
+  _fechaBirt: string; 
+  _genero: string; 
+  _correo: string; 
+  _contrasena: string; 
+  _telefono: string; 
+  _calle: string; 
+  _colonia: string; 
+  _municipio: string; 
+  _estado: string; 
+  _cp: string; 
+  _ninterior: string; 
+  _nexterior: string; 
+  _referenc: string; 
+  _propietario: string; 
+  _tarjeta: string; 
+  _fechaVenc: string; 
+  _cvv: string; 
+  //* Variable de formulario
+  formPerson: FormGroup; 
+  radioExample: FormControl = new FormControl(); //radioExample
+  
 
   ngOnInit(): void {
-    //Se necesita recuperar indice con un metodo desde el back
-    this.index = 6;
-    this.idClient = 1;
-  
-    //? Preecargar datos
-    this.persona.getClientInfo(this.index.toString()).subscribe(response => {
-        this.informacionCliente.nombre = response.idPersona.nombre;
-        this.informacionCliente.apaterno = response.idPersona.apellido_paterno;
-        this.informacionCliente.amaterno = response.idPersona.apellido_materno;
-        this.informacionCliente.fnacimiento = response.idPersonafecha_nac;
-        this.informacionCliente.genero = response.idPersona.genero;
-
-        this.informacionCliente.correo = response.correo;
-        this.informacionCliente.password = response.contraseña;
-        this.informacionCliente.telefono= response.idPersona.telefono;
-
-        this.informacionCliente.calle = response.idPersona.direccion[0].calle;
-        this.informacionCliente.colonia = response.idPersona.direccion[0].colonia;
-        this.informacionCliente.municipio = response.idPersona.direccion[0].municipio;
-        this.informacionCliente.estado = response.idPersona.direccion[0].estado;
-        this.informacionCliente.cp = response.idPersona.direccion[0].cp;
-        this.informacionCliente.exterior = response.idPersona.direccion[0].n_exterior;
-        this.informacionCliente.interior = response.idPersona.direccion[0].n_interior;
-        this.informacionCliente.referencia = response.idPersona.direccion[0].referencia;
-
-        this.informacionCliente.propietario = response.idPersona.tarjeta[0].nombre_propietario;
-        this.informacionCliente.tarjetanumero = response.idPersona.tarjeta[0].numero;
-        this.informacionCliente.vencimiento = response.idPersona.tarjeta[0].fecha_vencimiento;
-        this.informacionCliente.cvv = response.idPersona.tarjeta[0].cvv;
-    });
-    
-    this.formPersonModify = this.formBuilder.group({
-      fpersonName:      [this.informacionCliente.nombre, [Validators.required]],
-      fpersonFname:     [this.informacionCliente.apaterno, [Validators.required]],
-      fpersonLname:     [this.informacionCliente.amaterno],
-      fpersonBdate:     [this.informacionCliente.fnacimiento],
-      fpersonGender:    [this.informacionCliente.genero],
-      // Datos de contacto
-      fpersonCorreo:    [this.informacionCliente.correo, [Validators.required, Validators.email]],
-      fpersonPassw:     [this.informacionCliente.password, [Validators.required, Validators.maxLength(8)]],
-      fpersonPhone:     [this.informacionCliente.telefono, [Validators.minLength(10), Validators.maxLength(10)]],
-      // Datos de direccion
-      formCalle:        [this.informacionCliente.calle],
-      formColonia:      [this.informacionCliente.colonia],
-      formMunicipio:    [this.informacionCliente.municipio],
-      formEstado:       [this.informacionCliente.estado],
-      formCp:           [this.informacionCliente.cp],
-      formInterior:     [this.informacionCliente.exterior],
-      formExterior:     [this.informacionCliente.interior],
-      formReferencia:   [this.informacionCliente.referencia],
-      // Datos tarjeta
-      formPropietario:  [this.informacionCliente.propietario],
-      formTarjetanumero:[this.informacionCliente.tarjetanumero],
-      formVencimiento:  [this.informacionCliente.vencimiento],
-      formCvv:          [this.informacionCliente.cvv]
+    this.indexPerson = "2"
+    this.indexClient = "2"
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      this._nombre =      response.idPersona.nombre;
+      this._apellidoP =   response.idPersona.apellido_paterno;
+      this._apellidoM =   response.idPersona.apellido_materno;
+      this.Bdate = response.idPersona.fecha_nac;
+      this.Bdate = this.Bdate.split("-");
+      this.Bdate = this.Bdate[2]+"-"+this.Bdate[1]+"-"+this.Bdate[0];
+      response.idPersona.fecha_nac = this.Bdate; 
+      this._fechaBirt =   this.Bdate;   
+      this._genero =      response.idPersona.genero;
+      this._correo =      response.correo; 
+      this._contrasena =  response.contraseña; 
+      this._telefono =    response.idPersona.telefono; 
+      this._calle =       response.idPersona.direccion[0].calle; 
+      this._colonia =     response.idPersona.direccion[0].colonia; 
+      this._municipio =   response.idPersona.direccion[0].municipio; 
+      this._estado =      response.idPersona.direccion[0].estado; 
+      this._cp =          response.idPersona.direccion[0].cp; 
+      this._ninterior =   response.idPersona.direccion[0].n_exterior; 
+      this._nexterior =   response.idPersona.direccion[0].n_interior; 
+      this._referenc =    response.idPersona.direccion[0].referencia; 
+      this._propietario = response.idPersona.tarjeta[0].nombre_propietario; 
+      this._tarjeta =     response.idPersona.tarjeta[0].numero; 
+      this.Vdate = response.idPersona.fecha_nac;
+      this.Vdate = this.Vdate.split("-");
+      this.Vdate = this.Vdate[0]+"-"+this.Vdate[1];
+      this._fechaVenc =   this.Vdate; 
+      this._cvv =         response.idPersona.tarjeta[0].cvv; 
+      
+      this.formPerson = this.formBuilder.group({
+        fname:       [response.idPersona.nombre,           [Validators.required]],
+        fSame:       [response.idPersona.apellido_paterno, [Validators.required]],
+        fLame:       [response.idPersona.apellido_materno],
+        fBdate:      [this.Bdate],
+        fGender:     [response.idPersona.genero],
+        fEmail:      [response.correo, [Validators.required, Validators.email]],
+        fPass:       [response.contraseña, [Validators.required, Validators.maxLength(8)]],
+        fPhone:      [response.idPersona.telefono, [Validators.maxLength(10), Validators.minLength(10)]],
+        fCalle:      [response.idPersona.direccion[0].calle],
+        fColonia:    [response.idPersona.direccion[0].colonia],
+        fMunicipio:  [response.idPersona.direccion[0].municipio],
+        fEstado:     [response.idPersona.direccion[0].estado],
+        fCp:         [response.idPersona.direccion[0].cp, [Validators.minLength(5), Validators.maxLength(5)]],
+        fNinterior:  [response.idPersona.direccion[0].n_interio],
+        fNexterior:  [response.idPersona.direccion[0].n_exterior],
+        fReferenc:   [response.idPersona.direccion[0].referencia],
+        fPropieta:   [response.idPersona.tarjeta[0].nombre_propietario],
+        fTarjeta:    [response.idPersona.tarjeta[0].numero, [Validators.minLength(16), Validators.maxLength(16)]],
+        fFechaVen:   [this.Vdate],
+        fcvv:        [response.idPersona.tarjeta[0].cvv]
+      });
     });
   }
-  
-  public updatePerson() {
-    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.index+this.enlaces.PERSONA_UPDATE_U+this.idClient;
+
+  public updatePerson(){
+    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.indexPerson+this.enlaces.PERSONA_UPDATE_U+this.indexClient;
 
     // Formatear Fecha
-    let date = this.formPersonModify.value.fpersonBdate;
+    let date = this.formPerson.value.fBdate;
     if(date != null){
       date = date.split("-");
-      date = date[2]+"/"+date[1]+"/"+date[0];
-      console.log(`${date}`);
+      date = date[2]+"/"+date[1]+"/"+date[0];      
+      console.log(date);
     }else{
       date = null; 
     }
@@ -133,139 +129,60 @@ export class PerfilModifyComponent implements OnInit {
     if(this.enviarDatos){
       try{
         if(
-          this.formPersonModify.value.fpersonName != null &&
-          this.formPersonModify.value.fpersonFname != null &&
-          this.formPersonModify.value.fpersonCorreo != null &&
-          this.formPersonModify.value.fpersonPassw != null &&
-          this.formPersonModify.value.fpersonName != "" &&
-          this.formPersonModify.value.fpersonFname != "" &&
-          this.formPersonModify.value.fpersonCorreo != "" &&
-          this.formPersonModify.value.fpersonPassw != ""
+          this.formPerson.value.fname != null &&
+          this.formPerson.value.fSame != null &&
+          this.formPerson.value.fEmail != null &&
+          this.formPerson.value.fPass != null &&
+          this.formPerson.value.fname != "" &&
+          this.formPerson.value.fSame != "" &&
+          this.formPerson.value.fEmail != "" &&
+          this.formPerson.value.fPass != "" 
         ){
-          this.persona.updateClientDataPerson(API_MODIFY_PERSON,
-            {
-              nombre: this.formPersonModify.value.fpersonName,
-              apellido_paterno: this.formPersonModify.value.fpersonFname,
-              apellido_materno: this.formPersonModify.value.fpersonLname,
-              fecha_nacimiento: date,
-              genero: this.formPersonModify.value.fpersonGender,
-              correo: this.formPersonModify.value.fpersonCorreo,
-              contrasena: this.formPersonModify.value.fpersonPassw,
-              telefono: this.formPersonModify.value.fpersonPhone,
+          //? Identificar que tipo de modificacion se hace
+          this.persona.updateClientDataPerson(this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient, {
+            nombre: this.formPerson.value.fname,
+            apellido_paterno: this.formPerson.value.fSame,
+            apellido_materno: this.formPerson.value.fLame,
+            fecha_nacimiento: date,
+            genero: this.formPerson.value.fGender,
+            correo: this.formPerson.value.fEmail,
+            contrasena: this.formPerson.value.fPass,
+            telefono: this.formPerson.value.fPhone
+          }).subscribe(
+            response => {
+              this.information("Registro exitoso", "success")
+              console.log(response);
+            },
+            error => {
+              switch (error.status) {
+                case 0:
+                  this.errores("Error de conexión", "danger");
+                  break;
+                case 400:
+                  this.errores("El correo ya está registrado", "warning");
+                  break;
+                case 404:
+                  this.errores("El servidor no pudo encontrar el servicio solicitado", "warning");
+                  break;
+                case 500:
+                  this.errores("Error en el servidor", "danger");
+                  break;
+              }
             }
-          ).subscribe(
-            respuesta => this.information("Registro exitoso", "success"), 
-          error => {
-            switch(error.status){
-              case 0:
-                this.errores("Error de conexión", "danger");
-              break;
-              case 400: 
-                this.errores("El correo ya está registrado", "warning");
-              break; 
-              case 404: 
-                this.errores("El servidor no pudo encontrar el servicio solicitado", "warning");
-              break; 
-              case 500: 
-                this.errores("Error en el servidor", "danger");
-              break; 
-            }
-            console.log("reject"+error.status);
-          }
           );
         }else{
-          this.errores("Debe modificar mimo los datos marcados", "warning");
+          this.errores("Debe modificar minimo los datos marcados", "warning");
         }
       }catch(error){
         console.log(error);
       }
     }
-
-    /* if (this.informacion) {
-      try {
-        if (
-          this.formPersonModify.value.fpersonName != null &&
-          this.formPersonModify.value.fpersonFname != null &&
-          this.formPersonModify.value.fpersonCorreo != null &&
-          this.formPersonModify.value.fpersonPassw != null &&
-          this.formPersonModify.value.fpersonName != "" &&
-          this.formPersonModify.value.fpersonFname != "" &&
-          this.formPersonModify.value.fpersonCorreo != "" &&
-          this.formPersonModify.value.fpersonPassw != "" 
-        ) {
-          this.persona.updateClient(`${this.enlaces.API_ENLACE_PERSONAS}${this.enlaces.PERSONA_UPDATE}?id=${this.index}`,
-            {
-              nombre: this.formPersonModify.value.fpersonName,
-              apellido_paterno: this.formPersonModify.value.fpersonFname,
-              apellido_materno: this.formPersonModify.value.fpersonLname,
-              fecha_nacimiento: this.formPersonModify.value.fpersonBdate,
-              genero: this.formPersonModify.value.fpersonGender,
-              correo: this.formPersonModify.value.fpersonCorreo,
-              contrasena: this.formPersonModify.value.fpersonPassw,
-              telefono: this.formPersonModify.value.fpersonPhone,
-              idDireccion: 1,
-              calle: this.formPersonModify.value.formCalle,
-              colonia: this.formPersonModify.value.formColonia,
-              municipio: this.formPersonModify.value.formMunicipio,
-              estado: this.formPersonModify.value.formEstado,
-              cp: this.formPersonModify.value.formCp,
-              n_interio: this.formPersonModify.value.formInterior,
-              n_exterior: this.formPersonModify.value.formExterior,
-              referencia: this.formPersonModify.value.formReferencia,
-              idTarjet: 1,
-              nombre_propietario: this.formPersonModify.value.formPropietario,
-              numero_tarjeta: this.formPersonModify.value.formTarjetanumero,
-              fecha_vencimiento: this.formPersonModify.value.formVencimiento,
-              cvv: this.formPersonModify.value.formCvv
-            }
-          ).subscribe(
-            respuesta => this.information("Registro exitoso", "success"), 
-          error => {
-            switch(error.status){
-              case 0:
-                this.errores("Error de conexión", "danger");
-              break;
-              case 400: 
-                this.errores("El correo ya está registrado", "warning");
-              break; 
-              case 404: 
-                this.errores("El servidor no pudo encontrar el servicio solicitado", "warning");
-              break; 
-              case 500: 
-                this.errores("Error en el servidor", "danger");
-              break; 
-            }
-            console.log("reject"+error.status);
-          }
-          );
-        } else {
-          this.errores("Campos invalidos", "warning");
-        }
-      } catch (error) {
-        alert(error);
-      }
-
-    }
-    if (this.cancelar) {
-
-    } */
   }
 
-  public enviar(){
-    this.enviarDatos = true; 
-    this.cancelar = false; 
-    this.updatePerson();
-  } 
+  public updateAddress(){
 
-  public cancel(){
-    this.cancelar = true; 
-    this.enviarDatos = false; 
-    this.persona.getClientInfo("16").subscribe(response => {
-      console.log(response)
-    });
-    // this.information("Cancelado", "danger");
   }
-  
+
   //? Estos metodos funcionan para mostrar las alertas
   public information(texto: string, tipo: string){
     //? Agregar opciones de mensajes en vista    
@@ -302,54 +219,51 @@ export class PerfilModifyComponent implements OnInit {
     `;
     setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
-  
-  //* Métodos get
-  //* Métodos post
-  //* Métodos update
-  //* Métodos delete
 
+  public enviar(){
+    this.enviarDatos = true; 
+    this.cancelar = false; 
+    this.updatePerson();
+  } 
+
+  public cancel(){
+    this.cancelar = true; 
+    this.enviarDatos = false; 
+    this.persona.getPerson("2").subscribe(response => {
+      console.log(response)
+    });
+    // this.information("Cancelado", "danger");
+  }
+  
   public clearTarjeta() {
-    this.informacionCliente.propietario = null;
-    this.informacionCliente.tarjetanumero = null;
-    this.informacionCliente.vencimiento = null;
-    this.informacionCliente.cvv = null;
+    // Para mandar la tarjeta se debe modificar el valor y el campo en form
+    this._propietario = "";
+    this._tarjeta = "";
+    this._fechaVenc = "";
+    this._cvv = "";
+    this.formPerson.value.fPropieta = null;
+    this.formPerson.value.fTarjeta = null;
+    this.formPerson.value.fFechaVen = null;
+    this.formPerson.value.fcvv = null;
   }
 
   public clearDireccion() {
-    this.informacionCliente.calle = null;
-    this.informacionCliente.colonia = null;
-    this.informacionCliente.municipio = null;
-    this.informacionCliente.estado = null;
-    this.informacionCliente.cp = null;
-    this.informacionCliente.exterior = null;
-    this.informacionCliente.interior = null;
-    this.informacionCliente.referencia = null;
+    this._calle =  ""; 
+    this._colonia =  ""; 
+    this._municipio =  ""; 
+    this._estado =  ""; 
+    this._cp =  ""; 
+    this._ninterior =  ""; 
+    this._nexterior =  ""; 
+    this._referenc =  ""; 
+    this.formPerson.value.fCalle = null;
+    this.formPerson.value.fColonia = null;
+    this.formPerson.value.fMunicipio = null;
+    this.formPerson.value.fEstado = null;
+    this.formPerson.value.fCp = null;
+    this.formPerson.value.fNinterior = null;
+    this.formPerson.value.fNexterior = null;
+    this.formPerson.value.fReferenc = null;
   }
 
 }
-
-
-/* Informacino completa
-
-nombre: this.formPersonModify.value.fpersonName,
-              apellido_paterno: this.formPersonModify.value.fpersonFname,
-              apellido_materno: this.formPersonModify.value.fpersonLname,
-              fecha_nacimiento: this.formPersonModify.value.fpersonBdate,
-              genero: this.formPersonModify.value.fpersonGender,
-              correo: this.formPersonModify.value.fpersonCorreo,
-              contrasena: this.formPersonModify.value.fpersonPassw,
-              telefono: this.formPersonModify.value.fpersonPhone,
-              /* idDireccion: 1,
-              calle: this.formPersonModify.value.formCalle,
-              colonia: this.formPersonModify.value.formColonia,
-              municipio: this.formPersonModify.value.formMunicipio,
-              estado: this.formPersonModify.value.formEstado,
-              cp: this.formPersonModify.value.formCp,
-              n_interio: this.formPersonModify.value.formInterior,
-              n_exterior: this.formPersonModify.value.formExterior,
-              referencia: this.formPersonModify.value.formReferencia,
-              idTarjeta: 1,
-              nombre_propietario: this.formPersonModify.value.formPropietario,
-              numero_tarjeta: this.formPersonModify.value.formTarjetanumero,
-              fecha_vencimiento: this.formPersonModify.value.formVencimiento,
-              cvv: this.formPersonModify.value.formCvv */

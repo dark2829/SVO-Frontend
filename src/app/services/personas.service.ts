@@ -17,8 +17,7 @@ export class PersonasService {
   ) { }
 
   //* Métodos get
-  public getClientInfo(id: string): Observable<any>{
-    console.log(this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
+  public getPerson(id: string): Observable<any>{
     return this.http.get(this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
   }
   //* Métodos post
