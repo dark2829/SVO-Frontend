@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +7,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+  
+  index: number; 
+  
   constructor(
-    private router: Router//usa un servicio router 
+    private router: Router, //usa un servicio router 
+    private route: ActivatedRoute // Usa el servicio de route para obtener informacion de la ruta
   ){
 
+  }
+
+  ngOnInit(): void{
+    this.index = this.route.snapshot.params['id'];
   }
 }

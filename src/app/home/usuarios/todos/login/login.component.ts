@@ -17,7 +17,7 @@ export class LoginComponent{
     private router:Router, 
     private persona: PersonasService,
     private formBuilder: FormBuilder,
-    private enlaces: EnlacesService
+    private enlaces: EnlacesService,
   ) { }
   
   ngOnInit() :void{
@@ -28,6 +28,7 @@ export class LoginComponent{
   }
 
   ingresar(){
+    //! Solo falta el token
     try{
       if(
         this.formLoginClient.value.formCorreo != null &&
@@ -40,7 +41,15 @@ export class LoginComponent{
         let API_LOGIN = this.enlaces.API_ENLACE_USUARIOS + this.enlaces.USUARIO_LOGIN_IDENTIFY + correo + this.enlaces.USUARIO_LOGIN_PASSWORD + pass;
         this.persona.inicioSesion(API_LOGIN).subscribe(
           response => {
-          this.information("Bienvenido", "success");
+          if(response != null) {
+            this.information("Bienvenido", "success");
+            this.persona.personInfo = response;
+            this.router.navigate(['user/'+response.id]);
+            console.log(response);
+          }else{
+            this.information("Usuario o contraseña incorrectos", "warning")
+            console.log("Respuesta desde login.component.ts "+response);
+          }
         },
         reject => {
           this.errores("Usuario o contraseña incorrecto", "danger");

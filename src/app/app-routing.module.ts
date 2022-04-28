@@ -66,7 +66,8 @@ const routes: Routes = [
   {path: 'empleado-modify', component: EmpleadoModifyComponent },
   {path: 'cancel', component: PedidoRequestComponent },
   {path: 'alert', component: AlertComponent },
-  {path: 'proveedor/:id', component: ProveedorModifyComponent }
+  {path: 'proveedor/:id', component: ProveedorModifyComponent },
+  {path: 'user/:id', component: HomeComponent },
 
 ]
 

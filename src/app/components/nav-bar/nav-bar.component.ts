@@ -1,5 +1,10 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { PersonasService } from '../../services/personas.service';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { HttpClient } from '@angular/common/http';
+import { EnlacesService } from '../../services/enlaces.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,12 +12,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  
+  isAdmin: boolean; 
+  isCliente: boolean; 
+  index: string; 
+  
+  id: string; 
+  nombre: string; 
+  apellido: string;
+  idRol: string; 
+  rolTipo: string;
+  isOnline: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private persona: PersonasService
   ) { }
 
   ngOnInit(): void {
+    this.index = this.route.snapshot.params['id'];
+    // Aqui llenamos todas las variables
+
+    console.log(this.persona.getPerson(this.index).subscribe(response => {
+      this.id = response.id.toString();
+      this.nombre = response.idPersona.nombre;
+      this.idRol = response.idRol.id
+      if(response.idRol.id == 1){
+        this.isAdmin = true; 
+      }
+      if(response.idRol.id == 3){
+        this.isCliente = true;
+      }
+      this.isOnline = true; 
+    }));
   }
   
   home(){

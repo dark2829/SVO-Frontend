@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { map, Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { EnlacesService } from './enlaces.service';
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class PersonasService {
 
   idPerson: number; 
   idUser: number; 
+  personInfo: any; 
 
   constructor(
     private http: HttpClient, 
@@ -99,6 +102,29 @@ export class PersonasService {
   }
 
   public inicioSesion(url: string): Observable<any>{
-    return this.http.get(url);
+    return this.http.get(url)
   }
+
+/*
+!Metodo opcional para obtener informacion
+
+  public inicioSesion(url: string): Observable<any>{
+    return this.http.get(url).pipe(
+      map(
+        (response: any) => {
+          console.log("respuesta desde inicioSesion: "+response);
+        }
+      ),
+      catchError((error) => this.handleError(error))
+    );
+  }
+
+  private handleError(error: { message: any; }): Observable<never>{
+    let errorMessage = "Ocurrio un error"; 
+    if(error){
+      errorMessage = `Error: code ${error.message}`
+    }
+    console.log("Error en handleError: "+errorMessage);
+    return throwError(errorMessage);
+  } */
 }
