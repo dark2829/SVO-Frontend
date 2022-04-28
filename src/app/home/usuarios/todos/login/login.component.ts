@@ -44,8 +44,7 @@ export class LoginComponent{
           if(response != null) {
             this.information("Bienvenido", "success");
             this.persona.personInfo = response;
-            this.router.navigate(['user/'+response.id]);
-            console.log(response);
+            setTimeout(() => {this.router.navigate(['user/'+response.id])} , 2000);
           }else{
             this.information("Usuario o contraseña incorrectos", "warning")
             console.log("Respuesta desde login.component.ts "+response);

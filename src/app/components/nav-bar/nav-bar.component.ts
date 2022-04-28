@@ -13,9 +13,11 @@ import { map } from 'rxjs';
 })
 export class NavBarComponent implements OnInit {
   
-  isAdmin: boolean; 
-  isCliente: boolean; 
+  isAdmin: boolean | false; 
+  isCliente: boolean | false;
+  isEmpleado: boolean | false;
   index: string; 
+  
   
   id: string; 
   nombre: string; 
@@ -34,18 +36,21 @@ export class NavBarComponent implements OnInit {
     this.index = this.route.snapshot.params['id'];
     // Aqui llenamos todas las variables
 
-    console.log(this.persona.getPerson(this.index).subscribe(response => {
+    this.persona.getPerson(this.index).subscribe(response => {
       this.id = response.id.toString();
       this.nombre = response.idPersona.nombre;
       this.idRol = response.idRol.id
       if(response.idRol.id == 1){
         this.isAdmin = true; 
       }
+      if(response.idRol.id == 2){
+        this.isEmpleado = true;
+      }
       if(response.idRol.id == 3){
         this.isCliente = true;
       }
       this.isOnline = true; 
-    }));
+    });
   }
   
   home(){
