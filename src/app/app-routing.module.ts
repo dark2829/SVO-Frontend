@@ -66,8 +66,11 @@ const routes: Routes = [
   {path: 'empleado-modify', component: EmpleadoModifyComponent },
   {path: 'cancel', component: PedidoRequestComponent },
   {path: 'alert', component: AlertComponent },
+  //? Envian informacion en la url 
   {path: 'proveedor/:id', component: ProveedorModifyComponent },
   {path: 'user/:id', component: HomeComponent },
+  {path: 'user/:id', component: RegisterComponent },
+  {path: 'producto/:id', component: ProductModifyComponent },
 
 ]
 

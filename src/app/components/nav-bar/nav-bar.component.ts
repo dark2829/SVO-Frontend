@@ -33,9 +33,10 @@ export class NavBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //TODO: revisar, tal vez se requiera hacer una comparacion para saber de doonde viene el id. 
     this.index = this.route.snapshot.params['id'];
+    
     // Aqui llenamos todas las variables
-
     this.persona.getPerson(this.index).subscribe(response => {
       this.id = response.id.toString();
       this.nombre = response.idPersona.nombre;
@@ -51,6 +52,7 @@ export class NavBarComponent implements OnInit {
       }
       this.isOnline = true; 
     });
+
   }
   
   home(){

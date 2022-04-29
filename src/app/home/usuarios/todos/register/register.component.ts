@@ -23,7 +23,8 @@ export class RegisterComponent implements OnInit {
     private router:Router, 
     private client: PersonasService, 
     private formBuilder: FormBuilder, 
-    private enlace: EnlacesService
+    private enlace: EnlacesService, 
+    private persona: PersonasService
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +57,7 @@ export class RegisterComponent implements OnInit {
 
     if(camposValidos){
       try{
-        //Intentar mandar datos
+        //Intentar mandar datos sin catch error
         /* this.client.insertClient(API_PERSONA, {
           nombre: this.formPersona.value.persoFname.toString().trim(),
           apellido_paterno: this.formPersona.value.persoSname.toString().trim(),
@@ -73,7 +74,9 @@ export class RegisterComponent implements OnInit {
           contrasena: this.formPersona.value.persoPassw.toString(),
           idRol: 3
         }).subscribe(
-          respuesta => this.alertChange("Registro exitoso", "success"), 
+          respuesta => {
+            this.alertChange("Registro exitoso", "success")
+          }, 
           error => {
             switch(error.status){
               case 0:
@@ -125,7 +128,8 @@ export class RegisterComponent implements OnInit {
                           <strong>¡${texto}!</strong>
                           </div>
     `;
-    setTimeout(() => { this.home() }, 1000);
+    // TODO: cambiar a la pagina de inicio, pero antes se debe recuperar el id para saber que usuario es
+    // setTimeout(() => { this.home() }, 1000);
   }
 
   public alertInfo(texto: string, tipo: string) {
