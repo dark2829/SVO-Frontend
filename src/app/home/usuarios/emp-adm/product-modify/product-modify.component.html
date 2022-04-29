@@ -39,14 +39,16 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <form class="row was-validated needs-validation" [formGroup]="formProducto" errorTailor novalidate>
+                            <form class="row was-validated needs-validation" [formGroup]="formProducto" errorTailor
+                                novalidate>
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Código de producto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="codigo" placeholder="00000001" value="{{codigoProducto}}" disabled>
+                                        <input type="text" class="form-control" id="codigo" placeholder="00000001"
+                                            value="{{codigoProducto}}" disabled>
                                     </div>
                                 </div>
 
@@ -55,7 +57,8 @@
                                         <label for="staticEmail2" class="mt-2">Nombre de producto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Nombre" value="{{nombre}}">
+                                        <input formControlName="fname" type="text" class="form-control" id="nombre"
+                                            placeholder="Nombre" value="{{nombre}}">
                                     </div>
                                 </div>
 
@@ -64,7 +67,8 @@
                                         <label for="staticEmail2" class="mt-2">Categoría</label>
                                     </div>
                                     <div class="col col-7">
-                                        <select class="form-select" aria-label="Default select example" [value]="categoria">
+                                        <select class="form-select" aria-label="Default select example"
+                                            [value]="categoria">
                                             <option selected><small>Selecciona una opción del menu</small></option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
@@ -78,7 +82,8 @@
                                         <label for="staticEmail2" class="mt-2">Cantidad</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="cantidad" placeholder="00.00" value="{{cantidad}}">
+                                        <input formControlName="fcantidad" type="number" class="form-control"
+                                            id="cantidad" placeholder="00.00" value="{{cantidad}}">
                                     </div>
                                 </div>
 
@@ -87,7 +92,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio de compra</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="precioCompra" placeholder="$00.00" value="{{pcompra}}">
+                                        <input formControlName="fpCompra" type="number" class="form-control"
+                                            id="precioCompra" placeholder="$00.00" value="{{pcompra}}">
                                     </div>
                                 </div>
 
@@ -96,7 +102,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio de venta</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="precioVenta" placeholder="$00.00" value="{{pventa}}">
+                                        <input formControlName="fpVenta" type="number" class="form-control"
+                                            id="precioVenta" placeholder="$00.00" value="{{pventa}}">
                                     </div>
                                 </div>
 
@@ -105,8 +112,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio con descuento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="precioDescuento"
-                                            placeholder="$00.00" value="{{pdesc}}">
+                                        <input formControlName="fpDesc" type="number" class="form-control"
+                                            id="precioDescuento" placeholder="$00.00" value="{{pdesc}}">
                                     </div>
                                 </div>
 
@@ -115,8 +122,8 @@
                                         <label for="staticEmail2" class="mt-2">Descripción</label>
                                     </div>
                                     <div class="col col-7">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3" [value]="description"></textarea>
+                                        <textarea formControlName="fDescription" class="form-control"
+                                            id="exampleFormControlTextarea1" rows="3" [value]="description"></textarea>
                                     </div>
                                 </div>
 
@@ -127,8 +134,8 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
+                                            <input formControlName="festado" class="form-check-input" type="radio"
+                                                name="festado" id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 <span>Disponible</span>
                                             </label>
@@ -137,8 +144,8 @@
 
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
+                                            <input formControlName="festado" class="form-check-input" type="radio"
+                                                name="festado" id="flexRadioDefault2">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 <span>Agotado</span>
                                             </label>
@@ -146,8 +153,8 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
+                                            <input formControlName="festado" class="form-check-input" type="radio"
+                                                name="festado" id="flexRadioDefault2">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 <span class="small">Dado de baja</span>
                                             </label>
@@ -155,31 +162,31 @@
                                     </div>
                                 </div>
 
-                            </form>
-                        </div>
-                    </div>
+                                <!-- Botones -->
+                                <div class="row m-3">
+                                    <div class="col text-center">
+                                        <button type="submit" class="btn btn-success rounded rounded-pill">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                            </svg>
+                                            Aceptar
+                                        </button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger rounded rounded-pill">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
 
-                    <!-- Botones -->
-                    <div class="row m-3">
-                        <div class="col text-center">
-                            <button class="btn btn-success rounded rounded-pill">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                    class="bi bi-check2" viewBox="0 0 16 16">
-                                    <path
-                                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                                Aceptar
-                            </button>
-                        </div>
-                        <div class="col text-center">
-                            <button class="btn btn-danger rounded rounded-pill">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                    class="bi bi-x" viewBox="0 0 16 16">
-                                    <path
-                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                                Cancelar
-                            </button>
+                            </form>
                         </div>
                     </div>
                 </div>
