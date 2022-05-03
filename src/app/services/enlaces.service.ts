@@ -36,5 +36,5 @@ export class EnlacesService {
   //* Productos 
   public PRODUCTO_INSERT = "/insertProduct"; //? POST
   public PRODUCTO_BUSCAR = "/findAllProductos"; //? GET
-  public PRODUCTO_UPDATE = "/update" //? POST
+  public PRODUCTO_UPDATE = "/update?id=" //? POST
 }

@@ -28,6 +28,7 @@ export class ProveedorRegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //? Inicializa los campos de entrada del formualrio
     this.miFormulario = this.formBuilder.group({
         proveedorNombre: [null, [Validators.required]],
         proveedorTelefono: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
@@ -100,7 +101,7 @@ export class ProveedorRegisterComponent implements OnInit {
   public cancelar(){
     this.regresar = true; 
     this.enviarDatos = false; 
-    this.information("Cancelado", "danger");
+    this.errores("Cancelado", "danger");
     setTimeout(() => {this.listaProveedores()} , 2500);
   }
 

@@ -4,6 +4,7 @@ import { EnlacesService } from '../../../../services/enlaces.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonasService } from 'src/app/services/personas.service';
 import { empty } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-perfil-modify',
@@ -13,13 +14,16 @@ import { empty } from 'rxjs';
 export class PerfilModifyComponent implements OnInit {  
   
   @ViewChild('alerta') alerta: ElementRef;
+  fileChange: boolean = false;
+  preView: string; 
 
   //* Constructores
   constructor(
     private router: Router,    
     private enlaces: EnlacesService, 
     private formBuilder: FormBuilder, 
-    private persona: PersonasService
+    private persona: PersonasService, 
+    private sanitizer: DomSanitizer
   ) { }
   
   //* Variables 
@@ -265,5 +269,35 @@ export class PerfilModifyComponent implements OnInit {
     this.formPerson.value.fNexterior = null;
     this.formPerson.value.fReferenc = null;
   }
+  
+  public capturarArchivo(event: any): any{
+    const archivoCapturado = event.target.files[0];
+    this.fileChange = true; 
+    this.extraerB64(archivoCapturado).then((imagen: any) => {
+      this.preView = imagen.base;
+      console.log(imagen)
+    })
+  }
+  
+  extraerB64 = async ($event: any) => new Promise((resolve, reject) => {
+    try{
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () =>{
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        })
+      }
 
+    }catch(ex){
+      console.log(ex);
+    }
+  })
 }
