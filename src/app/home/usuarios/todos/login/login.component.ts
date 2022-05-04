@@ -107,6 +107,7 @@ export class LoginComponent{
             this.tokenService.setIdentificador(response.data.idUser.correo);
             this.tokenService.setAuthorities(response.data.rol[0].authority);
             this.tokenService.setNombre(response.data.idPerson.nombre);
+            this.tokenService.setID(response.data.idPerson.id)
             this.roles = response.data.rol[0].authority; ; 
             
             if(response.data.rol[0].authority == "Administrador"){

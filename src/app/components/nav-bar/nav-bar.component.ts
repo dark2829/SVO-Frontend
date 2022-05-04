@@ -37,7 +37,8 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     //TODO: revisar, tal vez se requiera hacer una comparacion para saber de doonde viene el id.
     if(this.token.getToken()){
-      this.index = this.route.snapshot.params['id'];
+      // this.index = this.route.snapshot.params['id'];
+      this.index = this.token.getID();
       // Aqui llenamos todas las variables opcion 1
       this.persona.getPerson(this.index).subscribe(response => {
         this.id = response.data.idPersona.id.toString();
@@ -55,7 +56,7 @@ export class NavBarComponent implements OnInit {
         this.isOnline = true;
       }); 
     }else{
-      console.log("no se que paso");
+      console.log("No tiene una sesion iniciada");
     }
 
     
