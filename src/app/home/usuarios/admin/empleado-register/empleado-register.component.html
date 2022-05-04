@@ -30,6 +30,11 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
+                            <pre>
+                                {{
+                                    formEmpleado.value | json
+                                }}
+                            </pre>
                             <form class="row was-validated needs-validation" [formGroup]="formEmpleado" errorTailor novalidate>
 
                                 <div class="row mt-2">
@@ -103,14 +108,14 @@
                                                     <div class="col-6 ps-5 form-check">
                                                         <label>
                                                             <input formControlName="empGenero" type="radio"
-                                                                class="form-check-input" id="M" name="empGenero" value="">
+                                                                class="form-check-input" id="M" name="empGenero" value="M">
                                                             Masculino
                                                         </label>
                                                     </div>
                                                     <div class="col-6 ps-5 form-check">
                                                         <label>
                                                             <input formControlName="empGenero" type="radio"
-                                                                class="form-check-input" id="F" name="empGenero" value="">
+                                                                class="form-check-input" id="F" name="empGenero" value="F">
                                                             Femenino
                                                         </label>
                                                     </div>
@@ -126,7 +131,7 @@
                                         <label for="staticEmail2" class="mt-2">Teléfono</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empTelefo" type="number" class="form-control" id="nombre" placeholder="2411302419"
+                                        <input formControlName="empTelefo" type="number" class="form-control" id="telefono" placeholder="2411302419"
                                             required>
                                     </div>
                                 </div>
@@ -136,7 +141,7 @@
                                         <label for="staticEmail2" class="mt-2">Puesto</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <select class="form-select" aria-label="Default select example" required>
+                                        <select formControlName="empPuesto" class="form-select" aria-label="Default select example">
                                             <option selected><small>Selecciona una opción</small></option>
                                             <option value="1">Cajero</option>
                                             <option value="2">Cargador</option>
@@ -150,7 +155,7 @@
                                         <label for="staticEmail2" class="mt-2">Salario</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empSalari" type="number" class="form-control" id="nombre" placeholder="$00.00"
+                                        <input formControlName="empSalari" type="number" step="0.01" class="form-control" id="salario" placeholder="$00.00"
                                             required>
                                     </div>
                                 </div>
@@ -160,7 +165,7 @@
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empCorreo" type="email" class="form-control" id="nombre"
+                                        <input formControlName="empCorreo" type="email" class="form-control" id="correo"
                                             placeholder="example@exaple.com" required>
                                     </div>
                                 </div>

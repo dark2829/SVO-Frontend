@@ -75,8 +75,7 @@
                                 </thead>
                                 <tbody>
 
-                                    <tr
-                                        *ngFor="let producto of productos | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
+                                    <tr *ngFor="let producto of productos.data | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
                                         <th scope="row">{{producto.codigo_prod}}</th>
                                         <td>{{producto.nombre}}</td>
                                         <td>{{producto.categoria}}</td>

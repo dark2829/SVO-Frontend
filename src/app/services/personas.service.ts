@@ -4,6 +4,8 @@ import { map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EnlacesService } from './enlaces.service';
 import { error } from '@angular/compiler/src/util';
+import { NewUser} from '../models/newUser';
+import { JwtDTO } from '../models/jwtDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,8 @@ export class PersonasService {
   idPerson: number; 
   idUser: number; 
   personInfo: any; 
+
+  authURL = this.enlaces.AUTH_URL; 
 
   constructor(
     private http: HttpClient, 
@@ -25,6 +29,9 @@ export class PersonasService {
   }
 
   //* Métodos post
+  /* public insertClient(newUser: NewUser): Observable<any>{
+    return this.http.post<any>(this.authURL+'nuevo', newUser);
+  } */
   public insertClient(url: string, body: {
     nombre: string;
     apellido_paterno: string;
@@ -32,8 +39,21 @@ export class PersonasService {
     contrasena: string;
     idRol: number; 
   }) {
-    return this.http.post(url, body);
+    return this.http.post<any>(url, body);
   }
+
+  public inicioSesion(body: {
+    identificador: string; 
+    contrasena: string; 
+  }): Observable<any>{
+    return this.http.post<any>(this.authURL+ 'login/', body)
+  }
+  /* public inicioSesion(url: string, body: {
+    identificador: string; 
+    contrasena: string; 
+  }): Observable<any>{
+    return this.http.post(url, body)
+  } */
 
   public updateClientAll(url: string, body: {
     nombre: string; 
@@ -99,10 +119,6 @@ export class PersonasService {
     cvv: number; 
   }){
     return this.http.post(url, body);
-  }
-
-  public inicioSesion(url: string): Observable<any>{
-    return this.http.get(url)
   }
 
 /*

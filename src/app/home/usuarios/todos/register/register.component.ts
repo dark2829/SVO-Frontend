@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PersonasService } from 'src/app/services/personas.service';
 import { catchError } from 'rxjs';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,8 @@ export class RegisterComponent implements OnInit {
   //* Salida
   //* Entrada
   @ViewChild('alerta') alertaHtml: ElementRef;
+  email: string; 
+  pass: string;
 
   //* Variables
   formPersona: FormGroup; 
@@ -24,7 +27,8 @@ export class RegisterComponent implements OnInit {
     private client: PersonasService, 
     private formBuilder: FormBuilder, 
     private enlace: EnlacesService, 
-    private persona: PersonasService
+    private persona: PersonasService,
+    private tokenService: TokenService, 
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +46,7 @@ export class RegisterComponent implements OnInit {
   //* Métodos update
   //* Métodos delete
   public insertClient(){
-    const API_PERSONA = `${this.enlace.API_ENLACE_PERSONAS}${this.enlace.PERSONA_INSERT}`;
+    const API_PERSONA = `${this.enlace.AUTH_URL}${this.enlace.PERSONA_INSERT}`;
 
     let camposValidos = (
       this.formPersona.value.persoFname != null &&
@@ -58,24 +62,27 @@ export class RegisterComponent implements OnInit {
     if(camposValidos){
       try{
         //Intentar mandar datos sin catch error
-        /* this.client.insertClient(API_PERSONA, {
-          nombre: this.formPersona.value.persoFname.toString().trim(),
-          apellido_paterno: this.formPersona.value.persoSname.toString().trim(),
-          correo: this.formPersona.value.persoEmail.toString().trim(),
-          contrasena: this.formPersona.value.persoPassw.toString(),
-          idRol: 3
-        }).subscribe(
-          respuesta => console.log(respuesta), 
-          error => console.log(error)); */
+        this.email = this.formPersona.value.persoEmail.toString().trim();
+        this.pass = this.formPersona.value.persoPassw.toString();
         this.client.insertClient(API_PERSONA, {
           nombre: this.formPersona.value.persoFname.toString().trim(),
           apellido_paterno: this.formPersona.value.persoSname.toString().trim(),
           correo: this.formPersona.value.persoEmail.toString().trim(),
           contrasena: this.formPersona.value.persoPassw.toString(),
-          idRol: 3
+          idRol: 3, 
         }).subscribe(
-          respuesta => {
-            this.alertChange("Registro exitoso", "success")
+          response => {
+            this.alertChange("Registro exitoso", "success");
+            this.persona.inicioSesion({
+              identificador: this.email,
+              contrasena: this.pass
+            }).subscribe(response => {
+              this.tokenService.setToken(response.data.tokenAccess);
+              this.tokenService.setIdentificador(response.data.idUser.correo);
+              this.tokenService.setAuthorities(response.data.rol[0].authority);
+              this.tokenService.setNombre(response.data.idPerson.nombre);
+              setTimeout(() => {this.router.navigate(['user/'+response.data.idPerson.id])} , 2000);
+            })
           }, 
           error => {
             switch(error.status){

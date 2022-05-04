@@ -69,7 +69,8 @@ const routes: Routes = [
   //? Envian informacion en la url 
   {path: 'proveedor/:id', component: ProveedorModifyComponent },
   {path: 'user/:id', component: HomeComponent },
-  {path: 'user/:id', component: RegisterComponent },
+  {path: 'userAdmin/:id', component: HomeAdminComponent },
+  {path: 'userEmpleado/:id', component: HomeEmpleadoComponent },
   {path: 'producto/:id', component: ProductModifyComponent },
 
 ]

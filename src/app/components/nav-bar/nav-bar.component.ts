@@ -5,6 +5,7 @@ import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { HttpClient } from '@angular/common/http';
 import { EnlacesService } from '../../services/enlaces.service';
 import { map } from 'rxjs';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -29,30 +30,50 @@ export class NavBarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private persona: PersonasService
+    private persona: PersonasService, 
+    private token: TokenService
   ) { }
 
   ngOnInit(): void {
-    //TODO: revisar, tal vez se requiera hacer una comparacion para saber de doonde viene el id. 
-    this.index = this.route.snapshot.params['id'];
-    
-    // Aqui llenamos todas las variables
-    this.persona.getPerson(this.index).subscribe(response => {
-      this.id = response.id.toString();
-      this.nombre = response.idPersona.nombre;
-      this.idRol = response.idRol.id
-      if(response.idRol.id == 1){
-        this.isAdmin = true; 
-      }
-      if(response.idRol.id == 2){
-        this.isEmpleado = true;
-      }
-      if(response.idRol.id == 3){
-        this.isCliente = true;
-      }
-      this.isOnline = true; 
-    });
+    //TODO: revisar, tal vez se requiera hacer una comparacion para saber de doonde viene el id.
+    if(this.token.getToken()){
+      this.index = this.route.snapshot.params['id'];
+      // Aqui llenamos todas las variables opcion 1
+      this.persona.getPerson(this.index).subscribe(response => {
+        this.id = response.data.idPersona.id.toString();
+        this.nombre = response.data.idPersona.nombre;
+        this.idRol = response.data.idRol.id
+        if (response.data.idRol.id == 1) {
+          this.isAdmin = true;
+        }
+        if (response.data.idRol.id == 2) {
+          this.isEmpleado = true;
+        }
+        if (response.data.idRol.id == 3) {
+          this.isCliente = true;
+        }
+        this.isOnline = true;
+      }); 
+    }else{
+      console.log("no se que paso");
+    }
 
+    
+  }
+
+  cerrar(){
+    this.token.logout();
+    this.isAdmin = false;
+    this.isCliente = true;
+    this.isEmpleado = false;
+    this.id = "";
+    this.nombre = "";
+    this.apellido = "";
+    this.idRol = "";
+    this.rolTipo = "";
+    this.isOnline=  false;
+    // window.location.reload();
+    this.router.navigate(['login']);
   }
   
   home(){
