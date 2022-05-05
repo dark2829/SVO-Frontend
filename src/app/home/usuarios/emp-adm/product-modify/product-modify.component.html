@@ -40,14 +40,14 @@
                     <div class="row mt-4">
                         <div class="col">
                             <form class="row was-validated needs-validation" [formGroup]="formProducto" errorTailor novalidate>
-
+                                {{formProducto.value | json}}
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Código de producto</label>
                                     </div>
                                     <div class="col col-7">
                                         <input  type="text" class="form-control" id="codigo" placeholder="00000001"
-                                            value="{{codigoProducto}}" disabled>
+                                            value="{{codigoProducto}}">
                                     </div>
                                 </div>
 

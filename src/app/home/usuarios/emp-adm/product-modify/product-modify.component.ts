@@ -80,7 +80,7 @@ export class ProductModifyComponent implements OnInit {
           precio_compra: this.formProducto.value.fpCompra,
           precio_venta: this.formProducto.value.fpVenta,
           precio_descuento: this.formProducto.value.fpDesc,
-          desc: this.formProducto.value.fDescription,
+          descripcion: this.formProducto.value.fDescription,
           estatus: this.formProducto.value.festado
 
         }).subscribe(response => {
@@ -89,7 +89,7 @@ export class ProductModifyComponent implements OnInit {
         error => {
           console.log(error);
         });
-        console.log("enviar");
+        console.log(this.formProducto.value);
     /* try{
       if(
         this.formProducto.value.fname != null &&
