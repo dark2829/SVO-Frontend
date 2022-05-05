@@ -39,10 +39,8 @@ export class NavBarComponent implements OnInit {
     if(this.token.getToken()){
       // this.index = this.route.snapshot.params['id'];
       this.index = this.token.getID();
-
       // Aqui llenamos todas las variables opcion 1
       this.persona.getPerson(this.index).subscribe(response => {
-        console.log(response);
         this.id = response.data.idPersona.id.toString();
         this.nombre = response.data.idPersona.nombre;
         this.idRol = response.data.idRol.id

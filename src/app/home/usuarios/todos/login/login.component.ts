@@ -35,13 +35,12 @@ export class LoginComponent{
       this.isLogged = true; 
       this.isLoginFail = false; 
       this.roles = this.tokenService.getAuthorieties();
-    }else{
-      this.formLoginClient = this.formBuilder.group({
-        formCorreo: [null, [Validators.required, Validators.email]],
-        formPassword: [null, [Validators.required, Validators.maxLength(8)]]
-      })
-    }
+    } 
 
+    this.formLoginClient = this.formBuilder.group({
+      formCorreo: [null, [Validators.required, Validators.email]],
+      formPassword: [null, [Validators.required, Validators.maxLength(8)]]
+    })
   }
 
   /* ingresar(): void{
@@ -127,17 +126,8 @@ export class LoginComponent{
           }
         },
         reject => {
-          switch(reject.status){
-            case 0:
-              this.errores("Error de conexión", "danger");
-            break;
-            case 400: 
-              this.errores("El correo ya está registrado", "warning");
-            break; 
-            case 500: 
-              this.errores("Error en el servidor", "danger");
-            break; 
-        }}
+          this.errores("Usuario o contraseña incorrecto", "danger");
+        }
         ); 
         /* funcional 
         this.persona.inicioSesion(API_LOGIN, {

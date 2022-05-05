@@ -27,7 +27,7 @@ export class EnlacesService {
   public EMPLEADO_INSERT = "/insertEmpleado"; //? POST
   public EMPLEADO_BUSCAR = "/"; //?
   public EMPLEADO_UPDATE = "/"; //?
-  //* Personas
+  //* Peronas
   // public PERSONA_INSERT = "/insertNewUser"; //? POST
   public PERSONA_INSERT = "registro"; //? POST
   public PERSONA_BUSCAR = "/findUserById?id="; //? GET
@@ -39,6 +39,5 @@ export class EnlacesService {
   //* Productos 
   public PRODUCTO_INSERT = "/insertProduct"; //? POST
   public PRODUCTO_BUSCAR = "/findAllProductos"; //? GET
-  public PRODUCTO_BUSCAR_ID = "/findProductById?id="; //? GET
   public PRODUCTO_UPDATE = "/update?id=" //? POST
 }
