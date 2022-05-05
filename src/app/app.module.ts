@@ -41,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
 
 //Interceptores
-import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
+import { intrceptorEmpleado } from './interceptors/interceptorempleado.service';
+import { InterceptorProductoService } from './interceptors/interceptor-producto.service';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -93,7 +94,8 @@ import { interceptorEmpleado } from './interceptors/interceptorempleado.service'
     })
   ],
   providers: [
-    // interceptorEmpleado
+    // intrceptorEmpleado,
+    InterceptorProductoService
   ],
   bootstrap: [AppComponent]
 })

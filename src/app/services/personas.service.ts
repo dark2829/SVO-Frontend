@@ -6,6 +6,7 @@ import { EnlacesService } from './enlaces.service';
 import { error } from '@angular/compiler/src/util';
 import { NewUser} from '../models/newUser';
 import { JwtDTO } from '../models/jwtDTO';
+import { LoginUser } from '../models/login-user';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,8 @@ export class PersonasService {
     identificador: string; 
     contrasena: string; 
   }): Observable<any>{
-    return this.http.post<any>(this.authURL+ 'login/', body)
+    console.log(this.authURL+this.enlaces.PERSONA_LOGIN);
+    return this.http.post<any>(this.authURL+this.enlaces.PERSONA_LOGIN, body)
   }
   /* public inicioSesion(url: string, body: {
     identificador: string; 

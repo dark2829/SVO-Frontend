@@ -6,14 +6,13 @@ import { TokenService } from '../services/token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class InterceptorempleadoService implements HttpInterceptor {
-  
-  constructor(
-    private token: TokenService, 
-    // private http: HttpHandler
-  ) {  }
+export class InterceptorProductoService implements HttpInterceptor {
 
+  constructor(
+    private token: TokenService
+  ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log("No se de donde sale");
     let intReq = req; 
     const token = this.token.getToken();
     if(token != null){
@@ -23,4 +22,4 @@ export class InterceptorempleadoService implements HttpInterceptor {
   }
 }
 
-export const intrceptorEmpleado = [{provide: HTTP_INTERCEPTORS, useClass: InterceptorempleadoService, multi: true}];
+export const intrceptorProducto = [{provide: HTTP_INTERCEPTORS, useClass: InterceptorProductoService, multi: true}]

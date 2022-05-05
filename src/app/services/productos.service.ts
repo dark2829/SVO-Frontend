@@ -35,7 +35,7 @@ export class ProductosService {
     precio_venta: number, 
     precio_descuento: number, 
     descripcion: string,
-    status: string
+    estatus: string
   }){
     return this.http.post(url, body);
   }
@@ -53,7 +53,7 @@ export class ProductosService {
     estatus: string
   }){
     const headers = new HttpHeaders({
-      'Authorization': this.token.getToken(), 
+      'Authorization': 'Barer' + this.token.getToken(), 
       /* 'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token' */
