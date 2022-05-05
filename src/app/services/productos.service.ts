@@ -19,6 +19,10 @@ export class ProductosService {
     return this.http.get(this.API_Productos);
   }
 
+  public getProductID(id: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.PRODUCTO_BUSCAR_ID+id)
+  }
+
   public saveProducto(url: string, body: {
     codigo_prod: string, 
     nombre: string, 
