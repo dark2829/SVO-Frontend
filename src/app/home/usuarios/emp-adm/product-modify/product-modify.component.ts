@@ -3,6 +3,7 @@ import { ProductosService } from '../../../../services/productos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-product-modify',
@@ -23,7 +24,7 @@ export class ProductModifyComponent implements OnInit {
 
   @ViewChild('alerta') alerta: ElementRef;
 
-  index: number | undefined; 
+  index: string; 
   formProducto: FormGroup;
 
   constructor(
@@ -31,54 +32,62 @@ export class ProductModifyComponent implements OnInit {
     private route: ActivatedRoute, 
     private formBuilder: FormBuilder, 
     private router: Router, 
-    private enlaces: EnlacesService
+    private enlaces: EnlacesService,
+    private tokenService: TokenService
   ) { }
   
   // Cargar datos al form
   ngOnInit(): void {
-    this.index = this.route.snapshot.params['id'];
-    this.productos.getAllProductos().subscribe(response => {
-      response.forEach((item: any) => {
-        if(item.id == this.index){
-          this.codigoProducto = item.codigo_prod; 
-          this.nombre = item.nombre;
-          this.categoria = item.categorita;
-          this.cantidad = item.cantidad;
-          this.pcompra = item.precio_compra;
-          this.pventa = item.precio_venta;
-          this.pdesc = item.precio_descuento;
-          this.description = item.descripcion;
-          this.estado = item.estatus;
+    if(this.tokenService.getToken()){
+      this.index = this.route.snapshot.params['id'].toString();
 
+      let cateNumber: number;
+      this.productos.getProductID(this.index).subscribe(response => {
+          this.codigoProducto = response.data.codigo_prod;
+          this.nombre = response.data.nombre;
+          this.categoria = response.data.categoria;
+          this.cantidad = response.data.cantidad;
+          this.pcompra = response.data.precio_compra;
+          this.pventa = response.data.precio_venta;
+          this.pdesc = response.data.precio_descuento;
+          this.description = response.data.descripcion;
+          this.estado = response.data.estatus;
+        
           this.formProducto = this.formBuilder.group({
-            fcodProd: [item.codigo_prod, [Validators.required]], 
-            fname:  [item.nombre , [Validators.required]],
-            fcategoria: [item.categorita , [Validators.required]], 
-            fcantidad: [item.cantidad , [Validators.required]], 
-            fpCompra: [item.precio_compra , [Validators.required]],
-            fpVenta: [item.precio_venta , [Validators.required]],
-            fpDesc: [item.precio_descuento , [Validators.required]],
-            fDescription: [item.descripcion , [Validators.required]],
-            festado: [item.estatus , [Validators.required]]
+            fcodProd: [response.data.codigo_prod, [Validators.required]],
+            fname: [response.data.nombre, [Validators.required]],
+            fcategoria: [response.data.categoria, [Validators.required]],
+            fcantidad: [response.data.cantidad, [Validators.required]],
+            fpCompra: [response.data.precio_compra, [Validators.required]],
+            fpVenta: [response.data.precio_venta, [Validators.required]],
+            fpDesc: [response.data.precio_descuento, [Validators.required]],
+            fDescription: [response.data.descripcion, [Validators.required]],
+            festado: [response.data.estatus, []]
           })
-        }
-      })
-    });
+        });
+      }else{
+        console.log("No hay token");
+      }
   }
   // Actualizar datos
   public update(){
     const enviarActualizacion = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_UPDATE+this.index
         this.productos.updateProducto(enviarActualizacion, {
-          codigo_prod: "a",
-          nombre: "a",
-          categoria: "a",
-          cantidad: "a",
-          precio_compra: "a",
-          precio_venta: "a",
-          precio_descuento: "a",
-          desc: "a",
-          estatus: "a"
+          codigo_prod: this.formProducto.value.fcodProd,
+          nombre: this.formProducto.value.fname,
+          categoria: this.formProducto.value.fcategoria,
+          cantidad: this.formProducto.value.fcantidad,
+          precio_compra: this.formProducto.value.fpCompra,
+          precio_venta: this.formProducto.value.fpVenta,
+          precio_descuento: this.formProducto.value.fpDesc,
+          desc: this.formProducto.value.fDescription,
+          estatus: this.formProducto.value.festado
 
+        }).subscribe(response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
         });
         console.log("enviar");
     /* try{
