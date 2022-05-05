@@ -11,12 +11,13 @@ export class InterceptorProductoService implements HttpInterceptor {
   constructor(
     private token: TokenService
   ) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("No se de donde sale");
     let intReq = req; 
     const token = this.token.getToken();
     if(token != null){
-      intReq = req.clone({headers: req.headers.set('Authorization', 'Barer' + token)});
+      intReq = req.clone({headers: req.headers.set('Authorization', `${token}`)});
     }
     return next.handle(intReq);
   }

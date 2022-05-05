@@ -47,7 +47,7 @@ const routes: Routes = [
   {path: 'shopHistory', component: ShophistoryComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'cancel-request', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
-  {path: 'shopping-cart', component: ShoppingCartComponent },
+  {path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   //Pantallas de empleado
   {path: 'home-empleado', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ['Empleado']} },
   {path: 'pedidos', component: PedidosComponent },
