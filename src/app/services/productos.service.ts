@@ -28,6 +28,7 @@ export class ProductosService {
 
   public saveProducto(url: string, body: {
     codigo_prod: string, 
+    imagen: string,
     nombre: string, 
     categoria: string, 
     cantidad: number, 
@@ -47,7 +48,7 @@ export class ProductosService {
        headers: new HttpHeaders(headers),
    };
    httpOptions.headers.set('Authorization',this.token.getToken());
-
+    console.log(body);
     return this.http.post<any>(url, body, httpOptions);
   }
   
