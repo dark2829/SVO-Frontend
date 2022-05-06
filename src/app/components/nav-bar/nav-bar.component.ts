@@ -24,9 +24,8 @@ export class NavBarComponent implements OnInit {
   nombre: string; 
   apellido: string;
   idRol: string; 
-  rol: string; 
   rolTipo: string;
-  isLogged: boolean = false;
+  isOnline: boolean;
 
   constructor(
     private router: Router,
@@ -38,22 +37,25 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     //TODO: revisar, tal vez se requiera hacer una comparacion para saber de doonde viene el id.
     if(this.token.getToken()){
-      this.isLogged = true; 
-      this.id = this.token.getID(); 
-      this.nombre = this.token.getNombre();
-      this.rol = this.token.getAuthorieties();
-      if (this.rol == 'Administrador') {
-        this.isAdmin = true;
-      }
-      if (this.rol == 'Empleado') {
-        this.isEmpleado = true;
-      }
-      if (this.rol == 'Cliente') {
-        this.isCliente = true;
-      }
+      // this.index = this.route.snapshot.params['id'];
+      this.index = this.token.getID();
+      // Aqui llenamos todas las variables opcion 1
+      this.persona.getPerson(this.index).subscribe(response => {
+        this.id = response.data.idPersona.id.toString();
+        this.nombre = response.data.idPersona.nombre;
+        this.idRol = response.data.idRol.id
+        if (response.data.idRol.id == 1) {
+          this.isAdmin = true;
+        }
+        if (response.data.idRol.id == 2) {
+          this.isEmpleado = true;
+        }
+        if (response.data.idRol.id == 3) {
+          this.isCliente = true;
+        }
+        this.isOnline = true;
+      }); 
     }else{
-      this.isLogged = false;
-      this.nombre = "";
       console.log("No tiene una sesion iniciada");
     }
 
@@ -70,7 +72,7 @@ export class NavBarComponent implements OnInit {
     this.apellido = "";
     this.idRol = "";
     this.rolTipo = "";
-    this.isLogged=  false;
+    this.isOnline=  false;
     // window.location.reload();
     this.router.navigate(['login']);
   }

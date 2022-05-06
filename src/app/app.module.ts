@@ -39,9 +39,9 @@ import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/ped
 //Import de servicios
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
-import { InterceptorProductoService } from './interceptors/interceptor-producto.service';
 
 //Interceptores
+import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
 
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
@@ -93,8 +93,7 @@ import { InterceptorProductoService } from './interceptors/interceptor-producto.
     })
   ],
   providers: [
-    // intrceptorEmpleado,
-    InterceptorProductoService
+    // interceptorEmpleado
   ],
   bootstrap: [AppComponent]
 })

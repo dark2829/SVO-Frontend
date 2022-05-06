@@ -10,7 +10,7 @@ export class InterceptorempleadoService implements HttpInterceptor {
   
   constructor(
     private token: TokenService, 
-    // private http: HttpHandler
+    private http: HttpHandler
   ) {  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -23,4 +23,4 @@ export class InterceptorempleadoService implements HttpInterceptor {
   }
 }
 
-export const intrceptorEmpleado = [{provide: HTTP_INTERCEPTORS, useClass: InterceptorempleadoService, multi: true}];
+export const interceptorEmpleado = [{provide: HTTP_INTERCEPTORS, useClass: InterceptorempleadoService, multi: true}];

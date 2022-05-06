@@ -17,7 +17,7 @@ export class LoginComponent {
   identify: string;
   contrasena: string;
   nombre: string;
-  roles: string;
+  roles: string[] = [];
 
   @ViewChild('alerta') alerta: ElementRef;
   formLoginClient: FormGroup;
@@ -64,6 +64,7 @@ export class LoginComponent {
   } */
 
   ingresar() {
+    //! Solo falta el token
     try {
       if (
         this.formLoginClient.value.formCorreo != null &&
@@ -74,8 +75,8 @@ export class LoginComponent {
         let correo = this.formLoginClient.value.formCorreo.toString().trim();
         let pass = this.formLoginClient.value.formPassword.toString().trim();
         this.persona.inicioSesion({
-          identificador: correo,
-          contrasena: pass
+          identificador: this.formLoginClient.value.formCorreo,
+          contrasena: this.formLoginClient.value.formPassword
         }).subscribe(
           response => {
             if (response != null) {
@@ -88,7 +89,7 @@ export class LoginComponent {
               this.tokenService.setAuthorities(response.data.rol[0].authority);
               this.tokenService.setNombre(response.data.idPerson.nombre);
               this.tokenService.setID(response.data.idPerson.id)
-              this.roles = response.data.rol[0].authority
+              this.roles = response.data.rol[0].authority;;
 
               if (response.data.rol[0].authority == "Administrador") {
                 setTimeout(() => { this.router.navigate(['userAdmin/' + response.data.idPerson.id]) }, 2000);
@@ -106,14 +107,12 @@ export class LoginComponent {
             }
           },
           reject => {
-            this.isLogged = false; 
-            this.isLoginFail = true; 
             switch (reject.status) {
               case 0:
                 this.errores("Error de conexión", "danger");
                 break;
               case 400:
-                this.errores("Usuario o contraseña incorrectos", "warning");
+                this.errores("El correo ya está registrado", "warning");
                 break;
               case 500:
                 this.errores("Error en el servidor", "danger");
@@ -121,6 +120,25 @@ export class LoginComponent {
             }
           }
         );
+        /* funcional 
+        this.persona.inicioSesion(API_LOGIN, {
+          identificador: this.formLoginClient.value.formCorreo,
+          contrasena: this.formLoginClient.value.formPassword
+        }).subscribe(
+          response => {
+          if(response != null) {
+            this.information("Bienvenido", "success");
+            this.persona.personInfo = response;
+            setTimeout(() => {this.router.navigate(['user/'+response.id])} , 2000);
+          }else{
+            this.information("Usuario o contraseña incorrectos", "warning")
+            console.log("Respuesta desde login.component.ts "+response);
+          }
+        },
+        reject => {
+          this.errores("Usuario o contraseña incorrecto", "danger");
+        }
+        ); */
       }
     } catch (error) {
       console.log(error);
