@@ -52,7 +52,6 @@ export class ProductosService {
     return this.http.post<any>(url, body, httpOptions);
   }
   
-  //FIXME: revisar que variables necesita
   public updateProducto(url: string, body: {
     codigo_prod: string, 
     imagen: string,

@@ -26,7 +26,7 @@ export class ProductRegisterComponent implements OnInit {
     private router: Router, 
     private enlaces: EnlacesService,
     private token: TokenService, 
-    private sanitizer: DomSanitizer,    
+    private sanitizer: DomSanitizer,    //? Convertir a base64 y -> viceversa
   ) { }
 
   ngOnInit(): void {

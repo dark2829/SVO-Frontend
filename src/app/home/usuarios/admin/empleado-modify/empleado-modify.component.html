@@ -5,9 +5,12 @@
 
 <div class="container position-relative">
     <div class="row vh-100 justify-content-center align-items-start">
-        <div class="col col-12 col-sm-12 col-md-6 "style="margin-top: 25vh;">
-            <div class="card w-100 bg-secondary bg-opacity-25 border rounded">
+        <div class="col col-12 col-sm-12 col-md-6 " style="margin-top: 25vh;">
+            <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
                 <div class="container">
+                    <!-- Alerta -->
+                    <div class="alert" #alerta id="alerta"></div>
+
                     <!-- Titulo and icon -->
                     <div class="row m-2 ms-0">
                         <div class="col col-9">
@@ -27,14 +30,16 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <form class="row">
+                            <form class="row was-validated needs-validation" [formGroup]="formEmpleado" errorTailor
+                                novalidate>
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Numero de empleado</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="1591206" disabled>
+                                        <input type="text" class="form-control" id="numero de empleado"
+                                            placeholder="1591206" value="{{nEmpleado}}" disabled>
                                     </div>
                                 </div>
 
@@ -43,7 +48,8 @@
                                         <label for="staticEmail2" class="mt-2">Nombre</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Alejandro">
+                                        <input type="text" value="{{pNombre}}" class="form-control" id="nombre" placeholder="Alejandro"
+                                            required>
                                     </div>
                                 </div>
 
@@ -52,7 +58,8 @@
                                         <label for="staticEmail2" class="mt-2">Apellido Paterno</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Martínez ">
+                                        <input type="text" value="{{aPaterno}}" class="form-control" id="apellido" placeholder="Martínez "
+                                            required>
                                     </div>
                                 </div>
 
@@ -61,7 +68,8 @@
                                         <label for="staticEmail2" class="mt-2">Apellido Materno</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="López ">
+                                        <input type="text" value="{{aMaterno}}" class="form-control" id="apellido" placeholder="López "
+                                            required>
                                     </div>
                                 </div>
 
@@ -70,7 +78,8 @@
                                         <label for="staticEmail2" class="mt-2">Curp</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="LOMA15000000HTLSLLA3">
+                                        <input type="text" value="{{curp}}" class="form-control" id="curp"
+                                            placeholder="LOMA15000000HTLSLLA3" required>
                                     </div>
                                 </div>
 
@@ -79,7 +88,7 @@
                                         <label for="staticEmail2" class="mt-2">Fecha de nacimiento </label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="date" class="form-control" id="nombre">
+                                        <input type="date" value="bdate" class="form-control" id="fecha nacimiento" apellido>
                                     </div>
                                 </div>
 
@@ -89,9 +98,9 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
+                                                <input formControlName="fGender" class="form-check-input" type="radio"
+                                                    name="fGender" id="F" value="F">
                                                 <span>Femenino</span>
                                             </label>
                                         </div>
@@ -99,9 +108,9 @@
 
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
                                             <label class="form-check-label" for="flexRadioDefault2">
+                                                <input formControlName="fGender" class="form-check-input" type="radio"
+                                                    name="fGender" id="M" value="M">
                                                 <span>Masculino</span>
                                             </label>
                                         </div>
@@ -113,7 +122,8 @@
                                         <label for="staticEmail2" class="mt-2">Teléfono</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="nombre" placeholder="2411302419">
+                                        <input type="number" value="{{telefono}}" class="form-control" id="telefono" placeholder="2411302419"
+                                            required>
                                     </div>
                                 </div>
 
@@ -122,17 +132,8 @@
                                         <label for="staticEmail2" class="mt-2">Puesto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="nombre" placeholder="2411302419">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-2">
-                                    <div class="col col-5">
-                                        <label for="staticEmail2" class="mt-2">Puesto</label>
-                                    </div>
-                                    <div class="col col-7">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected><small>Selecciona una opción</small></option>
+                                        <select class="form-select" [value]="puesto" aria-label="Default select example" required>
+                                            <option><small>Selecciona una opción</small></option>
                                             <option value="1">Cajero</option>
                                             <option value="2">Cargador</option>
                                             <option value="3">Repartidor</option>
@@ -145,7 +146,8 @@
                                         <label for="staticEmail2" class="mt-2">Salario</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="number" class="form-control" id="nombre" placeholder="$00.00">
+                                        <input type="number" value="{{salario}}" class="form-control" step="00.01" id="salario"
+                                            placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -154,7 +156,8 @@
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="example@exaple.com">
+                                        <input type="text" value="{{correo}}" class="form-control" id="correo"
+                                            placeholder="example@exaple.com" required>
                                     </div>
                                 </div>
 
@@ -163,7 +166,8 @@
                                         <label for="staticEmail2" class="mt-2">Contraseña</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="password" class="form-control" id="nombre" placeholder="*****">
+                                        <input type="password" class="form-control" id="password" placeholder="*****"
+                                            required>
                                     </div>
                                 </div>
 
@@ -192,31 +196,31 @@
                                     </div>
                                 </div>
 
-                            </form>
-                        </div>
-                    </div>
+                                <!-- Botones -->
+                                <div class="row m-3">
+                                    <div class="col text-center">
+                                        <button type="submit" class="btn btn-success rounded rounded-pill" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                            </svg>
+                                            Aceptar
+                                        </button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger rounded rounded-pill">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
 
-                    <!-- Botones -->
-                    <div class="row m-3">
-                        <div class="col text-center">
-                            <button class="btn btn-success rounded rounded-pill">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                    class="bi bi-check2" viewBox="0 0 16 16">
-                                    <path
-                                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                                Aceptar
-                            </button>
-                        </div>
-                        <div class="col text-center">
-                            <button class="btn btn-danger rounded rounded-pill">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                    class="bi bi-x" viewBox="0 0 16 16">
-                                    <path
-                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                                Cancelar
-                            </button>
+                            </form>
                         </div>
                     </div>
                 </div>

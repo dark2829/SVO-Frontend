@@ -71,7 +71,7 @@ const routes: Routes = [
   {path: 'proveedor/:id', component: ProveedorModifyComponent },
   {path: 'user/:id', component: HomeComponent },
   {path: 'userAdmin/:id', component: HomeAdminComponent },
-  {path: 'userEmpleado/:id', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ["Empleado"]} },
+  {path: 'userEmpleado/:id', component: EmpleadoModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado"]} },
   {path: 'producto/:id', component: ProductModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
 
 ]
