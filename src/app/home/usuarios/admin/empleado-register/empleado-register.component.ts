@@ -73,12 +73,12 @@ export class EmpleadoRegisterComponent implements OnInit {
           nombre:            this.formEmpleado.value.empNombre.toString().trim(),
           apellido_paterno:  this.formEmpleado.value.empApePat.toString().trim(),   
           apellido_materno:  this.formEmpleado.value.empApeMat.toString().trim(),
-          genero:            "M",/* this.formEmpleado.value.empGenero,  */
+          genero:            this.formEmpleado.value.empGenero, 
           telefono:          this.formEmpleado.value.empTelefo.toString().trim(),
           fecha_nacimiento:  day,
           correo:            this.formEmpleado.value.empCorreo,
           curp:              this.formEmpleado.value.empCurp.toString().trim(),
-          idPuesto:          1,/* this.formEmpleado.value.empPuesto,  */
+          idPuesto:          1,
           salario:           this.formEmpleado.value.empSalari,
           contrasena:        this.formEmpleado.value.empPass.toString().trim(),    
           idRol:             2        
