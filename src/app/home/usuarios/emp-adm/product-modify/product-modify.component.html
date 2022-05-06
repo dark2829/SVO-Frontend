@@ -27,12 +27,28 @@
 
                     <!-- Img and changre img -->
                     <div class="row justify-content-center">
-                        <div class="col col-5 col-sm-5 col-md-3">
-                            <div class="producto-img bg-white">
+                        <div class=" text-center">
+                            <div>
+                                <div *ngIf="!fileChange; else Conimagen">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="165" height="165" fill="currentColor"
+                                        class="bi bi-person-circle border border-primary text-primary p-2 mb-1" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                </div>
+        
+                                <ng-template #Conimagen>
+                                    <div>
+                                        <img [src]="preView" alt="" class="img-perfil">
+                                    </div>
+                                </ng-template>
                             </div>
-                        </div>
-                        <div class="col col-12 text-center">
-                            <button class="btn btn-primary w-50 rounded-pill mt-3"> Cambiar imagen</button>
+                            <div class="row">
+                                <div class="col text-center m-2">
+                                    <input type="file" class="btn btn-primary rounded rounded-pill inpFile" name="" id="" (change)="capturarArchivo($event)">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -158,8 +174,8 @@
                                         <div class="form-check mt-2">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 <input formControlName="festado" class="form-check-input" type="radio"
-                                                    name="festado" id="Dado de baja" value="Dado de baja">
-                                                <span class="small">Dado de baja</span>
+                                                    name="festado" id="Dado de baja" value="Inexistente">
+                                                <span class="small">Inexistente</span>
                                             </label>
                                         </div>
                                     </div>

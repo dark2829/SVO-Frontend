@@ -55,6 +55,7 @@ export class ProductosService {
   //FIXME: revisar que variables necesita
   public updateProducto(url: string, body: {
     codigo_prod: string, 
+    imagen: string,
     nombre: string, 
     categoria: string, 
     cantidad: number, 
