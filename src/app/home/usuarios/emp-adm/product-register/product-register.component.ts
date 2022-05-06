@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { EnlacesService } from 'src/app/services/enlaces.service';
+import { ProductosService } from 'src/app/services/productos.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-product-register',
@@ -7,9 +13,146 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductRegisterComponent implements OnInit {
 
-  constructor() { }
+  formProducto: FormGroup;
+  fileChange: boolean = false;
+  preView: string;  
+
+  @ViewChild('alerta') alerta: ElementRef;
+
+  constructor(
+    private productos: ProductosService, 
+    private formBuilder: FormBuilder, 
+    private router: Router, 
+    private enlaces: EnlacesService,
+    private token: TokenService, 
+    private sanitizer: DomSanitizer,    
+  ) { }
 
   ngOnInit(): void {
+    if (this.token.getToken()) {
+      this.formProducto = this.formBuilder.group({
+        fcodProd: [null, [Validators.required]],
+        fname: [null, [Validators.required]],
+        fcategoria: [null, [Validators.required]],
+        fcantidad: [null, [Validators.required]],
+        fpCompra: [null, [Validators.required]],
+        fpVenta: [null, [Validators.required]],
+        fpDesc: [null, [Validators.required]],
+        fDescription: [null, [Validators.required]],
+        festado: [null, []]
+      })
+    } else {
+      console.log("No hay token");
+    }
   }
+
+  load(){
+    const loadProductos = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_INSERT
+    if(
+      this.formProducto.value.fcodProd != null &&
+      this.formProducto.value.fname != null &&
+      this.formProducto.value.fcategoria != null &&
+      this.formProducto.value.fcantidad != null &&
+      this.formProducto.value.fpCompra != null &&
+      this.formProducto.value.fpVenta != null &&
+      this.formProducto.value.fpDesc != null &&
+      this.formProducto.value.fDescription != null &&
+      this.formProducto.value.fcodProd != "" &&
+      this.formProducto.value.fname != "" &&
+      this.formProducto.value.fcategoria != "" &&
+      this.formProducto.value.fcantidad != "" &&
+      this.formProducto.value.fpCompra != "" &&
+      this.formProducto.value.fpVenta != "" &&
+      this.formProducto.value.fpDesc != "" &&
+      this.formProducto.value.fDescription != "" 
+    ){
+      this.productos.saveProducto(loadProductos, {
+        codigo_prod: this.formProducto.value.fcodProd,
+        nombre: this.formProducto.value.fname,
+        categoria: this.formProducto.value.fcategoria,
+        cantidad: this.formProducto.value.fcantidad,
+        precio_compra: this.formProducto.value.fpCompra,
+        precio_venta: this.formProducto.value.fpVenta,
+        precio_descuento: this.formProducto.value.fpDesc,
+        descripcion: this.formProducto.value.fDescription,
+        estatus: 'Disponible'
+      }).subscribe(response => {
+        console.log("Respuesta"+response);
+      }, 
+      reject => {
+        console.log("Error"+reject.error);
+      });
+    }else{
+      this.errores("Todos los campos son requeridos", "danger");
+    }
+  }
+
+  //? Estos metodos funcionan para mostrar las alertas
+  public information(texto: string, tipo: string){
+    //? Agregar opciones de mensajes en vista    
+    const alertas: any = this.alerta.nativeElement; 
+    alertas.innerHTML = `
+                          <div 
+                          class="alert alert-${tipo} alert-dismissible" 
+                          style=
+                            "
+                            position: fixed; top:25vh; right:0%;
+                              
+                            ">
+                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          <strong>¡${texto}!</strong> redirigiendo a lista.
+                          </div>
+    `;
+    setTimeout(() => {} , 1000);
+  }
+
+  public errores(texto: string, tipo: string){
+    //? Agregar opciones de mensajes en vista    
+    const alertas: any = this.alerta.nativeElement; 
+    alertas.innerHTML = `
+                          <div 
+                          class="alert alert-${tipo} alert-dismissible" 
+                          style=
+                            "
+                            position: fixed; top:25vh; right:0%;
+                              
+                            ">
+                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          <strong>¡${texto}!</strong>
+                          </div>
+    `;
+    setTimeout(() => {alertas.innerHTML = ""} , 2000);
+  }
+
+  public capturarArchivo(event: any): any{
+    const archivoCapturado = event.target.files[0];
+    this.fileChange = true; 
+    this.extraerB64(archivoCapturado).then((imagen: any) => {
+      this.preView = imagen.base;
+      console.log(imagen)
+    })
+  }
+  
+  extraerB64 = async ($event: any) => new Promise((resolve, reject) => {
+    try{
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () =>{
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        })
+      }
+
+    }catch(ex){
+      console.log(ex);
+    }
+  })
 
 }

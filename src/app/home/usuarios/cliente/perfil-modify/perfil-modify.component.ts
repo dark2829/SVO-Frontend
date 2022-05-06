@@ -23,7 +23,7 @@ export class PerfilModifyComponent implements OnInit {
     private enlaces: EnlacesService, 
     private formBuilder: FormBuilder, 
     private persona: PersonasService, 
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,    
   ) { }
   
   //* Variables 
@@ -269,7 +269,7 @@ export class PerfilModifyComponent implements OnInit {
     this.formPerson.value.fNexterior = null;
     this.formPerson.value.fReferenc = null;
   }
-  
+
   public capturarArchivo(event: any): any{
     const archivoCapturado = event.target.files[0];
     this.fileChange = true; 

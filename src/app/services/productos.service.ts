@@ -35,9 +35,20 @@ export class ProductosService {
     precio_venta: number, 
     precio_descuento: number, 
     descripcion: string,
-    status: string
+    estatus: string
   }){
-    return this.http.post(url, body);
+    const headers: any = {
+      "Authorization": 'Bearer '+this.token.getToken(),
+      "Access-Control-Allow-Origin" : "*"
+   };
+
+   //Post options pass it to HttpHeaders Class 
+   const httpOptions = {
+       headers: new HttpHeaders(headers),
+   };
+   httpOptions.headers.set('Authorization',this.token.getToken());
+
+    return this.http.post<any>(url, body, httpOptions);
   }
   
   //FIXME: revisar que variables necesita
@@ -52,18 +63,19 @@ export class ProductosService {
     descripcion: string,
     estatus: string
   }){
-    const headers = new HttpHeaders({
-      'Authorization': this.token.getToken(), 
-      /* 'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token' */
-    });
+    const headers: any = {
+      "Authorization": 'Bearer '+this.token.getToken(),
+      "Access-Control-Allow-Origin" : "*"
+   };
 
-    /* let headers = new HttpHeaders();
-    if(this.token.getToken()){
-      // headers.append("Content-Type", "aplication/json"),
-      headers.append("Authorization", "barer"+this.token.getToken());
-    }*/
-    return this.http.post(url, body, {headers});
+   //Post options pass it to HttpHeaders Class 
+   const httpOptions = {
+       headers: new HttpHeaders(headers),
+   };
+   httpOptions.headers.set('Authorization',this.token.getToken());
+
+
+   //Do requesti
+   return this.http.post<any>(url, body, httpOptions)
   }
 }

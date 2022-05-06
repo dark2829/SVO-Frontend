@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import { Injectable } from '@angular/core';
 export class EmpleadosService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient, 
+    private token: TokenService
   ) { }
 
   public saveEmpleado(url: string, body: {
@@ -24,6 +26,17 @@ export class EmpleadosService {
     contrasena: string; 
     idRol: number;
   }){
-    return this.http.post(url, body);
+    const headers: any = {
+      "Authorization": 'Bearer '+this.token.getToken(),
+      "Access-Control-Allow-Origin" : "*"
+   };
+
+   //Post options pass it to HttpHeaders Class 
+   const httpOptions = {
+       headers: new HttpHeaders(headers),
+   };
+   httpOptions.headers.set('Authorization',this.token.getToken());
+
+    return this.http.post<any>(url, body, httpOptions);
   }
 }
