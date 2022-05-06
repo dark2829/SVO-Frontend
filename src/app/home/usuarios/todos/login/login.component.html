@@ -13,8 +13,7 @@
         <div class="col">
             <div class="container">
                 <div class="row vh-100 justify-content-center align-items-center">
-                    <div
-                        class="col col-12 col-sm-12 col-md-9 col-lg-6">
+                    <div class="col col-12 col-sm-12 col-md-9 col-lg-6">
                         <div class="card bg-primary text-white">
                             <div class="card-body text-center roundes-bottom">
                                 <span class="">
@@ -26,13 +25,16 @@
                                     </svg>
                                 </span>
                                 <div class="container w-75 mt-3">
-                                    <form class="">
+                                    <form class="" [formGroup]="formLoginClient" errorTailor novalidate>
+                                        <!-- Alerta -->
+                                        <div class="alert" #alerta id="alerta"></div>
+                                        
                                         <div class="mb-3">
-                                            <input class="form-control" type="text" name="correo" id=""
+                                            <input formControlName="formCorreo" class="form-control" type="text" name="correo" id=""
                                                 placeholder="Correo electrónico o N° empleado">
                                         </div>
                                         <div class="mb-3">
-                                            <input class="form-control" type="password" name="contraseña" id=""
+                                            <input formControlName="formPassword" class="form-control" type="password" name="contraseña" id=""
                                                 placeholder="Contraseña">
                                         </div>
                                         <button class="btn btn-success rounded-pill" (click)="ingresar()">Iniciar

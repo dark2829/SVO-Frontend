@@ -24,21 +24,21 @@ export class ProveedorModifyComponent implements OnInit {
   informacion = false; 
   cancelar = false; 
 
-  proveedores: any = {};
   miFormulario: FormGroup;
 
   //* Constructores
   constructor(
     private service: ProveedoresService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute, //Buscar con indice
     private formBuilder: FormBuilder, 
     private router: Router,
     private enlace: EnlacesService
   ) { }
 
   ngOnInit(): void {
-    this.index = this.route.snapshot.params['id'];
-
+    this.index = this.route.snapshot.params['id'];//obtiene el id de la ruta
+    
+    //? Si id es verdadero entonces: se obtiene toda la informacion del proveedor 
     if(this.index){
     let phone; 
       this.service.getAllProveedores().subscribe(response => {

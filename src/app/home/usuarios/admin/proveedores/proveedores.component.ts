@@ -5,13 +5,11 @@ import { ProveedoresService } from '../../../../services/proveedores.service';
 @Component({
   selector: 'app-proveedores',
   templateUrl: './proveedores.component.html',
-  styleUrls: ['./proveedores.component.css'],
-  providers: [ProveedoresService]
+  styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
   //* Salida
   //* Entrada 
-  // @Output() idProveedor:  EventEmitter<number> = new EventEmitter();
 
   //* Variables
   proveedores: any = {};

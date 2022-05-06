@@ -26,6 +26,7 @@ import { EmpleadoRegisterComponent } from './home/usuarios/admin/empleado-regist
 import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/empleado-modify.component';
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
 import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
+import { GuardHomeService as guard } from './guards/guard-home.service';
 
 /*
   Para acceder a empleado o admin solo en la url se debe colocar 
@@ -41,14 +42,14 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'registro', component: RegisterComponent },
   {path: 'recovery', component: RecoverypassComponent },
-  {path: 'extendProduct', component: ProductoComponent },
-  {path: 'modifyPerfil', component: PerfilModifyComponent },
-  {path: 'shopHistory', component: ShophistoryComponent },
-  {path: 'cancel-request', component: CancelRequestComponent },
-  {path: 'favoritos', component: FavoriteComponent },
+  {path: 'extendProduct', component: ProductoComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'modifyPerfil', component: PerfilModifyComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'shopHistory', component: ShophistoryComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'cancel-request', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopping-cart', component: ShoppingCartComponent },
   //Pantallas de empleado
-  {path: 'home-empleado', component: HomeEmpleadoComponent },
+  {path: 'home-empleado', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ['Empleado']} },
   {path: 'pedidos', component: PedidosComponent },
 
   //Pantallas empleado & admin 
@@ -57,7 +58,7 @@ const routes: Routes = [
   {path: 'product-modify', component: ProductModifyComponent },
   
   //Pantallas admin
-  {path: 'home-admin', component: HomeAdminComponent },
+  {path: 'home-admin', component: HomeAdminComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   {path: 'proveedores', component: ProveedoresComponent },
   {path: 'proveedores-register', component: ProveedorRegisterComponent },
   {path: 'proveedores-modify', component: ProveedorModifyComponent },
@@ -66,7 +67,12 @@ const routes: Routes = [
   {path: 'empleado-modify', component: EmpleadoModifyComponent },
   {path: 'cancel', component: PedidoRequestComponent },
   {path: 'alert', component: AlertComponent },
-  {path: 'proveedor/:id', component: ProveedorModifyComponent }
+  //? Envian informacion en la url 
+  {path: 'proveedor/:id', component: ProveedorModifyComponent },
+  {path: 'user/:id', component: HomeComponent },
+  {path: 'userAdmin/:id', component: HomeAdminComponent },
+  {path: 'userEmpleado/:id', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ["Empleado"]} },
+  {path: 'producto/:id', component: ProductModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
 
 ]
 

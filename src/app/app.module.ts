@@ -40,6 +40,9 @@ import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/ped
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
 
+//Interceptores
+import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
+
 @NgModule({
   declarations: [//manda a llamar al nombre de las clases que se encuentran en component.ts
     AppComponent,
@@ -89,7 +92,9 @@ import { ErrorTailorModule} from '@ngneat/error-tailor';
       }
     })
   ],
-  providers: [],
+  providers: [
+    // interceptorEmpleado
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
