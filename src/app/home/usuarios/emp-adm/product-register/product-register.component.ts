@@ -16,6 +16,7 @@ export class ProductRegisterComponent implements OnInit {
   formProducto: FormGroup;
   fileChange: boolean = false;
   preView: string;  
+  img: any; 
 
   @ViewChild('alerta') alerta: ElementRef;
 
@@ -68,6 +69,7 @@ export class ProductRegisterComponent implements OnInit {
     ){
       this.productos.saveProducto(loadProductos, {
         codigo_prod: this.formProducto.value.fcodProd,
+        imagen: this.img ,
         nombre: this.formProducto.value.fname,
         categoria: this.formProducto.value.fcategoria,
         cantidad: this.formProducto.value.fcantidad,
@@ -77,10 +79,10 @@ export class ProductRegisterComponent implements OnInit {
         descripcion: this.formProducto.value.fDescription,
         estatus: 'Disponible'
       }).subscribe(response => {
-        console.log("Respuesta"+response);
+        this.information(response.message, "success")
       }, 
       reject => {
-        console.log("Error"+reject.error);
+        this.errores(reject.message, "danger")
       });
     }else{
       this.errores("Todos los campos son requeridos", "danger");
@@ -100,7 +102,7 @@ export class ProductRegisterComponent implements OnInit {
                               
                             ">
                           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
+                          <strong>¡${texto}!</strong>
                           </div>
     `;
     setTimeout(() => {} , 1000);
@@ -124,12 +126,14 @@ export class ProductRegisterComponent implements OnInit {
     setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
 
+
   public capturarArchivo(event: any): any{
     const archivoCapturado = event.target.files[0];
     this.fileChange = true; 
     this.extraerB64(archivoCapturado).then((imagen: any) => {
       this.preView = imagen.base;
-      console.log(imagen)
+      let cantidad = imagen.base.length;
+      this.img = imagen.base.split(',')[1];      
     })
   }
   
@@ -155,4 +159,38 @@ export class ProductRegisterComponent implements OnInit {
     }
   })
 
+  subirArchivo(): any{
+    try{
+      
+    }catch(error){
+      console.log(error);
+    }
+  }
+
 }
+
+
+/* function onReadImg($parse: any){
+  let directive = {
+    link: link, 
+    restrict: 'A',
+    scope: false
+  };
+
+  return directive; 
+
+  function link(scope: any, element: any, attrs: any){
+    let fn = $parse(attrs.onReadImg);
+    element.on('change', function(onChangeEvent: any){
+      let reader = new FileReader();
+      reader.onload = function(onLoadEvent){
+        scope.$apply(function() {
+          fn(scope, {
+            $fileContent: onLoadEvent.target?.result.split(',')[1]
+          });
+        });
+      };
+      reader.readAsDataURL((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+    })
+  }
+} */
