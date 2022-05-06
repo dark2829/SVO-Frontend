@@ -79,11 +79,10 @@ export class ProductRegisterComponent implements OnInit {
         descripcion: this.formProducto.value.fDescription,
         estatus: 'Disponible'
       }).subscribe(response => {
-        console.log("Respuesta"+response);
+        this.information(response.message, "success")
       }, 
       reject => {
-        console.log(reject);
-        this.errores("Error al guardar", "danger")
+        this.errores(reject.message, "danger")
       });
     }else{
       this.errores("Todos los campos son requeridos", "danger");
@@ -103,7 +102,7 @@ export class ProductRegisterComponent implements OnInit {
                               
                             ">
                           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
+                          <strong>¡${texto}!</strong>
                           </div>
     `;
     setTimeout(() => {} , 1000);
