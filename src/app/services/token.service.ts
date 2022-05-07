@@ -17,9 +17,10 @@ export class TokenService {
   constructor() { }
 
   public setToken(token: string): void{
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.setItem(TOKEN_KEY, token);
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
-    // window.sessionStorage.removeItem(TOKEN_KEY);
   }
 
   public isLogged(): boolean{
@@ -31,7 +32,7 @@ export class TokenService {
   }
 
   public getToken(): string{
-    return localStorage.getItem(TOKEN_KEY)!;
+    return sessionStorage.getItem(TOKEN_KEY)!;
   }
 
   public setID(id: string): void{
@@ -66,15 +67,8 @@ export class TokenService {
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));    
   }
 
-  public getAuthorieties(): string[]{
-    this.roles = [];
-    if(sessionStorage.getItem(AUTHORITIES_KEY)){
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)!).forEach((auth: any) => {
-        this.roles.push(auth.auth)
-      });
-    }
-
-    return this.roles; 
+  public getAuthorieties(): string{
+    return sessionStorage.getItem(AUTHORITIES_KEY)!;
   }
 
   public logout(): void{
@@ -83,5 +77,10 @@ export class TokenService {
     window.localStorage.removeItem(IDENTIFICADOR_KEY);
     window.localStorage.removeItem(NOMBRE_KEY);
     window.localStorage.removeItem(AUTHORITIES_KEY);
+    window.sessionStorage.clear();
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(IDENTIFICADOR_KEY);
+    window.sessionStorage.removeItem(NOMBRE_KEY);
+    window.sessionStorage.removeItem(AUTHORITIES_KEY);
   }
 }

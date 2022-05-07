@@ -17,7 +17,7 @@ export class LoginComponent {
   identify: string;
   contrasena: string;
   nombre: string;
-  roles: string[] = [];
+  roles: string;
 
   @ViewChild('alerta') alerta: ElementRef;
   formLoginClient: FormGroup;
@@ -43,28 +43,7 @@ export class LoginComponent {
     })
   }
 
-  /* ingresar(): void{
-    this.loginUser = new LoginUser(this.correo, this.contrasena);
-    console.log(this.loginUser);
-    this.persona.inicioSesion(this.loginUser).subscribe(
-      data => {
-        this.isLogged = true; 
-        this.isLoginFail = false; 
-        
-        this.tokenService.setToken(data.token);
-        this.tokenService.setCorreo(data.correo);
-        this.tokenService.setAuthorities(data.autorities);
-      }, 
-      err => {
-        this.isLogged = false; 
-        this.isLoginFail = true; 
-        console.log("mensaje de error"+err.error.message);
-      }
-    );
-  } */
-
   ingresar() {
-    //! Solo falta el token
     try {
       if (
         this.formLoginClient.value.formCorreo != null &&
@@ -83,13 +62,14 @@ export class LoginComponent {
               this.information("Bienvenido", "success");
               this.isLogged = true;
               this.isLoginFail = false;
+              console.log(response);
 
               this.tokenService.setToken(response.data.tokenAccess);
               this.tokenService.setIdentificador(response.data.idUser.correo);
               this.tokenService.setAuthorities(response.data.rol[0].authority);
               this.tokenService.setNombre(response.data.idPerson.nombre);
               this.tokenService.setID(response.data.idPerson.id)
-              this.roles = response.data.rol[0].authority;;
+              this.roles = response.data.rol[0].authority;
 
               if (response.data.rol[0].authority == "Administrador") {
                 setTimeout(() => { this.router.navigate(['userAdmin/' + response.data.idPerson.id]) }, 2000);
@@ -120,25 +100,6 @@ export class LoginComponent {
             }
           }
         );
-        /* funcional 
-        this.persona.inicioSesion(API_LOGIN, {
-          identificador: this.formLoginClient.value.formCorreo,
-          contrasena: this.formLoginClient.value.formPassword
-        }).subscribe(
-          response => {
-          if(response != null) {
-            this.information("Bienvenido", "success");
-            this.persona.personInfo = response;
-            setTimeout(() => {this.router.navigate(['user/'+response.id])} , 2000);
-          }else{
-            this.information("Usuario o contraseña incorrectos", "warning")
-            console.log("Respuesta desde login.component.ts "+response);
-          }
-        },
-        reject => {
-          this.errores("Usuario o contraseña incorrecto", "danger");
-        }
-        ); */
       }
     } catch (error) {
       console.log(error);

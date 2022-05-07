@@ -47,31 +47,31 @@ const routes: Routes = [
   {path: 'shopHistory', component: ShophistoryComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'cancel-request', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
-  {path: 'shopping-cart', component: ShoppingCartComponent },
+  {path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   //Pantallas de empleado
   {path: 'home-empleado', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ['Empleado']} },
   {path: 'pedidos', component: PedidosComponent },
 
   //Pantallas empleado & admin 
-  {path: 'inventario', component: InventarioComponent },
-  {path: 'product-register', component: ProductRegisterComponent },
-  {path: 'product-modify', component: ProductModifyComponent },
+  {path: 'inventario', component: InventarioComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
+  {path: 'product-register', component: ProductRegisterComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
+  {path: 'product-modify', component: ProductModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
   
   //Pantallas admin
   {path: 'home-admin', component: HomeAdminComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
-  {path: 'proveedores', component: ProveedoresComponent },
-  {path: 'proveedores-register', component: ProveedorRegisterComponent },
-  {path: 'proveedores-modify', component: ProveedorModifyComponent },
-  {path: 'empleados', component: EmpleadosComponent },
-  {path: 'empleado-register', component: EmpleadoRegisterComponent },
-  {path: 'empleado-modify', component: EmpleadoModifyComponent },
-  {path: 'cancel', component: PedidoRequestComponent },
-  {path: 'alert', component: AlertComponent },
+  {path: 'proveedores', component: ProveedoresComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'proveedores-register', component: ProveedorRegisterComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'proveedores-modify', component: ProveedorModifyComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'empleados', component: EmpleadosComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'empleado-register', component: EmpleadoRegisterComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'empleado-modify', component: EmpleadoModifyComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'cancel', component: PedidoRequestComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'alert', component: AlertComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   //? Envian informacion en la url 
-  {path: 'proveedor/:id', component: ProveedorModifyComponent },
-  {path: 'user/:id', component: HomeComponent },
-  {path: 'userAdmin/:id', component: HomeAdminComponent },
-  {path: 'userEmpleado/:id', component: EmpleadoModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado"]} },
+  {path: 'proveedor/:id', component: ProveedorModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
+  {path: 'user/:id', component: HomeComponent, canActivate: [guard], data: {expectedRol: ["Cliente"]} },
+  {path: 'userAdmin/:id', component: HomeAdminComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'userEmpleado/:id', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ["Empleado"]} },
   {path: 'producto/:id', component: ProductModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
 
 ]
