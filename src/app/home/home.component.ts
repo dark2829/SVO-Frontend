@@ -42,8 +42,10 @@ export class HomeComponent {
     if(b64 == null){
       return null; 
     }else{
+      console.log(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+      + `${b64}`));
       return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
-      + b64)
+      + `${b64}`);
     }
   }
 }
