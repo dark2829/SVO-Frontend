@@ -81,6 +81,7 @@ export class PersonasService {
   }){
     return this.http.post(url, body);
   }
+  //FIXME: Falta modificar para empleados
   public updateClientDataPerson(url: string, body: {
     nombre: string; 
     apellido_paterno: string; 

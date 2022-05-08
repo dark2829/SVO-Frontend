@@ -46,8 +46,7 @@ export class ProductModifyComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenService.getToken()) {
       this.index = this.route.snapshot.params['id'].toString();
-
-      let cateNumber: number;
+      
       this.productos.getProductID(this.index).subscribe(async response => {
         this.codigoProducto = response.data.codigo_prod;
         if (response.data.imagen != null) {

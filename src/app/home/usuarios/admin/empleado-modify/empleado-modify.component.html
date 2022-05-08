@@ -30,16 +30,14 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <form class="row was-validated needs-validation" [formGroup]="formEmpleado" errorTailor
-                                novalidate>
-
+                            <form class="row was-validated needs-validation" [formGroup]="formEmpleado" errorTailor novalidate>
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Numero de empleado</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="text" class="form-control" id="numero de empleado"
-                                            placeholder="1591206" value="{{nEmpleado}}" disabled>
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fEmpleado" type="text" class="form-control" id="numeroEmpleado"
+                                            placeholder="1591206">
                                     </div>
                                 </div>
 
@@ -47,8 +45,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Nombre</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="text" value="{{pNombre}}" class="form-control" id="nombre" placeholder="Alejandro"
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fNombre" type="text" class="form-control" id="nombre" placeholder="Alejandro"
                                             required>
                                     </div>
                                 </div>
@@ -57,8 +55,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Apellido Paterno</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="text" value="{{aPaterno}}" class="form-control" id="apellido" placeholder="Martínez "
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fApellidoP" type="text" class="form-control" id="apellidoP" placeholder="Martínez "
                                             required>
                                     </div>
                                 </div>
@@ -67,8 +65,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Apellido Materno</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="text" value="{{aMaterno}}" class="form-control" id="apellido" placeholder="López "
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fApellidoM" type="text" class="form-control" id="apellidoM" placeholder="López "
                                             required>
                                     </div>
                                 </div>
@@ -77,8 +75,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Curp</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="text" value="{{curp}}" class="form-control" id="curp"
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fCurp" type="text" class="form-control" id="curp"
                                             placeholder="LOMA15000000HTLSLLA3" required>
                                     </div>
                                 </div>
@@ -87,8 +85,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Fecha de nacimiento </label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="date" value="bdate" class="form-control" id="fecha nacimiento" apellido>
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fFnac" value="fNacimiento" type="date" class="form-control" id="fechaNacimiento" apellido>
                                     </div>
                                 </div>
 
@@ -99,8 +97,8 @@
                                     <div class="col">
                                         <div class="form-check mt-2">
                                             <label class="form-check-label" for="flexRadioDefault1">
-                                                <input formControlName="fGender" class="form-check-input" type="radio"
-                                                    name="fGender" id="F" value="F">
+                                                <input formControlName="fGenero" class="form-check-input" type="radio"
+                                                    name="fGenero" id="F" value="F">
                                                 <span>Femenino</span>
                                             </label>
                                         </div>
@@ -109,8 +107,8 @@
                                     <div class="col">
                                         <div class="form-check mt-2">
                                             <label class="form-check-label" for="flexRadioDefault2">
-                                                <input formControlName="fGender" class="form-check-input" type="radio"
-                                                    name="fGender" id="M" value="M">
+                                                <input formControlName="fGenero" class="form-check-input" type="radio"
+                                                    name="fGenero" id="M" value="M">
                                                 <span>Masculino</span>
                                             </label>
                                         </div>
@@ -121,9 +119,9 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Teléfono</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="number" value="{{telefono}}" class="form-control" id="telefono" placeholder="2411302419"
-                                            required>
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fTelefono" type="number" class="form-control" id="telefono" placeholder="2411302419"
+                                            required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                                     </div>
                                 </div>
 
@@ -131,12 +129,12 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Puesto</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <select class="form-select" [value]="puesto" aria-label="Default select example" required>
+                                    <div class="col col-7 datosRequeridos ">
+                                        <select formControlName="fPuesto" class="form-select" aria-label="Default select example" required>
                                             <option><small>Selecciona una opción</small></option>
-                                            <option value="1">Cajero</option>
-                                            <option value="2">Cargador</option>
-                                            <option value="3">Repartidor</option>
+                                            <option value="Cajero">Cajero</option>
+                                            <option value="Cargador">Cargador</option>
+                                            <option value="Repartidor">Repartidor</option>
                                         </select>
                                     </div>
                                 </div>
@@ -145,8 +143,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Salario</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="number" value="{{salario}}" class="form-control" step="00.01" id="salario"
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fSalario" type="number" class="form-control" step="00.01" id="salario"
                                             placeholder="$00.00" required>
                                     </div>
                                 </div>
@@ -155,8 +153,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="text" value="{{correo}}" class="form-control" id="correo"
+                                    <div class="col col-7 datosRequeridos">
+                                        <input formControlName="fCorreo" type="text" class="form-control" id="correo"
                                             placeholder="example@exaple.com" required>
                                     </div>
                                 </div>
@@ -165,8 +163,8 @@
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Contraseña</label>
                                     </div>
-                                    <div class="col col-7">
-                                        <input type="password" class="form-control" id="password" placeholder="*****"
+                                    <div class="col col-7" datosRequeridos>
+                                        <input formControlName="fContra" maxlength="8" type="password" class="form-control" id="password" placeholder="*****"
                                             required>
                                     </div>
                                 </div>
@@ -177,9 +175,9 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
+                                            <input formControlName="fStatus" class="form-check-input" type="radio" name="fStatus"
+                                                id="Activo" value="Activo">
+                                            <label class="form-check-label" for="Activo">
                                                 <span>Activo</span>
                                             </label>
                                         </div>
@@ -187,9 +185,9 @@
 
                                     <div class="col">
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
+                                            <input formControlName="fStatus" class="form-check-input" type="radio" name="fStatus"
+                                                id="Inactivo" value="Inactivo">
+                                            <label class="form-check-label" for="Inactivo">
                                                 <span>Inactivo</span>
                                             </label>
                                         </div>
@@ -199,7 +197,7 @@
                                 <!-- Botones -->
                                 <div class="row m-3">
                                     <div class="col text-center">
-                                        <button type="submit" class="btn btn-success rounded rounded-pill" >
+                                        <button type="submit" class="btn btn-success rounded rounded-pill" (click)="enviar()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                 fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                                 <path

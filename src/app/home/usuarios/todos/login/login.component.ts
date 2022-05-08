@@ -59,10 +59,9 @@ export class LoginComponent {
         }).subscribe(
           response => {
             if (response != null) {
-              this.information("Bienvenido", "success");
+              this.information(response.message, "success");
               this.isLogged = true;
               this.isLoginFail = false;
-              console.log(response);
 
               this.tokenService.setToken(response.data.tokenAccess);
               this.tokenService.setIdentificador(response.data.idUser.correo);
@@ -82,22 +81,12 @@ export class LoginComponent {
                 setTimeout(() => { this.router.navigate(['user/' + response.data.idPerson.id]) }, 2000);
               }
             } else {
-              this.information("Usuario o contraseña incorrectos", "warning")
-              console.log("Respuesta desde login.component.ts " + response);
+              this.information(response.message, "warning")
             }
           },
           reject => {
-            switch (reject.status) {
-              case 0:
-                this.errores("Error de conexión", "danger");
-                break;
-              case 400:
-                this.errores("El correo ya está registrado", "warning");
-                break;
-              case 500:
-                this.errores("Error en el servidor", "danger");
-                break;
-            }
+            console.log(reject);
+            this.errores(reject.message, "danger");
           }
         );
       }

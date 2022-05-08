@@ -30,11 +30,6 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <pre>
-                                {{
-                                    formEmpleado.value | json
-                                }}
-                            </pre>
                             <form class="row was-validated needs-validation" [formGroup]="formEmpleado" errorTailor novalidate>
 
                                 <div class="row mt-2">
@@ -132,7 +127,7 @@
                                     </div>
                                     <div class="col col-7 datosRequeridos">
                                         <input formControlName="empTelefo" type="number" class="form-control" id="telefono" placeholder="2411302419"
-                                            required>
+                                            required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                                     </div>
                                 </div>
 
@@ -175,7 +170,7 @@
                                         <label for="staticEmail2" class="mt-2">Contraseña</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empPass" type="password" class="form-control" id="nombre" placeholder="*****"
+                                        <input formControlName="empPass" type="password" maxlength="8" class="form-control" id="nombre" placeholder="*****"
                                             required>
                                     </div>
                                 </div>
