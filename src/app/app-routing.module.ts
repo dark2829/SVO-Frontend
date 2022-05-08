@@ -42,7 +42,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'registro', component: RegisterComponent },
   {path: 'recovery', component: RecoverypassComponent },
-  {path: 'extendProduct', component: ProductoComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'extendProduct/:id', component: ProductoComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'modifyPerfil', component: PerfilModifyComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopHistory', component: ShophistoryComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'cancel-request', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
