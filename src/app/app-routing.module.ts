@@ -27,6 +27,7 @@ import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/e
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
 import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
 import { GuardHomeService as guard } from './guards/guard-home.service';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 /*
   Para acceder a empleado o admin solo en la url se debe colocar 
@@ -74,6 +75,7 @@ const routes: Routes = [
   {path: 'userEmpleado/:id', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ["Empleado"]} },
   {path: 'userEmpleadoModify/:id', component: EmpleadoModifyComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   {path: 'producto/:id', component: ProductModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },
+  {path: '**', component: NotFoundComponent }//* Siempre debe sera la ultima, es para redireccionar en caso de no encontrar una ruta
 
 ]
 

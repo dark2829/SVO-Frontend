@@ -120,7 +120,8 @@ export class PerfilModifyComponent implements OnInit {
       });
     });
   }
-
+  
+  //FIXME: Falta modificar para acrualizar los datos de la persona
   public updatePerson() {
     const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
 
