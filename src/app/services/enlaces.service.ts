@@ -28,7 +28,6 @@ export class EnlacesService {
   public EMPLEADO_BUSCAR_ALL = "/findAllEmpleados"; //?GET
   public EMPLEADO_BUSCAR_ID = "/findEmpleadoById?id="; //?GET
   //* Personas
-  // public PERSONA_INSERT = "/insertNewUser"; //? POST
   public PERSONA_INSERT = "registro"; //? POST
   public PERSONA_BUSCAR = "/findUserById?id="; //? GET
   public PERSONA_UPDATE_P = `/updateClient?id=`; //? POST

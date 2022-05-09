@@ -85,7 +85,7 @@
 
           <div class="card-body">
             <h4 class="card-title tituloProducto h5 text-dark">{{producto.nombre}}</h4>
-            <p class="card-text text-start text-dark">Jabón en polvo Roma de un kilogramo</p>
+            <p class="card-text text-start text-dark">{{producto.descripcion.substring(0, 50)}}</p>
             <p class="card-text">
               <span *ngIf="producto.precio_descuento != 0" class="text-secondary small"><del>${{producto.precio_descuento+producto.precio_venta}}</del></span>
               <br>

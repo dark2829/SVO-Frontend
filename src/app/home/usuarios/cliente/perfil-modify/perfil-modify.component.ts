@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PersonasService } from 'src/app/services/personas.service';
 import { empty } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TokenService } from '../../../../services/token.service';
 
 @Component({
   selector: 'app-perfil-modify',
@@ -16,6 +17,9 @@ export class PerfilModifyComponent implements OnInit {
   @ViewChild('alerta') alerta: ElementRef;
   fileChange: boolean = false;
   preView: string; 
+  direccion1: boolean = true;
+  direccion2: boolean;
+  direccion3: boolean;
 
   //* Constructores
   constructor(
@@ -24,6 +28,7 @@ export class PerfilModifyComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private persona: PersonasService, 
     private sanitizer: DomSanitizer,    
+    private token: TokenService
   ) { }
   
   //* Variables 
@@ -43,14 +48,14 @@ export class PerfilModifyComponent implements OnInit {
   _correo: string; 
   _contrasena: string; 
   _telefono: string; 
-  _calle: string; 
-  _colonia: string; 
-  _municipio: string; 
-  _estado: string; 
-  _cp: string; 
-  _ninterior: string; 
-  _nexterior: string; 
-  _referenc: string; 
+  _calle: string[] = []; 
+  _colonia: string[] = []; 
+  _municipio: string[] = []; 
+  _estado: string[] = []; 
+  _cp: string[] = []; 
+  _ninterior: string[] = []; 
+  _nexterior: string[] = []; 
+  _referenc: string[] = []; 
   _propietario: string; 
   _tarjeta: string; 
   _fechaVenc: string; 
@@ -61,125 +66,112 @@ export class PerfilModifyComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.indexPerson = "2"
-    this.indexClient = "2"
+    this.indexPerson = this.token.getID();
     this.persona.getPerson(this.indexPerson).subscribe(response => {
-      this._nombre =      response.idPersona.nombre;
-      this._apellidoP =   response.idPersona.apellido_paterno;
-      this._apellidoM =   response.idPersona.apellido_materno;
-      this.Bdate = response.idPersona.fecha_nac;
+      this.indexClient = response.data.id;//? Id usuario
+      this._nombre =      response.data.idPersona.nombre;
+      this._apellidoP =   response.data.idPersona.apellido_paterno;
+      this._apellidoM =   response.data.idPersona.apellido_materno;
+      this.Bdate = response.data.idPersona.fecha_nac;
       this.Bdate = this.Bdate.split("-");
       this.Bdate = this.Bdate[2]+"-"+this.Bdate[1]+"-"+this.Bdate[0];
-      response.idPersona.fecha_nac = this.Bdate; 
       this._fechaBirt =   this.Bdate;   
-      this._genero =      response.idPersona.genero;
-      this._correo =      response.correo; 
-      this._contrasena =  response.contraseña; 
-      this._telefono =    response.idPersona.telefono; 
-      this._calle =       response.idPersona.direccion[0].calle; 
-      this._colonia =     response.idPersona.direccion[0].colonia; 
-      this._municipio =   response.idPersona.direccion[0].municipio; 
-      this._estado =      response.idPersona.direccion[0].estado; 
-      this._cp =          response.idPersona.direccion[0].cp; 
-      this._ninterior =   response.idPersona.direccion[0].n_exterior; 
-      this._nexterior =   response.idPersona.direccion[0].n_interior; 
-      this._referenc =    response.idPersona.direccion[0].referencia; 
-      this._propietario = response.idPersona.tarjeta[0].nombre_propietario; 
-      this._tarjeta =     response.idPersona.tarjeta[0].numero; 
-      this.Vdate = response.idPersona.fecha_nac;
-      this.Vdate = this.Vdate.split("-");
+      this._genero =      response.data.idPersona.genero;
+      this._correo =      response.data.correo; 
+      this._contrasena =  response.data.contraseña; 
+      this._telefono =    response.data.idPersona.telefono; 
+      this._calle[0] =       response.data.idPersona.direccion[0].calle; 
+      this._colonia[0] =     response.data.idPersona.direccion[0].colonia; 
+      this._municipio[0] =   response.data.idPersona.direccion[0].municipio; 
+      this._estado[0] =      response.data.idPersona.direccion[0].estado; 
+      this._cp[0] =          response.data.idPersona.direccion[0].cp; 
+      this._ninterior[0] =   response.data.idPersona.direccion[0].n_exterior; 
+      this._nexterior[0] =   response.data.idPersona.direccion[0].n_interior; 
+      this._referenc[0] =    response.data.idPersona.direccion[0].referencia; 
+      this._propietario = response.data.idPersona.tarjeta[0].nombre_propietario; 
+      this._tarjeta =     response.data.idPersona.tarjeta[0].numero; 
+      this.Vdate = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+      this.Vdate = this.Vdate.split("/");
       this.Vdate = this.Vdate[0]+"-"+this.Vdate[1];
       this._fechaVenc =   this.Vdate; 
-      this._cvv =         response.idPersona.tarjeta[0].cvv; 
+      this._cvv =         response.data.idPersona.tarjeta[0].cvv; 
       
       this.formPerson = this.formBuilder.group({
-        fname:       [response.idPersona.nombre,           [Validators.required]],
-        fSame:       [response.idPersona.apellido_paterno, [Validators.required]],
-        fLame:       [response.idPersona.apellido_materno],
+        fname:       [this._nombre, [Validators.required]],
+        fSame:       [this._apellidoP, [Validators.required]],
+        fLame:       [this._apellidoM],
         fBdate:      [this.Bdate],
-        fGender:     [response.idPersona.genero],
-        fEmail:      [response.correo, [Validators.required, Validators.email]],
-        fPass:       [response.contraseña, [Validators.required, Validators.maxLength(8)]],
-        fPhone:      [response.idPersona.telefono, [Validators.maxLength(10), Validators.minLength(10)]],
-        fCalle:      [response.idPersona.direccion[0].calle],
-        fColonia:    [response.idPersona.direccion[0].colonia],
-        fMunicipio:  [response.idPersona.direccion[0].municipio],
-        fEstado:     [response.idPersona.direccion[0].estado],
-        fCp:         [response.idPersona.direccion[0].cp, [Validators.minLength(5), Validators.maxLength(5)]],
-        fNinterior:  [response.idPersona.direccion[0].n_interio],
-        fNexterior:  [response.idPersona.direccion[0].n_exterior],
-        fReferenc:   [response.idPersona.direccion[0].referencia],
-        fPropieta:   [response.idPersona.tarjeta[0].nombre_propietario],
-        fTarjeta:    [response.idPersona.tarjeta[0].numero, [Validators.minLength(16), Validators.maxLength(16)]],
-        fFechaVen:   [this.Vdate],
-        fcvv:        [response.idPersona.tarjeta[0].cvv]
+        fGender:     [this._genero],
+        fEmail:      [this._correo, [Validators.required, Validators.email]],
+        fPass:       [this._contrasena, [Validators.required, Validators.maxLength(8)]],
+        fPhone:      [this._telefono, [Validators.maxLength(10), Validators.minLength(10)]],
+        fCalle:      [this._calle],
+        fColonia:    [this._colonia],
+        fMunicipio:  [this._municipio],
+        fEstado:     [this._estado],
+        fCp:         [this._cp, [Validators.minLength(5), Validators.maxLength(5)]],
+        fNinterior:  [this._ninterior],
+        fNexterior:  [this._nexterior],
+        fReferenc:   [this._referenc],
+        fPropieta:   [this._propietario],
+        fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
+        fFechaVen:   [this._fechaVenc],
+        fcvv:        [this._cvv]
       });
     });
   }
 
-  public updatePerson(){
-    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.indexPerson+this.enlaces.PERSONA_UPDATE_U+this.indexClient;
+  public updatePerson() {
+    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
 
     // Formatear Fecha
     let date = this.formPerson.value.fBdate;
-    if(date != null){
+    if (date != null) {
       date = date.split("-");
-      date = date[2]+"/"+date[1]+"/"+date[0];      
+      date = date[2] + "/" + date[1] + "/" + date[0];
       console.log(date);
-    }else{
-      date = null; 
+    } else {
+      date = null;
     }
 
-    if(this.enviarDatos){
-      try{
-        if(
-          this.formPerson.value.fname != null &&
-          this.formPerson.value.fSame != null &&
-          this.formPerson.value.fEmail != null &&
-          this.formPerson.value.fPass != null &&
-          this.formPerson.value.fname != "" &&
-          this.formPerson.value.fSame != "" &&
-          this.formPerson.value.fEmail != "" &&
-          this.formPerson.value.fPass != "" 
-        ){
-          //? Identificar que tipo de modificacion se hace
-          this.persona.updateClientDataPerson(this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient, {
-            nombre: this.formPerson.value.fname,
-            apellido_paterno: this.formPerson.value.fSame,
-            apellido_materno: this.formPerson.value.fLame,
-            fecha_nacimiento: date,
-            genero: this.formPerson.value.fGender,
-            correo: this.formPerson.value.fEmail,
-            contrasena: this.formPerson.value.fPass,
-            telefono: this.formPerson.value.fPhone
-          }).subscribe(
-            response => {
-              this.information("Registro exitoso", "success")
-              console.log(response);
-            },
-            error => {
-              switch (error.status) {
-                case 0:
-                  this.errores("Error de conexión", "danger");
-                  break;
-                case 400:
-                  this.errores("El correo ya está registrado", "warning");
-                  break;
-                case 404:
-                  this.errores("El servidor no pudo encontrar el servicio solicitado", "warning");
-                  break;
-                case 500:
-                  this.errores("Error en el servidor", "danger");
-                  break;
-              }
-            }
-          );
-        }else{
-          this.errores("Debe modificar minimo los datos marcados", "warning");
-        }
-      }catch(error){
-        console.log(error);
+    try {
+      if (
+        this.formPerson.value.fname != null &&
+        this.formPerson.value.fSame != null &&
+        this.formPerson.value.fEmail != null &&
+        this.formPerson.value.fPass != null &&
+        this.formPerson.value.fname != "" &&
+        this.formPerson.value.fSame != "" &&
+        this.formPerson.value.fEmail != "" &&
+        this.formPerson.value.fPass != ""
+      ) {
+        //? Identificar que tipo de modificacion se hace
+        const API_CLIENT = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.indexPerson+this.enlaces.PERSONA_UPDATE_U+this.indexClient;
+        console.log(API_CLIENT);
+        this.persona.updateClientDataPerson(API_CLIENT, {
+          nombre: this.formPerson.value.fname,
+          apellido_paterno: this.formPerson.value.fSame,
+          apellido_materno: this.formPerson.value.fLame,
+          fecha_nacimiento: date,
+          genero: this.formPerson.value.fGender,
+          correo: this.formPerson.value.fEmail,
+          contrasena: this.formPerson.value.fPass,
+          telefono: this.formPerson.value.fPhone
+        }).subscribe(
+          response => {
+            this.information("Registro exitoso", "success")
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+            this.errores(error.message, "danger");
+          }
+        );
+      } else {
+        this.errores("Debe modificar minimo los datos marcados", "warning");
       }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -252,14 +244,14 @@ export class PerfilModifyComponent implements OnInit {
   }
 
   public clearDireccion() {
-    this._calle =  ""; 
-    this._colonia =  ""; 
-    this._municipio =  ""; 
-    this._estado =  ""; 
-    this._cp =  ""; 
-    this._ninterior =  ""; 
-    this._nexterior =  ""; 
-    this._referenc =  ""; 
+    this._calle[0] = "";
+    this._colonia[0] = "";
+    this._municipio[0] = "";
+    this._estado[0] = "";
+    this._cp[0] = "";
+    this._ninterior[0] = "";
+    this._nexterior[0] = "";
+    this._referenc[0] = "";
     this.formPerson.value.fCalle = null;
     this.formPerson.value.fColonia = null;
     this.formPerson.value.fMunicipio = null;
@@ -300,4 +292,20 @@ export class PerfilModifyComponent implements OnInit {
       console.log(ex);
     }
   })
+
+  direccionU(){
+    this.direccion1 = true;
+    this.direccion2 = false;
+    this.direccion3 = false;
+  }
+  direccionD(){
+    this.direccion1 = false;
+    this.direccion2 = true;
+    this.direccion3 = false;
+  }
+  direccionT(){
+    this.direccion1 = false;
+    this.direccion2 = false;
+    this.direccion3 = true;
+  }
 }
