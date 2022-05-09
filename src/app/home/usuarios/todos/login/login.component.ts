@@ -86,7 +86,7 @@ export class LoginComponent {
           },
           reject => {
             console.log(reject);
-            this.errores(reject.message, "danger");
+            this.errores(reject.error.message, "danger");
           }
         );
       }
