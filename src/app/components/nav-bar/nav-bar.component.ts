@@ -36,7 +36,6 @@ export class NavBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //TODO: revisar, tal vez se requiera hacer una comparacion para saber de doonde viene el id.
     if(this.token.getToken()){
       this.isLogged = true; 
       this.id = this.token.getID(); 
@@ -54,7 +53,7 @@ export class NavBarComponent implements OnInit {
     }else{
       this.isLogged = false;
       this.nombre = "";
-      console.log("No tiene una sesion iniciada");
+      console.log("No tiene una sesión iniciada");
     }
 
     
@@ -71,35 +70,40 @@ export class NavBarComponent implements OnInit {
     this.idRol = "";
     this.rolTipo = "";
     this.isLogged=  false;
-    // window.location.reload();
     this.router.navigate(['login']);
   }
   
-  home(){
-    this.router.navigate (['']);
-    }
-  
-    login(){
-      this.router.navigate(['login']);//agregamos la ruta con el nombre especificado en app-routing.module.ts
-    }
-  
-    modificarPerfil(){
-      this.router.navigate(['modifyPerfil']);
-    }
-  
-    shopHistory(){
-      this.router.navigate(['shopHistory']);
-    }
-  
-    favoritos(){
-      this.router.navigate(['favoritos']);
-    }
+  home(typeruser: string) {
+    if(typeruser.includes("Administrador"))
+      this.router.navigate(['home-admin']);
+    if(typeruser.includes("Empleado"))
+      this.router.navigate(['home-empleado']);
+    if(typeruser.includes("Cliente"))
+      this.router.navigate(['']);
+    
+  }
 
-    shopping_cart(){
-      this.router.navigate(['shopping-cart']);
-    }
+  login() {
+    this.router.navigate(['login']);//agregamos la ruta con el nombre especificado en app-routing.module.ts
+  }
 
-    cancelRequest(){
-      this.router.navigate(['cancel-request']);
-    }
+  modificarPerfil() {
+    this.router.navigate(['modifyPerfil']);
+  }
+
+  shopHistory() {
+    this.router.navigate(['shopHistory']);
+  }
+
+  favoritos() {
+    this.router.navigate(['favoritos']);
+  }
+
+  shopping_cart() {
+    this.router.navigate(['shopping-cart']);
+  }
+
+  cancelRequest() {
+    this.router.navigate(['cancel-request']);
+  }
 }
