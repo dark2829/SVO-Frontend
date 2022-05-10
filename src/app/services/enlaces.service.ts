@@ -25,10 +25,9 @@ export class EnlacesService {
   public PROVEEDOR_UPDATE = "/update?id="; //?POST
   //* Empleados
   public EMPLEADO_INSERT = "/insertEmpleado"; //? POST
-  public EMPLEADO_BUSCAR = "/"; //?
-  public EMPLEADO_UPDATE = "/"; //?
+  public EMPLEADO_BUSCAR_ALL = "/findAllEmpleados"; //?GET
+  public EMPLEADO_BUSCAR_ID = "/findEmpleadoById?id="; //?GET
   //* Personas
-  // public PERSONA_INSERT = "/insertNewUser"; //? POST
   public PERSONA_INSERT = "registro"; //? POST
   public PERSONA_BUSCAR = "/findUserById?id="; //? GET
   public PERSONA_UPDATE_P = `/updateClient?id=`; //? POST

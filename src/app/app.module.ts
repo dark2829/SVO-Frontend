@@ -39,6 +39,7 @@ import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/ped
 //Import de servicios
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 //Interceptores
 // import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
@@ -73,6 +74,7 @@ import { ErrorTailorModule} from '@ngneat/error-tailor';
     EmpleadoRegisterComponent,
     EmpleadoModifyComponent,
     PedidoRequestComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

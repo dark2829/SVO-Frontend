@@ -26,7 +26,7 @@ export class ProductRegisterComponent implements OnInit {
     private router: Router, 
     private enlaces: EnlacesService,
     private token: TokenService, 
-    private sanitizer: DomSanitizer,    
+    private sanitizer: DomSanitizer,    //? Convertir a base64 y -> viceversa
   ) { }
 
   ngOnInit(): void {
@@ -132,7 +132,6 @@ export class ProductRegisterComponent implements OnInit {
     this.fileChange = true; 
     this.extraerB64(archivoCapturado).then((imagen: any) => {
       this.preView = imagen.base;
-      let cantidad = imagen.base.length;
       this.img = imagen.base.split(',')[1];      
     })
   }
@@ -159,38 +158,4 @@ export class ProductRegisterComponent implements OnInit {
     }
   })
 
-  subirArchivo(): any{
-    try{
-      
-    }catch(error){
-      console.log(error);
-    }
-  }
-
 }
-
-
-/* function onReadImg($parse: any){
-  let directive = {
-    link: link, 
-    restrict: 'A',
-    scope: false
-  };
-
-  return directive; 
-
-  function link(scope: any, element: any, attrs: any){
-    let fn = $parse(attrs.onReadImg);
-    element.on('change', function(onChangeEvent: any){
-      let reader = new FileReader();
-      reader.onload = function(onLoadEvent){
-        scope.$apply(function() {
-          fn(scope, {
-            $fileContent: onLoadEvent.target?.result.split(',')[1]
-          });
-        });
-      };
-      reader.readAsDataURL((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-    })
-  }
-} */

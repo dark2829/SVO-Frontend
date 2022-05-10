@@ -8,13 +8,13 @@
     <div class="product container bg-light text-dark rounded border border-dark  mb-5">
         <div class="row">
             <div class="col text-center  d-flex justify-content-center align-items-center">
-                <p class="h4 fw-bold bg-primary w-50 rounded-pill text-white pt-1 pb-1">Limpieza</p>
+                <p class="h4 fw-bold bg-primary w-50 rounded-pill text-white pt-1 pb-1">{{productInfo.categoria}}</p>
             </div>
         </div>
         <div class="row mt-2 mb-2">
             <div class="col col-12 col-sm-12 col-md-6 align-items-center">
-                <p class="text-center"><img src="../../../assets/img/jabon.png" class="img-fluid w-75"
-                        alt="Imagen de producto"></p>
+                <p class="text-center">
+                    <img [src]="regresarImg(productInfo.imagen)" class="img-fluid w-75" alt="Imagen de producto"></p>
             </div>
             <div class="col col-12 col-sm-12 col-md-6 d-flex justify-content-center align-items-center">
                 <div class="container">
@@ -30,29 +30,32 @@
                             </button>
                         </span>
     
-                        <div class="card-title h5 p-2 fw-bold">Detergente Roma Multiusos 1kg En Polvo</div>
+                        <div class="card-title h5 p-2 fw-bold">{{productInfo.nombre}}</div>
                         <div class="card-text m-2">
-                            <p>Categoría: <span class="text-primary">Higiene</span></p>
-                            <p><span class="text-decoration-line-through text-secondary">$40.50</span>
+                            <p>Categoría: <span class="text-primary">{{productInfo.categoria}}</span></p>
+                            <p><span class="text-decoration-line-through text-secondary">${{productInfo.precio_venta+productInfo.precio_descuento}}</span>
                                 &nbsp;
                                 <span class="text-success fs-5">
-                                    $26.50
+                                    ${{productInfo.precio_venta}}
                                 </span>
                             </p>
                             <span class="small">
                                 Incluye
                                 <ul>
-                                    <li>Un jabón liquido</li>
+                                    <li>{{productInfo.nombre}}</li>
                                 </ul>
                             </span>
-                            <p class="small">Stock disponible</p>
+                            <p class="small">Stock {{productInfo.estatus}}</p>
                             <div class="row">
                                 <div class="col col-7 ">
-                                    <p>Cantidad: 1 Unidad</p>
+                                    <p>Cantidad: {{formProductoExtend.value.cantidad}} <span *ngIf="formProductoExtend.value.cantidad <= 1; else plural">Unidad</span></p>
+                                    <ng-template #plural>
+                                        <span>Unidades</span>
+                                    </ng-template>
                                 </div>
                                 <div class="col col-5">
-                                    <form class="w-75">
-                                        <select class="form-select form-select-sm w-100">
+                                    <form class="w-75 was-validated needs-validation" [formGroup]="formProductoExtend" errorTailor novalidate>
+                                        <select formControlName="cantidad" class="form-select form-select-sm w-100">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
