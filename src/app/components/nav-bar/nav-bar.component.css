@@ -1,7 +1,10 @@
 .exit{
     position: absolute;
-    top: 5vh;
-    right: 31vh;
+    top: 4vh;
     z-index: 1;
-    color: rgba(250, 52, 52, 0.911);
+    color: rgba(252, 81, 81, 0.911);
 }
+
+.base{
+    position: relative;
+} 
