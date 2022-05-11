@@ -181,7 +181,7 @@
                             <div class="row">
                                 <div class="col col-6">
                                     <!-- Boton agregar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar direccion"
+                                    <a type="button" (click)="saveDirection()" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar direccion"
                                         class="btn btn-outline-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-check2" viewBox="0 0 16 16">
@@ -207,16 +207,18 @@
                     <div class="mb-4" id="accordion">
                         <ul class="nav nav-tabs p-0 m-0 small">
                             <li class="nav-item col-4">
-                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse" href="#collapseOne">Dirección1</a>
+                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="direccionU()">
+                                    Dirección1
+                                </a>
                             </li>
                             <li class="nav-item col-4">
-                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
+                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="direccionD()">
                                     Dirección2
                                 </a>
                             </li>
                             <li class="nav-item col-4">
             
-                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
+                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="direccionT()">
                                     Dirección3
                                 </a>
             
@@ -233,17 +235,17 @@
                                                 <label for="exampleFormControlInput1" class="form-label">Calle</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fCalle" value="{{_calle[0]}}" type="text"
-                                                    class="form-control" id="idCalle" placeholder="Calle">
+                                                <input formControlName="fCalle" value="{{_calle[position]}}" type="text"
+                                                class="form-control" id="idCalle" placeholder="Calle">
+                                                </div>
                                             </div>
-                                        </div>
                                         <div class="row mt-1">
                                             <div class="col col-4">
                                                 <label for="exampleFormControlInput1" class="form-label">Colonia</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fColonia" value="{{_colonia[0]}}" type="text"
-                                                    class="form-control" id="idColonia" placeholder="Colonia">
+                                                <input formControlName="fColonia" value="{{_colonia[position]}}" type="text"
+                                                class="form-control" id="idColonia" placeholder="Colonia">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -251,7 +253,7 @@
                                                 <label for="exampleFormControlInput1" class="form-label">Municipio</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fMunicipio" value="{{_municipio[0]}}" type="text"
+                                                <input formControlName="fMunicipio" value="{{_municipio[position]}}" type="text"
                                                     class="form-control" id="idMunicipio" placeholder="Municipio">
                                             </div>
                                         </div>
@@ -260,7 +262,7 @@
                                                 <label for="exampleFormControlInput1" class="form-label">Estado</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fEstado" value="{{_estado[0]}}" type="text"
+                                                <input formControlName="fEstado" value="{{_estado[position]}}" type="text"
                                                     class="form-control" id="idEstado" placeholder="Estado">
                                             </div>
                                         </div>
@@ -270,7 +272,7 @@
                                                     Postal </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fCp" value="{{_cp[0]}}" type="number" class="form-control"
+                                                <input formControlName="fCp" value="{{_cp[position]}}" type="text" class="form-control"
                                                     id="idCodigoPostal" placeholder="Código Postal ">
                                             </div>
                                         </div>
@@ -280,7 +282,7 @@
                                                     interior </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fNinterior" value="{{_ninterior[0]}}" type="number"
+                                                <input formControlName="fNinterior" value="{{_ninterior[position]}}" type="text"
                                                     class="form-control" id="idNinterior" placeholder="Numero interior ">
                                             </div>
                                         </div>
@@ -290,8 +292,8 @@
                                                     exterior </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fNexterior" value="{{_nexterior[0]}}" type="number"
-                                                    class="form-control" id="idNexterior" placeholder="Numero exterior ">
+                                                <input formControlName="fNexterior" value="{{_nexterior[position]}}" type="text"
+                                                    class="form-control" id="idNexterior" placeholder="interior">
                                             </div>
                                         </div>
                                         <div class="row mt-2 mb-2">
@@ -300,173 +302,7 @@
                                                 </label>
                                             </div>
                                             <div class="col col-8">
-                                                <textarea formControlName="fReferenc" value="{{_referenc[0]}}" type="text"
-                                                    class="form-control" id="idReferencia" placeholder="Referencia "></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Direccion 2 -->
-                            <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-                                <div class="card-body">
-                                    <div class="row mt-1 g-3">
-                                        <div class="row mt-1">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Calle</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fCalle" value="{{_calle[1]}}" type="text"
-                                                    class="form-control" id="idCalle" placeholder="Calle">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-1">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Colonia</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fColonia" value="{{_colonia[1]}}" type="text"
-                                                    class="form-control" id="idColonia" placeholder="Colonia">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Municipio</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fMunicipio" value="{{_municipio[1]}}" type="text"
-                                                    class="form-control" id="idMunicipio" placeholder="Municipio">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fEstado" value="{{_estado[1]}}" type="text"
-                                                    class="form-control" id="idEstado" placeholder="Estado">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Código
-                                                    Postal </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fCp" value="{{_cp[1]}}" type="number" class="form-control"
-                                                    id="idCodigoPostal" placeholder="Código Postal ">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Numero
-                                                    interior </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fNinterior" value="{{_ninterior[1]}}" type="number"
-                                                    class="form-control" id="idNinterior" placeholder="Numero interior ">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Numero
-                                                    exterior </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fNexterior" value="{{_nexterior[1]}}" type="number"
-                                                    class="form-control" id="idNexterior" placeholder="Numero exterior ">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2 mb-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Referencia
-                                                </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <textarea formControlName="fReferenc" value="{{_referenc[1]}}" type="text"
-                                                    class="form-control" id="idReferencia" placeholder="Referencia "></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Direccion 3 -->
-                            <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-                                <div class="card-body">
-                                    <div class="row mt-1 g-3">
-                                        <div class="row mt-1">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Calle</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fCalle" value="{{_calle[2]}}" type="text"
-                                                    class="form-control" id="idCalle" placeholder="Calle">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-1">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Colonia</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fColonia" value="{{_colonia[2]}}" type="text"
-                                                    class="form-control" id="idColonia" placeholder="Colonia">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Municipio</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fMunicipio" value="{{_municipio[2]}}" type="text"
-                                                    class="form-control" id="idMunicipio" placeholder="Municipio">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fEstado" value="{{_estado[2]}}" type="text"
-                                                    class="form-control" id="idEstado" placeholder="Estado">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Código
-                                                    Postal </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fCp" value="{{_cp[2]}}" type="number" class="form-control"
-                                                    id="idCodigoPostal" placeholder="Código Postal ">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Numero
-                                                    interior </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fNinterior" value="{{_ninterior[2]}}" type="number"
-                                                    class="form-control" id="idNinterior" placeholder="Numero interior ">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Numero
-                                                    exterior </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <input formControlName="fNexterior" value="{{_nexterior[2]}}" type="number"
-                                                    class="form-control" id="idNexterior" placeholder="Numero exterior ">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2 mb-2">
-                                            <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Referencia
-                                                </label>
-                                            </div>
-                                            <div class="col col-8">
-                                                <textarea formControlName="fReferenc" value="{{_referenc[2]}}" type="text"
+                                                <textarea formControlName="fReferenc" value="{{_referenc[position]}}" type="text"
                                                     class="form-control" id="idReferencia" placeholder="Referencia "></textarea>
                                             </div>
                                         </div>
@@ -491,7 +327,7 @@
                             <div class="row">
                                 <div class="col col-6">
                                     <!-- Boton agregar -->
-                                    <a type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    <a type="button" (click)="saveCard()" data-bs-toggle="tooltip" data-bs-placement="top"
                                         title="Agregar tarjeta" class="btn btn-outline-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
@@ -517,14 +353,22 @@
 
                     <!-- Tarjetas encabezado -->
                     <ul class="nav nav-tabs p-0 m-0 small">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Tarjeta 1</a>
+                        <li class="nav-item col-4">
+                            <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="tarjetaU()">
+                                Tarjeta1
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tarjeta 2</a>
+                        <li class="nav-item col-4">
+                            <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="tarjetaD()">
+                                Tarjeta2
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tarjeta 3</a>
+                        <li class="nav-item col-4">
+        
+                            <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="tarjetaT()">
+                                Tarjeta3
+                            </a>
+        
                         </li>
                     </ul>
 
@@ -535,8 +379,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Propietario</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fPropieta" value="{{_propietario}}" type="text"
-                                    class="form-control" id="idPropietario" placeholder="Propietario">
+                                <input formControlName="fPropieta" value="{{_propietario[positionCard]}}" type="text" class="form-control"
+                                    id="idPropietario" placeholder="Propietario">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -544,7 +388,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">Tarjeta</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fTarjeta" value="{{_tarjeta}}" type="text" class="form-control"
+                                <input formControlName="fTarjeta" value="{{_tarjeta[positionCard]}}" type="text" class="form-control"
                                     id="idTarjeta" placeholder="Tarjeta">
                             </div>
                         </div>
@@ -553,8 +397,8 @@
                                 <label for="formVencimiento" class="form-label">Fecha vencimiento</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fFechaVen" value="{{_fechaVenc}}" type="month"
-                                    class="form-control" id="idFven" placeholder="">
+                                <input formControlName="fFechaVen" value="{{_fechaVenc[positionCard]}}" type="month" class="form-control"
+                                    id="idFven" placeholder="">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -562,7 +406,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">CVV</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fcvv" value="{{_cvv}}" type="number" class="form-control mb-2"
+                                <input formControlName="fcvv" value="{{_cvv[positionCard]}}" type="number" class="form-control mb-2"
                                     id="cvv" placeholder="CVV">
                             </div>
                         </div>

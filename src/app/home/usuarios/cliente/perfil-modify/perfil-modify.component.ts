@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PersonasService } from 'src/app/services/personas.service';
-import { empty } from 'rxjs';
+import { empty, map } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TokenService } from '../../../../services/token.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-perfil-modify',
@@ -13,13 +14,18 @@ import { TokenService } from '../../../../services/token.service';
   styleUrls: ['./perfil-modify.component.css']
 })
 export class PerfilModifyComponent implements OnInit {  
-  
-  @ViewChild('alerta') alerta: ElementRef;
+
   fileChange: boolean = false;
   preView: string; 
   direccion1: boolean = true;
-  direccion2: boolean;
-  direccion3: boolean;
+  direccion2: boolean = false;
+  direccion3: boolean = false;
+  tarjeta1: boolean = true;
+  tarjeta2: boolean = false;
+  tarjeta3: boolean = false;
+
+  position: number = 0; 
+  positionCard: number = 0; 
 
   //* Constructores
   constructor(
@@ -28,7 +34,8 @@ export class PerfilModifyComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private persona: PersonasService, 
     private sanitizer: DomSanitizer,    
-    private token: TokenService
+    private token: TokenService, 
+    private alerta: AlertaService
   ) { }
   
   //* Variables 
@@ -38,6 +45,8 @@ export class PerfilModifyComponent implements OnInit {
   Vdate: any
   enviarDatos = false; 
   cancelar = false;
+  direccionesArry: any [] = [];
+  tarjetsArry: any [] = [];
 
   //? Variables compoartidas
   _nombre: string; 
@@ -48,18 +57,18 @@ export class PerfilModifyComponent implements OnInit {
   _correo: string; 
   _contrasena: string; 
   _telefono: string; 
-  _calle: string[] = []; 
-  _colonia: string[] = []; 
-  _municipio: string[] = []; 
-  _estado: string[] = []; 
-  _cp: string[] = []; 
-  _ninterior: string[] = []; 
-  _nexterior: string[] = []; 
-  _referenc: string[] = []; 
-  _propietario: string; 
-  _tarjeta: string; 
-  _fechaVenc: string; 
-  _cvv: string; 
+  _calle: string[] = ['','','']; 
+  _colonia: string[] = ['','','']; 
+  _municipio: string[] = ['','','']; 
+  _estado: string[] = ['','','']; 
+  _cp: string[] = ['','','']; 
+  _ninterior: string[] = ['','','']; 
+  _nexterior: string[] = ['','','']; 
+  _referenc: string[] = ['','','']; 
+  _propietario: string[] = ['','','']; 
+  _tarjeta: string[] = ['','','']; 
+  _fechaVenc: string[] = ['','','']; 
+  _cvv: string[] = ['','','']; 
   //* Variable de formulario
   formPerson: FormGroup; 
   radioExample: FormControl = new FormControl(); //radioExample
@@ -69,6 +78,7 @@ export class PerfilModifyComponent implements OnInit {
     this.indexPerson = this.token.getID();
     this.persona.getPerson(this.indexPerson).subscribe(response => {
       this.indexClient = response.data.id;//? Id usuario
+
       this._nombre =      response.data.idPersona.nombre;
       this._apellidoP =   response.data.idPersona.apellido_paterno;
       this._apellidoM =   response.data.idPersona.apellido_materno;
@@ -80,21 +90,32 @@ export class PerfilModifyComponent implements OnInit {
       this._correo =      response.data.correo; 
       this._contrasena =  response.data.contraseña; 
       this._telefono =    response.data.idPersona.telefono; 
-      this._calle[0] =       response.data.idPersona.direccion[0].calle; 
-      this._colonia[0] =     response.data.idPersona.direccion[0].colonia; 
-      this._municipio[0] =   response.data.idPersona.direccion[0].municipio; 
-      this._estado[0] =      response.data.idPersona.direccion[0].estado; 
-      this._cp[0] =          response.data.idPersona.direccion[0].cp; 
-      this._ninterior[0] =   response.data.idPersona.direccion[0].n_exterior; 
-      this._nexterior[0] =   response.data.idPersona.direccion[0].n_interior; 
-      this._referenc[0] =    response.data.idPersona.direccion[0].referencia; 
-      this._propietario = response.data.idPersona.tarjeta[0].nombre_propietario; 
-      this._tarjeta =     response.data.idPersona.tarjeta[0].numero; 
-      this.Vdate = response.data.idPersona.tarjeta[0].fecha_vencimiento;
-      this.Vdate = this.Vdate.split("/");
-      this.Vdate = this.Vdate[0]+"-"+this.Vdate[1];
-      this._fechaVenc =   this.Vdate; 
-      this._cvv =         response.data.idPersona.tarjeta[0].cvv; 
+      this.direccionesArry = response.data.idPersona.direccion;
+      this.tarjetsArry = response.data.idPersona.tarjeta;
+      response.data.idPersona.direccion.forEach((element: any, index: number) => {
+        if (element != null) {
+          this._calle[index] = response.data.idPersona.direccion[index].calle;
+          this._colonia[index] = response.data.idPersona.direccion[index].colonia;
+          this._municipio[index] = response.data.idPersona.direccion[index].municipio;
+          this._estado[index] = response.data.idPersona.direccion[index].estado;
+          this._cp[index] = response.data.idPersona.direccion[index].cp;
+          this._ninterior[index] = response.data.idPersona.direccion[index].n_exterior;
+          this._nexterior[index] = response.data.idPersona.direccion[index].n_interior;
+          this._referenc[index] = response.data.idPersona.direccion[index].referencia;
+          this.direccionesArry[index] = response.data.idPersona.direccion[index].id;
+        }
+        
+        response.data.idPersona.tarjeta.forEach((element: any, index: number) => {
+          this._propietario[index] = response.data.idPersona.tarjeta[index].nombre_propietario;
+          this._tarjeta[index] = response.data.idPersona.tarjeta[index].numero;
+          this.Vdate = response.data.idPersona.tarjeta[index].fecha_vencimiento;
+          console.log(response.data.idPersona.tarjeta[index].fecha_vencimiento);
+          this.Vdate = this.Vdate.split("/");
+          this.Vdate = this.Vdate[0] + "-" + this.Vdate[1];
+          this._fechaVenc[index] = this.Vdate;
+          this._cvv[index] = response.data.idPersona.tarjeta[index].cvv;
+        })
+      });
       
       this.formPerson = this.formBuilder.group({
         fname:       [this._nombre, [Validators.required]],
@@ -105,14 +126,14 @@ export class PerfilModifyComponent implements OnInit {
         fEmail:      [this._correo, [Validators.required, Validators.email]],
         fPass:       [this._contrasena, [Validators.required, Validators.maxLength(8)]],
         fPhone:      [this._telefono, [Validators.maxLength(10), Validators.minLength(10)]],
-        fCalle:      [this._calle],
-        fColonia:    [this._colonia],
-        fMunicipio:  [this._municipio],
-        fEstado:     [this._estado],
-        fCp:         [this._cp, [Validators.minLength(5), Validators.maxLength(5)]],
-        fNinterior:  [this._ninterior],
-        fNexterior:  [this._nexterior],
-        fReferenc:   [this._referenc],
+        fCalle:      [this._calle[0]],
+        fColonia:    [this._colonia[0]],
+        fMunicipio:  [this._municipio[0]],
+        fEstado:     [this._estado[0]],
+        fCp:         [this._cp[0], [Validators.minLength(5), Validators.maxLength(5)]],
+        fNinterior:  [this._ninterior[0]],
+        fNexterior:  [this._nexterior[0]],
+        fReferenc:   [this._referenc[0]],
         fPropieta:   [this._propietario],
         fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
         fFechaVen:   [this._fechaVenc],
@@ -160,61 +181,19 @@ export class PerfilModifyComponent implements OnInit {
           telefono: this.formPerson.value.fPhone
         }).subscribe(
           response => {
-            this.information("Registro exitoso", "success")
-            console.log(response);
+            this.alerta.showAlert("Registro exitoso", "success", 2000)
           },
           error => {
             console.log(error);
-            this.errores(error.message, "danger");
+            this.alerta.showAlert(error.message, "danger", 2000, error.status)
           }
-        );
-      } else {
-        this.errores("Debe modificar minimo los datos marcados", "warning");
+          );
+        } else {
+        this.alerta.showAlert("Modificar mínimo los datos marcados", "warning", 2000)
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  public updateAddress(){
-
-  }
-
-  //? Estos metodos funcionan para mostrar las alertas
-  public information(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {} , 1000);
-  }
-
-  public errores(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
 
   public enviar(){
@@ -229,38 +208,57 @@ export class PerfilModifyComponent implements OnInit {
     this.persona.getPerson("2").subscribe(response => {
       console.log(response)
     });
-    // this.information("Cancelado", "danger");
   }
   
   public clearTarjeta() {
     // Para mandar la tarjeta se debe modificar el valor y el campo en form
-    this._propietario = "";
-    this._tarjeta = "";
-    this._fechaVenc = "";
-    this._cvv = "";
-    this.formPerson.value.fPropieta = null;
-    this.formPerson.value.fTarjeta = null;
-    this.formPerson.value.fFechaVen = null;
-    this.formPerson.value.fcvv = null;
+    let dirIndex = 0;
+    if (this.tarjeta1 == true) {
+      dirIndex = 0;
+    }
+    if (this.direccion2 == true) {
+      dirIndex = 1;
+    }
+    if (this.direccion3 == true) {
+      dirIndex = 2;
+    }  
+    this._propietario[dirIndex] = "";
+    this._tarjeta[dirIndex] = "";
+    this._fechaVenc[dirIndex] = "";
+    this._cvv[dirIndex] = "";
+    this.formPerson.value.fPropieta[dirIndex] = null;
+    this.formPerson.value.fTarjeta[dirIndex] = null;
+    this.formPerson.value.fFechaVen[dirIndex] = null;
+    this.formPerson.value.fcvv[dirIndex] = null;
   }
 
   public clearDireccion() {
-    this._calle[0] = "";
-    this._colonia[0] = "";
-    this._municipio[0] = "";
-    this._estado[0] = "";
-    this._cp[0] = "";
-    this._ninterior[0] = "";
-    this._nexterior[0] = "";
-    this._referenc[0] = "";
-    this.formPerson.value.fCalle = null;
-    this.formPerson.value.fColonia = null;
-    this.formPerson.value.fMunicipio = null;
-    this.formPerson.value.fEstado = null;
-    this.formPerson.value.fCp = null;
-    this.formPerson.value.fNinterior = null;
-    this.formPerson.value.fNexterior = null;
-    this.formPerson.value.fReferenc = null;
+    let dirIndex = 0;
+    if (this.direccion1 == true) {
+      dirIndex = 0;
+    }
+    if (this.direccion2 == true) {
+      dirIndex = 1;
+    }
+    if (this.direccion3 == true) {
+      dirIndex = 2;
+    }    
+    this._calle[dirIndex] = "";
+    this._colonia[dirIndex] = "";
+    this._municipio[dirIndex] = "";
+    this._estado[dirIndex] = "";
+    this._cp[dirIndex] = "";
+    this._ninterior[dirIndex] = "";
+    this._nexterior[dirIndex] = "";
+    this._referenc[dirIndex] = "";
+    this.formPerson.value.fCalle[dirIndex] = [null],
+    this.formPerson.value.fColonia[dirIndex] = [null],
+    this.formPerson.value.fMunicipio[dirIndex] = [null],
+    this.formPerson.value.fEstado[dirIndex] = [null],
+    this.formPerson.value.fCp[dirIndex] = [null],
+    this.formPerson.value.fNinterior[dirIndex] = [null],
+    this.formPerson.value.fNexterior[dirIndex] = [null],
+    this.formPerson.value.fReferenc[dirIndex] = [null]
   }
 
   public capturarArchivo(event: any): any{
@@ -298,15 +296,143 @@ export class PerfilModifyComponent implements OnInit {
     this.direccion1 = true;
     this.direccion2 = false;
     this.direccion3 = false;
+    this.position = 0; 
   }
   direccionD(){
+    this.formPerson = this.formBuilder.group({
+        fname:       [this._nombre, [Validators.required]],
+        fSame:       [this._apellidoP, [Validators.required]],
+        fLame:       [this._apellidoM],
+        fBdate:      [this.Bdate],
+        fGender:     [this._genero],
+        fEmail:      [this._correo, [Validators.required, Validators.email]],
+        fPass:       [this._contrasena, [Validators.required, Validators.maxLength(8)]],
+        fPhone:      [this._telefono, [Validators.maxLength(10), Validators.minLength(10)]],
+        fCalle:      [this._calle[1]],
+        fColonia:    [this._colonia[1]],
+        fMunicipio:  [this._municipio[1]],
+        fEstado:     [this._estado[1]],
+        fCp:         [this._cp[1], [Validators.minLength(5), Validators.maxLength(5)]],
+        fNinterior:  [this._ninterior[1]],
+        fNexterior:  [this._nexterior[1]],
+        fReferenc:   [this._referenc[1]],
+        fPropieta:   [this._propietario],
+        fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
+        fFechaVen:   [this._fechaVenc],
+        fcvv:        [this._cvv]
+      });
     this.direccion1 = false;
     this.direccion2 = true;
     this.direccion3 = false;
+    this.position = 1; 
   }
   direccionT(){
+    this.formPerson = this.formBuilder.group({
+      fname:       [this._nombre, [Validators.required]],
+      fSame:       [this._apellidoP, [Validators.required]],
+      fLame:       [this._apellidoM],
+      fBdate:      [this.Bdate],
+      fGender:     [this._genero],
+      fEmail:      [this._correo, [Validators.required, Validators.email]],
+      fPass:       [this._contrasena, [Validators.required, Validators.maxLength(8)]],
+      fPhone:      [this._telefono, [Validators.maxLength(10), Validators.minLength(10)]],
+      fCalle:      [this._calle[2]],
+      fColonia:    [this._colonia[2]],
+      fMunicipio:  [this._municipio[2]],
+      fEstado:     [this._estado[2]],
+      fCp:         [this._cp[2], [Validators.minLength(5), Validators.maxLength(5)]],
+      fNinterior:  [this._ninterior[2]],
+      fNexterior:  [this._nexterior[2]],
+      fReferenc:   [this._referenc[2]],
+      fPropieta:   [this._propietario],
+      fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
+      fFechaVen:   [this._fechaVenc],
+      fcvv:        [this._cvv]
+    });
     this.direccion1 = false;
     this.direccion2 = false;
     this.direccion3 = true;
+    this.position = 2; 
+  }
+
+  saveDirection() {
+    let directionIndex = 0;
+    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
+    if (this.direccion1 == true) {
+      directionIndex = 0; 
+    }
+    if (this.direccion2 == true) {
+      directionIndex = 1; 
+    }
+    if (this.direccion3 == true) {
+      directionIndex = 2; 
+    }
+
+    this.persona.updateClientDirection(API_ADDRESS, {
+      idDireccion: this.direccionesArry[directionIndex].id,
+      calle: this.formPerson.value.fCalle,
+      colonia: this.formPerson.value.fColonia,
+      municipio: this.formPerson.value.fMunicipio,
+      estado: this.formPerson.value.fEstado,
+      cp: this.formPerson.value.fCp,
+      n_interio: this.formPerson.value.fNinterior,
+      n_exterior: this.formPerson.value.fNexterior,
+      referencia: this.formPerson.value.fReferenc
+    }).subscribe(response => {
+      this.alerta.showAlert("Dirección modificada", "success", 2000);
+    }, error => {
+      console.log(error);
+      this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+    });
+  }
+
+  tarjetaU(){
+    this.tarjeta1 = true;
+    this.tarjeta2 = false;
+    this.tarjeta3 = false;
+    this.positionCard = 0; 
+    
+  }
+  tarjetaD(){
+    this.tarjeta1 = false;
+    this.tarjeta2 = true;
+    this.tarjeta3 = false;
+    this.positionCard = 1; 
+
+  }
+  tarjetaT(){
+    this.tarjeta1 = false;
+    this.tarjeta2 = false;
+    this.tarjeta3 = true;
+    this.positionCard = 2; 
+
+  }
+
+  saveCard() {
+    let tarjetIdx = 0;
+    const API_CARD = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_CARDS + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
+    if (this.direccion1 == true) {
+      tarjetIdx = 0; 
+    }
+    if (this.direccion2 == true) {
+      tarjetIdx = 1; 
+    }
+    if (this.direccion3 == true) {
+      tarjetIdx = 2; 
+    }
+
+    this.persona.updateClientTarget(API_CARD, {
+      idTarjeta: this.tarjetsArry[tarjetIdx].id,
+      nombre_propietario: this.formPerson.value.fPropieta,
+      numero_tarjeta: this.formPerson.value.fTarjeta,
+      fecha_vencimiento: this.formPerson.value.fFechaVen,
+      cvv: this.formPerson.value.fcvv
+    }).subscribe(response => {
+      this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+    }, error => {
+      console.log(error);
+      this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+    });
+
   }
 }

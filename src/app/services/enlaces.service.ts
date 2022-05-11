@@ -32,6 +32,8 @@ export class EnlacesService {
   public PERSONA_BUSCAR = "/findUserById?id="; //? GET
   public PERSONA_UPDATE_P = `/updateClientDatosGenerales?id=`; //? POST
   public PERSONA_UPDATE_U = `&idUser=`; //? Continuación del anterior
+  public PERSONA_UPDATE_ADRES = `/updateClientDirecciones?id=`; //? Continuación del anterior
+  public PERSONA_UPDATE_CARDS = `/updateClientTarjetas?id=`; //? POST
   //* Usuarios
   public USUARIO_LOGIN_IDENTIFY = "/auth/login?identificador="; //? POST
   public USUARIO_LOGIN_PASSWORD = "&contrasena="; //? GET
