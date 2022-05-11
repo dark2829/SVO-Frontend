@@ -46,7 +46,7 @@ export class PerfilModifyComponent implements OnInit {
   enviarDatos = false; 
   cancelar = false;
   direccionesArry: any [] = [];
-  tarjetsArry: any [] = [];
+  tarjetsArry: any [] = [undefined, undefined, undefined];
 
   //? Variables compoartidas
   _nombre: string; 
@@ -109,7 +109,6 @@ export class PerfilModifyComponent implements OnInit {
           this._propietario[index] = response.data.idPersona.tarjeta[index].nombre_propietario;
           this._tarjeta[index] = response.data.idPersona.tarjeta[index].numero;
           this.Vdate = response.data.idPersona.tarjeta[index].fecha_vencimiento;
-          console.log(response.data.idPersona.tarjeta[index].fecha_vencimiento);
           this.Vdate = this.Vdate.split("/");
           this.Vdate = this.Vdate[0] + "-" + this.Vdate[1];
           this._fechaVenc[index] = this.Vdate;
@@ -134,10 +133,10 @@ export class PerfilModifyComponent implements OnInit {
         fNinterior:  [this._ninterior[0]],
         fNexterior:  [this._nexterior[0]],
         fReferenc:   [this._referenc[0]],
-        fPropieta:   [this._propietario],
-        fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
-        fFechaVen:   [this._fechaVenc],
-        fcvv:        [this._cvv]
+        fPropieta:   [this._propietario[0]],
+        fTarjeta:    [this._tarjeta[0], [Validators.minLength(16), Validators.maxLength(16)]],
+        fFechaVen:   [this._fechaVenc[0]],
+        fcvv:        [this._cvv[0]]
       });
     });
   }
@@ -226,10 +225,10 @@ export class PerfilModifyComponent implements OnInit {
     this._tarjeta[dirIndex] = "";
     this._fechaVenc[dirIndex] = "";
     this._cvv[dirIndex] = "";
-    this.formPerson.value.fPropieta[dirIndex] = null;
-    this.formPerson.value.fTarjeta[dirIndex] = null;
-    this.formPerson.value.fFechaVen[dirIndex] = null;
-    this.formPerson.value.fcvv[dirIndex] = null;
+    this.formPerson.value.fPropieta = "";
+    this.formPerson.value.fTarjeta = "";
+    this.formPerson.value.fFechaVen = "";
+    this.formPerson.value.fcvv = 0;
   }
 
   public clearDireccion() {
@@ -251,14 +250,14 @@ export class PerfilModifyComponent implements OnInit {
     this._ninterior[dirIndex] = "";
     this._nexterior[dirIndex] = "";
     this._referenc[dirIndex] = "";
-    this.formPerson.value.fCalle[dirIndex] = [null],
-    this.formPerson.value.fColonia[dirIndex] = [null],
-    this.formPerson.value.fMunicipio[dirIndex] = [null],
-    this.formPerson.value.fEstado[dirIndex] = [null],
-    this.formPerson.value.fCp[dirIndex] = [null],
-    this.formPerson.value.fNinterior[dirIndex] = [null],
-    this.formPerson.value.fNexterior[dirIndex] = [null],
-    this.formPerson.value.fReferenc[dirIndex] = [null]
+    this.formPerson.value.fCalle = ""
+    this.formPerson.value.fColonia = ""
+    this.formPerson.value.fMunicipio = ""
+    this.formPerson.value.fEstado = ""
+    this.formPerson.value.fCp = -1
+    this.formPerson.value.fNinterior = -1
+    this.formPerson.value.fNexterior = -1
+    this.formPerson.value.fReferenc = ""
   }
 
   public capturarArchivo(event: any): any{
@@ -299,56 +298,12 @@ export class PerfilModifyComponent implements OnInit {
     this.position = 0; 
   }
   direccionD(){
-    this.formPerson = this.formBuilder.group({
-        fname:       [this._nombre, [Validators.required]],
-        fSame:       [this._apellidoP, [Validators.required]],
-        fLame:       [this._apellidoM],
-        fBdate:      [this.Bdate],
-        fGender:     [this._genero],
-        fEmail:      [this._correo, [Validators.required, Validators.email]],
-        fPass:       [this._contrasena, [Validators.required, Validators.maxLength(8)]],
-        fPhone:      [this._telefono, [Validators.maxLength(10), Validators.minLength(10)]],
-        fCalle:      [this._calle[1]],
-        fColonia:    [this._colonia[1]],
-        fMunicipio:  [this._municipio[1]],
-        fEstado:     [this._estado[1]],
-        fCp:         [this._cp[1], [Validators.minLength(5), Validators.maxLength(5)]],
-        fNinterior:  [this._ninterior[1]],
-        fNexterior:  [this._nexterior[1]],
-        fReferenc:   [this._referenc[1]],
-        fPropieta:   [this._propietario],
-        fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
-        fFechaVen:   [this._fechaVenc],
-        fcvv:        [this._cvv]
-      });
     this.direccion1 = false;
     this.direccion2 = true;
     this.direccion3 = false;
     this.position = 1; 
   }
   direccionT(){
-    this.formPerson = this.formBuilder.group({
-      fname:       [this._nombre, [Validators.required]],
-      fSame:       [this._apellidoP, [Validators.required]],
-      fLame:       [this._apellidoM],
-      fBdate:      [this.Bdate],
-      fGender:     [this._genero],
-      fEmail:      [this._correo, [Validators.required, Validators.email]],
-      fPass:       [this._contrasena, [Validators.required, Validators.maxLength(8)]],
-      fPhone:      [this._telefono, [Validators.maxLength(10), Validators.minLength(10)]],
-      fCalle:      [this._calle[2]],
-      fColonia:    [this._colonia[2]],
-      fMunicipio:  [this._municipio[2]],
-      fEstado:     [this._estado[2]],
-      fCp:         [this._cp[2], [Validators.minLength(5), Validators.maxLength(5)]],
-      fNinterior:  [this._ninterior[2]],
-      fNexterior:  [this._nexterior[2]],
-      fReferenc:   [this._referenc[2]],
-      fPropieta:   [this._propietario],
-      fTarjeta:    [this._tarjeta, [Validators.minLength(16), Validators.maxLength(16)]],
-      fFechaVen:   [this._fechaVenc],
-      fcvv:        [this._cvv]
-    });
     this.direccion1 = false;
     this.direccion2 = false;
     this.direccion3 = true;
@@ -369,7 +324,7 @@ export class PerfilModifyComponent implements OnInit {
     }
 
     this.persona.updateClientDirection(API_ADDRESS, {
-      idDireccion: this.direccionesArry[directionIndex].id,
+      idDireccion: this.direccionesArry[directionIndex],
       calle: this.formPerson.value.fCalle,
       colonia: this.formPerson.value.fColonia,
       municipio: this.formPerson.value.fMunicipio,
@@ -411,28 +366,43 @@ export class PerfilModifyComponent implements OnInit {
   saveCard() {
     let tarjetIdx = 0;
     const API_CARD = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_CARDS + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
-    if (this.direccion1 == true) {
-      tarjetIdx = 0; 
+    if (this.tarjeta1 == true) {
+      tarjetIdx = 0;
     }
-    if (this.direccion2 == true) {
-      tarjetIdx = 1; 
+    if (this.tarjeta2 == true) {
+      tarjetIdx = 1;
     }
-    if (this.direccion3 == true) {
-      tarjetIdx = 2; 
+    if (this.tarjeta3 == true) {
+      tarjetIdx = 2;
     }
-
-    this.persona.updateClientTarget(API_CARD, {
-      idTarjeta: this.tarjetsArry[tarjetIdx].id,
-      nombre_propietario: this.formPerson.value.fPropieta,
-      numero_tarjeta: this.formPerson.value.fTarjeta,
-      fecha_vencimiento: this.formPerson.value.fFechaVen,
-      cvv: this.formPerson.value.fcvv
-    }).subscribe(response => {
-      this.alerta.showAlert("Tarjeta modificada", "success", 2000);
-    }, error => {
-      console.log(error);
-      this.alerta.showAlert("Ocurrió un error", "danger", 2000);
-    });
-
+    if(this.tarjetsArry[tarjetIdx] == undefined){
+      console.log("Es undefined");
+      this.persona.updateClientTarget(API_CARD, {
+        idTarjeta: this.tarjetsArry[tarjetIdx],
+        nombre_propietario: this.formPerson.value.fPropieta[tarjetIdx],
+        numero_tarjeta: this.formPerson.value.fTarjeta[tarjetIdx],
+        fecha_vencimiento: this.formPerson.value.fFechaVen[tarjetIdx],
+        cvv: this.formPerson.value.fcvv[tarjetIdx]
+      }).subscribe(response => {
+        this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+      }, error => {
+        console.log(error);
+        this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+      });
+    }else{
+      console.log("No es undefined");
+      this.persona.updateClientTarget(API_CARD, {
+        idTarjeta: this.tarjetsArry[tarjetIdx].id,
+        nombre_propietario: this.formPerson.value.fPropieta,
+        numero_tarjeta: this.formPerson.value.fTarjeta,
+        fecha_vencimiento: this.formPerson.value.fFechaVen,
+        cvv: this.formPerson.value.fcvv
+      }).subscribe(response => {
+        this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+      }, error => {
+        console.log(error);
+        this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+      }); 
+    }
   }
 }

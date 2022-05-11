@@ -97,7 +97,7 @@ export class PersonasService {
     return this.http.post(url, body);
   }
   public updateClientTarget(url: string, body: {
-    idTarjeta: string; //number
+    idTarjeta: number; //number
     nombre_propietario: string; 
     numero_tarjeta: string; 
     fecha_vencimiento: string; 
