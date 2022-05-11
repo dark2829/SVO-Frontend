@@ -30,7 +30,7 @@ export class EnlacesService {
   //* Personas
   public PERSONA_INSERT = "registro"; //? POST
   public PERSONA_BUSCAR = "/findUserById?id="; //? GET
-  public PERSONA_UPDATE_P = `/updateClient?id=`; //? POST
+  public PERSONA_UPDATE_P = `/updateClientDatosGenerales?id=`; //? POST
   public PERSONA_UPDATE_U = `&idUser=`; //? Continuación del anterior
   //* Usuarios
   public USUARIO_LOGIN_IDENTIFY = "/auth/login?identificador="; //? POST

@@ -49,4 +49,22 @@ export class EmpleadosService {
   public getAllEmpleadosByID(id: string): Observable<any>{
     return this.http.get(this.enlaces.API_ENLACE_EMPLEADO+this.enlaces.EMPLEADO_BUSCAR_ID+id);
   }
+
+
+  public updateEmpleadoDataPerson(url: string, body: {
+    nombre: string; 
+    apellido_paterno: string; 
+    apellido_materno: string; 
+    fecha_nacimiento: string; 
+    genero: string; 
+    correo: string; 
+    contrasena: string; 
+    telefono: string; 
+    curp: string; 
+    idPuesto: number; 
+    salario: number; 
+    estatus: number;
+  }){
+    return this.http.post(url, body);
+  }
 }

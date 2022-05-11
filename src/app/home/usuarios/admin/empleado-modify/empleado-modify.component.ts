@@ -16,6 +16,17 @@ export class EmpleadoModifyComponent implements OnInit {
   
   formEmpleado: FormGroup; 
   index: string; 
+
+  puestoJson: any = {
+    Cajero: 1,
+    Almacenador: 2,
+    Repartidor: 3,
+  }
+
+  estatusJson: any = {
+    Activo: 1,
+    Inactivo: 2,
+  }
   
   Bdate: any; 
   idPersona: any; 
@@ -50,45 +61,45 @@ export class EmpleadoModifyComponent implements OnInit {
   ngOnInit(): void {
     if(this.token.getToken()){
       this.index = this.route.snapshot.params['id'].toString();
-
+      
       this.empleado.getAllEmpleadosByID(this.index).subscribe(response => {
+        //? Obtener index de cada elemento
         this.idPersona = response.data.idPersona.id;
-        this.idEmpleado = response.data.id; 
-        //FIXME: Falta agregar el id de usuario
-        this.idUser = 0; 
+        this.idUser = response.data.id; 
+        this.idEmpleado = response.data.idEmpleado.id; 
 
-
-        this.nEmpleado = response.data.no_empleado; 
+        this.nEmpleado = response.data.idEmpleado.no_empleado; 
         this.eNombre   = response.data.idPersona.nombre; 
         this.aPaterno  = response.data.idPersona.apellido_paterno; 
         this.aMaterno  = response.data.idPersona.apellido_materno; 
-        this.eCurp     = response.data.curp; 
+        this.eCurp     = response.data.idEmpleado.curp; 
         this.Bdate = response.data.idPersona.fecha_nac; 
         this.Bdate = this.Bdate.split("-");
         this.Bdate = this.Bdate[2]+"-"+this.Bdate[1]+"-"+this.Bdate[0];
         this.fNacimiento      = this.Bdate;
         this.eGender   = response.data.idPersona.genero;
         this.eTelefono = response.data.idPersona.telefono;
-        this.ePuesto   = response.data.idPuesto.nombre_puesto;
-        this.eSalario  = response.data.salario;
+        this.ePuesto   = response.data.idEmpleado.idPuesto.nombre_puesto;
+        this.eSalario  = response.data.idEmpleado.salario;
         this.eCorreo   = response.data.idPersona.correo; 
         this.ePass     = ""
-        this.eStatus   = response.data.estatus;
+        this.eStatus   = response.data.idEmpleado.estatus;
+        console.log(this.eStatus);
 
           this.formEmpleado = this.formBuilder.group({
-            fEmpleado:   [response.data.no_empleado, [Validators.required]], 
-            fNombre:     [response.data.idPersona.nombre,[Validators.required]],
-            fApellidoP:  [response.data.idPersona.apellido_paterno, [Validators.required]],
-            fApellidoM:  [response.data.idPersona.apellido_materno, [Validators.required]],
-            fCurp:       [response.data.curp, [Validators.required]],
+            fEmpleado:   [this.nEmpleado, [Validators.required]], 
+            fNombre:     [this.eNombre ,[Validators.required]],
+            fApellidoP:  [this.aPaterno, [Validators.required]],
+            fApellidoM:  [this.aMaterno, [Validators.required]],
+            fCurp:       [this.eCurp, [Validators.required]],
             fFnac:       [this.fNacimiento, [Validators.required]],
-            fGenero:     [response.data.idPersona.genero, [Validators.required]],
-            fTelefono:   [response.data.idPersona.telefono, [Validators.required]],
-            fPuesto:     [response.data.idPuesto.nombre_puesto, [Validators.required]],
-            fSalario:    [response.data.salario, [Validators.required]],
-            fCorreo:     [response.data.idPersona.correo, [Validators.required, Validators.email]],
+            fGenero:     [this.eGender , [Validators.required]],
+            fTelefono:   [this.eTelefono, [Validators.required]],
+            fPuesto:     [this.ePuesto, [Validators.required]],
+            fSalario:    [this.eSalario, [Validators.required]],
+            fCorreo:     [this.eCorreo, [Validators.required, Validators.email]],
             fContra:     [null, [Validators.required]],
-            fStatus:     [response.data.estatus, [Validators.required]]
+            fStatus:     [this.eStatus, [Validators.required]]
           });
       })
     }
@@ -96,7 +107,7 @@ export class EmpleadoModifyComponent implements OnInit {
 
   enviar(){
     //URL para modificar una persona aplicable a empleado
-    const API_MODIFY_EMPLEADO = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.enlaces.PERSONA_UPDATE_U+this.idUser; 
+    const API_MODIFY_EMPLEADO = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.idPersona+this.enlaces.PERSONA_UPDATE_U+this.idUser; 
 
     try{
       if(
@@ -132,23 +143,27 @@ export class EmpleadoModifyComponent implements OnInit {
         if(date != null){      
           date = date.split("-");
           date = date[2]+"/"+date[1]+"/"+date[0];      
-          console.log(date);
         }else{
           date = null; 
         }
-        //FIXME: Falta modificar informacion para agregar todo lo del empleado
-        this.persona.updateClientDataPerson(API_MODIFY_EMPLEADO, {
-          nombre: "string",
-          apellido_paterno: "string",
-          apellido_materno: "string",
-          fecha_nacimiento: "string",
-          genero: "string",
-          correo: "string",
-          contrasena: "string",
-          telefono: "string",
+
+        //FIXME: Falta agregar el numero de empleado
+        this.empleado.updateEmpleadoDataPerson(API_MODIFY_EMPLEADO, {
+          nombre: this.formEmpleado.value.fNombre,
+          apellido_paterno: this.formEmpleado.value.fApellidoP,
+          apellido_materno: this.formEmpleado.value.fApellidoM,
+          fecha_nacimiento: date,
+          genero: this.formEmpleado.value.fGender,
+          correo: this.formEmpleado.value.fCorreo,
+          contrasena: this.formEmpleado.value.fContra,
+          telefono: this.formEmpleado.value.fTelefono,
+          curp: this.formEmpleado.value.fCurp,
+          idPuesto: this.puestoJson[this.formEmpleado.value.fPuesto],
+          salario: this.formEmpleado.value.fSalario,
+          estatus: this.formEmpleado.value.fStatus
         }).subscribe(response => {
-          this.alerta.showAlert("response.message", "success", 2000);
-          this.router.navigate(["empleados"]);
+          this.alerta.showAlert("Información actualizada", "success", 2000);
+          setTimeout(() => {this.listaEmpleado()}, 2500);
         }, reject => {
           this.alerta.showAlert(reject.error.message, "danger", 2000, reject.status);
         });
