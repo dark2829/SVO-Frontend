@@ -4,8 +4,6 @@ import { map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EnlacesService } from './enlaces.service';
 import { error } from '@angular/compiler/src/util';
-import { NewUser} from '../models/newUser';
-import { JwtDTO } from '../models/jwtDTO';
 
 @Injectable({
   providedIn: 'root'

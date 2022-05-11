@@ -4,7 +4,7 @@ import { PersonasService } from '../../../../services/personas.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnlacesService } from 'src/app/services/enlaces.service';
 import { TokenService } from '../../../../services/token.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +28,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private enlaces: EnlacesService,
     private tokenService: TokenService,
+    private alertService: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +60,7 @@ export class LoginComponent {
         }).subscribe(
           response => {
             if (response != null) {
-              this.information(response.message, "success");
+              this.alertService.showAlert(response.message, "success", 2000, "200");
               this.isLogged = true;
               this.isLoginFail = false;
 
@@ -81,12 +82,11 @@ export class LoginComponent {
                 setTimeout(() => { this.router.navigate(['user/' + response.data.idPerson.id]) }, 2000);
               }
             } else {
-              this.information(response.message, "warning")
+              this.alertService.showAlert(response.message, "success", 2000, "200");
             }
           },
-          reject => {
-            console.log(reject);
-            this.errores(reject.error.message, "danger");
+          reject => {                   
+            this.alertService.showAlert(reject.error.message, "warning", 2500, reject.status);
           }
         );
       }
@@ -101,39 +101,5 @@ export class LoginComponent {
 
   recovery() {
     this.router.navigate(['recovery']);
-  }
-
-  public information(texto: string, tipo: string) {
-    const alertas: any = this.alerta.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => { alertas.innerHTML = "" }, 2000);
-  }
-
-  public errores(texto: string, tipo: string) {
-    const alertas: any = this.alerta.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => { alertas.innerHTML = "" }, 2000);
   }
 }

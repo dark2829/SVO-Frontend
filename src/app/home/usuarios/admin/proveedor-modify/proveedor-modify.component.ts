@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormGroupName, Validators } from '@angular/form
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-proveedor-modify',
@@ -12,7 +13,6 @@ import { EnlacesService } from '../../../../services/enlaces.service';
 export class ProveedorModifyComponent implements OnInit {
   //* Salida
   //* Entrada
-  @ViewChild('alerta') alerta: ElementRef;
   
   //* Variables
   index: number | undefined; 
@@ -32,7 +32,8 @@ export class ProveedorModifyComponent implements OnInit {
     private route: ActivatedRoute, //Buscar con indice
     private formBuilder: FormBuilder, 
     private router: Router,
-    private enlace: EnlacesService
+    private enlace: EnlacesService, 
+    private alerta: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -91,24 +92,16 @@ export class ProveedorModifyComponent implements OnInit {
               provee: this.miFormulario.value.hproveedorProvee.toString().trim()
             }
           ).subscribe(
-            respuesta => this.information("Registro exitoso", "success"), 
-          error => {
-            switch(error.status){
-              case 0:
-                this.errores("Error de conexión", "danger");
-              break;
-              case 400: 
-                this.errores("El correo ya está registrado", "warning");
-              break; 
-              case 500: 
-                this.errores("Error en el servidor", "danger");
-              break; 
-            }
-            console.log("reject"+error.status);
+            respuesta => {
+              this.alerta.showAlert("Proveedor Modificado", "success", 2000);
+              setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);  
+            },
+            error => {
+            this.alerta.showAlert("Proveedor Modificado", "success", 2000, error.status);
           }
           );
         } else {
-          this.errores("Campos invalidos", "warning");
+          // this.errores("Campos invalidos", "warning");
         }
       } catch (error) {
         alert(error);
@@ -129,52 +122,8 @@ export class ProveedorModifyComponent implements OnInit {
   public cancel(){
     this.cancelar = true; 
     this.informacion = false; 
-    this.information("Cancelado", "danger");
-  }
-  
-  //? Estos metodos funcionan para mostrar las alertas
-  public information(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {this.listaProveedores()} , 1000);
-  }
-
-  public errores(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
-  }
-  //* Métodos post
-  //* Métodos update
-  //* Métodos delete
-  
-  //* Métodos navegación
-  public listaProveedores(){
-    this.router.navigate(['proveedores']);
+    this.alerta.showAlert("Cancelado", "secondary", 2000);  
+    setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);    
   }
 }
 

@@ -20,7 +20,6 @@ export class InventarioComponent implements OnInit {
   ngOnInit(): void {
     this.producto.getAllProductos().subscribe(response => {
       this.productos = response; 
-      console.log(response);
     });
   }
 

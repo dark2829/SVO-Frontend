@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmpleadosService } from '../../../../services/empleados.service';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-empleado-register',
@@ -10,15 +11,14 @@ import { EnlacesService } from '../../../../services/enlaces.service';
   styleUrls: ['./empleado-register.component.css']
 })
 export class EmpleadoRegisterComponent implements OnInit {
-  
-  @ViewChild('alerta') alerta: ElementRef;
   formEmpleado: FormGroup; 
 
   constructor(
     private empleados: EmpleadosService, 
     private router: Router,
     private formBuilder: FormBuilder, 
-    private enlaces: EnlacesService
+    private enlaces: EnlacesService, 
+    private alerta: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -83,13 +83,13 @@ export class EmpleadoRegisterComponent implements OnInit {
           contrasena:        this.formEmpleado.value.empPass.toString().trim(),    
           idRol:             2        
         }).subscribe(response => {
-          this.information("Registro exitoso", "success");
+          this.alerta.showAlert(response.message, "success", 2000);
           setTimeout(() => {this.listaEmpleado()}, 2500);
         }, error => {
-          console.log(error);
+          this.alerta.showAlert(error.errro.message, "danger", 2000, error.status);
         });
       }else{
-        this.errores("Campos invalidos", "warning");
+        this.alerta.showAlert("Faltan datos", "danger", 2000);
       }
     }catch(e){
       console.log(e);
@@ -101,43 +101,8 @@ export class EmpleadoRegisterComponent implements OnInit {
   }
 
   public cancelar(){
-    this.errores("Cancelado", "danger");
+    this.alerta.showAlert("Cancelado", "secondary", 2000);
     setTimeout(() => {this.listaEmpleado()} , 2500);
-  }
-
-
-  public information(texto: string, tipo: string){
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
-  }
-
-  public errores(texto: string, tipo: string){
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
 
   public listaEmpleado(){

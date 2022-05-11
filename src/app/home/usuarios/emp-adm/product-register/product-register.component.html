@@ -8,8 +8,6 @@
         <div class="col col-12 col-sm-12 col-md-6" style="margin-top: 25vh;">
             <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
                 <div class="container">
-                    <!-- Alerta -->
-                    <div class="alert" #alerta id="alerta"></div>
                     <!-- Titulo and icon -->
                     <div class="row m-2 ms-0">
                         <div class="col col-9">
@@ -152,7 +150,7 @@
                                         </button>
                                     </div>
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger rounded rounded-pill">
+                                        <button type="button" class="btn btn-danger rounded rounded-pill" (click)="cancel()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                 fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                                 <path

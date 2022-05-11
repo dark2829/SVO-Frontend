@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProveedoresService } from '../../../../services/proveedores.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-proveedor-register',
@@ -12,7 +13,6 @@ import { EnlacesService } from '../../../../services/enlaces.service';
 export class ProveedorRegisterComponent implements OnInit {
   //* Salida
   //* Entrada
-  @ViewChild('alerta') alerta: ElementRef;
 
   //* Variables
   miFormulario: FormGroup; 
@@ -24,7 +24,8 @@ export class ProveedorRegisterComponent implements OnInit {
     private serviceProveedor: ProveedoresService, 
     private router: Router, 
     private formBuilder: FormBuilder, 
-    private enlaces: EnlacesService
+    private enlaces: EnlacesService,
+    private alerta: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -62,36 +63,22 @@ export class ProveedorRegisterComponent implements OnInit {
             provee: this.miFormulario.value.proveedorProvee.toString().trim()
           }).subscribe(
             respuesta => {
-              this.information("Registro exitoso", "success")
-              setTimeout(() => {this.listaProveedores()} , 2500);
+              this.alerta.showAlert("Proveedor registrado", "success", 2000);
+              setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);
             }, 
-          error => {
-            switch(error.status){
-              case 0:
-                this.errores("Error de conexión", "danger");
-              break;
-              case 400: 
-                this.errores("El correo ya está registrado", "warning");
-              break; 
-              case 500: 
-                this.errores("Error en el servidor", "danger");
-              break; 
-            }
-            console.log("reject"+error.status);
+            error => {
+              this.alerta.showAlert(error, "success", 2000, error.status);
           }
           );
         }else{
-          this.errores("Campos invalidos", "warning");
+          this.alerta.showAlert("Faltan datos", "warning", 2500);
         }
       }catch(error){
         
       }
     }
   }
-  //* Métodos update
-  //* Métodos delete
 
-  //* Métodos navegación
   public enviar(){
     this.enviarDatos = true; 
     this.regresar = false; 
@@ -101,45 +88,7 @@ export class ProveedorRegisterComponent implements OnInit {
   public cancelar(){
     this.regresar = true; 
     this.enviarDatos = false; 
-    this.errores("Cancelado", "danger");
-    setTimeout(() => {this.listaProveedores()} , 2500);
-  }
-
-  public information(texto: string, tipo: string){
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
-  }
-
-  public errores(texto: string, tipo: string){
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
-  }
-  //* Métodos de navegación
-  public listaProveedores(){
-    this.router.navigate(['proveedores']);
+    this.alerta.showAlert("Cancelado", "secondary", 2000);
+    setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);
   }
 }

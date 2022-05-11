@@ -5,6 +5,7 @@ import { PersonasService } from 'src/app/services/personas.service';
 import { catchError } from 'rxjs';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { TokenService } from 'src/app/services/token.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,6 @@ import { TokenService } from 'src/app/services/token.service';
 export class RegisterComponent implements OnInit {
   //* Salida
   //* Entrada
-  @ViewChild('alerta') alertaHtml: ElementRef;
   email: string; 
   pass: string;
 
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
     private enlace: EnlacesService, 
     private persona: PersonasService,
     private tokenService: TokenService, 
+    private alerta: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -72,7 +73,8 @@ export class RegisterComponent implements OnInit {
           idRol: 3, 
         }).subscribe(
           response => {
-            this.alertChange("Registro exitoso", "success");
+            console.log(response);
+            this.alerta.showAlert("Registro exitoso", "success", 2000, response.status);
             this.persona.inicioSesion({
               identificador: this.email,
               contrasena: this.pass
@@ -85,25 +87,14 @@ export class RegisterComponent implements OnInit {
             })
           }, 
           error => {
-            switch(error.status){
-              case 0:
-                this.alertInfo("Error de conexión", "danger");
-              break;
-              case 400: 
-                this.alertInfo("El correo ya está registrado", "warning");
-              break; 
-              case 500: 
-                this.alertInfo("Error en el servidor", "danger");
-              break; 
-            }
-            console.log("reject"+error.status);
+            this.alerta.showAlert(error.error.message, "warning", 2500)
           }
           );
       }catch(error){
         console.log(error);
       }
     }else{
-      this.alertInfo("Todos los campos son obligatorios", "warning");
+      this.alerta.showAlert("Todos los campos son obligatorios", "warning", 2500)
     }
   }
 
@@ -118,41 +109,5 @@ export class RegisterComponent implements OnInit {
 
   home(){
     this.router.navigate(['']);
-  }
-
-  //* Métodos 
-  public alertChange(texto: string, tipo: string) {
-    const alertas: any = this.alertaHtml.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    // TODO: cambiar a la pagina de inicio, pero antes se debe recuperar el id para saber que usuario es
-    // setTimeout(() => { this.home() }, 1000);
-  }
-
-  public alertInfo(texto: string, tipo: string) {
-    const alertas: any = this.alertaHtml.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
 }

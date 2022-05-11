@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { TokenService } from 'src/app/services/token.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-product-modify',
@@ -27,8 +28,6 @@ export class ProductModifyComponent implements OnInit {
   preView: any;
   img: any;
 
-  @ViewChild('alerta') alerta: ElementRef;
-
   index: string;
   formProducto: FormGroup;
 
@@ -39,7 +38,8 @@ export class ProductModifyComponent implements OnInit {
     private router: Router,
     private enlaces: EnlacesService,
     private tokenService: TokenService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer, 
+    private alerta: AlertaService
   ) { }
 
   // Cargar datos al form
@@ -96,49 +96,17 @@ export class ProductModifyComponent implements OnInit {
       estatus: this.formProducto.value.festado
 
     }).subscribe(response => {
-      this.information("Producto actualizado", "success");
+      this.alerta.showAlert(response.message, "success", 2000);
+      setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
     },
-      error => {
-        console.log(error);
+    reject => {
+      this.alerta.showAlert(reject.error.message, "warning", 2000, reject.status);
       });
-    console.log(this.formProducto.value);
   }
 
-  //? Estos metodos funcionan para mostrar las alertas
-  public information(texto: string, tipo: string) {
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => { }, 1000);
-  }
-
-  public errores(texto: string, tipo: string) {
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => { alertas.innerHTML = "" }, 2000);
+  cancel(){
+    this.alerta.showAlert("Cancelado", "secondary", 2000);
+    setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
   }
 
   public capturarArchivo(event: any): any {
@@ -172,10 +140,4 @@ export class ProductModifyComponent implements OnInit {
       console.log(ex);
     }
   })
-
-  /* b64Img = async (b64: any, type: any) => {
-    const blob = await fetch(`data:${type};base64,${b64}`)
-    return blob;
-  } */
-
 }

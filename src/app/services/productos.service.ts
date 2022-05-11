@@ -48,7 +48,6 @@ export class ProductosService {
        headers: new HttpHeaders(headers),
    };
    httpOptions.headers.set('Authorization',this.token.getToken());
-    console.log(body);
     return this.http.post<any>(url, body, httpOptions);
   }
   
@@ -74,7 +73,6 @@ export class ProductosService {
        headers: new HttpHeaders(headers),
    };
    httpOptions.headers.set('Authorization',this.token.getToken());
-
 
    //Do requesti
    return this.http.post<any>(url, body, httpOptions)

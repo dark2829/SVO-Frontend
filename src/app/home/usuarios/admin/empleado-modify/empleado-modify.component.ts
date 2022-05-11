@@ -5,6 +5,7 @@ import { EmpleadosService } from 'src/app/services/empleados.service';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { TokenService } from '../../../../services/token.service';
 import { PersonasService } from '../../../../services/personas.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-empleado-modify',
@@ -14,7 +15,6 @@ import { PersonasService } from '../../../../services/personas.service';
 export class EmpleadoModifyComponent implements OnInit {
   
   formEmpleado: FormGroup; 
-  @ViewChild('alerta') alerta: ElementRef;
   index: string; 
   
   Bdate: any; 
@@ -43,7 +43,8 @@ export class EmpleadoModifyComponent implements OnInit {
     private router: Router, 
     private enlaces: EnlacesService,
     private token: TokenService, 
-    private route: ActivatedRoute //? Pasar info en liga
+    private route: ActivatedRoute, //? Pasar info en liga
+    private alerta: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -145,10 +146,15 @@ export class EmpleadoModifyComponent implements OnInit {
           correo: "string",
           contrasena: "string",
           telefono: "string",
-        }).subscribe();
+        }).subscribe(response => {
+          this.alerta.showAlert("response.message", "success", 2000);
+          this.router.navigate(["empleados"]);
+        }, reject => {
+          this.alerta.showAlert(reject.error.message, "danger", 2000, reject.status);
+        });
 
       }else{
-        this.errores("Todos los campos son requeridos", "danger");
+        this.alerta.showAlert("Todos los campos son requeridos", "danger", 2000);
       }
 
     }catch(error){
@@ -157,42 +163,12 @@ export class EmpleadoModifyComponent implements OnInit {
 
   }
 
+  public cancelar(){
+    this.alerta.showAlert("Cancelado", "secondary", 2000);
+    setTimeout(() => {this.listaEmpleado()} , 2500);
+  }
 
-    //? Estos metodos funcionan para mostrar las alertas
-    public information(texto: string, tipo: string){
-      //? Agregar opciones de mensajes en vista    
-      const alertas: any = this.alerta.nativeElement; 
-      alertas.innerHTML = `
-                            <div 
-                            class="alert alert-${tipo} alert-dismissible" 
-                            style=
-                              "
-                              position: fixed; top:25vh; right:0%;
-                                
-                              ">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>¡${texto}!</strong>.
-                            </div>
-      `;
-      setTimeout(() => {alertas.innerHTML = ""} , 1000);
-    }
-  
-    public errores(texto: string, tipo: string){
-      //? Agregar opciones de mensajes en vista    
-      const alertas: any = this.alerta.nativeElement; 
-      alertas.innerHTML = `
-                            <div 
-                            class="alert alert-${tipo} alert-dismissible" 
-                            style=
-                              "
-                              position: fixed; top:25vh; right:0%;
-                                
-                              ">
-                            <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>¡${texto}!</strong>
-                            </div>
-      `;
-      setTimeout(() => {alertas.innerHTML = ""} , 2000);
-    }
-
+  public listaEmpleado(){
+    this.router.navigate(['empleados']);
+  }
 }
