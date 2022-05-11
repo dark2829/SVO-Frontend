@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EnlacesService } from '../services/enlaces.service';
 import { ProductosService } from '../services/productos.service';
 import { map } from 'rxjs';
+import { PersonasService } from '../services/personas.service';
+import { AlertaService } from '../services/alerta.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,9 @@ export class HomeComponent {
     private route: ActivatedRoute, // Usa el servicio de route para obtener informacion de la ruta
     private enlaces: EnlacesService,
     private producto: ProductosService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer, 
+    private persona: PersonasService,
+    private alerta: AlertaService
     
   ){
 
@@ -36,6 +40,18 @@ export class HomeComponent {
       this.productos = response.data;
     });
     this.index = this.route.snapshot.params['id'];
+  }
+  
+  addCarrito(idParam: number){
+    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1;
+    this.persona.addShopingCar(API_CARR, {
+      id: idParam,
+      cantidad: 1
+    }).subscribe(response => {
+      this.alerta.showAlert(response.carrito[response.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
+    }, reject => {
+      this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
+    });
   }
 
   regresarImg(b64: string){

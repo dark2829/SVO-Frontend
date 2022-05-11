@@ -17,6 +17,7 @@ export class EnlacesService {
   public API_ENLACE_EMPLEADO    = "http://localhost:8080/empleados";
   public API_ENLACE_USUARIOS    = "http://localhost:8080/usuarios";
   public API_ENLACE_PRODUCTOS   = "http://localhost:8080/productos";
+  public API_ENLACE_CARRITO     = "http://localhost:8080/cart";
 
   //! Direcciones a metodos
   //* Proveedores
@@ -42,4 +43,7 @@ export class EnlacesService {
   public PRODUCTO_BUSCAR = "/findAllProductos"; //? GET
   public PRODUCTO_BUSCAR_ID = "/findProductById?id="; //? GET
   public PRODUCTO_UPDATE = "/update?id=" //? POST
+  //* Carrito 
+  public CARRITO_INSERT = "/carrito?id="
+  public CARRITO_INSERT_C = "&cantidad="
 }

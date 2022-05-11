@@ -105,4 +105,11 @@ export class PersonasService {
   }){
     return this.http.post(url, body);
   }
+
+  public addShopingCar(url: string, body: {
+    id: number; 
+    cantidad: number
+  }): Observable<any>{
+    return this.http.post(url, body);
+  }
 }
