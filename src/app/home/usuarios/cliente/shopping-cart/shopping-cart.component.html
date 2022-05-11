@@ -9,7 +9,7 @@
                 </span>
                 <div class="row border border-dark">
                     <!-- Productos -->
-                    <div class="col col-12 col-sm-12 col-md-6 col-lg-5 border border-dark">
+                    <div class="col col-12 col-sm-12 col-md-6 col-lg-6 border border-dark">
                         <div class="container-fluid m-1 mt-2 p-0 border border-primary rounded">
                             <div class="row">
                                 <!-- Imagen -->
@@ -62,92 +62,69 @@
                     </div>
 
                     <!-- Métodos de pago y entrega -->
-                    <div class="col col-12 col-sm-12 col-md-6 col-lg-3 border border-dark">
+                    <div class="col col-12 col-sm-12 col-md-6 col-lg-6 border border-dark">
                         <div class="row mb-3">
                             <div class="col col-12 mt-3">
                                 <h5>Seleccionar método de pago</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Efectivo
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <input class="form-check-input" type="radio"
+                                            name="fTipePago" id="Efectivo" value="Efectivo">
+                                        <span>Efectivo</span>
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
+                                <div class="form-check mt-2">
                                     <label class="form-check-label" for="flexRadioDefault2">
-                                        Tarjeta
+                                        <input class="form-check-input" type="radio"
+                                            name="fTipePago" id="Tarjeta" value="Tarjeta">
+                                        <span>Tarjeta</span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="col col-12 mt-3">
                                 <h5>Método de entrega</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Domicilio
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <input class="form-check-input" type="radio"
+                                            name="fTipeSend" id="Domicilio" value="Domicilio">
+                                        <span>Domicilio</span>
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
+                                <div class="form-check mt-2">
                                     <label class="form-check-label" for="flexRadioDefault2">
-                                        Recoger en tienda
+                                        <input class="form-check-input" type="radio"
+                                            name="fTipeSend" id="Tienda" value="Tienda">
+                                        <span>Tienda</span>
                                     </label>
                                 </div>
                             </div>
+
                             <div class="col col-12 mt-3">
-                                <h5>¿Su compra sera facturada?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Si
+                                <h5>Método de entrega</h5>
+                                <div class="form-check mt-2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <input class="form-check-input" type="radio"
+                                            name="fBuyFact" id="Si" value="Si">
+                                        <span>Si</span>
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
+                                <div class="form-check mt-2">
                                     <label class="form-check-label" for="flexRadioDefault2">
-                                        No
+                                        <input class="form-check-input" type="radio"
+                                            name="fBuyFact" id="No" value="No">
+                                        <span>No</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Productos individuales -->
-                    <div class="col col-12 col-sm-12 col-md-12 col-lg-4 border border-dark">
-                        <div class="row">
-                            <div class="col">
-                                <div class="container mt-4 rounded border border-primary">
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>{{producto}}</p>
-                                            <p>Precio unitario: {{precioReal}} </p>
-                                            <p>Cantidad: {{cantidad}}</p>
-                                            <p>Total: {{cantidad * precioReal}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-12 mt-3">
-                                <h5>Total: {{cantidad * precioReal}}</h5>
-                                <hr>
-                                <p>Mas envio: {{cantidad}}</p>
-
-                                <p class="text-center">
-                                    <button class="btn btn-success rounded rounded-pill" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Continuar con la compra
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="text-center my-3">
+                        <button class="btn btn-success rounded rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Continuar con la compra
+                        </button>
+                    </p>
                 </div>
             </div>
         </div>

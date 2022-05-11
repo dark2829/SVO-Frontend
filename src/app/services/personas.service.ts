@@ -16,6 +16,9 @@ export class PersonasService {
 
   authURL = this.enlaces.AUTH_URL; 
 
+  //! Varibale de productos para carrito 
+  productShopping: any = [];
+
   constructor(
     private http: HttpClient, 
     private enlaces: EnlacesService
