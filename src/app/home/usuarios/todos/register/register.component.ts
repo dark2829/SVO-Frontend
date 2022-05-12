@@ -75,6 +75,7 @@ export class RegisterComponent implements OnInit {
           response => {
             console.log(response);
             this.alerta.showAlert("Registro exitoso", "success", 2000, response.status);
+
             this.persona.inicioSesion({
               identificador: this.email,
               contrasena: this.pass
@@ -83,8 +84,11 @@ export class RegisterComponent implements OnInit {
               this.tokenService.setIdentificador(response.data.idUser.correo);
               this.tokenService.setAuthorities(response.data.rol[0].authority);
               this.tokenService.setNombre(response.data.idPerson.nombre);
+              this.tokenService.setID(response.data.idPerson.id)
+              
               setTimeout(() => {this.router.navigate(['user/'+response.data.idPerson.id])} , 2000);
             })
+
           }, 
           error => {
             this.alerta.showAlert(error.error.message, "warning", 2500)

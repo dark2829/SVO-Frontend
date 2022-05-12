@@ -10,7 +10,7 @@
             <div class=" col col-12 col-sm-12 col-m-10 col-lg-10 d-flex justify-content-center align-items-center ">
                 <div class=" text-center">
                     <div>
-                        <div *ngIf="!fileChange; else Conimagen">
+                        <div *ngIf="fileChange == false; else conimagen">
                             <svg xmlns="http://www.w3.org/2000/svg" width="165" height="165" fill="currentColor"
                                 class="bi bi-person-circle border border-primary text-primary p-2 mb-1"
                                 viewBox="0 0 16 16">
@@ -20,7 +20,7 @@
                             </svg>
                         </div>
 
-                        <ng-template #Conimagen>
+                        <ng-template #conimagen>
                             <div>
                                 <img [src]="preView" alt="" class="img-perfil">
                             </div>

@@ -49,26 +49,26 @@ export class PerfilModifyComponent implements OnInit {
   tarjetsArry: any [] = [undefined, undefined, undefined];
 
   //? Variables compoartidas
-  _nombre: string; 
-  _apellidoP: string; 
-  _apellidoM: string; 
-  _fechaBirt: string; 
-  _genero: string; 
-  _correo: string; 
-  _contrasena: string; 
-  _telefono: string; 
-  _calle: string[] = ['','','']; 
-  _colonia: string[] = ['','','']; 
-  _municipio: string[] = ['','','']; 
-  _estado: string[] = ['','','']; 
-  _cp: string[] = ['','','']; 
-  _ninterior: string[] = ['','','']; 
-  _nexterior: string[] = ['','','']; 
-  _referenc: string[] = ['','','']; 
-  _propietario: string[] = ['','','']; 
-  _tarjeta: string[] = ['','','']; 
-  _fechaVenc: string[] = ['','','']; 
-  _cvv: string[] = ['','','']; 
+  _nombre: any; 
+  _apellidoP: any; 
+  _apellidoM: any; 
+  _fechaBirt: any; 
+  _genero: any; 
+  _correo: any; 
+  _contrasena: any; 
+  _telefono: any; 
+  _calle: any[] = ['','','']; 
+  _colonia: any[] = ['','','']; 
+  _municipio: any[] = ['','','']; 
+  _estado: any[] = ['','','']; 
+  _cp: any[] = ['','','']; 
+  _ninterior: any[] = ['','','']; 
+  _nexterior: any[] = ['','','']; 
+  _referenc: any[] = ['','','']; 
+  _propietario: any[] = ['','','']; 
+  _tarjeta: any[] = ['','','']; 
+  _fechaVenc: any[] = ['','','']; 
+  _cvv: any[] = ['','','']; 
   //* Variable de formulario
   formPerson: FormGroup; 
   radioExample: FormControl = new FormControl(); //radioExample
@@ -76,16 +76,20 @@ export class PerfilModifyComponent implements OnInit {
 
   ngOnInit(): void {
     this.indexPerson = this.token.getID();
+
     this.persona.getPerson(this.indexPerson).subscribe(response => {
       this.indexClient = response.data.id;//? Id usuario
+      console.log(response);
 
       this._nombre =      response.data.idPersona.nombre;
       this._apellidoP =   response.data.idPersona.apellido_paterno;
       this._apellidoM =   response.data.idPersona.apellido_materno;
-      this.Bdate = response.data.idPersona.fecha_nac;
-      this.Bdate = this.Bdate.split("-");
-      this.Bdate = this.Bdate[2]+"-"+this.Bdate[1]+"-"+this.Bdate[0];
-      this._fechaBirt =   this.Bdate;   
+      if(response.data.idPersona.fecha_nac != null){
+        this.Bdate = response.data.idPersona.fecha_nac;
+        this.Bdate = this.Bdate.split("-");
+        this.Bdate = this.Bdate[2]+"-"+this.Bdate[1]+"-"+this.Bdate[0];
+        this._fechaBirt =   this.Bdate; 
+      }
       this._genero =      response.data.idPersona.genero;
       this._correo =      response.data.correo; 
       this._contrasena =  response.data.contraseña; 
