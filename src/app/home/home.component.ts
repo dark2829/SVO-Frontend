@@ -48,14 +48,18 @@ export class HomeComponent {
   like(id: number){
     //FIXME: Agregar el metodo de agregar a favoritos en la linea 57 y en 53 metodo de quitar de fav
     const likeId = document.getElementsByClassName("buttonLike");
-    if(likeId[id-1].classList.contains("lineaBlanca")){
-      //? no se manda el metodo 
-      likeId[id-1].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
-      console.log("Quitando clase namas y quito de favoritos");
+    if(this.token.getToken() != null){
+      if(likeId[id-1].classList.contains("lineaBlanca")){
+        //? no se manda el metodo 
+        likeId[id-1].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
+        console.log("Quitando clase namas y quito de favoritos");
+      }else{
+        //? se manda el metodo de agregar a fsavoritos 
+        console.log("Mando a favoritos");
+        likeId[id-1].classList.add("bg-danger", "text-white", "lineaBlanca");
+      }
     }else{
-      //? se manda el metodo de agregar a fsavoritos 
-      console.log("Mando a favoritos");
-      likeId[id-1].classList.add("bg-danger", "text-white", "lineaBlanca");
+      this.alerta.showAlert("Deberia tener una sesion iniciada", "warning", 3000);
     }
   }
   
