@@ -38,6 +38,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
+    //FIXME: falta cargar si los productos estan en favoritos
     this.producto.getAllProductos().subscribe(response => {
       this.productos = response.data;
     });

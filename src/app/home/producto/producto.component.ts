@@ -31,6 +31,7 @@ export class ProductoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //FIXME: falta cargar si los productos estan en favoritos
     this.index = this.route.snapshot.params['id'].toString();
 
     if(this.token.getToken()){
@@ -45,6 +46,7 @@ export class ProductoComponent implements OnInit {
   }
 
   like(id: number){
+    //FIXME: falta implementar el metodo de agregar y eliminar de likes
     const likeId = document.getElementsByClassName("buttonLike");
     if(likeId[0].classList.contains("lineaBlanca")){
       //? no se manda el metodo 
