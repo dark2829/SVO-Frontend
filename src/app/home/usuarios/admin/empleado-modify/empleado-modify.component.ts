@@ -146,8 +146,6 @@ export class EmpleadoModifyComponent implements OnInit {
         }else{
           date = null; 
         }
-
-        //FIXME: Falta agregar el numero de empleado
         this.empleado.updateEmpleadoDataPerson(API_MODIFY_EMPLEADO, {
           nombre: this.formEmpleado.value.fNombre,
           apellido_paterno: this.formEmpleado.value.fApellidoP,

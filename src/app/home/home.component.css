@@ -46,3 +46,7 @@ a{
 .card-head .imgProdImg {
     width: 32vh;
 }
+
+.lineaBlanca{
+    border-color: white ;
+}

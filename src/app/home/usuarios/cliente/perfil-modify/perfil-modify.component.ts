@@ -73,7 +73,12 @@ export class PerfilModifyComponent implements OnInit {
   formPerson: FormGroup; 
   radioExample: FormControl = new FormControl(); //radioExample
   
-
+  
+  //FIXME: Falta revisar los datos de modificar direccion y tarjetas
+  /*
+  el error es que genera una direccion per ose deberia modificar la direccion existente
+  en tarjeta solo manda una parte del texto por campo. 
+  */
   ngOnInit(): void {
     this.indexPerson = this.token.getID();
 

@@ -43,6 +43,20 @@ export class HomeComponent {
     });
     this.index = this.route.snapshot.params['id'];
   }
+
+  like(id: number){
+    //FIXME: Agregar el metodo de agregar a favoritos en la linea 57 y en 53 metodo de quitar de fav
+    const likeId = document.getElementsByClassName("buttonLike");
+    if(likeId[id-1].classList.contains("lineaBlanca")){
+      //? no se manda el metodo 
+      likeId[id-1].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
+      console.log("Quitando clase namas y quito de favoritos");
+    }else{
+      //? se manda el metodo de agregar a fsavoritos 
+      console.log("Mando a favoritos");
+      likeId[id-1].classList.add("bg-danger", "text-white", "lineaBlanca");
+    }
+  }
   
   addCarrito(idParam: number){
     const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1;
