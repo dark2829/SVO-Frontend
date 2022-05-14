@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PersonasService } from './personas.service';
 
 @Injectable({
   providedIn: 'root'

@@ -28,6 +28,7 @@ import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/ped
 import { AlertComponent } from './home/usuarios/admin/alert/alert.component';
 import { GuardHomeService as guard } from './guards/guard-home.service';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/product-carr/product-carr.component';
 
 /*
   Para acceder a empleado o admin solo en la url se debe colocar 
@@ -49,6 +50,7 @@ const routes: Routes = [
   {path: 'cancel-request', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'productInCarr', component: ProductCarrComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   //Pantallas de empleado
   {path: 'home-empleado', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ['Empleado']} },
   {path: 'pedidos', component: PedidosComponent },

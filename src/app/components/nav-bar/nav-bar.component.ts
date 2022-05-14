@@ -53,7 +53,6 @@ export class NavBarComponent implements OnInit {
     }else{
       this.isLogged = false;
       this.nombre = "";
-      console.log("No tiene una sesión iniciada");
     }
 
     
