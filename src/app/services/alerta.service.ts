@@ -9,9 +9,6 @@ export class AlertaService {
   private alertSource = new Subject();
   alert$ = this.alertSource.asObservable();
 
-  exito: string; 
-  error: string; 
-
   constructor() { }
 
   showAlert(texto: string, tipe: string,  time: number = 3000, status: string = "200"){

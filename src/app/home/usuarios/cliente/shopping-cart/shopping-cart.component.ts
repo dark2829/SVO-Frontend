@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EnlacesService } from '../../../../services/enlaces.service';
+import { PersonasService } from '../../../../services/personas.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -6,14 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  producto = "Jabón en polvo Roma 1Kg";
-  precioAntes = 50.50;
-  precioReal = 45;
-  cantidad = 1; 
-  total = 12.50; 
-  constructor() { }
+  
+  total: string; 
 
-  ngOnInit(): void {
+  constructor(
+    private enlaces: EnlacesService, 
+    private persona: PersonasService
+  ) { }
+
+  ngOnInit() {  
   }
 
 }

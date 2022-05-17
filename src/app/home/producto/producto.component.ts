@@ -64,10 +64,8 @@ export class ProductoComponent implements OnInit {
     if(this.token.getToken() != null){
       this.persona.addShopingCar(API_CARR, {
         id: idParam,
-        cantidad: 1
+        cantidad: this.formProductoExtend.value.cantidad
       }).subscribe(response => {
-        console.log(response);
-        this.persona.productShopping = response.carrito;
         this.alerta.showAlert(response.carrito[response.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
         this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);

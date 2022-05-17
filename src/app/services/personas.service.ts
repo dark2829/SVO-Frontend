@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { map, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { map, Observable, throwError, Subject } from 'rxjs';
 import { EnlacesService } from './enlaces.service';
-import { error } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +11,14 @@ export class PersonasService {
   idPerson: number; 
   idUser: number; 
   personInfo: any; 
+  
+  private total = new Subject();
+
+  totalObservable = this.total.asObservable();
+
+  mostrarTotal(totals: string) {
+    this.total.next(totals);
+  }
 
   authURL = this.enlaces.AUTH_URL; 
 
@@ -24,9 +30,13 @@ export class PersonasService {
     private enlaces: EnlacesService
   ) { }
 
+  public getProduct(): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_GET_ALL)
+  }
+
   //* Métodos get
   public getPerson(id: string): Observable<any>{
-    return this.http.get(this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
+    return this.http.get  (this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
   }
 
   //* Métodos post
@@ -114,5 +124,9 @@ export class PersonasService {
     cantidad: number
   }): Observable<any>{
     return this.http.post(url, body);
+  }
+
+  public deleteOneGroup(id: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_DELETE+id);
   }
 }

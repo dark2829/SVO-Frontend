@@ -7,6 +7,7 @@ import { map } from 'rxjs';
 import { PersonasService } from '../services/personas.service';
 import { AlertaService } from '../services/alerta.service';
 import { TokenService } from '../services/token.service';
+import { ProductCarrComponent } from './usuarios/cliente/shopping-cart/product-carr/product-carr.component';
 
 @Component({
   selector: 'app-home',
