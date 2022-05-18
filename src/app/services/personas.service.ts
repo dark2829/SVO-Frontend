@@ -123,7 +123,7 @@ export class PersonasService {
   }
 
   public deleteOneProductOfGroup(url: string, body: {
-    id: number, 
+    idProducto: number, 
     cantidad: number
   }): Observable<any>{
     return this.http.post(url, body);

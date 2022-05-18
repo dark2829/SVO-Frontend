@@ -71,8 +71,8 @@ export class HomeComponent {
         id: idParam,
         cantidad: 1
       }).subscribe(response => {
-        this.persona.productShopping = response.carrito;
-        // this.alerta.showAlert(response.carrito[response.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
+        this.persona.productShopping = response.data.carrito;
+        this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
         console.log(reject)
         this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);

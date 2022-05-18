@@ -44,8 +44,8 @@ export class ProductCarrComponent implements OnInit {
     });
   }
 
-  addOneProduct(idParam: number){
-    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT;
+  addOneProduct(idParam: number, cantidad: number){
+    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1;
     this.persona.addShopingCar(API_CARR, {
       id: idParam,
       cantidad: 1
@@ -53,21 +53,25 @@ export class ProductCarrComponent implements OnInit {
       window.location.reload();
       this.alerta.showAlert(response.idProducto.nombre+" añadido", "success", 2500);
     }, reject => {
-      this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
+      this.alerta.showAlert(reject.error.message, "danger", 2500);
     });
   }
 
-  actualizarCantidad(id: string){
+  actualizarCantidad(id: string, cantidad: number) {
     let idProd = parseInt(id);
-    const API_ACTUALIZAR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_UPDATE;
-    this.persona.deleteOneProductOfGroup(API_ACTUALIZAR, {
-      id: idProd, 
-      cantidad: 1
-    }).subscribe(response => {
-      console.log(response);
-    }, reject => {
-
-    });
+    if (cantidad == 1) {
+      this.deleteGroup(id);
+    } else {
+      const API_ACTUALIZAR = this.enlaces.API_ENLACE_CARRITO + this.enlaces.CARRITO_UPDATE + id + this.enlaces.CARRITO_INSERT_C + (cantidad - 1);
+      this.persona.deleteOneProductOfGroup(API_ACTUALIZAR, {
+        idProducto: idProd,
+        cantidad: 2
+      }).subscribe(response => {
+        window.location.reload();
+      }, reject => {
+        this.alerta.showAlert(reject.message, "danger", 2500)
+      });
+    }
   }
 
   regresarImg(b64: string){

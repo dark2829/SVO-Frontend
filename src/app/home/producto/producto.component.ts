@@ -15,6 +15,7 @@ import { AlertaService } from '../../services/alerta.service';
 })
 export class ProductoComponent implements OnInit {
   productInfo: any = {};
+  cantidad: any = [];
   index: string; 
   formProductoExtend: FormGroup;
 
@@ -37,7 +38,9 @@ export class ProductoComponent implements OnInit {
     if(this.token.getToken()){
       this.producto.getProductID(this.index).subscribe(response => {
         this.productInfo = response.data;
-
+        for(let i = 1; i<= response.data.cantidad; i++ ){
+            this.cantidad[i] = i;
+        }
         this.formProductoExtend = this.formBuilder.group({
           cantidad: [1]
         });
@@ -66,7 +69,7 @@ export class ProductoComponent implements OnInit {
         id: idParam,
         cantidad: this.formProductoExtend.value.cantidad
       }).subscribe(response => {
-        this.alerta.showAlert(response.carrito[response.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
+        this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
         this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
       });

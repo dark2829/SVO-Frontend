@@ -48,5 +48,5 @@ export class EnlacesService {
   public CARRITO_INSERT_C = "&cantidad="
   public CARRITO_GET_ALL = "/findCarrProducts"//? GET
   public CARRITO_DELETE = "/delete/cart?id="
-  public CARRITO_UPDATE =  "/actualizarCantidadProducto" //? POST
+  public CARRITO_UPDATE =  "/actualizarCantidadProducto?idProducto=" //? POST
 }
