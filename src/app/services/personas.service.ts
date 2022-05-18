@@ -10,15 +10,7 @@ export class PersonasService {
 
   idPerson: number; 
   idUser: number; 
-  personInfo: any; 
-  
-  private total = new Subject();
-
-  totalObservable = this.total.asObservable();
-
-  mostrarTotal(totals: string) {
-    this.total.next(totals);
-  }
+  personInfo: any;
 
   authURL = this.enlaces.AUTH_URL; 
 
@@ -120,7 +112,7 @@ export class PersonasService {
   }
 
   public addShopingCar(url: string, body: {
-    id: number; 
+    id: number,
     cantidad: number
   }): Observable<any>{
     return this.http.post(url, body);
@@ -128,5 +120,12 @@ export class PersonasService {
 
   public deleteOneGroup(id: string): Observable<any>{
     return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_DELETE+id);
+  }
+
+  public deleteOneProductOfGroup(url: string, body: {
+    id: number, 
+    cantidad: number
+  }): Observable<any>{
+    return this.http.post(url, body);
   }
 }

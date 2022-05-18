@@ -72,8 +72,9 @@ export class HomeComponent {
         cantidad: 1
       }).subscribe(response => {
         this.persona.productShopping = response.carrito;
-        this.alerta.showAlert(response.carrito[response.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
+        // this.alerta.showAlert(response.carrito[response.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
+        console.log(reject)
         this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
       });
     }else{

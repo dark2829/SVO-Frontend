@@ -31,10 +31,10 @@ export class ProductCarrComponent implements OnInit {
     this.total = 0; 
     this.persona.getProduct().subscribe(response => {
       this.productosAgregados = response.carrito;
-      response.carrito.forEach((element:any) => {
+      console.log(response);
+      /* response.carrito.forEach((element:any) => {
         this.total += element.cantidad* element.idProducto.precio_venta
-      })
-      this.persona.mostrarTotal(this.total.toString());
+      }) */
     }); 
   }
 
@@ -45,7 +45,7 @@ export class ProductCarrComponent implements OnInit {
   }
 
   addOneProduct(idParam: number){
-    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1;
+    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT;
     this.persona.addShopingCar(API_CARR, {
       id: idParam,
       cantidad: 1
@@ -54,6 +54,19 @@ export class ProductCarrComponent implements OnInit {
       this.alerta.showAlert(response.idProducto.nombre+" añadido", "success", 2500);
     }, reject => {
       this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
+    });
+  }
+
+  actualizarCantidad(id: string){
+    let idProd = parseInt(id);
+    const API_ACTUALIZAR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_UPDATE;
+    this.persona.deleteOneProductOfGroup(API_ACTUALIZAR, {
+      id: idProd, 
+      cantidad: 1
+    }).subscribe(response => {
+      console.log(response);
+    }, reject => {
+
     });
   }
 
