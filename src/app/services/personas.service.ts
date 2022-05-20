@@ -26,6 +26,10 @@ export class PersonasService {
     return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_GET_ALL+idUsuario)
   }
 
+  public getProductLike(idUsuario: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_GET_ALL+idUsuario)
+  }
+
   //* Métodos get
   public getPerson(id: string): Observable<any>{
     return this.http.get  (this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
@@ -127,5 +131,15 @@ export class PersonasService {
     cantidad: number
   }): Observable<any>{
     return this.http.post(url, body);
+  }
+
+  public addFavorite(idProducto: string, idUsuario: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_ADD+idProducto+this.enlaces.FAVORITOS_AandU+idUsuario;
+    return this.http.get(URL);
+  }
+
+  public deleteFavorite(idProducto: string, idUsuario: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_DELETE+idProducto+this.enlaces.FAVORITOS_AandU+idUsuario;
+    return this.http.get(URL);
   }
 }

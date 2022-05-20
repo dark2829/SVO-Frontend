@@ -15,7 +15,7 @@ export class EnlacesService {
   public API_ENLACE_PROVEEDOR   = "http://localhost:8080/proveedores";
   public API_ENLACE_EMPLEADO    = "http://localhost:8080/empleados";
   public API_ENLACE_USUARIOS    = "http://localhost:8080/usuarios";
-  public API_ENLACE_PRODUCTOS   = "http://localhost:8080/productos";
+  public API_ENLACE_PRODUCTOS   = "http://localhost:8080/productos";//? Tambien se usa en favoritos
   public API_ENLACE_CARRITO     = "http://localhost:8080/cart";
   public PRODUCTOS_EN_CARRITO   = "http://localhost:4200/productInCarr"
 
@@ -51,4 +51,9 @@ export class EnlacesService {
   public CARRITO_DELETE_P = "/delete/cart?idProducto="
   public CARRITO_PandU = "&idUsuario="
   public CARRITO_UPDATE =  "/actualizarCantidadProducto?idProducto=" //? POST
+  //* Favoritos
+  public FAVORITOS_GET_ALL = "/mostrarFavoritosPorUsuario?idUsuario="//?GET
+  public FAVORITOS_ADD     = "/anadirFavoritos?idProducto="//?GET
+  public FAVORITOS_DELETE  = "/borrarProductoFavorito?idProducto="//?GET
+  public FAVORITOS_AandU   = "&idUsuario="//? GET
 }

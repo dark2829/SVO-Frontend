@@ -3,11 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EnlacesService } from '../services/enlaces.service';
 import { ProductosService } from '../services/productos.service';
-import { map } from 'rxjs';
 import { PersonasService } from '../services/personas.service';
 import { AlertaService } from '../services/alerta.service';
 import { TokenService } from '../services/token.service';
-import { ProductCarrComponent } from './usuarios/cliente/shopping-cart/product-carr/product-carr.component';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +19,10 @@ export class HomeComponent {
   fileChange: boolean [];
   preView: any;
   img: any;
-  
+
   index: number; 
+
+  likeId = document.getElementsByClassName("buttonLike");
   
   constructor(
     private router: Router, //usa un servicio router 
@@ -38,29 +38,35 @@ export class HomeComponent {
 
   }
 
-  ngOnInit(): void {
-    //FIXME: falta cargar si los productos estan en favoritos
+  ngOnInit(): void {    
     this.producto.getAllProductos().subscribe(response => {
       this.productos = response.data;
     });
+    this.persona.getProductLike(this.token.getID()).subscribe(response => {
+      console.log(response);
+      response.data.forEach((element : any) => {
+        this.likeId[element.id-1].classList.add("bg-danger", "text-white", "lineaBlanca")
+      })      
+    });
+
     this.index = this.route.snapshot.params['id'];
   }
 
-  like(id: number){
-    //FIXME: Agregar el metodo de agregar a favoritos en la linea 57 y en 53 metodo de quitar de fav
-    const likeId = document.getElementsByClassName("buttonLike");
+  like(idProducto: number){
     if(this.token.getToken() != null){
-      if(likeId[id-1].classList.contains("lineaBlanca")){
-        //? no se manda el metodo 
-        likeId[id-1].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
-        console.log("Quitando clase namas y quito de favoritos");
+      if(this.likeId[idProducto-1].classList.contains("lineaBlanca")){ 
+        this.persona.deleteFavorite(idProducto.toString(), this.token.getID()).subscribe(response => {
+          this.alerta.showAlert(response.message, "success", 2500);
+          this.likeId[idProducto-1].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
+        });
       }else{
-        //? se manda el metodo de agregar a fsavoritos 
-        console.log("Mando a favoritos");
-        likeId[id-1].classList.add("bg-danger", "text-white", "lineaBlanca");
+        this.persona.addFavorite(idProducto.toString(), this.token.getID().toString()).subscribe(response => {
+          this.alerta.showAlert(response.message, "success", 2500);
+          this.likeId[idProducto-1].classList.add("bg-danger", "text-white", "lineaBlanca");
+        });
       }
     }else{
-      this.alerta.showAlert("Deberia tener una sesion iniciada", "warning", 3000);
+      this.alerta.showAlert("Debería tener una sesión iniciada", "warning", 3000);
     }
   }
   
@@ -78,7 +84,7 @@ export class HomeComponent {
         this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
       });
     }else{
-      this.alerta.showAlert("No tiene una sesion iniciada", "warning", 2500);
+      this.alerta.showAlert("No tiene una sesión iniciada", "warning", 2500);
     }
   }
 

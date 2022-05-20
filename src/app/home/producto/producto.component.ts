@@ -18,6 +18,7 @@ export class ProductoComponent implements OnInit {
   cantidad: any = [];
   index: string; 
   formProductoExtend: FormGroup;
+  likeId = document.getElementsByClassName("buttonLike");
 
     constructor(
     private router: Router, //usa un servicio router 
@@ -46,19 +47,29 @@ export class ProductoComponent implements OnInit {
         });
       });
     }
+
+    this.persona.getProductLike(this.token.getID()).subscribe(response => {
+      console.log(response);
+      response.data.forEach((element : any) => {
+        console.log(this.index == element.id);
+        if(this.index == element.id){
+          this.likeId[0].classList.add("bg-danger", "text-white", "lineaBlanca")
+        }
+      })      
+    });
   }
 
-  like(id: number){
-    //FIXME: falta implementar el metodo de agregar y eliminar de likes
-    const likeId = document.getElementsByClassName("buttonLike");
-    if(likeId[0].classList.contains("lineaBlanca")){
-      //? no se manda el metodo 
-      likeId[0].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
-      console.log("Quitando clase namas y quito de favoritos");
+  like(idProducto: number){
+    if(this.likeId[0].classList.contains("lineaBlanca")){
+      this.persona.deleteFavorite(idProducto.toString(), this.token.getID()).subscribe(response => {
+        this.alerta.showAlert(response.message, "success", 2500);
+        this.likeId[0].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
+      });
     }else{
-      //? se manda el metodo de agregar a fsavoritos 
-      console.log("Mando a favoritos");
-      likeId[0].classList.add("bg-danger", "text-white", "lineaBlanca");
+      this.persona.addFavorite(idProducto.toString(), this.token.getID().toString()).subscribe(response => {
+        this.alerta.showAlert(response.message, "success", 2500);
+        this.likeId[0].classList.add("bg-danger", "text-white", "lineaBlanca");
+      });
     }
   }
 
