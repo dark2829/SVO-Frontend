@@ -63,7 +63,7 @@ export class ProductoComponent implements OnInit {
   }
 
   addCarrito(idParam: number, cantidad: number){
-    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+cantidad;
+    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+cantidad+this.enlaces.CARRITO_INSERT_U+this.token.getID();
     if(this.token.getToken() != null){
       this.persona.addShopingCar(API_CARR, {
         id: idParam,
@@ -71,7 +71,7 @@ export class ProductoComponent implements OnInit {
       }).subscribe(response => {
         this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
-        this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
+        this.alerta.showAlert(reject.error.message, "danger", 2500);
       });
     }else{
       this.alerta.showAlert("No tiene una sesion iniciada", "warning", 2500);

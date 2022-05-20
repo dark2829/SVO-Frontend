@@ -44,9 +44,11 @@ export class EnlacesService {
   public PRODUCTO_BUSCAR_ID = "/findProductById?id="; //? GET
   public PRODUCTO_UPDATE = "/update?id=" //? POST
   //* Carrito 
-  public CARRITO_INSERT = "/carrito?id="
+  public CARRITO_INSERT = "/carrito?idProducto="
   public CARRITO_INSERT_C = "&cantidad="
-  public CARRITO_GET_ALL = "/findCarrProducts"//? GET
-  public CARRITO_DELETE = "/delete/cart?id="
+  public CARRITO_INSERT_U = "&idUsuario="
+  public CARRITO_GET_ALL = "/actualizarProductosCarrito?idUsuario="//? GET
+  public CARRITO_DELETE_P = "/delete/cart?idProducto="
+  public CARRITO_PandU = "&idUsuario="
   public CARRITO_UPDATE =  "/actualizarCantidadProducto?idProducto=" //? POST
 }

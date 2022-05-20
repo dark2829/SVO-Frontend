@@ -65,7 +65,7 @@ export class HomeComponent {
   }
   
   addCarrito(idParam: number){
-    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1;
+    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1+this.enlaces.CARRITO_INSERT_U+this.token.getID();
     if(this.token.getToken() != null){
       this.persona.addShopingCar(API_CARR, {
         id: idParam,

@@ -17,6 +17,7 @@ export class ProductCarrComponent implements OnInit {
 
   productosAgregados: any = {};
   total: number; 
+  idUsuario = this.token.getID();
 
   constructor(
     private enlaces: EnlacesService,
@@ -29,41 +30,40 @@ export class ProductCarrComponent implements OnInit {
 
   ngOnInit(): void {
     this.total = 0; 
-    this.persona.getProduct().subscribe(response => {
-      this.productosAgregados = response.carrito;
+    this.persona.getProduct(this.token.getID()).subscribe(response => {
+      this.productosAgregados = response.data.carrito;
       console.log(response);
-      /* response.carrito.forEach((element:any) => {
-        this.total += element.cantidad* element.idProducto.precio_venta
-      }) */
     }); 
   }
 
-  deleteGroup(id: string){
-    this.persona.deleteOneGroup(id).subscribe(response => {
+  deleteGroup(idProducto: string, idUsuario: string){
+    console.log("id usuario", idUsuario);
+    this.persona.deleteOneGroup(idProducto, idUsuario ).subscribe(response => {
       window.location.reload()
     });
   }
 
   addOneProduct(idParam: number, cantidad: number){
-    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1;
+    const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1+this.enlaces.CARRITO_PandU+this.token.getID();
     this.persona.addShopingCar(API_CARR, {
       id: idParam,
       cantidad: 1
     }).subscribe(response => {
       window.location.reload();
-      this.alerta.showAlert(response.idProducto.nombre+" añadido", "success", 2500);
+      this.alerta.showAlert(response.idProducto.nombre+" añadido", "success", 2500, "400");
     }, reject => {
       this.alerta.showAlert(reject.error.message, "danger", 2500);
     });
   }
 
-  actualizarCantidad(id: string, cantidad: number) {
-    let idProd = parseInt(id);
+  actualizarCantidad(idProducto: string, cantidad: number) {
+    let idProd = parseInt(idProducto);
+    let idUsuario = this.token.getID();
     if (cantidad == 1) {
-      this.deleteGroup(id);
+      this.deleteGroup(idProducto, idUsuario);
     } else {
-      const API_ACTUALIZAR = this.enlaces.API_ENLACE_CARRITO + this.enlaces.CARRITO_UPDATE + id + this.enlaces.CARRITO_INSERT_C + (cantidad - 1);
-      this.persona.deleteOneProductOfGroup(API_ACTUALIZAR, {
+      const API_REDUCE_ONE = this.enlaces.API_ENLACE_CARRITO + this.enlaces.CARRITO_UPDATE + idProducto + this.enlaces.CARRITO_INSERT_C + (cantidad - 1)+this.enlaces.CARRITO_PandU+this.token.getID();
+      this.persona.deleteOneProductOfGroup(API_REDUCE_ONE, {
         idProducto: idProd,
         cantidad: 2
       }).subscribe(response => {

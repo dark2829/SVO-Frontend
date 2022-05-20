@@ -41,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/product-carr/product-carr.component';
+import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecovery/passwordrecovery.component';
 
 //Interceptores
 // import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
@@ -77,6 +78,7 @@ import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/prod
     PedidoRequestComponent,
     NotFoundComponent,
     ProductCarrComponent,
+    PasswordrecoveryComponent,
   ],
   imports: [
     BrowserModule,

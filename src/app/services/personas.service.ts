@@ -22,8 +22,8 @@ export class PersonasService {
     private enlaces: EnlacesService
   ) { }
 
-  public getProduct(): Observable<any>{
-    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_GET_ALL)
+  public getProduct(idUsuario: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_GET_ALL+idUsuario)
   }
 
   //* Métodos get
@@ -118,8 +118,8 @@ export class PersonasService {
     return this.http.post(url, body);
   }
 
-  public deleteOneGroup(id: string): Observable<any>{
-    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_DELETE+id);
+  public deleteOneGroup(idProducto: string, idUsuario: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_DELETE_P+idProducto+this.enlaces.CARRITO_PandU+idUsuario);
   }
 
   public deleteOneProductOfGroup(url: string, body: {
