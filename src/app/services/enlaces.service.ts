@@ -43,6 +43,8 @@ export class EnlacesService {
   public PRODUCTO_BUSCAR = "/findAllProductos"; //? GET
   public PRODUCTO_BUSCAR_ID = "/findProductById?id="; //? GET
   public PRODUCTO_UPDATE = "/update?id=" //? POST
+  public PRODUCTO_STOCKDOWN = "/findStockBajo" //? GET
+  public PRODUCTO_CONTACT = "/contactado?idProducto=" //? GET
   //* Carrito 
   public CARRITO_INSERT = "/carrito?idProducto="
   public CARRITO_INSERT_C = "&cantidad="

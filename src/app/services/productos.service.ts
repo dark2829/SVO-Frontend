@@ -77,4 +77,16 @@ export class ProductosService {
    //Do requesti
    return this.http.post<any>(url, body, httpOptions)
   }
+
+  public alertProducts(): Observable<any>{
+    const API_ALERT = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.PRODUCTO_STOCKDOWN;
+    return this.http.get(API_ALERT);
+  }
+
+  public alertProductsContact(idProduct: string): Observable<any>{
+    const API_ALERT = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.PRODUCTO_CONTACT+idProduct;
+    return this.http.get(API_ALERT);
+  }
+
+
 }
