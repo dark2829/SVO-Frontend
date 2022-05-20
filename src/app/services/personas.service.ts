@@ -105,8 +105,29 @@ export class PersonasService {
   }){
     return this.http.post(url, body);
   }
+  public updateClientDirectionSNId(url: string, body: {
+    calle: string; 
+    colonia: string; 
+    municipio: string; 
+    estado: string; 
+    cp: string; 
+    n_interio: number; 
+    n_exterior: number; 
+    referencia: string; 
+  }){
+    return this.http.post(url, body);
+  }
   public updateClientTarget(url: string, body: {
     idTarjeta: number; //number
+    nombre_propietario: string; 
+    numero_tarjeta: string; 
+    fecha_vencimiento: string; 
+    cvv: string; //numver
+  }){
+    return this.http.post(url, body);
+  }
+
+  public updateClientTargetSNId(url: string, body: {
     nombre_propietario: string; 
     numero_tarjeta: string; 
     fecha_vencimiento: string; 

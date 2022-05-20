@@ -49,21 +49,9 @@ export class EmpleadoRegisterComponent implements OnInit {
         this.formEmpleado.value.empTelefo != null &&
         this.formEmpleado.value.empFechaN != null &&
         this.formEmpleado.value.empGenero != null &&
-        // this.formEmpleado.value.empPuesto != null &&
         this.formEmpleado.value.empSalari != null &&
         this.formEmpleado.value.empCorreo != null &&
         this.formEmpleado.value.empPass != null 
-        /*this.formEmpleado.value.empNombre != "" &&
-        this.formEmpleado.value.empApePat != "" &&
-        this.formEmpleado.value.empApeMat != "" &&
-        this.formEmpleado.value.empCurp != "" &&
-        this.formEmpleado.value.empTelefo != "" &&
-        this.formEmpleado.value.empFechaN != "" &&
-        this.formEmpleado.value.empGenero != "" &&
-        // this.formEmpleado.value.empPuesto != "" &&
-        this.formEmpleado.value.empSalari != "" &&
-        this.formEmpleado.value.empCorreo != "" &&
-        this.formEmpleado.value.empPass != "" */
       ){
         let day = this.formEmpleado.value.empFechaN;
         day = day.split("-");

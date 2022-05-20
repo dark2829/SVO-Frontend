@@ -84,8 +84,6 @@ export class PerfilModifyComponent implements OnInit {
 
     this.persona.getPerson(this.indexPerson).subscribe(response => {
       this.indexClient = response.data.id;//? Id usuario
-      console.log(response);
-
       this._nombre =      response.data.idPersona.nombre;
       this._apellidoP =   response.data.idPersona.apellido_paterno;
       this._apellidoM =   response.data.idPersona.apellido_materno;
@@ -121,7 +119,7 @@ export class PerfilModifyComponent implements OnInit {
           this.Vdate = this.Vdate.split("/");
           this.Vdate = this.Vdate[0] + "-" + this.Vdate[1];
           this._fechaVenc[index] = this.Vdate;
-          this._cvv[index] = response.data.idPersona.tarjeta[index].cvv;
+          this._cvv[index] = response.data.idPersona.tarjeta[index].cvv;          
         })
       });
       
@@ -304,114 +302,357 @@ export class PerfilModifyComponent implements OnInit {
     this.direccion1 = true;
     this.direccion2 = false;
     this.direccion3 = false;
-    this.position = 0; 
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      if(response.data.idPersona.direccion.length == 0){
+      this.formPerson.reset();
+      }else{
+        this.formPerson = this.formBuilder.group({
+          fCalle:      [response.data.idPersona.direccion[0].calle],
+          fColonia:    [response.data.idPersona.direccion[0].colonia],
+          fMunicipio:  [response.data.idPersona.direccion[0].municipio],
+          fEstado:     [response.data.idPersona.direccion[0].estado],
+          fCp:         [response.data.idPersona.direccion[0].cp],
+          fNinterior:  [response.data.idPersona.direccion[0].n_interior],
+          fNexterior:  [response.data.idPersona.direccion[0].n_exterior],
+          fReferenc:   [response.data.idPersona.direccion[0].referencia],
+        });
+      }
+    });
   }
   direccionD(){
     this.direccion1 = false;
     this.direccion2 = true;
     this.direccion3 = false;
-    this.position = 1; 
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      if(response.data.idPersona.direccion.length == 1){
+      this.formPerson.reset();
+      }else{
+        this.formPerson = this.formBuilder.group({
+          fCalle:      [response.data.idPersona.direccion[1].calle],
+          fColonia:    [response.data.idPersona.direccion[1].colonia],
+          fMunicipio:  [response.data.idPersona.direccion[1].municipio],
+          fEstado:     [response.data.idPersona.direccion[1].estado],
+          fCp:         [response.data.idPersona.direccion[1].cp],
+          fNinterior:  [response.data.idPersona.direccion[1].n_interior],
+          fNexterior:  [response.data.idPersona.direccion[1].n_exterior],
+          fReferenc:   [response.data.idPersona.direccion[1].referencia],
+        });
+      }
+    });
   }
   direccionT(){
     this.direccion1 = false;
     this.direccion2 = false;
     this.direccion3 = true;
-    this.position = 2; 
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      if(response.data.idPersona.direccion.length == 2){
+      this.formPerson.reset();
+      }else{
+        this.formPerson = this.formBuilder.group({
+          fCalle:      [response.data.idPersona.direccion[2].calle],
+          fColonia:    [response.data.idPersona.direccion[2].colonia],
+          fMunicipio:  [response.data.idPersona.direccion[2].municipio],
+          fEstado:     [response.data.idPersona.direccion[2].estado],
+          fCp:         [response.data.idPersona.direccion[2].cp],
+          fNinterior:  [response.data.idPersona.direccion[2].n_interior],
+          fNexterior:  [response.data.idPersona.direccion[2].n_exterior],
+          fReferenc:   [response.data.idPersona.direccion[2].referencia],
+        });
+      }
+    });
   }
 
-  saveDirection() {
-    let directionIndex = 0;
+  saveDirection() {    
     const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
     if (this.direccion1 == true) {
-      directionIndex = 0; 
+      this.persona.getPerson(this.indexPerson).subscribe(response => {
+        if(response.data.idPersona.direccion[0].id == null){
+          this.persona.updateClientDirectionSNId(API_ADDRESS, {
+            calle: this.formPerson.value.fCalle,
+            colonia: this.formPerson.value.fColonia,
+            municipio: this.formPerson.value.fMunicipio,
+            estado: this.formPerson.value.fEstado,
+            cp: this.formPerson.value.fCp,
+            n_interio: this.formPerson.value.fNinterior,
+            n_exterior: this.formPerson.value.fNexterior,
+            referencia: this.formPerson.value.fReferenc
+          }).subscribe(response => {
+            this.alerta.showAlert("Dirección modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+          this.formPerson.reset();
+        }else{
+          this.persona.updateClientDirection(API_ADDRESS, {
+            idDireccion: response.data.idPersona.direccion[0].id,
+            calle: this.formPerson.value.fCalle,
+            colonia: this.formPerson.value.fColonia,
+            municipio: this.formPerson.value.fMunicipio,
+            estado: this.formPerson.value.fEstado,
+            cp: this.formPerson.value.fCp,
+            n_interio: this.formPerson.value.fNinterior,
+            n_exterior: this.formPerson.value.fNexterior,
+            referencia: this.formPerson.value.fReferenc
+          }).subscribe(response => {
+            this.alerta.showAlert("Dirección modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }
+      })
     }
     if (this.direccion2 == true) {
-      directionIndex = 1; 
+      this.persona.getPerson(this.indexPerson).subscribe(response => {
+        console.log(response.data.idPersona.direccion.length == 1);
+        if(response.data.idPersona.direccion.length == 1){
+          this.persona.updateClientDirectionSNId(API_ADDRESS, {
+            calle: this.formPerson.value.fCalle,
+            colonia: this.formPerson.value.fColonia,
+            municipio: this.formPerson.value.fMunicipio,
+            estado: this.formPerson.value.fEstado,
+            cp: this.formPerson.value.fCp,
+            n_interio: this.formPerson.value.fNinterior,
+            n_exterior: this.formPerson.value.fNexterior,
+            referencia: this.formPerson.value.fReferenc
+          }).subscribe(response => {
+            this.alerta.showAlert("Dirección modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }else{
+          this.persona.updateClientDirection(API_ADDRESS, {
+            idDireccion: response.data.idPersona.direccion[1].id,
+            calle: this.formPerson.value.fCalle,
+            colonia: this.formPerson.value.fColonia,
+            municipio: this.formPerson.value.fMunicipio,
+            estado: this.formPerson.value.fEstado,
+            cp: this.formPerson.value.fCp,
+            n_interio: this.formPerson.value.fNinterior,
+            n_exterior: this.formPerson.value.fNexterior,
+            referencia: this.formPerson.value.fReferenc
+          }).subscribe(response => {
+            this.alerta.showAlert("Dirección modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }
+      })
     }
     if (this.direccion3 == true) {
-      directionIndex = 2; 
+      this.persona.getPerson(this.indexPerson).subscribe(response => {
+        console.log(response.data.idPersona.direccion.length == 2);
+        if(response.data.idPersona.direccion.length == 2){
+          this.persona.updateClientDirectionSNId(API_ADDRESS, {
+            calle: this.formPerson.value.fCalle,
+            colonia: this.formPerson.value.fColonia,
+            municipio: this.formPerson.value.fMunicipio,
+            estado: this.formPerson.value.fEstado,
+            cp: this.formPerson.value.fCp,
+            n_interio: this.formPerson.value.fNinterior,
+            n_exterior: this.formPerson.value.fNexterior,
+            referencia: this.formPerson.value.fReferenc
+          }).subscribe(response => {
+            this.alerta.showAlert("Dirección modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }else{
+          this.persona.updateClientDirection(API_ADDRESS, {
+            idDireccion: response.data.idPersona.direccion[2].id,
+            calle: this.formPerson.value.fCalle,
+            colonia: this.formPerson.value.fColonia,
+            municipio: this.formPerson.value.fMunicipio,
+            estado: this.formPerson.value.fEstado,
+            cp: this.formPerson.value.fCp,
+            n_interio: this.formPerson.value.fNinterior,
+            n_exterior: this.formPerson.value.fNexterior,
+            referencia: this.formPerson.value.fReferenc
+          }).subscribe(response => {
+            this.alerta.showAlert("Dirección modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }
+      })
     }
-
-    this.persona.updateClientDirection(API_ADDRESS, {
-      idDireccion: this.direccionesArry[directionIndex],
-      calle: this.formPerson.value.fCalle,
-      colonia: this.formPerson.value.fColonia,
-      municipio: this.formPerson.value.fMunicipio,
-      estado: this.formPerson.value.fEstado,
-      cp: this.formPerson.value.fCp,
-      n_interio: this.formPerson.value.fNinterior,
-      n_exterior: this.formPerson.value.fNexterior,
-      referencia: this.formPerson.value.fReferenc
-    }).subscribe(response => {
-      this.alerta.showAlert("Dirección modificada", "success", 2000);
-    }, error => {
-      console.log(error);
-      this.alerta.showAlert("Ocurrió un error", "danger", 2000);
-    });
   }
 
   tarjetaU(){
     this.tarjeta1 = true;
     this.tarjeta2 = false;
     this.tarjeta3 = false;
-    this.positionCard = 0; 
+    let parseDate: any
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      console.log(response.data.idPersona.tarjeta);
+
+      if(response.data.idPersona.tarjeta.length == 0){
+      this.formPerson.reset();
+      }else{
+        if(response.data.idPersona.tarjeta[0].fecha_vencimiento != null){
+          parseDate = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+          parseDate = parseDate.split("/");
+          parseDate = parseDate[0] + "-" + parseDate[1];
+        }
+        this.formPerson = this.formBuilder.group({
+          fPropieta:   [response.data.idPersona.tarjeta[0].nombre_propietario],
+          fTarjeta:    [response.data.idPersona.tarjeta[0].numero],
+          fFechaVen:   [parseDate],
+          fcvv:        [response.data.idPersona.tarjeta[0].cvv]
+        });
+      }
+    });
     
   }
   tarjetaD(){
     this.tarjeta1 = false;
     this.tarjeta2 = true;
     this.tarjeta3 = false;
-    this.positionCard = 1; 
-
+    let parseDate: any
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      if(response.data.idPersona.tarjeta.length == 1){
+      this.formPerson.reset();
+      }else{
+        if(response.data.idPersona.tarjeta[1].fecha_vencimiento != null){
+          parseDate = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+          parseDate = parseDate.split("/");
+          parseDate = parseDate[0] + "-" + parseDate[1];
+        }
+        this.formPerson = this.formBuilder.group({
+          fPropieta:   [response.data.idPersona.tarjeta[1].nombre_propietario],
+          fTarjeta:    [response.data.idPersona.tarjeta[1].numero],
+          fFechaVen:   [parseDate],
+          fcvv:        [response.data.idPersona.tarjeta[1].cvv]
+        });
+      }
+    });
   }
+
   tarjetaT(){
     this.tarjeta1 = false;
     this.tarjeta2 = false;
     this.tarjeta3 = true;
-    this.positionCard = 2; 
-
+    let parseDate: any
+    this.persona.getPerson(this.indexPerson).subscribe(response => {
+      if(response.data.idPersona.tarjeta.length == 2){
+      this.formPerson.reset();
+      }else{
+        console.log(response.data.idPersona.tarjeta);
+        if(response.data.idPersona.tarjeta[2].fecha_vencimiento != null){
+          parseDate = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+          parseDate = parseDate.split("/");
+          parseDate = parseDate[0] + "-" + parseDate[1];
+        }
+        this.formPerson = this.formBuilder.group({
+          fPropieta:   [response.data.idPersona.tarjeta[2].nombre_propietario],
+          fTarjeta:    [response.data.idPersona.tarjeta[2].numero],
+          fFechaVen:   [parseDate],
+          fcvv:        [response.data.idPersona.tarjeta[2].cvv]
+        });
+      }
+    });
   }
 
   saveCard() {
-    let tarjetIdx = 0;
     const API_CARD = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_CARDS + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
     if (this.tarjeta1 == true) {
-      tarjetIdx = 0;
+      this.persona.getPerson(this.indexPerson).subscribe(response => {
+        if(response.data.idPersona.tarjeta[0].id == null){
+          this.persona.updateClientTargetSNId(API_CARD, {            
+            nombre_propietario: this.formPerson.value.fPropieta,
+            numero_tarjeta: this.formPerson.value.fTarjeta,
+            fecha_vencimiento: this.formPerson.value.fFechaVen,
+            cvv: this.formPerson.value.fcvv
+          }).subscribe(response => {
+            this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+          this.formPerson.reset();
+        }else{
+          this.persona.updateClientTarget(API_CARD, {
+            idTarjeta: response.data.idPersona.tarjeta[0].id,
+            nombre_propietario: this.formPerson.value.fPropieta,
+            numero_tarjeta: this.formPerson.value.fTarjeta,
+            fecha_vencimiento: this.formPerson.value.fFechaVen,
+            cvv: this.formPerson.value.fcvv
+          }).subscribe(response => {
+            this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }
+      })
     }
     if (this.tarjeta2 == true) {
-      tarjetIdx = 1;
+      this.persona.getPerson(this.indexPerson).subscribe(response => {
+        console.log(response.data.idPersona[1]);
+        if(response.data.idPersona.tarjeta[1] == undefined){
+          this.persona.updateClientTargetSNId(API_CARD, {            
+            nombre_propietario: this.formPerson.value.fPropieta,
+            numero_tarjeta: this.formPerson.value.fTarjeta,
+            fecha_vencimiento: this.formPerson.value.fFechaVen,
+            cvv: this.formPerson.value.fcvv
+          }).subscribe(response => {
+            this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+          this.formPerson.reset();
+        }else{
+          this.persona.updateClientTarget(API_CARD, {
+            idTarjeta: response.data.idPersona.tarjeta[1].id,
+            nombre_propietario: this.formPerson.value.fPropieta,
+            numero_tarjeta: this.formPerson.value.fTarjeta,
+            fecha_vencimiento: this.formPerson.value.fFechaVen,
+            cvv: this.formPerson.value.fcvv
+          }).subscribe(response => {
+            this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }
+      })
     }
     if (this.tarjeta3 == true) {
-      tarjetIdx = 2;
-    }
-    if(this.tarjetsArry[tarjetIdx] == undefined){
-      console.log("Es undefined");
-      this.persona.updateClientTarget(API_CARD, {
-        idTarjeta: this.tarjetsArry[tarjetIdx],
-        nombre_propietario: this.formPerson.value.fPropieta[tarjetIdx],
-        numero_tarjeta: this.formPerson.value.fTarjeta[tarjetIdx],
-        fecha_vencimiento: this.formPerson.value.fFechaVen[tarjetIdx],
-        cvv: this.formPerson.value.fcvv[tarjetIdx]
-      }).subscribe(response => {
-        this.alerta.showAlert("Tarjeta modificada", "success", 2000);
-      }, error => {
-        console.log(error);
-        this.alerta.showAlert("Ocurrió un error", "danger", 2000);
-      });
-    }else{
-      console.log("No es undefined");
-      this.persona.updateClientTarget(API_CARD, {
-        idTarjeta: this.tarjetsArry[tarjetIdx].id,
-        nombre_propietario: this.formPerson.value.fPropieta,
-        numero_tarjeta: this.formPerson.value.fTarjeta,
-        fecha_vencimiento: this.formPerson.value.fFechaVen,
-        cvv: this.formPerson.value.fcvv
-      }).subscribe(response => {
-        this.alerta.showAlert("Tarjeta modificada", "success", 2000);
-      }, error => {
-        console.log(error);
-        this.alerta.showAlert("Ocurrió un error", "danger", 2000);
-      }); 
+      this.persona.getPerson(this.indexPerson).subscribe(response => {
+        if(response.data.idPersona.tarjeta[2] == undefined){
+          this.persona.updateClientTargetSNId(API_CARD, {            
+            nombre_propietario: this.formPerson.value.fPropieta,
+            numero_tarjeta: this.formPerson.value.fTarjeta,
+            fecha_vencimiento: this.formPerson.value.fFechaVen,
+            cvv: this.formPerson.value.fcvv
+          }).subscribe(response => {
+            this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+          this.formPerson.reset();
+        }else{
+          this.persona.updateClientTarget(API_CARD, {
+            idTarjeta: response.data.idPersona.tarjeta[2].id,
+            nombre_propietario: this.formPerson.value.fPropieta,
+            numero_tarjeta: this.formPerson.value.fTarjeta,
+            fecha_vencimiento: this.formPerson.value.fFechaVen,
+            cvv: this.formPerson.value.fcvv
+          }).subscribe(response => {
+            this.alerta.showAlert("Tarjeta modificada", "success", 2000);
+          }, error => {
+            console.log(error);
+            this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+          });
+        }
+      })
     }
   }
 }
