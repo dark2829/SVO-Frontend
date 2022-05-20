@@ -49,9 +49,7 @@ export class ProductoComponent implements OnInit {
     }
 
     this.persona.getProductLike(this.token.getID()).subscribe(response => {
-      console.log(response);
       response.data.forEach((element : any) => {
-        console.log(this.index == element.id);
         if(this.index == element.id){
           this.likeId[0].classList.add("bg-danger", "text-white", "lineaBlanca")
         }
