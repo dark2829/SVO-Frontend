@@ -12,6 +12,7 @@ import { AlertaService } from '../../../../services/alerta.service';
 })
 export class EmpleadoRegisterComponent implements OnInit {
   formEmpleado: FormGroup; 
+  noEmpleado: any;
 
   constructor(
     private empleados: EmpleadosService, 
@@ -21,8 +22,35 @@ export class EmpleadoRegisterComponent implements OnInit {
     private alerta: AlertaService
   ) { }
 
+  zfill(numero: number, tamaño: number) {
+    var numberOutput = Math.abs(numero); /* Valor absoluto del número */
+    var length = numero.toString().length; /* Largo del número */
+    var zero = "0"; /* String de cero */
+
+    if (tamaño <= length) {
+      if (numero < 0) {
+        return ("-" + numberOutput.toString());
+      } else {
+        return numberOutput.toString();
+      }
+    } else {
+      if (numero < 0) {
+        return ("-" + (zero.repeat(tamaño - length)) + numberOutput.toString());
+      } else {
+        return ((zero.repeat(tamaño - length)) + numberOutput.toString());
+      }
+    }
+  }
+
   ngOnInit(): void {
     //? Inicializar los campos de entrada del formulario 
+    this.empleados.getAllEmpleados().subscribe(response => {
+      let cantidad = response.data.length;
+      this.noEmpleado = parseInt(response.data[cantidad-1].no_empleado)+1;
+      this.noEmpleado = this.zfill(this.noEmpleado, 4);
+
+    });
+
     this.formEmpleado = this.formBuilder.group({
       empNombre: [null, [Validators.required]],
       empApePat: [null, [Validators.required]],
@@ -39,6 +67,7 @@ export class EmpleadoRegisterComponent implements OnInit {
   }
 
   public agregarEmpleado(){
+    //FIXME: Revisar en el back,porque marca error pero aun asi inserta
     const API_SAVEEMPLEADO = this.enlaces.API_ENLACE_EMPLEADO+this.enlaces.EMPLEADO_INSERT; 
     try{
       if(
@@ -74,7 +103,8 @@ export class EmpleadoRegisterComponent implements OnInit {
           this.alerta.showAlert(response.message, "success", 2000);
           setTimeout(() => {this.listaEmpleado()}, 2500);
         }, error => {
-          this.alerta.showAlert(error.errro.message, "danger", 2000, error.status);
+          console.log(error);
+          this.alerta.showAlert(error.errror.message, "danger", 2000, error.status);
         });
       }else{
         this.alerta.showAlert("Faltan datos", "danger", 2000);
