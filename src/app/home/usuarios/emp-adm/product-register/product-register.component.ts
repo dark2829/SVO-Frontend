@@ -18,6 +18,7 @@ export class ProductRegisterComponent implements OnInit {
   fileChange: boolean = false;
   preView: string;  
   img: any; 
+  codigo_producto: any;
 
   constructor(
     private productos: ProductosService, 
@@ -29,10 +30,35 @@ export class ProductRegisterComponent implements OnInit {
     private alerta: AlertaService
   ) { }
 
+  zfill(numero: number, tamaño: number) {
+    var numberOutput = Math.abs(numero); /* Valor absoluto del número */
+    var length = numero.toString().length; /* Largo del número */
+    var zero = "0"; /* String de cero */
+
+    if (tamaño <= length) {
+      if (numero < 0) {
+        return ("-" + numberOutput.toString());
+      } else {
+        return numberOutput.toString();
+      }
+    } else {
+      if (numero < 0) {
+        return ("-" + (zero.repeat(tamaño - length)) + numberOutput.toString());
+      } else {
+        return ((zero.repeat(tamaño - length)) + numberOutput.toString());
+      }
+    }
+  }
+
   ngOnInit(): void {
     if (this.token.getToken()) {
+      this.productos.getAllProductos().subscribe(response => {
+        let cantidad = response.data.length;
+        this.codigo_producto = parseInt(response.data[cantidad-1].codigo_prod)+1;
+        this.codigo_producto = this.zfill(this.codigo_producto, 9);
+      })
       this.formProducto = this.formBuilder.group({
-        fcodProd: [null, [Validators.required]],
+        fcodProd: [this.codigo_producto],
         fname: [null, [Validators.required]],
         fcategoria: [null, [Validators.required]],
         fcantidad: [null, [Validators.required]],
@@ -50,7 +76,6 @@ export class ProductRegisterComponent implements OnInit {
   load(){
     const loadProductos = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_INSERT
     if(
-      this.formProducto.value.fcodProd != null &&
       this.formProducto.value.fname != null &&
       this.formProducto.value.fcategoria != null &&
       this.formProducto.value.fcantidad != null &&
@@ -68,7 +93,7 @@ export class ProductRegisterComponent implements OnInit {
       this.formProducto.value.fDescription != "" 
     ){
       this.productos.saveProducto(loadProductos, {
-        codigo_prod: this.formProducto.value.fcodProd,
+        codigo_prod: this.codigo_producto,
         imagen: this.img ,
         nombre: this.formProducto.value.fname,
         categoria: this.formProducto.value.fcategoria,
