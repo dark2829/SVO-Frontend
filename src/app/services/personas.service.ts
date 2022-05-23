@@ -163,4 +163,14 @@ export class PersonasService {
     const URL = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_DELETE+idProducto+this.enlaces.FAVORITOS_AandU+idUsuario;
     return this.http.get(URL);
   }
+
+  public saveVenta(idUsuario: number, body: {
+    "tipo_envio":string,
+    "direccion":string,
+    "fecha_venta": string,
+    "facturado": number
+  }){
+    const URL = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_SAVE+idUsuario;
+    return this.http.post(URL, body);
+  }
 }

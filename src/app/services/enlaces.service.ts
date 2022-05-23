@@ -53,6 +53,7 @@ export class EnlacesService {
   public CARRITO_DELETE_P = "/delete/cart?idProducto="
   public CARRITO_PandU = "&idUsuario="
   public CARRITO_UPDATE =  "/actualizarCantidadProducto?idProducto=" //? POST
+  public CARRITO_SAVE =  "/guardarCompra?idUsuario=" //? POST
   //* Favoritos
   public FAVORITOS_GET_ALL = "/mostrarFavoritosPorUsuario?idUsuario="//?GET
   public FAVORITOS_ADD     = "/anadirFavoritos?idProducto="//?GET

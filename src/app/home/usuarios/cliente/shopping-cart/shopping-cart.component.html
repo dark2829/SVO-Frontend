@@ -3,7 +3,7 @@
     Este apartado es para la pantalla de carrito de compras. 
  -->
 
-<section class="container-fluid" style="padding-top: 15vh; padding-bottom: 8vh;">
+<section class="container-fluid" style="padding-top: 15vh; padding-bottom: 8vh; height: auto;">
     <div class="row">
         <div class="col">
             <div class="container p-1">
@@ -15,7 +15,7 @@
                     <div class="col col-12 col-sm-12 col-md-6 col-lg-6 border border-dark">
                         <div class="container-fluid my-2 p-0 border border-primary rounded">
                             <div class="row">
-                                <iframe src="http://localhost:4200/productInCarr" height="300vh">
+                                <iframe src="http://localhost:4200/productInCarr" height="400vh">
                                 </iframe>
                             </div>
                         </div>
@@ -24,67 +24,70 @@
                     <!-- Métodos de pago y entrega -->
                     <div class="col col-12 col-sm-12 col-md-6 col-lg-6 border border-dark">
                         <div class="row mb-3">
-                            <div class="col col-12 mt-3">
-                                <h5>Seleccionar método de pago</h5>
-                                <div class="form-check mt-2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        <input class="form-check-input" type="radio"
-                                            name="fTipePago" id="Efectivo" value="Efectivo">
-                                        <span>Efectivo</span>
-                                    </label>
+                            <form class="row was-validated needs-validation" [formGroup]="fCarrito" errorTailor novalidate>
+                                <div class="col col-12 mt-3">
+                                    <h5>Seleccionar método de pago</h5>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Efectivo</span>
+                                            <input formControlName="pago" class="form-check-input" type="radio" name="pago"
+                                                id="Efectivo" value="Efectivo">
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Tarjeta</span>
+                                            <input formControlName="pago" class="form-check-input" type="radio" name="pago" (click)="activeTarject = true"
+                                                id="Tarjeta" value="Tarjeta" data-bs-toggle="modal"
+                                                data-bs-target="#whitTarget">
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="form-check mt-2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        <input class="form-check-input" type="radio"
-                                            name="fTipePago" id="Tarjeta" value="Tarjeta">
-                                        <span>Tarjeta</span>
-                                    </label>
+                                <div class="col col-12 mt-3">
+                                    <h5>Método de entrega</h5>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Domicilio</span>
+                                            <input formControlName="entrega" class="form-check-input" type="radio" (click)="activeDirection = true"
+                                                name="entrega" id="Domicilio" value="Domicilio" data-bs-toggle="modal"
+                                                data-bs-target="#onDirection">
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Tienda</span>
+                                            <input formControlName="entrega" class="form-check-input" type="radio"
+                                                name="entrega" id="Tienda" value="Tienda">
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="col col-12 mt-3">
-                                <h5>Método de entrega</h5>
-                                <div class="form-check mt-2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        <input class="form-check-input" type="radio"
-                                            name="fTipeSend" id="Domicilio" value="Domicilio">
-                                        <span>Domicilio</span>
-                                    </label>
+                                <div class="col col-12 mt-3">
+                                    <h5>Facturar compra</h5>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Si</span>
+                                            <input formControlName="factura" class="form-check-input" type="radio"
+                                                name="factura" id="Si" value="Si">
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">No</span>
+                                            <input formControlName="factura" class="form-check-input" type="radio"
+                                                name="factura" id="No" value="No">
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="form-check mt-2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        <input class="form-check-input" type="radio"
-                                            name="fTipeSend" id="Tienda" value="Tienda">
-                                        <span>Tienda</span>
-                                    </label>
+                                <div class="p-0 mt-4 mb-0 ">
+                                    <p class="text-center m-0">
+                                        <button (click)="continieBuy()" type="submit" class="btn btn-success rounded rounded-pill" [disabled]="buttonActived || !fCarrito.valid">
+                                            Continuar con la compra
+                                        </button>
+                                    </p>
                                 </div>
-                            </div>
-
-                            <div class="col col-12 mt-3">
-                                <h5>Facturar compra</h5>
-                                <div class="form-check mt-2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        <input class="form-check-input" type="radio"
-                                            name="fBuyFact" id="Si" value="Si">
-                                        <span>Si</span>
-                                    </label>
-                                </div>
-                                <div class="form-check mt-2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        <input class="form-check-input" type="radio"
-                                            name="fBuyFact" id="No" value="No">
-                                        <span>No</span>
-                                    </label>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                    <p class="text-center my-3">
-                        <button class="btn btn-success rounded rounded-pill" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            Continuar con la compra
-                        </button>
-                    </p>
                 </div>
             </div>
         </div>
@@ -161,3 +164,78 @@
         </div>
     </div>
 </div>
+<!-- The Modal metodo de pago TARJET-->
+<div class="modal" id="whitTarget" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Seleccione la tarjeta a utilizar</h4>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+        <!-- Mostrar todas las tarjetas disponibles -->
+          <div *ngFor="let tarjeta of tarjetas" class="container-fluid m-0 p-0">
+              <button (click)="selectTarject(tarjeta.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+                  <div class="row text-start">
+                      <div class="col-8">
+                          <span>Propietario: </span> <span>{{tarjeta.nombre_propietario}}</span>
+                      </div>
+                      <div class="col-4 p-0">
+                          <span>Vencimiento: </span> <span>{{tarjeta.fecha_vencimiento}}</span>
+                      </div>
+                      <div class="col-12">
+                          <span>Numero: </span><span>{{tarjeta.numero}}</span>
+                      </div>
+                  </div>
+              </button>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button [disabled]="activeTarject" (click)="tarjectToBuy(tarjetBuy)" type="button" class="btn btn-success" data-bs-target="modal">Aceptar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+<!-- The Modal metodo de entrega DOMICILIO-->
+<div class="modal" id="onDirection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Seleccione la tarjeta a utilizar</h4>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+        <!-- Mostrar todas las tarjetas disponibles -->
+          <div *ngFor="let direction of directions" class="container-fluid m-0 p-0">
+              <button (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+                  <div class="row text-start">
+                      <div class="col">
+                          <div class="fw-bold">Calle: <span class="fw-normal">{{direction.calle}}</span></div>
+                          <div class="fw-bold">Colonia: <span class="fw-normal">{{direction.colonia}}</span></div>
+                          <div class="fw-bold">Municipio: <span class="fw-normal">{{direction.municipio}}</span></div>
+                          <div class="fw-bold">Codigo Postal: <span class="fw-normal">{{direction.cp}}</span></div>
+                      </div>
+                  </div>
+              </button>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button [disabled]="activeDirection" (click)="directionToSend(dirToSend)" type="button" class="btn btn-success" data-bs-target="modal">Aceptar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
