@@ -18,6 +18,7 @@ export class EnlacesService {
   public API_ENLACE_PRODUCTOS   = "http://localhost:8080/productos";//? Tambien se usa en favoritos
   public API_ENLACE_CARRITO     = "http://localhost:8080/cart";
   public PRODUCTOS_EN_CARRITO   = "http://localhost:4200/productInCarr"
+  public API_ENLACE_PEDIDOS     = "http://localhost:8080/pedidos"
 
   //! Direcciones a metodos
   //* Proveedores
@@ -41,6 +42,7 @@ export class EnlacesService {
   //* Productos 
   public PRODUCTO_INSERT = "/insertProduct"; //? POST
   public PRODUCTO_BUSCAR = "/findAllProductos"; //? GET
+  public PRODUCTO_BUSCAR_FOR_USERS = "/findRealProducts"; //? GET
   public PRODUCTO_BUSCAR_ID = "/findProductById?id="; //? GET
   public PRODUCTO_UPDATE = "/update?id=" //? POST
   public PRODUCTO_STOCKDOWN = "/findStockBajo" //? GET
@@ -59,4 +61,6 @@ export class EnlacesService {
   public FAVORITOS_ADD     = "/anadirFavoritos?idProducto="//?GET
   public FAVORITOS_DELETE  = "/borrarProductoFavorito?idProducto="//?GET
   public FAVORITOS_AandU   = "&idUsuario="//? GET
+  //* Pedidos
+  public PEDIDOS_GET_ALL   = "/buscarTodosPedidos"
 }

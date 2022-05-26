@@ -9,7 +9,7 @@
 <div class="container position-relative mt-5">
     <div class="row vh-100 justify-content-center align-items-center">
         <div class="col mt-5">
-            <div class="container bg-secondary bg-opacity-75 rounded">
+            <div class="container bg-secondary bg-opacity-75 rounded"  style="margin-top: 25vh;">
                 <div class="row">
                     <div class="col">
 
@@ -24,11 +24,10 @@
                                     Domicilio
                                 </a>
                             </div>
-                            <div class="col col-12 col-sm-12 col-md-2 col-lg-2 mt-2">
-                                <input class="form-control form-control-md rounded rounded-pill" type="text" placeholder="Código de compra: " aria-label=".form-control-sm example">
-                            </div>
-                            <div class="col col-12 col-sm-12 col-md-2 col-lg-2 mt-2">
-                                <input class="form-control form-control-md rounded rounded-pill" type="date" placeholder="Filtrar por fecha " aria-label=".form-control-sm example">
+                            <div class="col col-12 col-sm-12 col-md-2 col-lg-3 mt-2">
+                                <a type="button" class="btn btn-success rounded rounded-pill w-100">
+                                    Todos los pedidos
+                                </a>
                             </div>
 
                             <!-- Icono  -->
@@ -59,45 +58,32 @@
                                                 <th scope="col">Solicitudes</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="table-warning">
-                                                <th scope="row">ATF40220221</th>
-                                                <td>Domicilio</td>
-                                                <td>Avenida siempre viva #405</td>
+
+                                        <tbody >
+                                            <tr [ngClass]="{'table-light': pedido.estatus == 'Nuevo', 'table-info': pedido.estatus == 'En proceso', 'table-success': pedido.estatus == 'Realizado', 'table-danger': pedido.estatus == 'Cancelado'}" *ngFor="let pedido of pedidos.data | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
+                                                <th scope="row">{{pedido.idCompra.codigo_compra}}</th>
+                                                <td>{{pedido.idCompra.tipo_envio}}</td>
+                                                <td>{{retornarDireccion(pedido.idCompra.direccion)}}</td>
                                                 <td>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="1">Nuevo</option>
-                                                        <option value="2">En proceso</option>
-                                                        <option value="3">Realizado</option>
-                                                        <option value="3">Cancelado</option>
-                                                      </select>
-                                                </td>
-                                                <td>6/03/2022</td>
-                                                <td></td>
-                                            </tr>
-                                            <!-- Ejemplo de pedido entregado -->
-                                            <tr class="table-primary">
-                                                <th scope="row">ATF40220221</th>
-                                                <td>Domicilio</td>
-                                                <td>Avenida siempre viva #405</td>
-                                                <td>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="1">Nuevo</option>
-                                                        <option value="2">En proceso</option>
-                                                        <option value="3">Realizado</option>
-                                                        <option value="3">Cancelado</option>
-                                                      </select>
+                                                    <select class="form-select" aria-label="Default select example" [ngModel]="pedido.estatus" (ngModelChange)="retornarStatus($event)">
+                                                        <option value="Nuevo">Nuevo</option>
+                                                        <option value="En proceso">En proceso</option>
+                                                        <option value="Realizado">Realizado</option>
+                                                        <option value="Cancelado">Cancelado</option>
+                                                    </select>
                                                 </td>
                                                 <td>6/03/2022</td>
                                                 <td>
-                                                    <a type="button" aria-valuemax="btn" (click)="cancelacion()">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                            fill="currentColor" class="bi bi-arrows-fullscreen"
-                                                            viewBox="0 0 16 16">
-                                                            <path fill-rule="evenodd"
-                                                                d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
-                                                        </svg>
-                                                    </a>
+                                                    <div *ngIf="pedido.solicitudCancelacion != null">
+                                                        <a type="button" aria-valuemax="btn" (click)="cancelacion()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                                fill="currentColor" class="bi bi-arrows-fullscreen"
+                                                                viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
+                                                            </svg>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>

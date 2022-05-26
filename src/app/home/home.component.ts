@@ -39,7 +39,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {    
-    this.producto.getAllProductos().subscribe(response => {
+    this.producto.getAllProductosClient().subscribe(response => {
       this.productos = response.data;
     });
     this.persona.getProductLike(this.token.getID()).subscribe(response => {

@@ -17,9 +17,15 @@ export class ProductosService {
     private enlaces: EnlacesService, 
     private token: TokenService
   ) { }
-
+  
+  //Para supoer usuarios
   public getAllProductos(): Observable<any>{
     return this.http.get(this.API_Productos);
+  }
+  //Para clientes
+  public getAllProductosClient(): Observable<any>{
+    const api = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.PRODUCTO_BUSCAR_FOR_USERS;
+    return this.http.get(api);
   }
 
   public getProductID(id: string): Observable<any>{
