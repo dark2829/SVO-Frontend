@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertaService } from 'src/app/services/alerta.service';
+import { EnlacesService } from 'src/app/services/enlaces.service';
+import { PersonasService } from 'src/app/services/personas.service';
+import { TokenService } from 'src/app/services/token.service';
+import { PedidosService } from '../../../../services/pedidos.service';
 
 @Component({
   selector: 'app-cancel-request',
@@ -8,15 +14,33 @@ import { Router } from '@angular/router';
 })
 export class CancelRequestComponent implements OnInit {
   
-  fecha = new Date();
-  codigo = 123143; 
-  productos = "Producto de ejemplo";
-
+  fecha: any;
+  codigoCompra: any; 
+  productos: any = {};
+  formCanceled: FormGroup; 
+  idPedido: any;
+  urlMini: any; 
   constructor(
-    private router: Router
+    private persona: PersonasService, 
+    private router: Router, 
+    private enlaces: EnlacesService,
+    private token: TokenService, 
+    private route: ActivatedRoute, //? Pasar info en liga
+    private alerta: AlertaService, 
+    private pedido: PedidosService, 
+    private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {    
+    this.urlMini = `http://localhost:4200/productocancel/${this.route.snapshot.params['id'].toString()}`
+    this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
+      console.log(response.data);
+      this.codigoCompra = response.data.idCompra.codigo_compra
+      this.formCanceled = this.formBuilder.group({
+        codigo: [this.codigoCompra, [Validators.required]],
+        mensaje: [null, [Validators.required]]
+      });
+    })
+  } 
 
 }

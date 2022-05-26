@@ -30,6 +30,7 @@ import { GuardHomeService as guard } from './guards/guard-home.service';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/product-carr/product-carr.component';
 import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecovery/passwordrecovery.component';
+import { ProdtocancelComponent } from './home/usuarios/cliente/cancel-request/prodtocancel/prodtocancel.component';
 
 /*
   Para acceder a empleado o admin solo en la url se debe colocar 
@@ -48,10 +49,11 @@ const routes: Routes = [
   {path: 'extendProduct/:id', component: ProductoComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'modifyPerfil', component: PerfilModifyComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopHistory', component: ShophistoryComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
-  {path: 'cancel-request', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'productInCarr', component: ProductCarrComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'productocancel', component: ProdtocancelComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'cancel-request/:id', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'recoveryPassword/:correo', component: PasswordrecoveryComponent },
   //Pantallas de empleado
   {path: 'home-empleado', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ['Empleado']} },
