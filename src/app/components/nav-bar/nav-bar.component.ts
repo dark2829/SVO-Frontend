@@ -14,6 +14,8 @@ export class NavBarComponent implements OnInit {
   isCliente: boolean | false;
   isEmpleado: boolean | false;
   index: string; 
+
+  @Output() selection = new EventEmitter<any>();
   
   
   id: string; 
@@ -50,9 +52,12 @@ export class NavBarComponent implements OnInit {
       this.isLogged = false;
       this.nombre = "";
     }
-
-    
   }
+
+  selectionCategory(categoria: any): void{
+    this.selection.emit(categoria);
+  }
+
 
   cerrar(){
     this.token.logout();

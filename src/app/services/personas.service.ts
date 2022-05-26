@@ -169,6 +169,8 @@ export class PersonasService {
     "direccion":string,
     "fecha_venta": string,
     "facturado": number, 
+    "tipo_pago":string,
+    "tarjetaUtilizada": string
   }){
     const URL = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_SAVE+idUsuario;
     return this.http.post(URL, body);

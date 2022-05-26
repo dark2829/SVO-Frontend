@@ -20,7 +20,7 @@ export class ShoppingCartComponent implements OnInit {
   dirToSend: number; 
   tarjetBuy: number;
   resDirection: any;
-  tarjetBuyText = "efectivo";
+  tarjetBuyText: any;
   activeDirection: boolean = true;
   activeTarject: boolean = true;
 
@@ -34,6 +34,7 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit() {  
     this.resDirection = "";
+    this.tarjetBuyText ="";
     this.persona.getProduct(this.token.getID()).subscribe(response => {
       if(response.data.carrito[0].cantidad == 0){
         this.buttonActived = true; 
@@ -75,7 +76,14 @@ export class ShoppingCartComponent implements OnInit {
   
   //FIXME: solo falta este para implementar en el envio
   tarjectToBuy(id: number){
-    console.log("Tarjeta que se usara para compra a enviar: ", id);
+    this.persona.getPerson(this.token.getID()).subscribe(response => {      
+      response.data.idPersona.tarjeta.forEach((tarjeta: any) => {
+        if(tarjeta.id == id){
+          this.tarjetBuyText = `${tarjeta.numero}`
+          console.log(this.tarjetBuyText)
+        }
+      });
+    });
   }
 
   continieBuy(){
@@ -93,7 +101,9 @@ export class ShoppingCartComponent implements OnInit {
             "tipo_envio": this.fCarrito.value.entrega,
             "direccion": this.resDirection,
             "fecha_venta": fecha,
-            "facturado": 1
+            "facturado": 1, 
+            "tipo_pago":  this.fCarrito.value.pago,
+            "tarjetaUtilizada": this.tarjetBuyText
           }).subscribe(response => {
             this.alerta.showAlert("Compra exitosa", "success", 2500);
             setTimeout(() => {window.location.reload()} , 2500);
