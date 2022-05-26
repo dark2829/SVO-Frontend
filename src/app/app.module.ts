@@ -42,6 +42,7 @@ import { ErrorTailorModule} from '@ngneat/error-tailor';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/product-carr/product-carr.component';
 import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecovery/passwordrecovery.component';
+import { ProductocancelComponent } from './home/usuarios/cliente/productocancel/productocancel.component';
 
 //Interceptores
 // import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
@@ -79,6 +80,7 @@ import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecover
     NotFoundComponent,
     ProductCarrComponent,
     PasswordrecoveryComponent,
+    ProductocancelComponent,
   ],
   imports: [
     BrowserModule,
