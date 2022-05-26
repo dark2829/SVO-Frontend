@@ -175,4 +175,9 @@ export class PersonasService {
     const URL = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_SAVE+idUsuario;
     return this.http.post(URL, body);
   }
+
+  public historyBuy(idUsuario: number, status: string){
+    const URL = this.enlaces.API_ENLACE_COMPRAS+this.enlaces.HISTORIAL_FOR_STATUS+idUsuario+this.enlaces.HISTORIAL_STATUS+status;
+    return this.http.get(URL);
+  }
 }

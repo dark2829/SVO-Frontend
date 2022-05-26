@@ -17,8 +17,10 @@ export class EnlacesService {
   public API_ENLACE_USUARIOS    = "http://localhost:8080/usuarios";
   public API_ENLACE_PRODUCTOS   = "http://localhost:8080/productos";//? Tambien se usa en favoritos
   public API_ENLACE_CARRITO     = "http://localhost:8080/cart";
-  public PRODUCTOS_EN_CARRITO   = "http://localhost:4200/productInCarr"
   public API_ENLACE_PEDIDOS     = "http://localhost:8080/pedidos"
+  public API_ENLACE_COMPRAS     = "http://localhost:8080/compras"
+
+  public PRODUCTOS_EN_CARRITO   = "http://localhost:4200/productInCarr"
 
   //! Direcciones a metodos
   //* Proveedores
@@ -63,4 +65,10 @@ export class EnlacesService {
   public FAVORITOS_AandU   = "&idUsuario="//? GET
   //* Pedidos
   public PEDIDOS_GET_ALL   = "/buscarTodosPedidos"
+  public PEDIDOS_UPDATE_STATUS   = "/actualizarEstatusPedido?idPedido="
+  public PEDIDOS_NEW_STATE   = "&nuevoEstatus="
+  public PEDIDOS_FIND_TYPE   = "/searchTipeSend?envio="
+  //*Historial de compra
+  public HISTORIAL_FOR_STATUS = "/buscarComprasPorUsuario?idUsuario="
+  public HISTORIAL_STATUS = "&estatus="
 }

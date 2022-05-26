@@ -15,17 +15,17 @@
 
                         <div class="row mt-2">
                             <div class="col col-12 col-sm-12 col-md-2 col-lg-3 mt-2">
-                                <a type="button" class="btn btn-primary rounded rounded-pill w-100">
+                                <a (click)="tipeSend('tienda')" type="button" class="btn btn-primary rounded rounded-pill w-100">
                                     Recoger en tienda
                                 </a>
                             </div>
                             <div class="col col-12 col-sm-12 col-md-2 col-lg-2 mt-2">
-                                <a type="button" class="btn btn-light rounded rounded-pill w-100">
+                                <a (click)="tipeSend('domicilio')" type="button" class="btn btn-light rounded rounded-pill w-100">
                                     Domicilio
                                 </a>
                             </div>
                             <div class="col col-12 col-sm-12 col-md-2 col-lg-3 mt-2">
-                                <a type="button" class="btn btn-success rounded rounded-pill w-100">
+                                <a (click)="tipeSend('all')" type="button" class="btn btn-success rounded rounded-pill w-100">
                                     Todos los pedidos
                                 </a>
                             </div>
@@ -65,7 +65,7 @@
                                                 <td>{{pedido.idCompra.tipo_envio}}</td>
                                                 <td>{{retornarDireccion(pedido.idCompra.direccion)}}</td>
                                                 <td>
-                                                    <select class="form-select" aria-label="Default select example" [ngModel]="pedido.estatus" (ngModelChange)="retornarStatus($event)">
+                                                    <select class="form-select" aria-label="Default select example" [ngModel]="pedido.estatus" (ngModelChange)="retornarStatus(pedido.id, $event)">
                                                         <option value="Nuevo">Nuevo</option>
                                                         <option value="En proceso">En proceso</option>
                                                         <option value="Realizado">Realizado</option>
