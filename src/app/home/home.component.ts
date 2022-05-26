@@ -81,6 +81,7 @@ export class HomeComponent {
         this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
         console.log(reject)
+        //FIXME: Revisar respuesta
         this.alerta.showAlert("Error al añadir a carrito", "danger", 2500);
       });
     }else{

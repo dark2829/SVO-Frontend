@@ -7,6 +7,7 @@ import { PersonasService } from 'src/app/services/personas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { TokenService } from 'src/app/services/token.service';
 import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-carr',
@@ -26,6 +27,7 @@ export class ProductCarrComponent implements OnInit {
     private persona: PersonasService,
     private alerta: AlertaService,
     private token: TokenService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,8 @@ export class ProductCarrComponent implements OnInit {
       window.location.reload()
     });
   }
-
+  
+  //Suma uno
   addOneProduct(idParam: number, cantidad: number){
     const API_CARR = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_INSERT+idParam+this.enlaces.CARRITO_INSERT_C+1+this.enlaces.CARRITO_PandU+this.token.getID();
     this.persona.addShopingCar(API_CARR, {
@@ -55,7 +58,8 @@ export class ProductCarrComponent implements OnInit {
       this.alerta.showAlert(reject.error.message, "danger", 2500);
     });
   }
-
+  
+  //resta uno
   actualizarCantidad(idProducto: string, cantidad: number) {
     let idProd = parseInt(idProducto);
     let idUsuario = this.token.getID();

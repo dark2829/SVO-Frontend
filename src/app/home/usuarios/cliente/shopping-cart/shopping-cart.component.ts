@@ -3,6 +3,7 @@ import { EnlacesService } from '../../../../services/enlaces.service';
 import { PersonasService } from '../../../../services/personas.service';
 import { TokenService } from '../../../../services/token.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -18,7 +19,7 @@ export class ShoppingCartComponent implements OnInit {
   buttonActived: boolean = true; 
   dirToSend: number; 
   tarjetBuy: number;
-  dirToSendText = "tienda"; 
+  resDirection: any;
   tarjetBuyText = "efectivo";
   activeDirection: boolean = true;
   activeTarject: boolean = true;
@@ -28,9 +29,11 @@ export class ShoppingCartComponent implements OnInit {
     private persona: PersonasService, 
     private token: TokenService, 
     private formBuilder: FormBuilder, 
+    private alerta: AlertaService
   ) { }
 
   ngOnInit() {  
+    this.resDirection = "";
     this.persona.getProduct(this.token.getID()).subscribe(response => {
       if(response.data.carrito[0].cantidad == 0){
         this.buttonActived = true; 
@@ -60,11 +63,19 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   directionToSend(id: number){
-    console.log("Direccion a enviar: ", id);
+    this.persona.getPerson(this.token.getID()).subscribe(response => {      
+      response.data.idPersona.direccion.forEach((direccion: any) => {
+        if(direccion.id == id){
+          this.resDirection = `Calle: ${direccion.calle},Colonia: ${direccion.colonia},CP: ${direccion.cp},Municipio: ${direccion.municipio}`
+          console.log(this.resDirection)
+        }
+      });
+    });
   }
-
+  
+  //FIXME: solo falta este para implementar en el envio
   tarjectToBuy(id: number){
-    console.log("Direccion a enviar: ", id);
+    console.log("Tarjeta que se usara para compra a enviar: ", id);
   }
 
   continieBuy(){
@@ -79,18 +90,19 @@ export class ShoppingCartComponent implements OnInit {
           const dia = new Date(tiempoTranscurrido);
           const fecha = dia.toLocaleDateString().replace(/\//g, '-');
           this.persona.saveVenta(parseInt(this.token.getID()), {
-            "tipo_envio": this.tarjetBuyText,
-            "direccion": this.dirToSendText,
+            "tipo_envio": this.fCarrito.value.entrega,
+            "direccion": this.resDirection,
             "fecha_venta": fecha,
             "facturado": 1
           }).subscribe(response => {
-            console.log(response);
+            this.alerta.showAlert("Compra exitosa", "success", 2500);
+            setTimeout(() => {window.location.reload()} , 2500);
           }, reject => {
             console.log(reject);
           });
         }
       }else{
-        console.log("No hay produyctos en carrito");
+        console.log("No hay productos en carrito");
       }
     }
     );

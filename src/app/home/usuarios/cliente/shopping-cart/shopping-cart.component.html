@@ -31,14 +31,14 @@
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">Efectivo</span>
                                             <input formControlName="pago" class="form-check-input" type="radio" name="pago"
-                                                id="Efectivo" value="Efectivo">
+                                                id="Efectivo" value="efectivo">
                                         </label>
                                     </div>
                                     <div class="form-check mt-2 datosRequeridos">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">Tarjeta</span>
                                             <input formControlName="pago" class="form-check-input" type="radio" name="pago" (click)="activeTarject = true"
-                                                id="Tarjeta" value="Tarjeta" data-bs-toggle="modal"
+                                                id="Tarjeta" value="tarjeta" data-bs-toggle="modal"
                                                 data-bs-target="#whitTarget">
                                         </label>
                                     </div>
@@ -49,7 +49,7 @@
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">Domicilio</span>
                                             <input formControlName="entrega" class="form-check-input" type="radio" (click)="activeDirection = true"
-                                                name="entrega" id="Domicilio" value="Domicilio" data-bs-toggle="modal"
+                                                name="entrega" id="Domicilio" value="domicilio" data-bs-toggle="modal"
                                                 data-bs-target="#onDirection">
                                         </label>
                                     </div>
@@ -57,7 +57,7 @@
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">Tienda</span>
                                             <input formControlName="entrega" class="form-check-input" type="radio"
-                                                name="entrega" id="Tienda" value="Tienda">
+                                                name="entrega" id="Tienda" value="tienda">
                                         </label>
                                     </div>
                                 </div>
@@ -67,14 +67,14 @@
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">Si</span>
                                             <input formControlName="factura" class="form-check-input" type="radio"
-                                                name="factura" id="Si" value="Si">
+                                                name="factura" id="Si" value="1">
                                         </label>
                                     </div>
                                     <div class="form-check mt-2 datosRequeridos">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">No</span>
                                             <input formControlName="factura" class="form-check-input" type="radio"
-                                                name="factura" id="No" value="No">
+                                                name="factura" id="No" value="0">
                                         </label>
                                     </div>
                                 </div>
@@ -196,7 +196,7 @@
   
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button [disabled]="activeTarject" (click)="tarjectToBuy(tarjetBuy)" type="button" class="btn btn-success" data-bs-target="modal">Aceptar</button>
+          <button [disabled]="activeTarject" (click)="tarjectToBuy(tarjetBuy)" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
   
@@ -232,7 +232,7 @@
   
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button [disabled]="activeDirection" (click)="directionToSend(dirToSend)" type="button" class="btn btn-success" data-bs-target="modal">Aceptar</button>
+          <button [disabled]="activeDirection" (click)="directionToSend(dirToSend)" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
   
