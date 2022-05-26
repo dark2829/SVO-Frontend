@@ -31,7 +31,7 @@ export class ShophistoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.persona.historyBuy(parseInt(this.token.getID()), "recibido").subscribe(response => {
+    this.persona.historyBuy(parseInt(this.token.getID()), "Realizado").subscribe(response => {
       this.productosRecibidos = response;
     });
     this.persona.historyBuy(parseInt(this.token.getID()), "en proceso").subscribe(response => {
@@ -44,5 +44,14 @@ export class ShophistoryComponent implements OnInit {
 
   solicitudCancelacion(){
     this.router.navigate(['cancel-request']);
+  }
+
+  formatearProductos(productos: any){
+    let informacion: string = ""; 
+    productos.forEach((product: any) => {
+      informacion += `${product.idProducto.nombre.substring(0, 20)} x ${product.cantidad}\n`
+    });
+
+    return informacion;
   }
 }
