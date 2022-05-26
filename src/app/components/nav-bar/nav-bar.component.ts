@@ -1,10 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PersonasService } from '../../services/personas.service';
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
-import { HttpClient } from '@angular/common/http';
-import { EnlacesService } from '../../services/enlaces.service';
-import { map } from 'rxjs';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
