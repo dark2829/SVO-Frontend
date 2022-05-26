@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { EnlacesService } from './enlaces.service';
 import { TokenService } from './token.service';
 
@@ -49,17 +48,5 @@ export class PedidosService {
    };
    httpOptions.headers.set('Authorization',this.token.getToken());
     return this.http.get(API, httpOptions);
-  }
-
-  public requestCanceled(idShopping: string, body:{
-    "motivoCancelacion": string
-  }){
-    const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_CANCELED+idShopping; 
-    return this.http.post<any>(URL, body);
-  }
-
-  public getPedidoById(idPedido: string): Observable<any>{
-    const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_FIND_ID+idPedido;
-    return this.http.get(URL);
   }
 }

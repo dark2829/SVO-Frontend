@@ -67,9 +67,7 @@ export class EnlacesService {
   public PEDIDOS_GET_ALL   = "/buscarTodosPedidos"
   public PEDIDOS_UPDATE_STATUS   = "/actualizarEstatusPedido?idPedido="
   public PEDIDOS_NEW_STATE   = "&nuevoEstatus="
-  public  PEDIDOS_FIND_TYPE  = "/searchTipeSend?envio="
-  public  PEDIDOS_FIND_ID  = "/buscarPedidoPorId?idPedido="
-  public PEDIDOS_CANCELED   = "/solicitarCancelacion?idCompra="//?POST
+  public PEDIDOS_FIND_TYPE   = "/searchTipeSend?envio="
   //*Historial de compra
   public HISTORIAL_FOR_STATUS = "/buscarComprasPorUsuario?idUsuario="
   public HISTORIAL_STATUS = "&estatus="
