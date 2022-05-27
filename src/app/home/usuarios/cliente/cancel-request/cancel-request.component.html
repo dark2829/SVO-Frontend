@@ -12,7 +12,7 @@
                         <h4 class="mt-2 mb-4">Solicitud de cancelación de pedido</h4>
                         <!--Fila titulo, y form-->
                         <div class="row">
-                            <form id="CreateForm" class="row was-validated needs-validation" [formGroup]="formCanceled" errorTailor novalidate>
+                            <form id="CreateForm" class="row was-validated needs-validation" [formGroup]="formCanceled1" errorTailor novalidate>
                                 <div class="row">
                                     <div class="col col-12">
                                         <div class="row">
@@ -20,7 +20,7 @@
                                                 <label for="">Código de compra: </label>
                                             </div>
                                             <div class="col col-12 col-sm-12 col-md-9 col-lg-8">
-                                                <input formControlName="codigo"  type="text " class="form-control" placeholder="Código de compra"
+                                                <input formControlName="codigo" type="text " class="form-control" placeholder="Código de compra"
                                                     name="compraCod">
                                             </div>
                                         </div>
@@ -36,15 +36,15 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col col-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="col col-12 col-sm-12 col-md-12 col-lg-6 ">
                         <!-- Borde -->
-                        <div class="container-fluid border border-primary rounded mt-3">
+                        <div class="container-fluid border border-primary rounded mt-3 ">
                             <div class="row">
                                 <!-- Contenedor de cartitas azules -->
                                 <div class="container my-3">
                                     <div class="row">
                                         <!-- La carta como tal -->
-                                        <div class="col col-12 text-white border border-light bg-primary rounded pt-1 px-1">
+                                        <div class="col col-12 text-white border border-light rounded pt-1 px-1">
                                             <iframe [src]="urlMini" height="220vh" width="100%">
                                             </iframe>
                                         </div>

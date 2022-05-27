@@ -19,7 +19,7 @@ export class CancelRequestComponent implements OnInit {
   codigoCompra: any; 
   productos: any = {}; //variable de comunicacion
 
-  formCanceled: FormGroup; 
+  formCanceled1: FormGroup; 
   idPedido: any;
   urlMini: any; 
   constructor(
@@ -40,11 +40,18 @@ export class CancelRequestComponent implements OnInit {
   ngOnInit(): void {    
 
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
-      this.codigoCompra = response.data.idCompra.codigo_compra
-      let motivo = response.data.solicitudCancelacion.motivo_cancel;      
+      this.codigoCompra = response.data.idCompra.codigo_compra;
+      console.log(response);
+      let motivo = "";
+      if(response.data.solicitudCancelacion != null){
+        console.log(response);
+        motivo = response.data.solicitudCancelacion.motivo_cancel;      
+      }else{
+        motivo = ""; 
+      }
 
-      this.formCanceled = this.formBuilder.group({
-        codigo: [this.codigoCompra, [Validators.required]],
+      this.formCanceled1 = this.formBuilder.group({
+        codigo: [this.codigoCompra.toString(), [Validators.required]],
         mensaje: [motivo, [Validators.required]]
       });
     })
@@ -52,7 +59,7 @@ export class CancelRequestComponent implements OnInit {
 
   realizarSolicitud(){
     this.pedido.requestCanceled(this.route.snapshot.params['id'].toString(), {
-      "motivoCancelacion": this.formCanceled.value.mensaje
+      "motivoCancelacion": this.formCanceled1.value.mensaje
     }).subscribe(response => {
       this.alerta.showAlert("Solicitud enviada", "success", 2000);
       setTimeout(() => {window.location.reload() }, 2000);
