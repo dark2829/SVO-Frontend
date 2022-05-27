@@ -180,4 +180,18 @@ export class PersonasService {
     const URL = this.enlaces.API_ENLACE_COMPRAS+this.enlaces.HISTORIAL_FOR_STATUS+idUsuario+this.enlaces.HISTORIAL_STATUS+status;
     return this.http.get(URL);
   }
+
+  public recovery(body: {
+    "mailTo": string
+  }){
+    const URL = this.enlaces.API_ENLACE_RECOVERY; 
+    return this.http.post(URL, body);
+  }
+
+  public changePassword(correo: string, body: {
+    "contraseña": string 
+  }){
+    const URL = this.enlaces.API_ENLACE_USUARIOS+this.enlaces.USUARIO_CHANGE_PASSWORD+correo; 
+    return this.http.post(URL, body);
+  }
 }

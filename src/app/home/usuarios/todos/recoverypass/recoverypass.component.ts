@@ -31,7 +31,14 @@ export class RecoverypassComponent implements OnInit {
   }
   
   login(){
-    this.router.navigate(['recoveryPassword/'+this.formpassword.value.fcorreo])
+    console.log(this.formpassword.value.fcorreo);
+    this.persona.recovery({
+      mailTo: this.formpassword.value.fcorreo
+    }).subscribe(response => {
+      this.alerta.showAlert("Revise su su correo electrónico", "success", 2500);
+    },reject => {
+      this.alerta.showAlert("El correo no esta asociado a una cuenta", "danger", 3000);
+    });
   }
 
 }

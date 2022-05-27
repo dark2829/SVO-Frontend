@@ -19,6 +19,7 @@ export class EnlacesService {
   public API_ENLACE_CARRITO     = "http://localhost:8080/cart";
   public API_ENLACE_PEDIDOS     = "http://localhost:8080/pedidos"
   public API_ENLACE_COMPRAS     = "http://localhost:8080/compras"
+  public API_ENLACE_RECOVERY    = "http://localhost:8080/email/sendHTML"
 
   public PRODUCTOS_EN_CARRITO   = "http://localhost:4200/productInCarr"
 
@@ -41,6 +42,7 @@ export class EnlacesService {
   //* Usuarios
   public USUARIO_LOGIN_IDENTIFY = "/auth/login?identificador="; //? POST
   public USUARIO_LOGIN_PASSWORD = "&contrasena="; //? GET
+  public USUARIO_CHANGE_PASSWORD = "/actualizarContraseña?correo="; //? POST
   //* Productos 
   public PRODUCTO_INSERT = "/insertProduct"; //? POST
   public PRODUCTO_BUSCAR = "/findAllProductos"; //? GET

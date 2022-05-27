@@ -28,7 +28,6 @@ export class PasswordrecoveryComponent implements OnInit {
 
   ngOnInit(): void {
     this.correo = this.route.snapshot.params['correo'].toString();
-    console.log(this.correo);
     this.formPassword = this.formBuilder.group({
       fpas1: [null, Validators.required], 
       fpas2: [null, Validators.required]
@@ -38,7 +37,14 @@ export class PasswordrecoveryComponent implements OnInit {
   validate(){
     if(this.formPassword.value.fpas1 == this.formPassword.value.fpas2){
       //FIXME: implementar metodo para actualziar contraseña
-      this.alertas.showAlert("Las contraseñas si coinciden", "success", 2000);
+      this.persona.changePassword(this.correo, {
+        contraseña: this.formPassword.value.fpas1
+      }).subscribe(response => {
+        this.alertas.showAlert("Contraseña actualizada", "success", 2500);
+        setTimeout(() => {this.router.navigate(['login'])}, 2500);
+      }, reject => {
+        this.alertas.showAlert("Error al actualizar contrasña", "danger", 2000);
+      });
     }else{
       this.alertas.showAlert("Las contraseñas no coinciden", "danger", 2000);
     }

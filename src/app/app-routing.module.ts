@@ -54,7 +54,7 @@ const routes: Routes = [
   {path: 'productInCarr', component: ProductCarrComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'productocancel/:id', component: ProdtocancelComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'cancel-request/:id', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
-  {path: 'recoveryPassword/:correo', component: PasswordrecoveryComponent },
+  {path: 'recover/:correo', component: PasswordrecoveryComponent },
   //Pantallas de empleado
   {path: 'home-empleado', component: HomeEmpleadoComponent, canActivate: [guard], data: {expectedRol: ['Empleado']} },
   {path: 'pedidos', component: PedidosComponent },
