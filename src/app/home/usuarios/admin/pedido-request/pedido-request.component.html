@@ -35,24 +35,22 @@
                                         <label for="staticEmail2" class="mt-2">Código de compra</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="AT140220221"
+                                        <input type="text" class="form-control" id="nombre" placeholder="{{codigoCompra}}"
                                             disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
-                                        <label for="staticEmail2" class="mt-2">Productos</label>
+                                        <label for="staticEmail2" class="mt-2">Pago total: ${{pagototal}}</label>
                                     </div>
-                                    <div class="col col-7">
+                                    <div class="col col-12">
                                         <div class="row">
-                                            <div class="container mt-4 rounded border border-primary">
+                                            <div class="container mt-4 rounded border border-primary bg-primary">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <p>Nose</p>
-                                                        <p>Precio unitario: nose </p>
-                                                        <p>Cantidad:nose</p>
-                                                        <p>Total: nose</p>
+                                                        <iframe [src]="urlMini" height="220vh" width="100%">
+                                                        </iframe>
                                                     </div>
                                                 </div>
                                             </div>
@@ -66,7 +64,7 @@
                                     </div>
                                     <div class="col col-7">
                                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                            rows="3" [value]="motivo"></textarea>
                                     </div>
                                 </div>
 
@@ -101,15 +99,15 @@
                     <!-- Formulario -->
                     <div class="row mt-4">
                         <div class="col">
-                            <form class="row">
+                            <form id="CreateForm" class="row was-validated needs-validation" [formGroup]="formCanceled" errorTailor novalidate>
 
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Motivo</label>
                                     </div>
                                     <div class="col col-7">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1"
-                                            rows="3"></textarea>
+                                        <textarea formControlName="respuesta" class="form-control border border-primary" rows="5" id="comment"
+                                            name="text" required></textarea>
                                     </div>
                                 </div>
                             </form>
@@ -119,7 +117,7 @@
                     <!-- Botones -->
                     <div class="row m-3">
                         <div class="col text-center">
-                            <button class="btn btn-success rounded rounded-pill">
+                            <button (click)="sendresponse('aprobado')" form="CreateForm" class="btn btn-success rounded rounded-pill">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                     class="bi bi-check2" viewBox="0 0 16 16">
                                     <path
@@ -129,7 +127,7 @@
                             </button>
                         </div>
                         <div class="col text-center">
-                            <button class="btn btn-danger rounded rounded-pill">
+                            <button (click)="sendresponse('cancelado')" class="btn btn-danger rounded rounded-pill">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                     class="bi bi-x" viewBox="0 0 16 16">
                                     <path

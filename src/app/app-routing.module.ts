@@ -72,7 +72,7 @@ const routes: Routes = [
   {path: 'empleados', component: EmpleadosComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   {path: 'empleado-register', component: EmpleadoRegisterComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   {path: 'empleado-modify', component: EmpleadoModifyComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
-  {path: 'cancel', component: PedidoRequestComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
+  {path: 'cancel/:id', component: PedidoRequestComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   {path: 'alert', component: AlertComponent, canActivate: [guard], data: {expectedRol: ["Administrador"]} },
   //? Envian informacion en la url 
   {path: 'proveedor/:id', component: ProveedorModifyComponent, canActivate: [guard], data: {expectedRol: ["Empleado", "Administrador"]} },

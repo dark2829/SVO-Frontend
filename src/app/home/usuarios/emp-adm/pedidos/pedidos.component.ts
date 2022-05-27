@@ -26,6 +26,7 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
     this.pedido.getAllPedidos().subscribe(response => {
       this.pedidos = response; 
+      console.log(response);
     });
 
   }
@@ -36,8 +37,8 @@ export class PedidosComponent implements OnInit {
     return textoRetornar;
   }
   
-  cancelacion(){
-    this.router.navigate(['cancel']);
+  cancelacion(idCompra: string){
+    this.router.navigate(['cancel/'+idCompra]);
   }
 
   retornarStatus(idPedido: string, evento: any){

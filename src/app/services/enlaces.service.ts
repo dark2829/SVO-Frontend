@@ -70,6 +70,7 @@ export class EnlacesService {
   public PEDIDOS_FIND_TYPE   = "/searchTipeSend?envio="
   public  PEDIDOS_FIND_ID  = "/buscarPedidoPorId?idPedido="
   public PEDIDOS_CANCELED   = "/solicitarCancelacion?idCompra="//?POST
+  public PEDIDOS_RESPONSE_CANCEL   = "/responderSolicitarCancelacion?idPedido="//?POST
   //*Historial de compra
   public HISTORIAL_FOR_STATUS = "/buscarComprasPorUsuario?idUsuario="
   public HISTORIAL_STATUS = "&estatus="

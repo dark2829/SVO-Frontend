@@ -54,7 +54,8 @@ export class CancelRequestComponent implements OnInit {
     this.pedido.requestCanceled(this.route.snapshot.params['id'].toString(), {
       "motivoCancelacion": this.formCanceled.value.mensaje
     }).subscribe(response => {
-      console.log(response)
+      this.alerta.showAlert("Solicitud enviada", "success", 2000);
+      setTimeout(() => {window.location.reload() }, 2000);
     });
   }
 

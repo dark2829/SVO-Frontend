@@ -62,4 +62,12 @@ export class PedidosService {
     const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_FIND_ID+idPedido;
     return this.http.get(URL);
   }
+
+  public responseRequestCancel(idPedido: string, body: {
+    "motivo_res":string,
+    "estatus": string
+  }){
+    const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_RESPONSE_CANCEL+idPedido;
+    return this.http.post(URL, body);
+  }
 }
