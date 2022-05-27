@@ -52,7 +52,7 @@ const routes: Routes = [
   {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'productInCarr', component: ProductCarrComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
-  {path: 'productocancel', component: ProdtocancelComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'productocancel/:id', component: ProdtocancelComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'cancel-request/:id', component: CancelRequestComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'recoveryPassword/:correo', component: PasswordrecoveryComponent },
   //Pantallas de empleado

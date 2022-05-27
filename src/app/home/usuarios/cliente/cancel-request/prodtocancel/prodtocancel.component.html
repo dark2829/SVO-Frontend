@@ -1,7 +1,27 @@
-<div class="container-fluid vh-100 bg-primary" >
-    <div class="row" >
-        <div class="col">
-
+<div class="container-fluid bg-primary text-white" >
+    <div class="row" *ngFor="let prod of productos">
+        <div class="col-12 border border-light w-100 bg-primary my-2 rounded">
+            <div class="row">
+                <div class="col">
+                    <b>Fecha</b>: {{fecha}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <b>Codigo</b>: {{prod.idProducto.codigo_prod}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col my-3">
+                    <b>Productos</b>: <br>
+                    {{prod.idProducto.nombre.substring(0,18)}} x {{prod.cantidad}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <b>Precio de compra</b>: {{prod.precio_total}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
