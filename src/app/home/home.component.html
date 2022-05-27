@@ -61,9 +61,9 @@
     <!-- Carta de productos -->
     <div *ngFor="let producto of productos; index as i" class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4 carta">
       <div *ngIf="producto.cantidad != 0">
-        <div class="card bg-primary bg-opacity-25 w-100" id="#">
+        <div class="card bg-primary bg-opacity-25 w-100">
           <span class="like position-absolute translate-middle badge rounded-pill">
-            <a type="button" class="btn btn-outline-danger rounded-circle p-0 m-0 buttonLike"
+            <a class="targetProduct {{producto.id}}" [ngClass]="{'lineaBlanca bg-danger text-white' : false}" type="button" class="btn btn-outline-danger rounded-circle p-0 m-0 buttonLike"
               (click)="like(producto.id)">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="15" fill="currentColor" class="bi bi-heart"
                 viewBox="0 0 16 16">

@@ -22,7 +22,7 @@ export class HomeComponent {
 
   index: number; 
 
-  likeId = document.getElementsByClassName("buttonLike");
+  likeId = document.getElementsByClassName("targetProduct");
   
   constructor(
     private router: Router, //usa un servicio router 
@@ -38,36 +38,45 @@ export class HomeComponent {
 
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.producto.getAllProductosClient().subscribe(response => {
       this.productos = response.data;
     });
+
     this.persona.getProductLike(this.token.getID()).subscribe(response => {
-      console.log(response);
-      response.data.forEach((element : any) => {
-        this.likeId[element.id-1].classList.add("bg-danger", "text-white", "lineaBlanca")
-      })      
+      for (let carta = 0; carta < this.likeId.length; carta++) {
+        response.data.forEach((element: any) => {
+          if(this.likeId[carta].classList.contains(element.id)){
+            this.likeId[carta].classList.add("bg-danger", "text-white", "lineaBlanca");
+          }
+        })
+      }
     });
 
     this.index = this.route.snapshot.params['id'];
   }
 
   like(idProducto: number){
+    console.log(idProducto);
     if(this.token.getToken() != null){
-      if(this.likeId[idProducto-1].classList.contains("lineaBlanca")){ 
-        this.persona.deleteFavorite(idProducto.toString(), this.token.getID()).subscribe(response => {
-          this.alerta.showAlert(response.message, "success", 2500);
-          this.likeId[idProducto-1].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
-        });
-      }else{
-        this.persona.addFavorite(idProducto.toString(), this.token.getID().toString()).subscribe(response => {
-          this.alerta.showAlert(response.message, "success", 2500);
-          this.likeId[idProducto-1].classList.add("bg-danger", "text-white", "lineaBlanca");
-        });
+      for (let carta = 0; carta < this.likeId.length; carta++) {
+        if(this.likeId[carta].classList.contains(idProducto.toString())){
+          if(this.likeId[carta].classList.contains("bg-danger")){
+            this.persona.deleteFavorite(idProducto.toString(), this.token.getID()).subscribe(response => {
+              this.alerta.showAlert(response.message, "success", 2500);
+              this.likeId[carta].classList.remove("bg-danger", "text-white", "lineaBlanca"); 
+            });   
+          }else{
+          this.persona.addFavorite(idProducto.toString(), this.token.getID().toString()).subscribe(response => {
+            this.alerta.showAlert(response.message, "success", 2500);
+            this.likeId[carta].classList.add("bg-danger", "text-white", "lineaBlanca");
+          });
+          }
+        }
       }
     }else{
       this.alerta.showAlert("Debería tener una sesión iniciada", "warning", 3000);
-    }
+    } 
   }
   
   addCarrito(idParam: number){
