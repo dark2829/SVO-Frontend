@@ -30,6 +30,7 @@ export class ProductModifyComponent implements OnInit {
 
   index: string;
   formProducto: FormGroup;
+  tipImage: string;
 
   constructor(
     private productos: ProductosService,
@@ -44,6 +45,7 @@ export class ProductModifyComponent implements OnInit {
 
   // Cargar datos al form
   ngOnInit(): void {
+    this.tipImage = "Se recomienda que las imágenes sean png con una dimencion de 1540x1830";
     if (this.tokenService.getToken()) {
       this.index = this.route.snapshot.params['id'].toString();
       

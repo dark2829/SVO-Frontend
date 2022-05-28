@@ -19,6 +19,7 @@ export class ProductRegisterComponent implements OnInit {
   preView: string;  
   img: any; 
   codigo_producto: any;
+  tipImage: any;
 
   constructor(
     private productos: ProductosService, 
@@ -51,6 +52,7 @@ export class ProductRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.tipImage = "Se recomienda que las imágenes sean png con una dimencion de 1540x1830"
     if (this.token.getToken()) {
       this.productos.getAllProductos().subscribe(response => {
         let cantidad = response.data.length;
