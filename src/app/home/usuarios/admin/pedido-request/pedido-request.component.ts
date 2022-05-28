@@ -55,13 +55,21 @@ export class PedidoRequestComponent implements OnInit {
     if(respuesta == 'aprobado'){
       this.pedido.responseRequestCancel(this.route.snapshot.params['id'], {
         "motivo_res": this.formCanceled.value.respuesta.toString(),
-        "estatus": "aceptado"//aceptado, rechazado
+        "estatus": "Aceptado"//aceptado, rechazado
       }).subscribe(response => {
         this.alerta.showAlert("Pedido aprobado", "success", 2500);
         setTimeout(() => {this.router.navigate(['pedidos'])}, 2500);
       });
     }else{
+      this.pedido.responseRequestCancel(this.route.snapshot.params['id'], {
+        "motivo_res": this.formCanceled.value.respuesta.toString(),
+        "estatus": "Rechazado"//aceptado, rechazado
+      }).subscribe(response => {
+        this.alerta.showAlert("Pedido rechazado", "success", 2500);
+        setTimeout(() => {this.router.navigate(['pedidos'])}, 2500);
+      });
       this.router.navigate(['pedidos']);
+
     }
 
   }

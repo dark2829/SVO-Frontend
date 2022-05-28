@@ -16,6 +16,11 @@ import { AlertaService } from '../../../../services/alerta.service';
 export class PerfilModifyComponent implements OnInit {  
 
   formularioPersona: FormGroup;
+  fileChange: boolean = false;
+  preView: string; 
+  indexClient: any; 
+  activeDirection: any = [true, false, false];
+  directionToSaved: any = 0; 
 
   constructor(
     private router: Router,    
@@ -44,9 +49,15 @@ export class PerfilModifyComponent implements OnInit {
   ninter: any = null;
   nexter: any = null;
   refere: any = null;
+  
+  namePr: any = null; 
+  numbeT: any = null; 
+  cvvTar: any = null; 
+  fvenci: any = null; 
 
   ngOnInit(): void{
     this.persona.getPerson(this.token.getID()).subscribe(response => {
+      this.indexClient = response.data.id;
       if(response.data.idPersona.nombre != null){
         this.nombre = response.data.idPersona.nombre; 
       }
@@ -72,6 +83,7 @@ export class PerfilModifyComponent implements OnInit {
         this.passwo = response.data.contraseña;
       }
       if(response.data.idPersona.telefono != null){
+        console.log(response.data.idPersona.telefono);
         this.telefo = response.data.idPersona.telefono;
       }
       if(response.data.idPersona.direccion.length > 0){
@@ -83,8 +95,18 @@ export class PerfilModifyComponent implements OnInit {
         this.ninter = response.data.idPersona.direccion[0].n_interior;  
         this.nexter = response.data.idPersona.direccion[0].n_exterior;  
         this.refere = response.data.idPersona.direccion[0].referencia;  
-
       }
+
+      if(response.data.idPersona.tarjeta.length > 0){
+        this.namePr = response.data.idPersona.tarjeta[0].nombre_propietario;
+        this.numbeT = response.data.idPersona.tarjeta[0].numero;
+        this.cvvTar = response.data.idPersona.tarjeta[0].cvv;
+        let parsear = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+        parsear = parsear.split("/");
+        parsear = parsear[0] + "-" + parsear[1];
+        this.fvenci = parsear;
+      }
+
       this.formularioPersona = this.formBuilder.group({
         nombre: [this.nombre, [Validators.required]],
         apellP: [this.apellP, [Validators.required]],
@@ -103,13 +125,200 @@ export class PerfilModifyComponent implements OnInit {
         ninter: [this.ninter],
         nexter: [this.nexter],
         refere: [this.refere],
+
+        namePr: [this.namePr],
+        numbeT: [this.numbeT],
+        cvvTar: [this.cvvTar],
+        fvenci: [this.fvenci]
       });
     });
   }
+
+  public guardarInfo(){
+    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.token.getID() + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
+    
+    // Formatear Fecha
+    let date = this.formularioPersona.value.fnaciM;
+    if (date != null) {
+      date = date.split("-");
+      date = date[2] + "/" + date[1] + "/" + date[0];
+      console.log(date);
+    } else {
+      date = null;
+    }
+
+    try {
+      if (
+        this.formularioPersona.value.nombre != null &&
+        this.formularioPersona.value.apellP != null &&
+        this.formularioPersona.value.correo != null &&
+        this.formularioPersona.value.contas != null &&
+        this.formularioPersona.value.nombre != "" &&
+        this.formularioPersona.value.apellP != "" &&
+        this.formularioPersona.value.correo != "" &&
+        this.formularioPersona.value.contas != ""
+      ) {
+        //? Identificar que tipo de modificacion se hace
+        const API_CLIENT = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.token.getID()+this.enlaces.PERSONA_UPDATE_U+this.indexClient;
+        this.persona.updateClientDataPerson(API_CLIENT, {
+          nombre: this.formularioPersona.value.nombre,
+          apellido_paterno: this.formularioPersona.value.apellP,
+          apellido_materno: this.formularioPersona.value.apellM,
+          fecha_nacimiento: date,
+          genero: this.formularioPersona.value.genero,
+          correo: this.formularioPersona.value.correo,
+          contrasena: this.formularioPersona.value.contas,
+          telefono: this.formularioPersona.value.telefo
+        }).subscribe(
+          response => {
+            this.alerta.showAlert("Registro exitoso", "success", 2000)
+            setTimeout( () => {window.location.reload()}, 2000)
+          },
+          error => {
+            console.log(error);
+            this.alerta.showAlert(error.message, "danger", 2000, error.status)
+          }
+          );
+        } else {
+        this.alerta.showAlert("Modificar mínimo los datos marcados", "warning", 2000)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  saveDirection(){
+    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getID() + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
+    console.log("Direccion a guardar: ",this.directionToSaved);
+
+    this.persona.getPerson(this.token.getID()).subscribe(response => {
+      if(response.data.idPersona.direccion.length == 0){
+        this.persona.updateClientDirectionSNId(API_ADDRESS, {
+          calle: this.formularioPersona.value.fcalle,
+          colonia: this.formularioPersona.value.fcolon,
+          municipio: this.formularioPersona.value.munici,
+          estado: this.formularioPersona.value.estado,
+          cp: this.formularioPersona.value.codPos,
+          n_interio: this.formularioPersona.value.ninter,
+          n_exterior: this.formularioPersona.value.nexter,
+          referencia: this.formularioPersona.value.refere
+        }).subscribe(response => {
+          this.alerta.showAlert("Dirección modificada", "success", 2000);
+        }, error => {
+          console.log(error);
+          this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+        });
+        // this.formularioPersona.reset();
+      }else{
+        this.persona.updateClientDirection(API_ADDRESS, {
+          idDireccion: response.data.idPersona.direccion[0].id,
+          calle: this.formularioPersona.value.fcalle,
+          colonia: this.formularioPersona.value.fcolon,
+          municipio: this.formularioPersona.value.munici,
+          estado: this.formularioPersona.value.estado,
+          cp: this.formularioPersona.value.codPos,
+          n_interio: this.formularioPersona.value.ninter,
+          n_exterior: this.formularioPersona.value.nexter,
+          referencia: this.formularioPersona.value.refere
+        }).subscribe(response => {
+          this.alerta.showAlert("Dirección modificada", "success", 2000);
+        }, error => {
+          console.log(error);
+          this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+        });
+      }
+    })
+    //no tiene direcciones
+    //insertar
+    //modificar
+  }
   
-  /*fileChange: boolean = false;
+  //? Identifica el boton y rellena el formulario con la informacion de direccion
+  direccionActivedButton(id: number) {
+    //? Identificar el boton de direccion
+    this.activeDirection.forEach((element: any, index: number) => {
+      this.activeDirection[index] = false;
+    });
+    this.activeDirection[id] = true;
+    
+    //? Rellenar formulario con info de la direccion
+    this.persona.getPerson(this.token.getID()).subscribe(response => {
+      console.log(response)
+      console.log(response);
+      if(response.data.idPersona.direccion.length == 0){
+        this.formularioPersona = this.formBuilder.group({
+          fcalle: [null],
+          fcolon: [null],
+          munici: [null],
+          estado: [null],
+          codPos: [null],
+          ninter: [null],
+          nexter: [null],
+          refere: [null],
+        });  
+        this.alerta.showAlert("Al parecer no contiene datos", "warning", 2000);
+      }else{
+        if(response.data.idPersona.direccion.length <= id){
+          this.formularioPersona = this.formBuilder.group({
+            fcalle: [null],
+            fcolon: [null],
+            munici: [null],
+            estado: [null],
+            codPos: [null],
+            ninter: [null],
+            nexter: [null],
+            refere: [null],
+          });  
+          this.alerta.showAlert("Al parecer no contiene datos", "warning", 2000);
+        }else{
+          this.directionToSaved = response.data.idPersona.direccion[id];
+          this.formularioPersona = this.formBuilder.group({
+            fcalle: [response.data.idPersona.direccion[id].calle],
+            fcolon: [response.data.idPersona.direccion[id].colonia],
+            munici: [response.data.idPersona.direccion[id].municipio],
+            estado: [response.data.idPersona.direccion[id].estado],
+            codPos: [response.data.idPersona.direccion[id].cp],
+            ninter: [response.data.idPersona.direccion[id].n_interior],
+            nexter: [response.data.idPersona.direccion[id].n_exterior],
+            refere: [response.data.idPersona.direccion[id].referencia],
+          });  
+        }
+      }
+    });
+  }
+
+  public capturarArchivo(event: any): any{
+    const archivoCapturado = event.target.files[0];
+    this.fileChange = true; 
+    this.extraerB64(archivoCapturado).then((imagen: any) => {
+      this.preView = imagen.base;
+    })
+  }
+
+  extraerB64 = async ($event: any) => new Promise((resolve, reject) => {
+    try{
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () =>{
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        })
+      }
+
+    }catch(ex){
+      console.log(ex);
+    }
+  })
+  
+  /*
   fcalle: [this.telefo],
-  preView: string; 
   direccion1: boolean = true;
   direccion2: boolean = false;
   direccion3: boolean = false;
@@ -119,17 +328,6 @@ export class PerfilModifyComponent implements OnInit {
 
   position: number = 0; 
   positionCard: number = 0; 
-
-  //* Constructores
-  constructor(
-    private router: Router,    
-    private enlaces: EnlacesService, 
-    private formBuilder: FormBuilder, 
-    private persona: PersonasService, 
-    private sanitizer: DomSanitizer,    
-    private token: TokenService, 
-    private alerta: AlertaService
-  ) { }
   
   //* Variables 
   indexPerson: string; 
@@ -140,31 +338,6 @@ export class PerfilModifyComponent implements OnInit {
   cancelar = false;
   direccionesArry: any [] = [];
   tarjetsArry: any [] = [undefined, undefined, undefined];
-
-  //? Variables compoartidas
-  _nombre: any; 
-  _apellidoP: any; 
-  _apellidoM: any; 
-  _fechaBirt: any; 
-  _genero: any; 
-  _correo: any; 
-  _contrasena: any; 
-  _telefono: any; 
-  _calle: any[] = ['','','']; 
-  _colonia: any[] = ['','','']; 
-  _municipio: any[] = ['','','']; 
-  _estado: any[] = ['','','']; 
-  _cp: any[] = ['','','']; 
-  _ninterior: any[] = ['','','']; 
-  _nexterior: any[] = ['','','']; 
-  _referenc: any[] = ['','','']; 
-  _propietario: any[] = ['','','']; 
-  _tarjeta: any[] = ['','','']; 
-  _fechaVenc: any[] = ['','','']; 
-  _cvv: any[] = ['','','']; 
-  //* Variable de formulario
-  formPerson: FormGroup; 
-  radioExample: FormControl = new FormControl(); //radioExample
   
   
   //FIXME: Falta revisar los datos de modificar direccion y tarjetas
@@ -238,220 +411,6 @@ export class PerfilModifyComponent implements OnInit {
         fFechaVen:   [this._fechaVenc[0]],
         fcvv:        [this._cvv[0]]
       });
-    });
-  }
-  
-  //FIXME: Falta modificar para acrualizar los datos de la persona
-  public updatePerson() {
-    const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.indexPerson + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
-
-    // Formatear Fecha
-    let date = this.formPerson.value.fBdate;
-    if (date != null) {
-      date = date.split("-");
-      date = date[2] + "/" + date[1] + "/" + date[0];
-      console.log(date);
-    } else {
-      date = null;
-    }
-
-    try {
-      if (
-        this.formPerson.value.fname != null &&
-        this.formPerson.value.fSame != null &&
-        this.formPerson.value.fEmail != null &&
-        this.formPerson.value.fPass != null &&
-        this.formPerson.value.fname != "" &&
-        this.formPerson.value.fSame != "" &&
-        this.formPerson.value.fEmail != "" &&
-        this.formPerson.value.fPass != ""
-      ) {
-        //? Identificar que tipo de modificacion se hace
-        const API_CLIENT = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.indexPerson+this.enlaces.PERSONA_UPDATE_U+this.indexClient;
-        console.log(API_CLIENT);
-        this.persona.updateClientDataPerson(API_CLIENT, {
-          nombre: this.formPerson.value.fname,
-          apellido_paterno: this.formPerson.value.fSame,
-          apellido_materno: this.formPerson.value.fLame,
-          fecha_nacimiento: date,
-          genero: this.formPerson.value.fGender,
-          correo: this.formPerson.value.fEmail,
-          contrasena: this.formPerson.value.fPass,
-          telefono: this.formPerson.value.fPhone
-        }).subscribe(
-          response => {
-            this.alerta.showAlert("Registro exitoso", "success", 2000)
-          },
-          error => {
-            console.log(error);
-            this.alerta.showAlert(error.message, "danger", 2000, error.status)
-          }
-          );
-        } else {
-        this.alerta.showAlert("Modificar mínimo los datos marcados", "warning", 2000)
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  public enviar(){
-    this.enviarDatos = true; 
-    this.cancelar = false; 
-    this.updatePerson();
-  } 
-
-  public cancel(){
-    this.cancelar = true; 
-    this.enviarDatos = false; 
-    this.persona.getPerson("2").subscribe(response => {
-      console.log(response)
-    });
-  }
-  
-  public clearTarjeta() {
-    // Para mandar la tarjeta se debe modificar el valor y el campo en form
-    let dirIndex = 0;
-    if (this.tarjeta1 == true) {
-      dirIndex = 0;
-    }
-    if (this.direccion2 == true) {
-      dirIndex = 1;
-    }
-    if (this.direccion3 == true) {
-      dirIndex = 2;
-    }  
-    this._propietario[dirIndex] = "";
-    this._tarjeta[dirIndex] = "";
-    this._fechaVenc[dirIndex] = "";
-    this._cvv[dirIndex] = "";
-    this.formPerson.value.fPropieta = "";
-    this.formPerson.value.fTarjeta = "";
-    this.formPerson.value.fFechaVen = "";
-    this.formPerson.value.fcvv = 0;
-  }
-
-  public clearDireccion() {
-    let dirIndex = 0;
-    if (this.direccion1 == true) {
-      dirIndex = 0;
-    }
-    if (this.direccion2 == true) {
-      dirIndex = 1;
-    }
-    if (this.direccion3 == true) {
-      dirIndex = 2;
-    }    
-    this._calle[dirIndex] = "";
-    this._colonia[dirIndex] = "";
-    this._municipio[dirIndex] = "";
-    this._estado[dirIndex] = "";
-    this._cp[dirIndex] = "";
-    this._ninterior[dirIndex] = "";
-    this._nexterior[dirIndex] = "";
-    this._referenc[dirIndex] = "";
-    this.formPerson.value.fCalle = ""
-    this.formPerson.value.fColonia = ""
-    this.formPerson.value.fMunicipio = ""
-    this.formPerson.value.fEstado = ""
-    this.formPerson.value.fCp = -1
-    this.formPerson.value.fNinterior = -1
-    this.formPerson.value.fNexterior = -1
-    this.formPerson.value.fReferenc = ""
-  }
-
-  public capturarArchivo(event: any): any{
-    const archivoCapturado = event.target.files[0];
-    this.fileChange = true; 
-    this.extraerB64(archivoCapturado).then((imagen: any) => {
-      this.preView = imagen.base;
-      console.log(imagen)
-    })
-  }
-  
-  extraerB64 = async ($event: any) => new Promise((resolve, reject) => {
-    try{
-      const unsafeImg = window.URL.createObjectURL($event);
-      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-      const reader = new FileReader();
-      reader.readAsDataURL($event);
-      reader.onload = () =>{
-        resolve({
-          base: reader.result
-        });
-      };
-      reader.onerror = error => {
-        resolve({
-          base: null
-        })
-      }
-
-    }catch(ex){
-      console.log(ex);
-    }
-  })
-
-  direccionU(){
-    this.direccion1 = true;
-    this.direccion2 = false;
-    this.direccion3 = false;
-    this.persona.getPerson(this.indexPerson).subscribe(response => {
-      if(response.data.idPersona.direccion.length == 0){
-      this.formPerson.reset();
-      }else{
-        this.formPerson = this.formBuilder.group({
-          fCalle:      [response.data.idPersona.direccion[0].calle],
-          fColonia:    [response.data.idPersona.direccion[0].colonia],
-          fMunicipio:  [response.data.idPersona.direccion[0].municipio],
-          fEstado:     [response.data.idPersona.direccion[0].estado],
-          fCp:         [response.data.idPersona.direccion[0].cp],
-          fNinterior:  [response.data.idPersona.direccion[0].n_interior],
-          fNexterior:  [response.data.idPersona.direccion[0].n_exterior],
-          fReferenc:   [response.data.idPersona.direccion[0].referencia],
-        });
-      }
-    });
-  }
-  direccionD(){
-    this.direccion1 = false;
-    this.direccion2 = true;
-    this.direccion3 = false;
-    this.persona.getPerson(this.indexPerson).subscribe(response => {
-      if(response.data.idPersona.direccion.length == 1){
-      this.formPerson.reset();
-      }else{
-        this.formPerson = this.formBuilder.group({
-          fCalle:      [response.data.idPersona.direccion[1].calle],
-          fColonia:    [response.data.idPersona.direccion[1].colonia],
-          fMunicipio:  [response.data.idPersona.direccion[1].municipio],
-          fEstado:     [response.data.idPersona.direccion[1].estado],
-          fCp:         [response.data.idPersona.direccion[1].cp],
-          fNinterior:  [response.data.idPersona.direccion[1].n_interior],
-          fNexterior:  [response.data.idPersona.direccion[1].n_exterior],
-          fReferenc:   [response.data.idPersona.direccion[1].referencia],
-        });
-      }
-    });
-  }
-  direccionT(){
-    this.direccion1 = false;
-    this.direccion2 = false;
-    this.direccion3 = true;
-    this.persona.getPerson(this.indexPerson).subscribe(response => {
-      if(response.data.idPersona.direccion.length == 2){
-      this.formPerson.reset();
-      }else{
-        this.formPerson = this.formBuilder.group({
-          fCalle:      [response.data.idPersona.direccion[2].calle],
-          fColonia:    [response.data.idPersona.direccion[2].colonia],
-          fMunicipio:  [response.data.idPersona.direccion[2].municipio],
-          fEstado:     [response.data.idPersona.direccion[2].estado],
-          fCp:         [response.data.idPersona.direccion[2].cp],
-          fNinterior:  [response.data.idPersona.direccion[2].n_interior],
-          fNexterior:  [response.data.idPersona.direccion[2].n_exterior],
-          fReferenc:   [response.data.idPersona.direccion[2].referencia],
-        });
-      }
     });
   }
 

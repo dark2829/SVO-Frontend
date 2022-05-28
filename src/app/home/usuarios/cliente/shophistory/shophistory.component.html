@@ -15,7 +15,7 @@
                         <div class="container">
                             <div class="row" *ngFor="let recibed of productosRecibidos.data">
                                 <div *ngIf="recibed != null; else notieneRecibed" class="col text-white border border-light mb-2">
-                                    <p>Fecha: {{recibed.fecha_entrega}}</p>
+                                    <p>Fecha: {{recibed.idCompra.fecha_venta}}</p>
                                     <p>Código: {{recibed.idCompra.codigo_compra}}</p>
                                     <p class="mt-2">Productos:<br>
                                         <span>{{formatearProductos(recibed.idCompra.carrito)}}</span>
@@ -54,7 +54,7 @@
                                             </svg>
                                         </a>
                                     </span>
-                                    <p>Fecha: {{inProces.fecha_entrega}}</p>
+                                    <p>Fecha: {{inProces.idCompra.fecha_venta}}</p>
                                     <p>Código: {{inProces.idCompra.codigo_compra}}</p>
                                     <p class="mt-2">Productos:<br>
                                         <span>{{formatearProductos(inProces.idCompra.carrito)}}</span>
@@ -82,12 +82,17 @@
                         <div class="container">
                             <div class="row" *ngFor="let cancel of productosCanceled.data">
                                 <div *ngIf="cancel != null; else notProcess" class="col text-white border border-light mb-2">
-                                    <p>Fecha: {{cancel.fecha_entrega}}</p>
+                                    <p>Fecha: {{cancel.idCompra.fecha_venta}}</p>
                                     <p>Código: {{cancel.idCompra.codigo_compra}}</p>
                                     <p class="mt-2">Productos:<br>
                                         <span>{{formatearProductos(cancel.idCompra.carrito)}}</span>
                                     </p>
-                                    <p>Precio de compra: ${{cancel.idCompra.pago_total}}
+                                    <p>
+                                        Precio de compra: <b>$<span *ngIf="cancel.idCompra.tipo_envio == 'Domicilio'; else tienda">{{cancel.idCompra.pago_total}}</span>
+                                        <ng-template #tienda>
+                                            <span>{{cancel.idCompra.pago_total}}</span>
+                                        </ng-template>
+                                        </b>
                                     </p>
                                 </div>
                                 <ng-template #notProcess>

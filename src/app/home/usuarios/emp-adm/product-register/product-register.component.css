@@ -17,6 +17,8 @@
 
 .img-perfil{
     max-width: 30vh;
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .inpFile{

@@ -39,6 +39,7 @@ export class ShophistoryComponent implements OnInit {
     });
     this.persona.historyBuy(parseInt(this.token.getID()), "Cancelado").subscribe(response => {
       this.productosCanceled = response;
+      console.log(response);
     });
   }
 
@@ -49,7 +50,7 @@ export class ShophistoryComponent implements OnInit {
   formatearProductos(productos: any){
     let informacion: string = ""; 
     productos.forEach((product: any) => {
-      informacion += `${product.idProducto.nombre.substring(0, 20)} x ${product.cantidad}\n`
+      informacion += `${product.idProducto.nombre.substring(0, 20)} x ${product.cantidad} $ ${product.precio_total}\n`
     });
 
     return informacion;

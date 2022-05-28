@@ -4,6 +4,7 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { FormGroup, Validators } from '@angular/forms';
 import { AlertaService } from '../../../../services/alerta.service';
+import { TokenService } from '../../../../services/token.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -16,10 +17,12 @@ export class PedidosComponent implements OnInit {
   selectStatus: any;
   page: number = 1; 
   pedidos: any = {};
+  user: string ; 
   constructor(
     private router: Router,
     private pedido: PedidosService, 
-    private alerta: AlertaService
+    private alerta: AlertaService,
+    public token: TokenService
 
   ) { }
 
@@ -37,8 +40,12 @@ export class PedidosComponent implements OnInit {
     return textoRetornar;
   }
   
-  cancelacion(idCompra: string){
-    this.router.navigate(['cancel/'+idCompra]);
+  cancelacion(idCompra: string, tipoUser: string){
+    if(tipoUser.includes('Administrador')){
+      this.router.navigate(['cancel/'+idCompra]);
+    }else{
+      this.alerta.showAlert("No tienes permisos para cancelar pedidos", "warning", 2000);
+    }
   }
 
   retornarStatus(idPedido: string, evento: any){

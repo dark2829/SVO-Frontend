@@ -37,14 +37,16 @@ a{
     height: 40vh;
 }
 
-.imgProd{
+.imgProd {
     display: flex;
-  justify-content: center;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-head .imgProdImg {
     width: 32vh;
+    max-width: 300px;
+    max-height: 300px;
 }
 
 .lineaBlanca{

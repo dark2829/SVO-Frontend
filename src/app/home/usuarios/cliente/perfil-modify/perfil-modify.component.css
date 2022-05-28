@@ -3,5 +3,6 @@ form .datosRequeridos{
 }
 
 .img-perfil{
-    max-width: 40vh;
+    max-width: 200px;
+    max-height: 200px;
 }
