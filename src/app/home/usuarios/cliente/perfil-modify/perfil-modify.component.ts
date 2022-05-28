@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EnlacesService } from '../../../../services/enlaces.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonasService } from 'src/app/services/personas.service';
 import { empty, map } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,7 +15,100 @@ import { AlertaService } from '../../../../services/alerta.service';
 })
 export class PerfilModifyComponent implements OnInit {  
 
-  fileChange: boolean = false;
+  formularioPersona: FormGroup;
+
+  constructor(
+    private router: Router,    
+    private enlaces: EnlacesService, 
+    private formBuilder: FormBuilder, 
+    private persona: PersonasService, 
+    private sanitizer: DomSanitizer,    
+    private token: TokenService, 
+    private alerta: AlertaService
+  ) { }
+
+  nombre: any = null; 
+  apellP: any = null; 
+  apellM: any = null; 
+  fnaciM: any = null; 
+  genero: any = null; 
+  correo: any = null; 
+  passwo: any = null; 
+  telefo: any = null; 
+
+  fcalle: any = null;
+  fcolon: any = null;
+  munici: any = null;
+  estado: any = null;
+  codPos: any = null;
+  ninter: any = null;
+  nexter: any = null;
+  refere: any = null;
+
+  ngOnInit(): void{
+    this.persona.getPerson(this.token.getID()).subscribe(response => {
+      if(response.data.idPersona.nombre != null){
+        this.nombre = response.data.idPersona.nombre; 
+      }
+      if(response.data.idPersona.apellido_paterno != null){
+        this.apellP = response.data.idPersona.apellido_paterno;
+      }
+      if(response.data.idPersona.apellido_materno != null){
+        this.apellM = response.data.idPersona.apellido_materno; 
+      }
+      if(response.data.idPersona.fecha_nac != null){
+        let parsear = response.data.idPersona.fecha_nac;
+        parsear = parsear.split("-");
+        parsear = parsear[2]+"-"+parsear[1]+"-"+parsear[0];
+        this.fnaciM =   parsear; 
+      }
+      if(response.data.idPersona.genero != null){
+        this.genero = response.data.idPersona.genero;
+      }
+      if(response.data.idPersona.correo != null){
+        this.correo = response.data.idPersona.correo; 
+      }
+      if(response.data.contraseña){
+        this.passwo = response.data.contraseña;
+      }
+      if(response.data.idPersona.telefono != null){
+        this.telefo = response.data.idPersona.telefono;
+      }
+      if(response.data.idPersona.direccion.length > 0){
+        this.fcalle = response.data.idPersona.direccion[0].calle;
+        this.fcolon = response.data.idPersona.direccion[0].colonia;
+        this.munici = response.data.idPersona.direccion[0].municipio;  
+        this.estado = response.data.idPersona.direccion[0].estado;  
+        this.codPos = response.data.idPersona.direccion[0].cp;  
+        this.ninter = response.data.idPersona.direccion[0].n_interior;  
+        this.nexter = response.data.idPersona.direccion[0].n_exterior;  
+        this.refere = response.data.idPersona.direccion[0].referencia;  
+
+      }
+      this.formularioPersona = this.formBuilder.group({
+        nombre: [this.nombre, [Validators.required]],
+        apellP: [this.apellP, [Validators.required]],
+        apellM: [this.apellM, [Validators.required]],
+        fnaciM: [this.fnaciM],
+        genero: [this.genero],
+        correo: [this.correo],
+        contas: [this.passwo],
+        telefo: [this.telefo],
+
+        fcalle: [this.fcalle],
+        fcolon: [this.fcolon],
+        munici: [this.munici],
+        estado: [this.estado],
+        codPos: [this.codPos],
+        ninter: [this.ninter],
+        nexter: [this.nexter],
+        refere: [this.refere],
+      });
+    });
+  }
+  
+  /*fileChange: boolean = false;
+  fcalle: [this.telefo],
   preView: string; 
   direccion1: boolean = true;
   direccion2: boolean = false;
@@ -75,10 +168,10 @@ export class PerfilModifyComponent implements OnInit {
   
   
   //FIXME: Falta revisar los datos de modificar direccion y tarjetas
-  /*
+  
   el error es que genera una direccion per ose deberia modificar la direccion existente
   en tarjeta solo manda una parte del texto por campo. 
-  */
+  
   ngOnInit(): void {
     this.indexPerson = this.token.getID();
 
@@ -654,5 +747,5 @@ export class PerfilModifyComponent implements OnInit {
         }
       })
     }
-  }
+  }*/
 }

@@ -4,11 +4,12 @@
     <div class="row mt-2">
         <p class="h3 m-0 p-0">Modificar Perfil</p>
     </div>
-    <form class="row was-validated needs-validation" [formGroup]="formPerson" errorTailor novalidate>
+
+    <form class="row was-validated needs-validation" [formGroup]="formularioPersona" errorTailor novalidate>
         <div class="row mt-3">
             <!-- Fotografia y boton de fotografia -->
             <div class=" col col-12 col-sm-12 col-m-10 col-lg-10 d-flex justify-content-center align-items-center ">
-                <div class=" text-center">
+                <!-- <div class=" text-center">
                     <div>
                         <div *ngIf="fileChange == false; else conimagen">
                             <svg xmlns="http://www.w3.org/2000/svg" width="165" height="165" fill="currentColor"
@@ -32,23 +33,20 @@
                                 (change)="capturarArchivo($event)">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Botones de formulario, salvar informacion -->
-            <div class=" mt-2 col col-12 col-sm-12 col-md-2 col-lg-2">
+            <!-- <div class=" mt-2 col col-12 col-sm-12 col-md-2 col-lg-2">
                 <button type="submit" (click)="enviar()" class="btn btn-success text-white w-100 rounded-pill"
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Almacena todo el formulario"> Guardar
                     Cambios</button>
                 <button type="button" (click)="cancel()" class="btn btn-danger text-white w-100 rounded-pill mt-2 "
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Regresar sin modificar"> Eliminar
                     Cuenta</button>
-            </div>
+            </div> -->
 
         </div>
-
-        <!-- Alerta -->
-        <div class="alert" #alerta id="alerta"></div>
 
         <div class="row mt-3">
             <!-- Apartado 1 -->
@@ -64,7 +62,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fname" value="{{_nombre}}" type="text"
+                                        <input formControlName="nombre" value="" type="text"
                                             class="form-control" id="idNombre" placeholder="Nombre" required>
                                     </div>
                                 </div>
@@ -74,7 +72,7 @@
                                             Paterno</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fSame" value="{{_apellidoP}}" type="text"
+                                        <input formControlName="apellP" value="" type="text"
                                             class="form-control" id="idApellidos" placeholder="Apellido Paterno"
                                             required>
                                     </div>
@@ -85,7 +83,7 @@
                                             Materno</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formControlName="fLame" value="{{_apellidoM}}" type="text"
+                                        <input formControlName="apellM" value="" type="text"
                                             class="form-control" id="idApellidos" placeholder="Apellido Materno">
                                     </div>
                                 </div>
@@ -95,7 +93,7 @@
                                             nacimiento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fBdate" value="{{_fechaBirt}}" type="date"
+                                        <input formControlName="fnaciM" value="" type="date"
                                             class="form-control" id="fnacimiento" placeholder="">
                                     </div>
                                 </div>
@@ -108,15 +106,15 @@
                                         <div class="row">
                                             <div class="col-6 ps-5 form-check">
                                                 <label>
-                                                    <input formControlName="fGender" type="radio" value="M"
-                                                        class="form-check-input" id="M" name="fGender">
+                                                    <input formControlName="genero" type="radio" value="M"
+                                                        class="form-check-input" id="M" name="genero">
                                                     Masculino
                                                 </label>
                                             </div>
                                             <div class="col-6 ps-5 form-check">
                                                 <label>
-                                                    <input formControlName="fGender" type="radio" value="F"
-                                                        class="form-check-input" id="F" name="fGender">
+                                                    <input formControlName="genero" type="radio" value="F"
+                                                        class="form-check-input" id="F" name="genero">
                                                     Femenino
                                                 </label>
                                             </div>
@@ -139,7 +137,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">Correo</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fEmail" value="{{_correo}}" type="email"
+                                        <input formControlName="correo" value="" type="email"
                                             class="form-control" id="idCorreo" placeholder="Correo" required>
                                     </div>
                                 </div>
@@ -148,7 +146,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="fPass" value="{{_contrasena}}" type="password"
+                                        <input formControlName="contas" value="" type="password"
                                             class="form-control" id="idContraseña" placeholder="Contraseña" required
                                             maxlength="8">
                                     </div>
@@ -158,7 +156,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formArrayName="fPhone" value="{{_telefono}}" type="text"
+                                        <input formArrayName="telefo" value="" type="text"
                                             class="form-control" id="idTelefono" placeholder="Teléfono">
                                     </div>
                                 </div>
@@ -181,25 +179,27 @@
                             <div class="row">
                                 <div class="col col-6">
                                     <!-- Boton agregar -->
-                                    <a type="button" (click)="saveDirection()" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar direccion"
+                                    <!-- <a type="button" (click)="saveDirection()" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Guardar direccion"
                                         class="btn btn-outline-success">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-check2" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                             <path
                                                 d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                                         </svg>
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
-                                    <a type="button" (click)="clearDireccion()" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Eliminar direccion" class="btn btn-outline-danger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                   <!--  <a type="button" (click)="clearDireccion()" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Eliminar direccion"
+                                        class="btn btn-outline-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
                                                 d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                                         </svg>
-                                    </a>
+                                    </a> -->
                                 </div>
                             </div>
                         </div>
@@ -207,24 +207,27 @@
                     <div class="mb-4" id="accordion">
                         <ul class="nav nav-tabs p-0 m-0 small">
                             <li class="nav-item col-4">
-                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="direccionU()">
+                                <!-- <a class="nav-link small collapsed btn" data-bs-toggle="collapse"
+                                    (click)="direccionU()">
                                     Dirección1
-                                </a>
+                                </a> -->
                             </li>
                             <li class="nav-item col-4">
-                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="direccionD()">
+                                <!-- <a class="nav-link small collapsed btn" data-bs-toggle="collapse"
+                                    (click)="direccionD()">
                                     Dirección2
-                                </a>
+                                </a> -->
                             </li>
                             <li class="nav-item col-4">
-            
-                                <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="direccionT()">
+
+                                <!-- <a class="nav-link small collapsed btn" data-bs-toggle="collapse"
+                                    (click)="direccionT()">
                                     Dirección3
-                                </a>
-            
+                                </a> -->
+
                             </li>
                         </ul>
-            
+
                         <div class="card">
                             <!-- Direccion 1 -->
                             <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
@@ -235,26 +238,29 @@
                                                 <label for="exampleFormControlInput1" class="form-label">Calle</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fCalle" value="{{_calle[position]}}" type="text"
-                                                class="form-control" id="idCalle" placeholder="Calle">
-                                                </div>
+                                                <input formControlName="fCalle" value="" type="text"
+                                                    class="form-control" id="idCalle" placeholder="Calle">
                                             </div>
+                                        </div>
                                         <div class="row mt-1">
                                             <div class="col col-4">
                                                 <label for="exampleFormControlInput1" class="form-label">Colonia</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fColonia" value="{{_colonia[position]}}" type="text"
-                                                class="form-control" id="idColonia" placeholder="Colonia">
+                                                <input formControlName="fColonia" value=""
+                                                    type="text" class="form-control" id="idColonia"
+                                                    placeholder="Colonia">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col col-4">
-                                                <label for="exampleFormControlInput1" class="form-label">Municipio</label>
+                                                <label for="exampleFormControlInput1"
+                                                    class="form-label">Municipio</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fMunicipio" value="{{_municipio[position]}}" type="text"
-                                                    class="form-control" id="idMunicipio" placeholder="Municipio">
+                                                <input formControlName="fMunicipio" value=""
+                                                    type="text" class="form-control" id="idMunicipio"
+                                                    placeholder="Municipio">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -262,8 +268,8 @@
                                                 <label for="exampleFormControlInput1" class="form-label">Estado</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fEstado" value="{{_estado[position]}}" type="text"
-                                                    class="form-control" id="idEstado" placeholder="Estado">
+                                                <input formControlName="fEstado" value=""
+                                                    type="text" class="form-control" id="idEstado" placeholder="Estado">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -272,8 +278,9 @@
                                                     Postal </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fCp" value="{{_cp[position]}}" type="text" class="form-control"
-                                                    id="idCodigoPostal" placeholder="Código Postal ">
+                                                <input formControlName="fCp" value="" type="text"
+                                                    class="form-control" id="idCodigoPostal"
+                                                    placeholder="Código Postal ">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -282,8 +289,9 @@
                                                     interior </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fNinterior" value="{{_ninterior[position]}}" type="text"
-                                                    class="form-control" id="idNinterior" placeholder="Numero interior ">
+                                                <input formControlName="fNinterior" value=""
+                                                    type="text" class="form-control" id="idNinterior"
+                                                    placeholder="Numero interior ">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -292,8 +300,9 @@
                                                     exterior </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="fNexterior" value="{{_nexterior[position]}}" type="text"
-                                                    class="form-control" id="idNexterior" placeholder="interior">
+                                                <input formControlName="fNexterior" value=""
+                                                    type="text" class="form-control" id="idNexterior"
+                                                    placeholder="interior">
                                             </div>
                                         </div>
                                         <div class="row mt-2 mb-2">
@@ -302,8 +311,9 @@
                                                 </label>
                                             </div>
                                             <div class="col col-8">
-                                                <textarea formControlName="fReferenc" value="{{_referenc[position]}}" type="text"
-                                                    class="form-control" id="idReferencia" placeholder="Referencia "></textarea>
+                                                <textarea formControlName="fReferenc" value=""
+                                                    type="text" class="form-control" id="idReferencia"
+                                                    placeholder="Referencia "></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -327,25 +337,25 @@
                             <div class="row">
                                 <div class="col col-6">
                                     <!-- Boton agregar -->
-                                    <a type="button" (click)="saveCard()" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Agregar tarjeta" class="btn btn-outline-success">
+                                    <!-- <a type="button" (click)="saveCard()" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Agregar tarjeta" class="btn btn-outline-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                             <path
                                                 d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                                         </svg>
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="col col-6 ">
                                     <!-- Boton eliminar -->
-                                    <a type="button" (click)="clearTarjeta()" data-bs-toggle="tooltip"
+                                    <!-- <a type="button" (click)="clearTarjeta()" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Eliminar tarjeta" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path
                                                 d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                                         </svg>
-                                    </a>
+                                    </a> -->
                                 </div>
                             </div>
                         </div>
@@ -354,21 +364,21 @@
                     <!-- Tarjetas encabezado -->
                     <ul class="nav nav-tabs p-0 m-0 small">
                         <li class="nav-item col-4">
-                            <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="tarjetaU()">
+                            <!-- <a class="nav-link small collapsed btn" data-bs-toggle="collapse" (click)="tarjetaU()">
                                 Tarjeta1
-                            </a>
+                            </a> -->
                         </li>
                         <li class="nav-item col-4">
-                            <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="tarjetaD()">
+                            <!-- <a class="nav-link small collapsed btn" data-bs-toggle="collapse" (click)="tarjetaD()">
                                 Tarjeta2
-                            </a>
+                            </a> -->
                         </li>
                         <li class="nav-item col-4">
-        
-                            <a class="nav-link small collapsed btn" data-bs-toggle="collapse"  (click)="tarjetaT()">
+
+                            <!-- <a class="nav-link small collapsed btn" data-bs-toggle="collapse" (click)="tarjetaT()">
                                 Tarjeta3
-                            </a>
-        
+                            </a> -->
+
                         </li>
                     </ul>
 
@@ -379,8 +389,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Propietario</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fPropieta" value="{{_propietario[positionCard]}}" type="text" class="form-control"
-                                    id="idPropietario" placeholder="Propietario">
+                                <input formControlName="fPropieta" value="" type="text"
+                                    class="form-control" id="idPropietario" placeholder="Propietario">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -388,8 +398,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">Tarjeta</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fTarjeta" value="{{_tarjeta[positionCard]}}" type="text" class="form-control"
-                                    id="idTarjeta" placeholder="Tarjeta">
+                                <input formControlName="fTarjeta" value="" type="text"
+                                    class="form-control" id="idTarjeta" placeholder="Tarjeta">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -397,8 +407,8 @@
                                 <label for="formVencimiento" class="form-label">Fecha vencimiento</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fFechaVen" value="{{_fechaVenc[positionCard]}}" type="month" class="form-control"
-                                    id="idFven" placeholder="">
+                                <input formControlName="fFechaVen" value="" type="month"
+                                    class="form-control" id="idFven" placeholder="">
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -406,8 +416,8 @@
                                 <label for="exampleFormControlInput1" class="form-label">CVV</label>
                             </div>
                             <div class="col col-8">
-                                <input formControlName="fcvv" value="{{_cvv[positionCard]}}" type="number" class="form-control mb-2"
-                                    id="cvv" placeholder="CVV">
+                                <input formControlName="fcvv" value="" type="number"
+                                    class="form-control mb-2" id="cvv" placeholder="CVV">
                             </div>
                         </div>
                     </div>
