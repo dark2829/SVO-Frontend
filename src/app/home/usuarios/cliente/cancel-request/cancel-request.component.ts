@@ -22,6 +22,8 @@ export class CancelRequestComponent implements OnInit {
   formCanceled1: FormGroup; 
   idPedido: any;
   urlMini: any; 
+  solicitudEnviada: boolean = false; 
+
   constructor(
     private persona: PersonasService, 
     private router: Router, 
@@ -41,9 +43,9 @@ export class CancelRequestComponent implements OnInit {
 
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
       this.codigoCompra = response.data.idCompra.codigo_compra;
-      console.log(response);
       let motivo = "";
       if(response.data.solicitudCancelacion != null){
+        this.solicitudEnviada = true;
         console.log(response);
         motivo = response.data.solicitudCancelacion.motivo_cancel;      
       }else{
@@ -52,7 +54,7 @@ export class CancelRequestComponent implements OnInit {
 
       this.formCanceled1 = this.formBuilder.group({
         codigo: [this.codigoCompra.toString(), [Validators.required]],
-        mensaje: [motivo, [Validators.required]]
+        mensaje: [{value: motivo, disabled: this.solicitudEnviada}, [Validators.required]]
       });
     })
   } 

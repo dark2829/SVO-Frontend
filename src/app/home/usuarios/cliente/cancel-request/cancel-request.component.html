@@ -55,7 +55,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col text-end">
-                            <button (click)="realizarSolicitud()" form="CreateForm" class="btn btn-success rounded-pill">
+                            <button (click)="realizarSolicitud()" [disabled]="solicitudEnviada" form="CreateForm" class="btn btn-success rounded-pill">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                     class="bi bi-check2" viewBox="0 0 16 16">
                                     <path

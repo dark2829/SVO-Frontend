@@ -50,7 +50,7 @@ export class ShophistoryComponent implements OnInit {
   formatearProductos(productos: any){
     let informacion: string = ""; 
     productos.forEach((product: any) => {
-      informacion += `${product.idProducto.nombre.substring(0, 20)} x ${product.cantidad} $ ${product.precio_total}\n`
+      informacion += `${product.idProducto.nombre.substring(0, 20)} x ${product.cantidad} $${product.precio_total}\n`
     });
 
     return informacion;
