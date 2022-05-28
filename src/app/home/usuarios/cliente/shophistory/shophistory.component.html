@@ -19,8 +19,8 @@
                                     <p>Código: {{recibed.idCompra.codigo_compra}}</p>
                                     <p class="mt-2">Productos:<br>
                                         <span>{{formatearProductos(recibed.idCompra.carrito)}}</span>
-                                    </p>
-                                    <p>Precio de compra: ${{recibed.idCompra.pago_total}}
+                                    </p>                                    
+                                    <p>Precio de compra: $<span *ngIf=""></span> {{recibed.idCompra.pago_total}}
                                     </p>
                                 </div>
                                 <ng-template #notieneRecibed>
@@ -59,7 +59,9 @@
                                     <p class="mt-2">Productos:<br>
                                         <span>{{formatearProductos(inProces.idCompra.carrito)}}</span>
                                     </p>
-                                    <p>Precio de compra: ${{inProces.idCompra.pago_total}}
+                                    {{inProces  | json}}
+                                    <p>Precio de compra: $<span *ngIf="inProces.idCompra"></span> {{inProces.idCompra.pago_total}}
+                                    <!-- <p>Precio de compra: ${{inProces.idCompra.pago_total}} -->
                                     </p>
                                 </div>
                                 <ng-template #notProcess>

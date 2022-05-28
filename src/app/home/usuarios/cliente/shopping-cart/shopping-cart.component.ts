@@ -23,6 +23,8 @@ export class ShoppingCartComponent implements OnInit {
   tarjetBuyText: any;
   activeDirection: boolean = true;
   activeTarject: boolean = true;
+  totalShop: number  = 0; 
+  totalShopPlusEnvio: number  = 0; 
 
   constructor(
     private enlaces: EnlacesService, 
@@ -36,6 +38,8 @@ export class ShoppingCartComponent implements OnInit {
     this.resDirection = "";
     this.tarjetBuyText ="";
     this.persona.getProduct(this.token.getID()).subscribe(response => {
+      this.totalShop = response.data.pago_total;
+
       if(response.data.carrito[0].cantidad == 0){
         this.buttonActived = true; 
       }else{

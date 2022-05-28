@@ -20,6 +20,7 @@ export class EnlacesService {
   public API_ENLACE_PEDIDOS     = "http://localhost:8080/pedidos"
   public API_ENLACE_COMPRAS     = "http://localhost:8080/compras"
   public API_ENLACE_RECOVERY    = "http://localhost:8080/email/sendHTML"
+  public API_ENLACE_PEDIDO      = "http://localhost:8080/email"
 
   public PRODUCTOS_EN_CARRITO   = "http://localhost:4200/productInCarr"
 
@@ -70,9 +71,10 @@ export class EnlacesService {
   public PEDIDOS_UPDATE_STATUS   = "/actualizarEstatusPedido?idPedido="
   public PEDIDOS_NEW_STATE   = "&nuevoEstatus="
   public PEDIDOS_FIND_TYPE   = "/searchTipeSend?envio="
-  public  PEDIDOS_FIND_ID  = "/buscarPedidoPorId?idPedido="
+  public PEDIDOS_FIND_ID  = "/buscarPedidoPorId?idPedido="
   public PEDIDOS_CANCELED   = "/solicitarCancelacion?idCompra="//?POST
   public PEDIDOS_RESPONSE_CANCEL   = "/responderSolicitarCancelacion?idPedido="//?POST
+  public PEDIDOS_RESPONSE_CANCEL_EMAIL   = "/sendEmailResponseSolicitud"//?POST
   //*Historial de compra
   public HISTORIAL_FOR_STATUS = "/buscarComprasPorUsuario?idUsuario="
   public HISTORIAL_STATUS = "&estatus="

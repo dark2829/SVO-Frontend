@@ -24,6 +24,7 @@ export class PedidoRequestComponent implements OnInit {
   formCanceled: FormGroup; 
   idPedido: any;
   urlMini: any; 
+  correo: any; 
   
   constructor(
     private router: Router, 
@@ -42,7 +43,9 @@ export class PedidoRequestComponent implements OnInit {
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
       this.codigoCompra = response.data.idCompra.codigo_compra
       this.motivo = response.data.solicitudCancelacion.motivo_cancel;      
-      this.pagototal = response.data.idCompra.pago_total
+      this.pagototal = response.data.idCompra.pago_total;
+      this.correo = response.data.idCompra.idUsuario.correo;
+      this.idPedido = response.data.id;
     })
 
     this.formCanceled = this.formBuilder.group({
@@ -54,21 +57,40 @@ export class PedidoRequestComponent implements OnInit {
     console.log(this.formCanceled.value.respuesta);
     if(respuesta == 'aprobado'){
       this.pedido.responseRequestCancel(this.route.snapshot.params['id'], {
-        "motivo_res": this.formCanceled.value.respuesta.toString(),
-        "estatus": "Aceptado"//aceptado, rechazado
+        "motivo_res": this.formCanceled.value.respuesta,
+        "estatus": "Aceptado"
       }).subscribe(response => {
         this.alerta.showAlert("Pedido aprobado", "success", 2500);
-        setTimeout(() => {this.router.navigate(['pedidos'])}, 2500);
+        this.pedido.responseRequestCancelWhitEmail({
+          "idPedido": this.idPedido,
+          "mailTo": this.correo
+        }).subscribe(response => {
+          setTimeout(() => {this.alerta.showAlert("Correo enviado", "success", 2500)}, 2500);
+          this.alerta.showAlert
+        },reject => {
+          setTimeout(() => {this.alerta.showAlert("Correo no enviado", "danger", 2500)}, 2500);
+        });
+        
+        setTimeout(() => {this.router.navigate(['pedidos'])}, 5000);
       });
-    }else{
+    }else{  
       this.pedido.responseRequestCancel(this.route.snapshot.params['id'], {
-        "motivo_res": this.formCanceled.value.respuesta.toString(),
+        "motivo_res": this.formCanceled.value.respuesta,
         "estatus": "Rechazado"//aceptado, rechazado
       }).subscribe(response => {
         this.alerta.showAlert("Pedido rechazado", "success", 2500);
-        setTimeout(() => {this.router.navigate(['pedidos'])}, 2500);
+        this.pedido.responseRequestCancelWhitEmail({
+          "idPedido": this.idPedido,
+          "mailTo": this.correo
+        }).subscribe(response => {
+          setTimeout(() => {this.alerta.showAlert("Correo enviado", "success", 2500)}, 2500);
+          this.alerta.showAlert
+        },reject => {
+          setTimeout(() => {this.alerta.showAlert("Correo no enviado", "danger", 2500)}, 2500);
+        });
+        setTimeout(() => {this.router.navigate(['pedidos'])}, 5000);
       });
-      this.router.navigate(['pedidos']);
+      // this.router.navigate(['pedidos']);
 
     }
 

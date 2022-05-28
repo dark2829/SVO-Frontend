@@ -63,6 +63,13 @@ export class PedidosService {
     return this.http.get(URL);
   }
 
+  public responseRequestCancelWhitEmail(body: {
+    "idPedido":string,
+    "mailTo": string
+  }){
+    const URL = this.enlaces.API_ENLACE_PEDIDO+this.enlaces.PEDIDOS_RESPONSE_CANCEL_EMAIL;
+    return this.http.post(URL, body);
+  }
   public responseRequestCancel(idPedido: string, body: {
     "motivo_res":string,
     "estatus": string
