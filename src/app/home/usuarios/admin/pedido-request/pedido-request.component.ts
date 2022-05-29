@@ -60,7 +60,7 @@ export class PedidoRequestComponent implements OnInit {
         "motivo_res": this.formCanceled.value.respuesta,
         "estatus": "Aceptado"
       }).subscribe(response => {
-        this.alerta.showAlert("Pedido aprobado", "success", 2500);
+        this.alerta.showAlert("Solicitud aprobada", "success", 2500);
         this.pedido.responseRequestCancelWhitEmail({
           "idPedido": this.idPedido,
           "mailTo": this.correo
@@ -78,7 +78,7 @@ export class PedidoRequestComponent implements OnInit {
         "motivo_res": this.formCanceled.value.respuesta,
         "estatus": "Rechazado"//aceptado, rechazado
       }).subscribe(response => {
-        this.alerta.showAlert("Pedido rechazado", "success", 2500);
+        this.alerta.showAlert("Solicitud Rechazada", "success", 2500);
         this.pedido.responseRequestCancelWhitEmail({
           "idPedido": this.idPedido,
           "mailTo": this.correo
@@ -90,8 +90,7 @@ export class PedidoRequestComponent implements OnInit {
         });
         setTimeout(() => {this.router.navigate(['pedidos'])}, 5000);
       });
-      // this.router.navigate(['pedidos']);
-
+      setTimeout(() => {this.router.navigate(['pedidos'])}, 5000);
     }
 
   }

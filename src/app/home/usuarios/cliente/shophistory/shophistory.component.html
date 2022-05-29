@@ -59,7 +59,6 @@
                                     <p class="mt-2">Productos:<br>
                                         <span>{{formatearProductos(inProces.idCompra.carrito)}}</span>
                                     </p>
-                                    {{inProces  | json}}
                                     <p>Precio de compra: $<span *ngIf="inProces.idCompra"></span> {{inProces.idCompra.pago_total}}
                                     <!-- <p>Precio de compra: ${{inProces.idCompra.pago_total}} -->
                                     </p>

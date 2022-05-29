@@ -188,7 +188,7 @@
         <div class="modal-body">
         <!-- Mostrar todas las tarjetas disponibles -->
           <div *ngFor="let tarjeta of tarjetas" class="container-fluid m-0 p-0">
-              <button (click)="selectTarject(tarjeta.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+              <button  *ngIf="tarjeta.numero != null"  (click)="selectTarject(tarjeta.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
                   <div class="row text-start">
                       <div class="col-8">
                           <span>Propietario: </span> <span>{{tarjeta.nombre_propietario}}</span>
@@ -227,7 +227,7 @@
         <div class="modal-body">
         <!-- Mostrar todas las tarjetas disponibles -->
           <div *ngFor="let direction of directions" class="container-fluid m-0 p-0">
-              <button (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+              <button *ngIf="direction.esado != null" (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
                   <div class="row text-start">
                       <div class="col">
                           <div class="fw-bold">Calle: <span class="fw-normal">{{direction.calle}}</span></div>
@@ -237,7 +237,7 @@
                       </div>
                   </div>
               </button>
-          </div>
+            </div>
         </div>
   
         <!-- Modal footer -->

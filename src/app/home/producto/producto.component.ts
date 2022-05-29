@@ -78,7 +78,8 @@ export class ProductoComponent implements OnInit {
         id: idParam,
         cantidad: this.formProductoExtend.value.cantidad
       }).subscribe(response => {
-        this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
+        this.alerta.showAlert(`Producto añadido x ${this.formProductoExtend.value.cantidad}`, "success", 2500);
+        // this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
         this.alerta.showAlert(reject.error.message, "danger", 2500);
       });

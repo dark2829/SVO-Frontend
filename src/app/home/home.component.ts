@@ -87,7 +87,8 @@ export class HomeComponent {
         cantidad: 1
       }).subscribe(response => {
         this.persona.productShopping = response.data.carrito;
-        this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
+        this.alerta.showAlert("Producto añadido", "success", 2500);
+        // this.alerta.showAlert(response.data.carrito[response.data.carrito.length-1].idProducto.nombre+" añadido", "success", 2500);
       }, reject => {
         console.log(reject)
         //FIXME: Revisar respuesta

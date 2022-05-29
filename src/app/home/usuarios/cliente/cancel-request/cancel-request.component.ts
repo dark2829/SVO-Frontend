@@ -69,6 +69,7 @@ export class CancelRequestComponent implements OnInit {
   }
 
   regresar(){
+    this.alerta.showAlert("Solicitud cancelada", "secondary", 2000);
     this.router.navigate(['shopHistory']);
   }
 

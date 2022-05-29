@@ -11,6 +11,7 @@ import { TokenService } from '../../../../services/token.service';
 export class EmpleadosComponent implements OnInit {
   
   empleados: any = {};
+  infoEmpleado: any = null;
   public page: number = 1; 
 
   constructor(
@@ -25,6 +26,10 @@ export class EmpleadosComponent implements OnInit {
         this.empleados = response; 
       });
     }
+  }
+
+  showEmploye(data: any){
+    this.infoEmpleado = data; 
   }
 
   reigstro(){
