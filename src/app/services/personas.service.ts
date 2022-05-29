@@ -99,7 +99,7 @@ export class PersonasService {
     municipio: string; 
     estado: string; 
     cp: string; 
-    n_interio: number; 
+    n_interior: number; 
     n_exterior: number; 
     referencia: string; 
   }){
@@ -118,7 +118,7 @@ export class PersonasService {
     return this.http.post(url, body);
   }
   public updateClientTarget(url: string, body: {
-    idTarjeta: number; //number
+    idTarjeta: string; //number
     nombre_propietario: string; 
     numero_tarjeta: string; 
     fecha_vencimiento: string; 
