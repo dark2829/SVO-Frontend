@@ -194,4 +194,11 @@ export class PersonasService {
     const URL = this.enlaces.API_ENLACE_USUARIOS+this.enlaces.USUARIO_CHANGE_PASSWORD+correo; 
     return this.http.post(URL, body);
   }
+
+  public updatePicture(idPersona: string, body: {
+    img: any
+  }){
+    const URL = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_PICTU+idPersona;
+    return this.http.post(URL, body);
+  }
 }

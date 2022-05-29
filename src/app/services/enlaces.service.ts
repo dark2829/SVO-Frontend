@@ -41,6 +41,7 @@ export class EnlacesService {
   public PERSONA_UPDATE_ADRES = `/updateClientDirecciones?idPersona=`; //? Continuación del anterior
   public PERSONA_UPDATE_ADRES_2 = `&index=`; //? Continuación del anterior
   public PERSONA_UPDATE_CARDS = `/updateClientTarjetas?idPersona=`; //? POST
+  public PERSONA_UPDATE_PICTU = `/actualizarFotoPerfil?idPerson=`; //? POST
   //* Usuarios
   public USUARIO_LOGIN_IDENTIFY = "/auth/login?identificador="; //? POST
   public USUARIO_LOGIN_PASSWORD = "&contrasena="; //? GET

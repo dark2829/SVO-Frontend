@@ -15,9 +15,11 @@ import { AlertaService } from '../../../../services/alerta.service';
 export class PerfilModifyComponent implements OnInit {  
 
   formularioPersona: FormGroup;
-  fileChange: boolean = false;
-  preView: string; 
   indexClient: any;
+
+  fileChange: boolean = false;
+  preView: any;
+  img: any;
 
   activeDirection: any = [true, false, false];
   directionToSaved: any = 0; 
@@ -62,6 +64,12 @@ export class PerfilModifyComponent implements OnInit {
   ngOnInit(): void{
     this.persona.getPerson(this.token.getID()).subscribe(response => {
       console.log(response)
+      if (response.data.idPersona.foto != null) {
+        this.fileChange = true;
+        this.preView = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+response.data.idPersona.foto)
+        this.img = response.data.idPersona.foto;
+      }
+
       this.indexClient = response.data.id;
       if(response.data.idPersona.nombre != null){
         this.nombre = response.data.idPersona.nombre; 
@@ -88,7 +96,6 @@ export class PerfilModifyComponent implements OnInit {
         this.passwo = response.data.contraseña;
       }
       if(response.data.idPersona.telefono != null){
-        console.log(response.data.idPersona.telefono);
         this.telefo = response.data.idPersona.telefono;
       }
       if(response.data.idPersona.direccion.length > 0){
@@ -189,6 +196,17 @@ export class PerfilModifyComponent implements OnInit {
       }
     } catch (error) {
       console.log(error);
+    }
+
+    if(this.img != null){
+      console.log(this.img)
+      this.persona.updatePicture(this.token.getID(), {
+        img: this.img
+      }).subscribe(response => {
+        this.alerta.showAlert("Imagen capturada", "success", 2000);
+      }, reject => {
+        this.alerta.showAlert("Imagen no capturada", "success", 2000);
+      });
     }
   }
 
@@ -322,21 +340,24 @@ export class PerfilModifyComponent implements OnInit {
     });
   }
 
-  public capturarArchivo(event: any): any{
+  public capturarArchivo(event: any): any {
+    this.img = null; 
     const archivoCapturado = event.target.files[0];
-    this.fileChange = true; 
+    this.fileChange = true;
     this.extraerB64(archivoCapturado).then((imagen: any) => {
       this.preView = imagen.base;
+      this.img = imagen.base.split(',')[1];
+      console.log(this.img)
     })
   }
 
   extraerB64 = async ($event: any) => new Promise((resolve, reject) => {
-    try{
+    try {
       const unsafeImg = window.URL.createObjectURL($event);
       const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
       const reader = new FileReader();
       reader.readAsDataURL($event);
-      reader.onload = () =>{
+      reader.onload = () => {
         resolve({
           base: reader.result
         });
@@ -347,7 +368,7 @@ export class PerfilModifyComponent implements OnInit {
         })
       }
 
-    }catch(ex){
+    } catch (ex) {
       console.log(ex);
     }
   })
