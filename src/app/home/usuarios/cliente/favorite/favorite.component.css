@@ -60,6 +60,8 @@ a{
 
 .card-head .imgProdImg {
     width: 32vh;
+    max-width: 300px;
+    max-height: 300px;
 }
 
 .lineaBlanca{
