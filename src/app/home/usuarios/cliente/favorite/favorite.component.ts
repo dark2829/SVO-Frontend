@@ -40,8 +40,9 @@ export class FavoriteComponent implements OnInit {
       this.productos = response.data;    
     });
 
+    this.productos = Object.values(this.productos);
+
     this.index = this.route.snapshot.params['id'];
-    console.log(this.productos);
   }
 
   like(idProducto: number){
