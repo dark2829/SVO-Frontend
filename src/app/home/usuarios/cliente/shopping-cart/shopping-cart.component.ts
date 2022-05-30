@@ -25,6 +25,8 @@ export class ShoppingCartComponent implements OnInit {
   activeTarject: boolean = true;
   totalShop: number  = 0; 
   totalShopPlusEnvio: number  = 0; 
+  activarDownload: boolean = false; 
+  urlPedido: any = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_DOWNLOAD_PDF; 
 
   constructor(
     private enlaces: EnlacesService, 
@@ -111,8 +113,10 @@ export class ShoppingCartComponent implements OnInit {
             "tipo_pago":  this.fCarrito.value.pago,
             "tarjetaUtilizada": this.tarjetBuyText
           }).subscribe(response => {
+            console.log(response);
+            this.urlPedido += response.data.id;
             this.alerta.showAlert("Compra exitosa", "success", 2500);
-            setTimeout(() => {window.location.reload()} , 2500);
+            // setTimeout(() => {window.location.reload()} , 2500);
           }, reject => {
             console.log(reject);
           });
@@ -124,5 +128,4 @@ export class ShoppingCartComponent implements OnInit {
     );
 
   }
-
 }

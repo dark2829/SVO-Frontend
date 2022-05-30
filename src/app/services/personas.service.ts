@@ -171,7 +171,7 @@ export class PersonasService {
     "facturado": number, 
     "tipo_pago":string,
     "tarjetaUtilizada": string
-  }){
+  }): Observable<any>{
     const URL = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_SAVE+idUsuario;
     return this.http.post(URL, body);
   }
@@ -200,5 +200,10 @@ export class PersonasService {
   }){
     const URL = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_PICTU+idPersona;
     return this.http.post(URL, body);
+  }
+
+  public downloadPedido(idPedido: any){
+    const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_DOWNLOAD_PDF+idPedido;
+    return this.http.get(URL);
   }
 }
