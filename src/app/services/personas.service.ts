@@ -32,7 +32,7 @@ export class PersonasService {
 
   //* Métodos get
   public getPerson(id: string): Observable<any>{
-    return this.http.get  (this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
+    return this.http.get(this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_BUSCAR+id);
   }
 
   //* Métodos post

@@ -62,9 +62,36 @@ export class PerfilModifyComponent implements OnInit {
   fvenci: any = null; 
 
   ngOnInit(): void{
+    //?Setear formulario
+    this.formularioPersona = this.formBuilder.group({
+      nombre: [this.nombre, [Validators.required]],
+      apellP: [this.apellP, [Validators.required]],
+      apellM: [this.apellM, [Validators.required]],
+      fnaciM: [this.fnaciM],
+      genero: [this.genero],
+      correo: [this.correo],
+      contas: [this.passwo],
+      telefo: [this.telefo],
+
+      fcalle: [this.fcalle],
+      fcolon: [this.fcolon],
+      munici: [this.munici],
+      estado: [this.estado],
+      codPos: [this.codPos],
+      ninter: [this.ninter],
+      nexter: [this.nexter],
+      refere: [this.refere],
+
+      namePr: [this.namePr],
+      numbeT: [this.numbeT],
+      cvvTar: [this.cvvTar],
+      fvenci: [this.fvenci]
+    });
+
+    let parsear;
     this.persona.getPerson(this.token.getID()).subscribe(response => {
-      console.log(response)
       if (response.data.idPersona.foto != null) {
+        console.log(response.data.idPersona.foto);
         this.fileChange = true;
         this.preView = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+response.data.idPersona.foto)
         this.img = response.data.idPersona.foto;
@@ -113,7 +140,7 @@ export class PerfilModifyComponent implements OnInit {
         this.namePr = response.data.idPersona.tarjeta[0].nombre_propietario;
         this.numbeT = response.data.idPersona.tarjeta[0].numero;
         this.cvvTar = response.data.idPersona.tarjeta[0].cvv;
-        let parsear = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+        parsear = response.data.idPersona.tarjeta[0].fecha_vencimiento;
         parsear = parsear.split("/");
         parsear = parsear[0] + "-" + parsear[1];
         this.fvenci = parsear;
@@ -128,7 +155,7 @@ export class PerfilModifyComponent implements OnInit {
         correo: [this.correo],
         contas: [this.passwo],
         telefo: [this.telefo],
-
+  
         fcalle: [this.fcalle],
         fcolon: [this.fcolon],
         munici: [this.munici],
@@ -137,7 +164,7 @@ export class PerfilModifyComponent implements OnInit {
         ninter: [this.ninter],
         nexter: [this.nexter],
         refere: [this.refere],
-
+  
         namePr: [this.namePr],
         numbeT: [this.numbeT],
         cvvTar: [this.cvvTar],
