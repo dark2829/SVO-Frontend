@@ -29,9 +29,7 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
     this.pedido.getAllPedidos().subscribe(response => {
       this.pedidos = response; 
-      console.log(response);
     });
-
   }
 
   retornarDireccion(texto: string){
@@ -57,16 +55,20 @@ export class PedidosComponent implements OnInit {
   }
 
   tipeSend(tipe: string){
-    if(tipe == 'all'){
-      this.pedido.getAllPedidos().subscribe(response => {
-        this.pedidos = response; 
-        this.alerta.showAlert(`Mostrando todos los pedidos`, "secondary", 2000)
-      });
+    if(this.pedidos.data.length != 0){
+      if(tipe == 'all'){
+        this.pedido.getAllPedidos().subscribe(response => {
+          this.pedidos = response; 
+          this.alerta.showAlert(`Mostrando todos los pedidos`, "secondary", 2000)
+        });
+      }else{
+        this.pedido.findTypePedido(tipe).subscribe(response => {
+          this.pedidos = response; 
+          this.alerta.showAlert(`Mostrar pedidos de tipo envió: ${tipe}`, "secondary", 2000)
+        });
+      }
     }else{
-      this.pedido.findTypePedido(tipe).subscribe(response => {
-        this.pedidos = response; 
-        this.alerta.showAlert(`Mostrar pedidos de tipo envió: ${tipe}`, "secondary", 2000)
-      });
+      this.alerta.showAlert("No hay pedidos", "warning", 2000);
     }
   }
 }
