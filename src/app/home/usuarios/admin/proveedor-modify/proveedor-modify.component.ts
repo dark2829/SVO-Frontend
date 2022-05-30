@@ -37,6 +37,14 @@ export class ProveedorModifyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.miFormulario = this.formBuilder.group({      
+      hproveedorNombre: [null, [Validators.required]],
+      hproveedorTelefono: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      hproveedorCorreo: [null, [Validators.email]],
+      hproveedorDireccion: [null],
+      hproveedorProvee: [null, [Validators.required]]
+    });
+
     this.index = this.route.snapshot.params['id'];//obtiene el id de la ruta
     
     //? Si id es verdadero entonces: se obtiene toda la informacion del proveedor 
