@@ -38,26 +38,28 @@ export class HomeComponent {
 
   }
 
+  
+
   ngOnInit(): void {
+    console.log(this.likeId );
+    if(this.token.isLogged() == true){
+      this.persona.getProductLike(this.token.getID()).subscribe(response => {
+        for (let carta = 0; carta < this.likeId.length; carta++) {
+          response.data.forEach((element: any) => {
+            if(this.likeId[carta].classList.contains(element.id)){
+              this.likeId[carta].classList.add("bg-danger", "text-white", "lineaBlanca");
+            }
+          })
+        }
+      });
+    }
     this.producto.getAllProductosClient().subscribe(response => {
-      this.productos = response.data;
+      this.productos =  response.data;
     });
-
-    this.persona.getProductLike(this.token.getID()).subscribe(response => {
-      for (let carta = 0; carta < this.likeId.length; carta++) {
-        response.data.forEach((element: any) => {
-          if(this.likeId[carta].classList.contains(element.id)){
-            this.likeId[carta].classList.add("bg-danger", "text-white", "lineaBlanca");
-          }
-        })
-      }
-    });
-
     this.index = this.route.snapshot.params['id'];
   }
 
   like(idProducto: number){
-    console.log(idProducto);
     if(this.token.getToken() != null){
       for (let carta = 0; carta < this.likeId.length; carta++) {
         if(this.likeId[carta].classList.contains(idProducto.toString())){

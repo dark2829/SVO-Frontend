@@ -33,8 +33,11 @@ export class ProductoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //FIXME: falta cargar si los productos estan en favoritos
     this.index = this.route.snapshot.params['id'].toString();
+    
+    this.formProductoExtend = this.formBuilder.group({
+      cantidad: [1]
+    });
 
     if(this.token.getToken()){
       this.producto.getProductID(this.index).subscribe(response => {
@@ -42,9 +45,6 @@ export class ProductoComponent implements OnInit {
         for(let i = 1; i<= response.data.cantidad; i++ ){
             this.cantidad[i] = i;
         }
-        this.formProductoExtend = this.formBuilder.group({
-          cantidad: [1]
-        });
       });
     }
 

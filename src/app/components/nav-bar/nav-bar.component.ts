@@ -54,7 +54,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  selectionCategory(categoria: any): void{
+  selectionCategoryNav(categoria: any): void{
     this.selection.emit(categoria);
   }
 
