@@ -36,7 +36,7 @@ export class PedidosService {
     return this.http.get(API);
   }
 
-  public findTypePedido(tipo: string){
+  public findTypePedido(tipo: string): Observable<any>{
     const API = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_FIND_TYPE+tipo;
     const headers: any = {
       "Authorization": 'Bearer '+this.token.getToken(),
