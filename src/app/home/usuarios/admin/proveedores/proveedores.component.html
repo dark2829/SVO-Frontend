@@ -54,7 +54,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let proveedor of proveedores | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
+                                    <tr *ngFor="let proveedor of proveedores | objectToArray | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
                                         <td> {{proveedor.nombre}} </td>
                                         <td>{{proveedor.telefono}}</td>
                                         <td>{{proveedor.correo}}</td>
