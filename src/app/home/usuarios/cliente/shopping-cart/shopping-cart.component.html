@@ -221,23 +221,25 @@
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Seleccione la tarjeta a utilizar</h4>
+          <h4 class="modal-title">Seleccione Domicilio</h4>
         </div>
   
         <!-- Modal body -->
         <div class="modal-body">
         <!-- Mostrar todas las tarjetas disponibles -->
           <div *ngFor="let direction of directions | objectToArray" class="container-fluid m-0 p-0">
-              <button *ngIf="direction.esado != null" (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
-                  <div class="row text-start">
-                      <div class="col">
-                          <div class="fw-bold">Calle: <span class="fw-normal">{{direction.calle}}</span></div>
-                          <div class="fw-bold">Colonia: <span class="fw-normal">{{direction.colonia}}</span></div>
-                          <div class="fw-bold">Municipio: <span class="fw-normal">{{direction.municipio}}</span></div>
-                          <div class="fw-bold">Codigo Postal: <span class="fw-normal">{{direction.cp}}</span></div>
-                      </div>
-                  </div>
-              </button>
+              <div *ngIf="direction.estado != null">
+                <button  (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+                    <div class="row text-start">
+                        <div class="col">
+                            <div class="fw-bold">Calle: <span class="fw-normal">{{direction.calle}}</span></div>
+                            <div class="fw-bold">Colonia: <span class="fw-normal">{{direction.colonia}}</span></div>
+                            <div class="fw-bold">Municipio: <span class="fw-normal">{{direction.municipio}}</span></div>
+                            <div class="fw-bold">Codigo Postal: <span class="fw-normal">{{direction.cp}}</span></div>
+                        </div>
+                    </div>
+                </button>
+              </div>
             </div>
         </div>
   

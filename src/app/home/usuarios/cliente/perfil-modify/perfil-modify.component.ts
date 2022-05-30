@@ -90,6 +90,7 @@ export class PerfilModifyComponent implements OnInit {
 
     let parsear;
     this.persona.getPerson(this.token.getID()).subscribe(response => {
+      console.log(response);
       if (response.data.idPersona.foto != null) {
         console.log(response.data.idPersona.foto);
         this.fileChange = true;
