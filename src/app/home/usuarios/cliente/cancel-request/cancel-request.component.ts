@@ -39,14 +39,17 @@ export class CancelRequestComponent implements OnInit {
     this.urlMini = domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:4200/productocancel/'+id);
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {   
+    this.formCanceled1 = this.formBuilder.group({
+      codigo: [null, [Validators.required]],
+      mensaje: [null, [Validators.required]]
+    }); 
 
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
       this.codigoCompra = response.data.idCompra.codigo_compra;
       let motivo = "";
       if(response.data.solicitudCancelacion != null){
         this.solicitudEnviada = true;
-        console.log(response);
         motivo = response.data.solicitudCancelacion.motivo_cancel;      
       }else{
         motivo = ""; 

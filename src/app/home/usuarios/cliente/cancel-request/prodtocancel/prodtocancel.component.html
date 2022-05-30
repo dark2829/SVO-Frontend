@@ -1,5 +1,5 @@
 <div class="container-fluid bg-primary text-white" >
-    <div class="row" *ngFor="let prod of productos">
+    <div class="row" *ngFor="let prod of productos | objectToArray">
         <div class="col-12 border border-light bg-primary my-2 rounded mx-2" style="width: 98vw;">
             <div class="row">
                 <div class="col">

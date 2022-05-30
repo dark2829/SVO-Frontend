@@ -26,7 +26,6 @@ export class ProdtocancelComponent implements OnInit {
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
       this.productos = response.data.idCompra.carrito; 
       this.fecha = response.data.fecha_entrega; 
-      console.log(this.productos)
     });
   }
 
