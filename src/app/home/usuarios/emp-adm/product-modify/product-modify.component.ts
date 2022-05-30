@@ -65,19 +65,18 @@ export class ProductModifyComponent implements OnInit {
         this.pdesc = response.data.precio_descuento;
         this.description = response.data.descripcion;
         this.estado = response.data.estatus;
-
-        this.formProducto = this.formBuilder.group({
-          fcodProd: [response.data.codigo_prod, [Validators.required]],
-          fname: [response.data.nombre, [Validators.required]],
-          fcategoria: [response.data.categoria, [Validators.required]],
-          fcantidad: [response.data.cantidad, [Validators.required]],
-          fpCompra: [response.data.precio_compra, [Validators.required]],
-          fpVenta: [response.data.precio_venta, [Validators.required]],
-          fpDesc: [response.data.precio_descuento, [Validators.required]],
-          fDescription: [response.data.descripcion, [Validators.required]],
-          festado: [response.data.estatus, []]
-        })
       });
+      this.formProducto = this.formBuilder.group({
+        fcodProd: [this.codigoProducto, [Validators.required]],
+        fname: [this.nombre, [Validators.required]],
+        fcategoria: [this.categoria, [Validators.required]],
+        fcantidad: [this.cantidad, [Validators.required]],
+        fpCompra: [this.pcompra, [Validators.required]],
+        fpVenta: [this.pventa, [Validators.required]],
+        fpDesc: [this.pdesc, [Validators.required]],
+        fDescription: [this.description, [Validators.required]],
+        festado: [this.estado, []]
+      })
     } else {
       console.log("No hay token");
     }
