@@ -61,6 +61,22 @@ export class EmpleadoModifyComponent implements OnInit {
   ngOnInit(): void {
     if(this.token.getToken()){
       this.index = this.route.snapshot.params['id'].toString();
+
+      this.formEmpleado = this.formBuilder.group({
+        fEmpleado:   [null, [Validators.required]], 
+        fNombre:     [null ,[Validators.required]],
+        fApellidoP:  [null, [Validators.required]],
+        fApellidoM:  [null, [Validators.required]],
+        fCurp:       [null, [Validators.required]],
+        fFnac:       [null, [Validators.required]],
+        fGenero:     [null , [Validators.required]],
+        fTelefono:   [null, [Validators.required]],
+        fPuesto:     [null, [Validators.required]],
+        fSalario:    [null, [Validators.required]],
+        fCorreo:     [null, [Validators.required, Validators.email]],
+        fContra:     [null, [Validators.required]],
+        fStatus:     [null, [Validators.required]]
+      });
       
       this.empleado.getAllEmpleadosByID(this.index).subscribe(response => {
         //? Obtener index de cada elemento
@@ -84,7 +100,6 @@ export class EmpleadoModifyComponent implements OnInit {
         this.eCorreo   = response.data.idPersona.correo; 
         this.ePass     = ""
         this.eStatus   = response.data.idEmpleado.estatus;
-        console.log(this.eStatus);
 
           this.formEmpleado = this.formBuilder.group({
             fEmpleado:   [this.nEmpleado, [Validators.required]], 

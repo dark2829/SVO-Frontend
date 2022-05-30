@@ -19,7 +19,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let producto of productos| paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
+                                <tr *ngFor="let producto of productos | objectToArray | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
                                     <th>{{producto.nombre}}</th>
                                     <td>{{producto.cantidad}}</td>
                                     <td>
