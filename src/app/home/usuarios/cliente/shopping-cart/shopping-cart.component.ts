@@ -40,10 +40,12 @@ export class ShoppingCartComponent implements OnInit {
     this.persona.getProduct(this.token.getID()).subscribe(response => {
       this.totalShop = response.data.pago_total;
 
-      if(response.data.carrito[0].cantidad == 0){
-        this.buttonActived = true; 
-      }else{
-        this.buttonActived = false; 
+      if(response.data.carrito.length != 0){
+        if(response.data.carrito[0].cantidad == 0){
+          this.buttonActived = true; 
+        }else{
+          this.buttonActived = false; 
+        }
       }
     });
     this.fCarrito = this.formBuilder.group({

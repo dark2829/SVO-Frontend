@@ -34,8 +34,9 @@ export class ProductCarrComponent implements OnInit {
     this.total = 0; 
     this.persona.getProduct(this.token.getID()).subscribe(response => {
       this.productosAgregados = response.data.carrito;
-      console.log(response);
     }); 
+
+    this.productosAgregados = Object.values(this.productosAgregados);
   }
 
   deleteGroup(idProducto: string, idUsuario: string){
