@@ -126,11 +126,16 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div *ngIf="infoEmpleado != null">
+                        <h6><b>N°: </b>  <span> {{infoEmpleado.no_empleado}}</span></h6>
                         <h6><b>Nombre: </b>  <span> {{infoEmpleado.idPersona.nombre+' '+infoEmpleado.idPersona.apellido_paterno+' '+infoEmpleado.idPersona.apellido_materno}}</span></h6>
                         <h6><b>Correo: </b>  <span> {{infoEmpleado.idPersona.correo}}</span></h6>
                         <h6><b>Puesto: </b>  <span> {{infoEmpleado.idPuesto.nombre_puesto}}</span></h6>
                         <h6><b>Curp:   </b>  <span> {{infoEmpleado.curp}}</span></h6>
                         <h6><b>Salario: </b> <span> {{infoEmpleado.salario}}</span></h6>
+                        <h6><b>Genero: </b> <span> {{infoEmpleado.idPersona.genero}}</span></h6>
+                        <h6><b>Estatus: </b> <span> {{infoEmpleado.estatus}}</span></h6>
+                        <h6><b>Fecha Nacimiento: </b> <span> {{infoEmpleado.idPersona.fecha_nac}}</span></h6>
+                        <h6><b>Número telefónico: </b> <span> {{infoEmpleado.idPersona.telefono}}</span></h6>
                     </div>
                 </div>
             </div>
