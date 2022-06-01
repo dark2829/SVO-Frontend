@@ -30,6 +30,7 @@ export class ShoppingCartComponent implements OnInit {
   totalShopPlusEnvio: number  = 0; 
   activarDownload: boolean = false; 
   urlPedido: any = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_DOWNLOAD_PDF; 
+  compra: boolean = false; 
 
 
   productosAgregados: any = {};

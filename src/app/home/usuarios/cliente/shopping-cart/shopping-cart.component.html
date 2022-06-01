@@ -174,7 +174,9 @@
                                 <div class="col col-12 mt-3">
                                     <h5>Total: <b>${{totalShop}}</b>
                                         <span *ngIf="fCarrito.value.entrega == 'Domicilio'; else tienda">
-                                            Envio: <b>$50</b>
+                                            <span *ngIf="totalShop < 500; else tienda">
+                                                Envio: <b>$50</b>
+                                            </span>
                                         </span>
                                         <ng-template #tienda>
                                             Envio: $0
@@ -185,16 +187,19 @@
                                     <p class="text-center m-0">
                                         <button (click)="continieBuy()" type="submit"
                                             class="btn btn-success rounded rounded-pill"
-                                            [disabled]="buttonActived || !fCarrito.valid">
+                                            [disabled]="buttonActived || !fCarrito.valid" (click)="compra = true">
                                             Continuar con la compra
                                         </button>
                                     </p>
                                 </div>
 
-                                <span class="text-center mt-2"><a *ngIf="activarDownload"
-                                        class="btn btn-small btn-primary text-center rounded rounded-pill"
-                                        target="_self" [href]="urlPedido" download="ticketCompra.pdf">Descargar
-                                        Factura</a></span>
+                                <span class="text-center mt-2">
+                                    <span *ngIf="compra">
+                                        <a *ngIf="activarDownload" class="btn btn-small btn-primary text-center rounded rounded-pill" target="_self" [href]="urlPedido" download="ticketCompra.pdf">Descargar
+                                            Factura
+                                        </a>
+                                    </span>
+                                </span>
                             </form>
                         </div>
                     </div>
