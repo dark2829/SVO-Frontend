@@ -83,7 +83,6 @@
                                         <span *ngIf="fCarrito.value.entrega == 'Domicilio'; else tienda">
                                             Envio: <b>$50</b>
                                         </span>
-                                        <span><a *ngIf="activarDownload" class="btn btn-small btn-primary" target="_self" [href]="urlPedido" download="ticketCompra.pdf">Descargar ticket</a></span>
                                         <ng-template #tienda>
                                             Envio: $0
                                         </ng-template>
@@ -96,6 +95,8 @@
                                         </button>
                                     </p>
                                 </div>
+
+                                <span class="text-center mt-2"><a *ngIf="activarDownload" class="btn btn-small btn-primary text-center rounded rounded-pill" target="_self" [href]="urlPedido" download="ticketCompra.pdf">Descargar ticket</a></span>
                             </form>
                         </div>
                     </div>
@@ -189,7 +190,7 @@
         <div class="modal-body">
         <!-- Mostrar todas las tarjetas disponibles -->
           <div *ngFor="let tarjeta of tarjetas | objectToArray" class="container-fluid m-0 p-0">
-              <button  *ngIf="tarjeta.numero != null"  (click)="selectTarject(tarjeta.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+              <button  *ngIf="tarjeta.numero != ' ' && tarjeta.numero != null"  (click)="selectTarject(tarjeta.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
                   <div class="row text-start">
                       <div class="col-8">
                           <span>Propietario: </span> <span>{{tarjeta.nombre_propietario}}</span>
@@ -228,7 +229,7 @@
         <div class="modal-body">
         <!-- Mostrar todas las tarjetas disponibles -->
           <div *ngFor="let direction of directions | objectToArray" class="container-fluid m-0 p-0">
-              <div *ngIf="direction.estado != null">
+              <div *ngIf="direction.estado != '' && direction.estado != null">
                 <button  (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
                     <div class="row text-start">
                         <div class="col">

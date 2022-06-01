@@ -122,7 +122,7 @@ export class ShoppingCartComponent implements OnInit {
           });
         }
       }else{
-        console.log("No hay productos en carrito");
+        // console.log("No hay productos en carrito");
       }
     }
     );
