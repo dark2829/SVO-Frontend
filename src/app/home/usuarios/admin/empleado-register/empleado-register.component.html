@@ -75,7 +75,7 @@
                                         <label for="staticEmail2" class="mt-2">Curp</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empCurp" type="text" class="form-control" id="curp"
+                                        <input formControlName="empCurp" type="text" class="form-control" maxlength="18" minlength="18" id="curp"
                                             placeholder="LOMA15000000HTLSLLA3" required>
                                     </div>
                                 </div>
@@ -148,8 +148,8 @@
                                         <label for="staticEmail2" class="mt-2">Salario</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empSalari" type="number" step="0.01" class="form-control" id="salario" placeholder="$00.00"
-                                            required>
+                                        <input formControlName="empSalari" min="0.00" type="number" onKeyPress="if(this.value.length==6) return false;" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -168,7 +168,7 @@
                                         <label for="staticEmail2" class="mt-2">Contraseña</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empPass" type="password" maxlength="8" class="form-control" id="nombre" placeholder="*****"
+                                        <input formControlName="empPass" type="password" maxlength="8" minlength="5s" class="form-control" id="nombre" placeholder="*****"
                                             required>
                                     </div>
                                 </div>

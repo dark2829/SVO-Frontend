@@ -61,7 +61,7 @@ export class EmpleadoRegisterComponent implements OnInit {
       empGenero: [null, []],
       empPuesto: [null, [Validators.required]],
       empSalari: [null, [Validators.required]],
-      empCorreo: [null, [Validators.required, Validators.email]],
+      empCorreo: [null, [Validators.required, Validators.email, Validators.pattern("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/")]],
       empPass:   [null, [Validators.required]],
     });
   }
