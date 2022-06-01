@@ -159,9 +159,9 @@ export class PerfilModifyComponent implements OnInit {
         fcolon: [this.fcolon],
         munici: [this.munici],
         estado: [this.estado],
-        codPos: [this.codPos],
-        ninter: [this.ninter],
-        nexter: [this.nexter],
+        codPos: [this.codPos, [Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]+")]],
+        ninter: [this.ninter, [Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]+")]],
+        nexter: [this.nexter, [Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]+")]],
         refere: [this.refere],
   
         namePr: [this.namePr],
