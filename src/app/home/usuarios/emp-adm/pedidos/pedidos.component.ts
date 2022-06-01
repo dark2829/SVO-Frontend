@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertaService } from '../../../../services/alerta.service';
 import { TokenService } from '../../../../services/token.service';
 
@@ -18,15 +18,23 @@ export class PedidosComponent implements OnInit {
   page: number = 1; 
   pedidos: any = {};
   user: string ; 
+
+  formPedido: FormGroup;
+
   constructor(
     private router: Router,
     private pedido: PedidosService, 
     private alerta: AlertaService,
-    public token: TokenService
+    public token: TokenService, 
+    private formBuilder: FormBuilder,
 
   ) { }
 
   ngOnInit(): void {
+    this.formPedido = this.formBuilder.group({
+      codigo: [null]
+    });
+
     this.pedido.getAllPedidos().subscribe(response => {
       this.pedidos = response; 
     });
@@ -76,5 +84,16 @@ export class PedidosComponent implements OnInit {
         this.alerta.showAlert("No hay pedidos", "warning", 2000)
       }
     });
+  }
+
+  searchCode(){
+    if(this.formPedido.valid){
+      this.pedido.findRequestToCode(this.formPedido.value.codigo).subscribe(response => {
+        this.pedidos = response; 
+        this.alerta.showAlert(`Buscando pedido ${this.formPedido.value.codigo}`, "success", 2000);
+      }, reject => {
+        this.alerta.showAlert("No se encontro el pedido "+this.formPedido.value.codigo, "danger", 2000);
+      });
+    }
   }
 }

@@ -44,6 +44,17 @@
                             </div>
                         </div>
 
+                        <div class="row mt-2">
+                            <div class="col col-12 col-sm-12 col-md-6 col-lg-4 mt-2">
+                                <form class="row was-validated needs-validation" [formGroup]="formPedido" errorTailor novalidate>
+                                    <div class="input-group mb-3">
+                                        <input formControlName="codigo" type="text" class="form-control" placeholder="CODIGO" style="width: 30%;">
+                                        <button class="btn btn-primary" type="button" (click)="searchCode()">Buscar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col">
                                 <div class="table-responsive">

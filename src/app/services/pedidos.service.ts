@@ -77,4 +77,10 @@ export class PedidosService {
     const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_RESPONSE_CANCEL+idPedido;
     return this.http.post(URL, body);
   }
+
+  public findRequestToCode(dataCode: string): Observable<any>{
+    const API = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_FIND_DATA_CODE+dataCode; 
+
+    return this.http.get(API);
+  }
 }
