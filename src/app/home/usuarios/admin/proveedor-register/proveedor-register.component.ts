@@ -33,7 +33,7 @@ export class ProveedorRegisterComponent implements OnInit {
     this.miFormulario = this.formBuilder.group({
         proveedorNombre: [null, [Validators.required]],
         proveedorTelefono: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-        proveedorCorreo: [null, [Validators.email]],
+        proveedorCorreo: [null, [Validators.email, Validators.pattern("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/")]],
         proveedorDireccion: [null],
         proveedorProvee: [null, [Validators.required]]
     });
@@ -45,33 +45,37 @@ export class ProveedorRegisterComponent implements OnInit {
     const API_SAVEPROVEEDOR = this.enlaces.API_ENLACE_PROVEEDOR.concat(this.enlaces.PROVEEDOR_INSERT);
     if(this.enviarDatos){
       try{
-        if(
-          this.miFormulario.value.proveedorNombre != null &&
-          this.miFormulario.value.proveedorTelefono != null &&
-          this.miFormulario.value.proveedorCorreo != null &&
-          this.miFormulario.value.proveedorProvee != null &&
-          this.miFormulario.value.proveedorNombre != "" &&
-          this.miFormulario.value.proveedorTelefono != "" &&
-          this.miFormulario.value.proveedorCorreo != "" &&
-          this.miFormulario.value.proveedorProvee != ""
-        ){
-          this.serviceProveedor.saveProveedor(API_SAVEPROVEEDOR, {
-            nombre: this.miFormulario.value.proveedorNombre.toString().trim(),
-            telefono: this.miFormulario.value.proveedorTelefono.toString().trim(),
-            correo: this.miFormulario.value.proveedorCorreo.toString().trim(),
-            direccion: this.miFormulario.value.proveedorDireccion.toString().trim(),
-            provee: this.miFormulario.value.proveedorProvee.toString().trim()
-          }).subscribe(
-            respuesta => {
-              this.alerta.showAlert("Proveedor registrado", "success", 2000);
-              setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);
-            }, 
-            error => {
-              this.alerta.showAlert(error, "success", 2000, error.status);
+        if(this.miFormulario.valid == true){
+          if(
+            this.miFormulario.value.proveedorNombre != null &&
+            this.miFormulario.value.proveedorTelefono != null &&
+            this.miFormulario.value.proveedorCorreo != null &&
+            this.miFormulario.value.proveedorProvee != null &&
+            this.miFormulario.value.proveedorNombre != "" &&
+            this.miFormulario.value.proveedorTelefono != "" &&
+            this.miFormulario.value.proveedorCorreo != "" &&
+            this.miFormulario.value.proveedorProvee != ""
+          ){
+            this.serviceProveedor.saveProveedor(API_SAVEPROVEEDOR, {
+              nombre: this.miFormulario.value.proveedorNombre.toString().trim(),
+              telefono: this.miFormulario.value.proveedorTelefono.toString().trim(),
+              correo: this.miFormulario.value.proveedorCorreo.toString().trim(),
+              direccion: this.miFormulario.value.proveedorDireccion.toString().trim(),
+              provee: this.miFormulario.value.proveedorProvee.toString().trim()
+            }).subscribe(
+              respuesta => {
+                this.alerta.showAlert("Proveedor registrado", "success", 2000);
+                setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);
+              }, 
+              error => {
+                this.alerta.showAlert(error, "success", 2000, error.status);
+            }
+            );
+          }else{
+            this.alerta.showAlert("Faltan datos", "warning", 2500);
           }
-          );
         }else{
-          this.alerta.showAlert("Faltan datos", "warning", 2500);
+          this.alerta.showAlert("Algunos datos no son correctos", "danger", 2000);
         }
       }catch(error){
         
