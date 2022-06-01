@@ -257,8 +257,12 @@
                                                 <label for="exampleFormControlInput1" class="form-label">Estado</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="estado" value="" type="text"
-                                                    class="form-control" id="idEstado" placeholder="Estado">
+                                                <select formControlName="estado" class="form-select" aria-label="Default select example" [value]="estado">
+                                                    <option selected><small>Selecciona una opción del menu</small></option>
+                                                    <!-- <option value="Puebla">Puebla</option>
+                                                    <option value="Mexico">CDMX</option> -->
+                                                    <option value="Tlaxcala">Tlaxcala</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row mt-2">

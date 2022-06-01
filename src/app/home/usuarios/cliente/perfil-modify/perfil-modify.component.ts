@@ -180,7 +180,6 @@ export class PerfilModifyComponent implements OnInit {
     if (date != null) {
       date = date.split("-");
       date = date[2] + "/" + date[1] + "/" + date[0];
-      console.log(date);
     } else {
       date = null;
     }
@@ -225,11 +224,9 @@ export class PerfilModifyComponent implements OnInit {
     }
 
     if(this.img != null){
-      console.log(this.img)
       this.persona.updatePicture(this.token.getID(), {
         foto: this.img
       }).subscribe(response => {
-        console.log(response);
         this.alerta.showAlert("Imagen capturada", "success", 2000);
       }, reject => {
         this.alerta.showAlert("Imagen no capturada", "success", 2000);
