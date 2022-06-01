@@ -6,6 +6,7 @@ import { ProductosService } from '../services/productos.service';
 import { PersonasService } from '../services/personas.service';
 import { AlertaService } from '../services/alerta.service';
 import { TokenService } from '../services/token.service';
+import { ComunicacionService } from '../services/comunicacion.service';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,8 @@ export class HomeComponent {
 
   likeId = document.getElementsByClassName("targetProduct");
   
+  tipoProduct: string;
+  
   constructor(
     private router: Router, //usa un servicio router 
     private route: ActivatedRoute, // Usa el servicio de route para obtener informacion de la ruta
@@ -33,7 +36,8 @@ export class HomeComponent {
     private sanitizer: DomSanitizer, 
     private persona: PersonasService,
     private alerta: AlertaService,
-    private token: TokenService
+    private token: TokenService, 
+    private comunicacion: ComunicacionService
     
   ){
 
@@ -57,7 +61,11 @@ export class HomeComponent {
 
     this.producto.getAllProductosClient().subscribe(response => {
       this.productos =  response.data;
+      this.comunicacion.enviarMensajeObservable.subscribe(response => {
+        this.productos =  response;
+      });
     });
+    
     this.productos = Object.values(this.productos);
     this.index = this.route.snapshot.params['id'];
   }

@@ -54,6 +54,7 @@ export class EnlacesService {
   public PRODUCTO_UPDATE = "/update?id=" //? POST
   public PRODUCTO_STOCKDOWN = "/findStockBajo" //? GET
   public PRODUCTO_CONTACT = "/contactado?idProducto=" //? GET
+  public PRODUCTO_TYPE = "/findTipeProducts?categoria=" //? GET
   //* Carrito 
   public CARRITO_INSERT = "/carrito?idProducto="
   public CARRITO_INSERT_C = "&cantidad="

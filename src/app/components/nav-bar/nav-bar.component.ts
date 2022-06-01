@@ -2,6 +2,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PersonasService } from '../../services/personas.service';
 import { TokenService } from 'src/app/services/token.service';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,10 +15,7 @@ export class NavBarComponent implements OnInit {
   isAdmin: boolean | false; 
   isCliente: boolean | false;
   isEmpleado: boolean | false;
-  index: string; 
-
-  @Output() selection = new EventEmitter<any>();
-  
+  index: string;   
   
   id: string; 
   nombre: string; 
@@ -26,11 +25,15 @@ export class NavBarComponent implements OnInit {
   rolTipo: string;
   isLogged: boolean = false;
 
+  tipoProduct: string; 
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private persona: PersonasService, 
-    private token: TokenService
+    private token: TokenService, 
+    private comunicacion: ComunicacionService, 
+    private producto: ProductosService,
   ) { }
 
   ngOnInit(): void {
@@ -54,8 +57,16 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  selectionCategoryNav(categoria: any): void{
-    this.selection.emit(categoria);
+  categoria(mensaje: any){
+    if(mensaje == "all"){
+      this.producto.getAllProductosClient().subscribe(response => {
+        this.comunicacion.enviarMensaje(response.data);
+      });
+    }else{
+      this.producto.findTypeProducts(mensaje).subscribe(response => {
+        this.comunicacion.enviarMensaje(response.data);
+      });
+    }
   }
 
 
