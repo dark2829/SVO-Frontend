@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ComunicacionService {
   private enviarMensajeSubject = new Subject<string>();
   enviarMensajeObservable = this.enviarMensajeSubject.asObservable();
 
-  enviarMensaje(mensaje: string){
+  enviarMensaje(mensaje: any){
     this.mensaje = mensaje; 
     this.enviarMensajeSubject.next(mensaje);
   }

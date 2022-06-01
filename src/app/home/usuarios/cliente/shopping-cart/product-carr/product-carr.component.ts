@@ -8,6 +8,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { TokenService } from 'src/app/services/token.service';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+import { ComunicacionService } from '../../../../../services/comunicacion.service';
 
 @Component({
   selector: 'app-product-carr',
@@ -27,14 +28,15 @@ export class ProductCarrComponent implements OnInit {
     private persona: PersonasService,
     private alerta: AlertaService,
     private token: TokenService,
-    public router: Router
+    public router: Router, 
+    private comunication: ComunicacionService
   ) { }
 
   ngOnInit(): void {
     this.total = 0; 
     this.persona.getProduct(this.token.getID()).subscribe(response => {
       this.productosAgregados = response.data.carrito;
-    }); 
+    });
 
     this.productosAgregados = Object.values(this.productosAgregados);
   }
@@ -44,6 +46,8 @@ export class ProductCarrComponent implements OnInit {
     this.persona.deleteOneGroup(idProducto, idUsuario ).subscribe(response => {
       window.location.reload()
     });
+
+    this.comunication.enviarMensaje("Holaaa"); 
   }
   
   //Suma uno

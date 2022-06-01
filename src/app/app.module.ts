@@ -35,7 +35,7 @@ import { EmpleadosComponent } from './home/usuarios/admin/empleados/empleados.co
 import { EmpleadoRegisterComponent } from './home/usuarios/admin/empleado-register/empleado-register.component';
 import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/empleado-modify.component';
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 //Import de servicios
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
@@ -93,6 +93,7 @@ import { ProductforviewComponent } from './home/producto/productforview/productf
     HttpClientModule, 
     NgxPaginationModule, 
     ReactiveFormsModule, 
+    ScrollingModule,
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
