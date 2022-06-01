@@ -118,11 +118,11 @@ export class PersonasService {
     return this.http.post(url, body);
   }
   public updateClientTarget(url: string, body: {
-    idTarjeta: string; //number
-    nombre_propietario: string; 
-    numero_tarjeta: string; 
-    fecha_vencimiento: string; 
-    cvv: string; //numver
+    idTarjeta: any; //number
+    nombre_propietario: any; 
+    numero_tarjeta: any; 
+    fecha_vencimiento: any; 
+    cvv: any; //numver
   }){
     return this.http.post(url, body);
   }

@@ -154,7 +154,7 @@ export class PerfilModifyComponent implements OnInit {
         fnaciM: [this.fnaciM],
         genero: [this.genero],
         correo: [this.correo],
-        contas: [this.passwo],
+        contas: [null],
         telefo: [this.telefo],
   
         fcalle: [this.fcalle],
@@ -266,6 +266,55 @@ export class PerfilModifyComponent implements OnInit {
       this.alerta.showAlert("Primero llene los campos", "warning", 2000)
     }
   }
+
+  clearDirection() {
+    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2 + this.indexToSaved;
+    console.log("Direccion a guardar: ", this.directionToSaved);
+    
+    this.persona.getPerson(this.token.getID()).subscribe(response => {
+      console.log(response.data.idPersona.direccion[this.indexToSaved].id)
+      this.persona.updateClientDirection(API_ADDRESS, {
+        idDireccion: response.data.idPersona.direccion[this.indexToSaved].id,
+        calle: "",
+        colonia: "",
+        municipio: "",
+        estado: "",
+        cp: "0",
+        n_interior: 0,
+        n_exterior: 0,
+        referencia: ""
+      }).subscribe(response => {
+        this.formularioPersona = this.formBuilder.group({
+          nombre: [this.nombre, [Validators.required]],
+          apellP: [this.apellP, [Validators.required]],
+          apellM: [this.apellM, [Validators.required]],
+          fnaciM: [this.fnaciM],
+          genero: [this.genero],
+          correo: [this.correo],
+          contas: [null],
+          telefo: [this.telefo],
+    
+          fcalle: [null],
+          fcolon: [null],
+          munici: [null],
+          estado: [null],
+          codPos: [null],
+          ninter: [null],
+          nexter: [null],
+          refere: [null],
+    
+          namePr: [this.namePr],
+          numbeT: [this.numbeT],
+          cvvTar: [this.cvvTar],
+          fvenci: [this.fvenci]
+        });
+        this.alerta.showAlert(`Dirección ${this.indexToSaved + 1} eliminada`, "success", 2000);
+      }, error => {
+        console.log(error);
+        this.alerta.showAlert("Ocurrió un error", "danger", 2000);
+      });
+    })
+  }
   
   //? Identifica el boton y rellena el formulario con la informacion de direccion
   direccionActivedButton(id: number) {
@@ -331,6 +380,73 @@ export class PerfilModifyComponent implements OnInit {
     }else{
       this.alerta.showAlert("Seleccione una fecha", "warning", 2500);
     }
+  }
+  public clearCard() {
+    const API_TARJETA = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_CARDS + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2 + this.indexToSavedTarjet;
+    let parseDate: any;
+    this.persona.getPerson(this.token.getID()).subscribe(response => {
+      this.persona.updateClientTarget(API_TARJETA, {
+        idTarjeta: response.data.idPersona.tarjeta[this.indexToSavedTarjet].id,
+        nombre_propietario: " ",
+        numero_tarjeta: " ",
+        fecha_vencimiento: "000-00",
+        cvv: "0"
+      }).subscribe(response => {
+        this.formularioPersona = this.formBuilder.group({
+          nombre: [this.nombre, [Validators.required]],
+          apellP: [this.apellP, [Validators.required]],
+          apellM: [this.apellM, [Validators.required]],
+          fnaciM: [this.fnaciM],
+          genero: [this.genero],
+          correo: [this.correo],
+          contas: [null],
+          telefo: [this.telefo],
+    
+          fcalle: [this.fcalle],
+          fcolon: [this.fcolon],
+          munici: [this.munici],
+          estado: [this.estado],
+          codPos: [this.codPos],
+          ninter: [this.ninter],
+          nexter: [this.nexter],
+          refere: [this.refere],
+    
+          namePr: [null],
+          numbeT: [null],
+          cvvTar: [null],
+          fvenci: [null]
+        });
+        this.alerta.showAlert("tarjeta eliminada", "success", 2500);
+      }, reject => {
+        console.log(reject)
+        this.alerta.showAlert("Ocurrio un pobema", "danger", 2500);
+      });
+    });
+
+    this.formularioPersona = this.formBuilder.group({
+      nombre: [this.nombre, [Validators.required]],
+      apellP: [this.apellP, [Validators.required]],
+      apellM: [this.apellM, [Validators.required]],
+      fnaciM: [this.fnaciM],
+      genero: [this.genero],
+      correo: [this.correo],
+      contas: [null],
+      telefo: [this.telefo],
+
+      fcalle: [this.fcalle],
+      fcolon: [this.fcolon],
+      munici: [this.munici],
+      estado: [this.estado],
+      codPos: [this.codPos],
+      ninter: [this.ninter],
+      nexter: [this.nexter],
+      refere: [this.refere],
+
+      namePr: [null],
+      numbeT: [null],
+      cvvTar: [null],
+      fvenci: [null]
+    });
   }
 
   //? Identifica el boton y rellena el formulario con la informacion de direccion
