@@ -36,8 +36,8 @@ export class RegisterComponent implements OnInit {
     this.formPersona = this.formBuilder.group({
       persoFname: [null, [Validators.required]],
       persoSname: [null, [Validators.required]],
-      persoEmail: [null, [Validators.required, Validators.email]],
-      persoPassw: [null, [Validators.required, Validators.maxLength(8)]]
+      persoEmail: [null, [Validators.required, Validators.email, Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)]],
+      persoPassw: [null, [Validators.required, Validators.maxLength(8), Validators.minLength(5)]]
     });
   }
 
