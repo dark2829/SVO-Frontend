@@ -31,6 +31,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/product-carr/product-carr.component';
 import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecovery/passwordrecovery.component';
 import { ProdtocancelComponent } from './home/usuarios/cliente/cancel-request/prodtocancel/prodtocancel.component';
+import { ProductforviewComponent } from './home/producto/productforview/productforview.component';
 
 /*
   Para acceder a empleado o admin solo en la url se debe colocar 
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: 'registro', component: RegisterComponent },
   {path: 'recovery', component: RecoverypassComponent },
   {path: 'extendProduct/:id', component: ProductoComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
+  {path: 'extendProductAdmin/:id', component: ProductforviewComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'modifyPerfil', component: PerfilModifyComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'shopHistory', component: ShophistoryComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },
   {path: 'favoritos', component: FavoriteComponent, canActivate: [guard], data: {expectedRol: ['Cliente']} },

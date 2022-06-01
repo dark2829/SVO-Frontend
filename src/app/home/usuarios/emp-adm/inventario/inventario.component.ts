@@ -30,7 +30,7 @@ export class InventarioComponent implements OnInit {
   showProduct(producto: any){
     this.infoProduct = producto; 
     console.log(this.infoProduct);
-    this.urlProd = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:4200/extendProduct/'+producto.id);
+    this.urlProd = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:4200/extendProductAdmin/'+producto.id);
   }
 
   registro(){
