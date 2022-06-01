@@ -26,7 +26,7 @@ export class RecoverypassComponent implements OnInit {
 
   ngOnInit(): void {
     this.formpassword = this.formBuilder.group({
-      fcorreo: [null, Validators.required]
+      fcorreo: [null, [Validators.required, Validators.email, Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)]]
     });
   }
   
