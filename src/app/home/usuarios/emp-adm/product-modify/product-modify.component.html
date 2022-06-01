@@ -97,8 +97,7 @@
                                         <label for="staticEmail2" class="mt-2">Cantidad</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fcantidad" type="number" class="form-control"
-                                            id="cantidad" placeholder="00.00" value="{{cantidad}}">
+                                        <input formControlName="fcantidad" min="0" pattern="^[0-9]+" type="number" class="form-control" id="cantidad" placeholder="00" onKeyPress="if(this.value.length==6) return false;" required>
                                     </div>
                                 </div>
 
@@ -107,8 +106,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio de compra</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpCompra" type="number" class="form-control"
-                                            id="precioCompra" placeholder="$00.00" value="{{pcompra}}">
+                                        <input formControlName="fpCompra" min="0.00" type="number" onKeyPress="if(this.value.length==6) return false;" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -117,8 +116,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio de venta</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpVenta" type="number" class="form-control"
-                                            id="precioVenta" placeholder="$00.00" value="{{pventa}}">
+                                        <input formControlName="fpVenta" min="0.00" type="number" onKeyPress="if(this.value.length==6) return false;" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -127,8 +126,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio con descuento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpDesc" type="number" class="form-control"
-                                            id="precioDescuento" placeholder="$00.00" value="{{pdesc}}">
+                                        <input formControlName="fpDesc" min="0.00" type="number" onKeyPress="if(this.value.length==6) return false;" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 

@@ -60,15 +60,15 @@ export class ProductRegisterComponent implements OnInit {
         this.codigo_producto = this.zfill(this.codigo_producto, 9);
       })
       this.formProducto = this.formBuilder.group({
-        fcodProd: [this.codigo_producto],
-        fname: [null, [Validators.required]],
-        fcategoria: [null, [Validators.required]],
-        fcantidad: [null, [Validators.required]],
-        fpCompra: [null, [Validators.required]],
-        fpVenta: [null, [Validators.required]],
-        fpDesc: [null, [Validators.required]],
+        fcodProd:     [this.codigo_producto, [Validators.required]],
+        fname:        [null, [Validators.required]],
+        fcategoria:   [null, [Validators.required]],
+        fcantidad:    [null, [Validators.required, Validators.min(0)]],
+        fpCompra:     [null, [Validators.required, Validators.min(0.00)]],
+        fpVenta:      [null, [Validators.required, Validators.min(0.00)]],
+        fpDesc:       [null, [Validators.required, Validators.min(0.00)]],
         fDescription: [null, [Validators.required]],
-        festado: [null, []]
+        festado:      [null, []]
       })
     } else {
       console.log("No hay token");
@@ -77,43 +77,47 @@ export class ProductRegisterComponent implements OnInit {
 
   load(){
     const loadProductos = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_INSERT
-    if(
-      this.formProducto.value.fname != null &&
-      this.formProducto.value.fcategoria != null &&
-      this.formProducto.value.fcantidad != null &&
-      this.formProducto.value.fpCompra != null &&
-      this.formProducto.value.fpVenta != null &&
-      this.formProducto.value.fpDesc != null &&
-      this.formProducto.value.fDescription != null &&
-      this.formProducto.value.fcodProd != "" &&
-      this.formProducto.value.fname != "" &&
-      this.formProducto.value.fcategoria != "" &&
-      this.formProducto.value.fcantidad != "" &&
-      this.formProducto.value.fpCompra != "" &&
-      this.formProducto.value.fpVenta != "" &&
-      this.formProducto.value.fpDesc != "" &&
-      this.formProducto.value.fDescription != "" 
-    ){
-      this.productos.saveProducto(loadProductos, {
-        codigo_prod: this.codigo_producto,
-        imagen: this.img ,
-        nombre: this.formProducto.value.fname,
-        categoria: this.formProducto.value.fcategoria,
-        cantidad: this.formProducto.value.fcantidad,
-        precio_compra: this.formProducto.value.fpCompra,
-        precio_venta: this.formProducto.value.fpVenta,
-        precio_descuento: this.formProducto.value.fpDesc,
-        descripcion: this.formProducto.value.fDescription,
-        estatus: 'Disponible'
-      }).subscribe(response => {
-        this.alerta.showAlert(response.message, "success", 2000);
-        setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
-      }, 
-      reject => {
-        this.alerta.showAlert(reject.error.message, "danger", 2500, reject.status)
-      });
+    if(this.formProducto.valid == true){
+      if(
+        this.formProducto.value.fname != null &&
+        this.formProducto.value.fcategoria != null &&
+        this.formProducto.value.fcantidad != null &&
+        this.formProducto.value.fpCompra != null &&
+        this.formProducto.value.fpVenta != null &&
+        this.formProducto.value.fpDesc != null &&
+        this.formProducto.value.fDescription != null &&
+        this.formProducto.value.fcodProd != "" &&
+        this.formProducto.value.fname != "" &&
+        this.formProducto.value.fcategoria != "" &&
+        this.formProducto.value.fcantidad != "" &&
+        this.formProducto.value.fpCompra != "" &&
+        this.formProducto.value.fpVenta != "" &&
+        this.formProducto.value.fpDesc != "" &&
+        this.formProducto.value.fDescription != "" 
+      ){      
+        this.productos.saveProducto(loadProductos, {
+          codigo_prod: this.codigo_producto,
+          imagen: this.img ,
+          nombre: this.formProducto.value.fname,
+          categoria: this.formProducto.value.fcategoria,
+          cantidad: this.formProducto.value.fcantidad,
+          precio_compra: this.formProducto.value.fpCompra,
+          precio_venta: this.formProducto.value.fpVenta,
+          precio_descuento: this.formProducto.value.fpDesc,
+          descripcion: this.formProducto.value.fDescription,
+          estatus: 'Disponible'
+        }).subscribe(response => {
+          this.alerta.showAlert(response.message, "success", 2000);
+          setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
+        }, 
+        reject => {
+          this.alerta.showAlert(reject.error.message, "danger", 2500, reject.status)
+        });
+      }else{
+        this.alerta.showAlert("Todos los campos son requeridos", "danger", 2500)
+      }
     }else{
-      this.alerta.showAlert("Todos los campos son requeridos", "danger", 2500)
+      this.alerta.showAlert("Algunos campos no son validos", "danger", 2000);
     }
   }
   

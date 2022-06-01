@@ -65,29 +65,30 @@ export class ProductModifyComponent implements OnInit {
         this.pdesc = response.data.precio_descuento;
         this.description = response.data.descripcion;
         this.estado = response.data.estatus;
+
         this.formProducto = this.formBuilder.group({
-          fcodProd: [this.codigoProducto, [Validators.required]],
-          fname: [this.nombre, [Validators.required]],
-          fcategoria: [this.categoria, [Validators.required]],
-          fcantidad: [this.cantidad, [Validators.required]],
-          fpCompra: [this.pcompra, [Validators.required]],
-          fpVenta: [this.pventa, [Validators.required]],
-          fpDesc: [this.pdesc, [Validators.required]],
-          fDescription: [this.description, [Validators.required]],
-          festado: [this.estado, []]
+          fcodProd:     [this.codigoProducto, [Validators.required]],
+          fname:        [this.nombre,         [Validators.required]],
+          fcategoria:   [this.categoria,      [Validators.required]],
+          fcantidad:    [this.cantidad,       [Validators.required, Validators.min(0)]],
+          fpCompra:     [this.pcompra,        [Validators.required, Validators.min(0.00)]],
+          fpVenta:      [this.pventa,         [Validators.required, Validators.min(0.00)]],
+          fpDesc:       [this.pdesc,          [Validators.required, Validators.min(0.00)]],
+          fDescription: [this.description,    [Validators.required]],
+          festado:      [this.estado, []]
         })
       });
       this.formProducto = this.formBuilder.group({
-        fcodProd: [this.codigoProducto, [Validators.required]],
-        fname: [this.nombre, [Validators.required]],
-        fcategoria: [this.categoria, [Validators.required]],
-        fcantidad: [this.cantidad, [Validators.required]],
-        fpCompra: [this.pcompra, [Validators.required]],
-        fpVenta: [this.pventa, [Validators.required]],
-        fpDesc: [this.pdesc, [Validators.required]],
-        fDescription: [this.description, [Validators.required]],
-        festado: [this.estado, []]
-      })
+          fcodProd:     [this.codigoProducto, [Validators.required]],
+          fname:        [this.nombre,         [Validators.required]],
+          fcategoria:   [this.categoria,      [Validators.required]],
+          fcantidad:    [this.cantidad,       [Validators.required, Validators.min(0)]],
+          fpCompra:     [this.pcompra,        [Validators.required, Validators.min(0.00)]],
+          fpVenta:      [this.pventa,         [Validators.required, Validators.min(0.00)]],
+          fpDesc:       [this.pdesc,          [Validators.required, Validators.min(0.00)]],
+          fDescription: [this.description,    [Validators.required]],
+          festado:      [this.estado, []]
+        })
     } else {
       console.log("No hay token");
     }
@@ -95,25 +96,29 @@ export class ProductModifyComponent implements OnInit {
   // Actualizar datos
   public update() {
     const enviarActualizacion = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_UPDATE + this.index
-    this.productos.updateProducto(enviarActualizacion, {
-      codigo_prod: this.formProducto.value.fcodProd,
-      imagen: this.img,
-      nombre: this.formProducto.value.fname,
-      categoria: this.formProducto.value.fcategoria,
-      cantidad: this.formProducto.value.fcantidad,
-      precio_compra: this.formProducto.value.fpCompra,
-      precio_venta: this.formProducto.value.fpVenta,
-      precio_descuento: this.formProducto.value.fpDesc,
-      descripcion: this.formProducto.value.fDescription,
-      estatus: this.formProducto.value.festado
-
-    }).subscribe(response => {
-      this.alerta.showAlert(response.message, "success", 2000);
-      setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
-    },
-    reject => {
-      this.alerta.showAlert(reject.error.message, "warning", 2000, reject.status);
-      });
+    if(this.formProducto.valid == true){
+      this.productos.updateProducto(enviarActualizacion, {
+        codigo_prod: this.formProducto.value.fcodProd,
+        imagen: this.img,
+        nombre: this.formProducto.value.fname,
+        categoria: this.formProducto.value.fcategoria,
+        cantidad: this.formProducto.value.fcantidad,
+        precio_compra: this.formProducto.value.fpCompra,
+        precio_venta: this.formProducto.value.fpVenta,
+        precio_descuento: this.formProducto.value.fpDesc,
+        descripcion: this.formProducto.value.fDescription,
+        estatus: this.formProducto.value.festado
+  
+      }).subscribe(response => {
+        this.alerta.showAlert(response.message, "success", 2000);
+        setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
+      },
+      reject => {
+        this.alerta.showAlert(reject.error.message, "warning", 2000, reject.status);
+        });
+    }else{
+      this.alerta.showAlert("Algunos datos no son correctos", "danger", 2000);
+    }
   }
 
   cancel(){
