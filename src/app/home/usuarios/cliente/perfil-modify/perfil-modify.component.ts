@@ -90,9 +90,7 @@ export class PerfilModifyComponent implements OnInit {
 
     let parsear;
     this.persona.getPerson(this.token.getID()).subscribe(response => {
-      console.log(response);
       if (response.data.idPersona.foto != null) {
-        console.log(response.data.idPersona.foto);
         this.fileChange = true;
         this.preView = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+response.data.idPersona.foto)
         this.img = response.data.idPersona.foto;
@@ -229,8 +227,9 @@ export class PerfilModifyComponent implements OnInit {
     if(this.img != null){
       console.log(this.img)
       this.persona.updatePicture(this.token.getID(), {
-        img: this.img
+        foto: this.img
       }).subscribe(response => {
+        console.log(response);
         this.alerta.showAlert("Imagen capturada", "success", 2000);
       }, reject => {
         this.alerta.showAlert("Imagen no capturada", "success", 2000);
@@ -491,7 +490,6 @@ export class PerfilModifyComponent implements OnInit {
     this.extraerB64(archivoCapturado).then((imagen: any) => {
       this.preView = imagen.base;
       this.img = imagen.base.split(',')[1];
-      console.log(this.img)
     })
   }
 

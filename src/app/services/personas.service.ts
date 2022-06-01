@@ -196,7 +196,7 @@ export class PersonasService {
   }
 
   public updatePicture(idPersona: string, body: {
-    img: any
+    foto: string
   }){
     const URL = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_PICTU+idPersona;
     return this.http.post(URL, body);
