@@ -94,6 +94,8 @@ export class PedidosComponent implements OnInit {
       }, reject => {
         this.alerta.showAlert("No se encontro el pedido "+this.formPedido.value.codigo, "danger", 2000);
       });
+    }else{
+      this.alerta.showAlert("Primero ingrese un codigo valido de pedido", "warning", 2000)
     }
   }
 }
