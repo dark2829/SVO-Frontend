@@ -44,6 +44,7 @@ import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/prod
 import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecovery/passwordrecovery.component';
 import { ProdtocancelComponent } from './home/usuarios/cliente/cancel-request/prodtocancel/prodtocancel.component';
 import { ObjectToArray } from './objectToArray.pipe';
+import { ProductforviewComponent } from './home/producto/productforview/productforview.component';
 
 //Interceptores
 // import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
@@ -82,7 +83,8 @@ import { ObjectToArray } from './objectToArray.pipe';
     ProductCarrComponent,
     PasswordrecoveryComponent,
     ProdtocancelComponent,
-    ObjectToArray
+    ObjectToArray,
+    ProductforviewComponent
   ],
   imports: [
     BrowserModule,

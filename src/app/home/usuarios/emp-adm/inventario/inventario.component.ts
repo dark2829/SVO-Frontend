@@ -13,11 +13,12 @@ export class InventarioComponent implements OnInit {
   productos: any = {};
   infoProduct: any = null;
   public page: number = 1; 
+  urlProd: any;
 
   constructor(
     private router: Router,
     private producto: ProductosService,
-    private sanitizer: DomSanitizer 
+    private domSanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +29,8 @@ export class InventarioComponent implements OnInit {
 
   showProduct(producto: any){
     this.infoProduct = producto; 
+    console.log(this.infoProduct);
+    this.urlProd = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:4200/extendProduct/'+producto.id);
   }
 
   registro(){
@@ -42,7 +45,7 @@ export class InventarioComponent implements OnInit {
     if(b64 == null){
       return null; 
     }else{
-      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+      return this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
       + `${b64}`);
     }
   }

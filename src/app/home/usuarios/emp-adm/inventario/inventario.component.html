@@ -133,27 +133,10 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">
-                <div *ngIf="infoProduct != null" style="height: 50vh;">
-                    <div class="imgProd" *ngIf="infoProduct.imagen != null; else noImagen">
-                        <img [src]="regresarImg(infoProduct.imagen)" class=" imgProdImg" alt="Card image">
-                    </div>
-
-                    <ng-template class="card-img-top img-fluid w-50 mx-auto d-block m-2" #noImagen>
-                        <div class="imgProd">
-                            <img src="../../assets/img/notFound2.png" class=" imgProdImg" alt="Card image">
-                        </div>
-                    </ng-template>
-
-                    <h6><b><span> {{infoProduct.nombre}}</span> </b> </h6>
-                    <h6><span> {{infoProduct.descripcion.substring(0, 50)}}</span></h6>
-                    <span *ngIf="infoProduct.precio_descuento != 0"
-                        class="text-secondary small"><del>${{infoProduct.precio_descuento+infoProduct.precio_venta}}</del></span>
-                    <br>
-                    <span class="h4 text-dark">${{infoProduct.precio_venta}}</span>
-                    <br>
-                    <span class="text-success">Ahorras ${{infoProduct.precio_descuento}}</span>
-                    <br>
+            <div class="modal-body" style="height: 60vh;">
+                <div *ngIf="infoProduct != null">
+                    <iframe [src]="urlProd" height="300vh" width="100%">
+                    </iframe>
                 </div>
             </div>
         </div>
