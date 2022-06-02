@@ -5,7 +5,7 @@
 </div>
 
 <div class="container mb-5 pb-5 position-relative info">
-    <div class="row justify-content-center align-items-sart">
+    <div class="row justify-content-center align-items-sart info2">
         <div class="col ">
             <input type="date" class="form form-control rounded-pill mt-5">
             <div class="container bg-success mt-3 rounded">
@@ -13,7 +13,7 @@
                     <div class="col p-0">
                         <p class="h4 text-white m-1">Pedidos Recibidos</p>
                         <div class="container">
-                            <div class="row" *ngFor="let recibed of productosRecibidos.data">
+                            <div class="row" *ngFor="let recibed of productosRecibidos">
                                 <div *ngIf="recibed != null; else notieneRecibed" class="col text-white border border-light mb-2 p-0">
                                     <p>Fecha: {{recibed.idCompra.fecha_venta}}</p>
                                     <p>Código: {{recibed.idCompra.codigo_compra}}</p>
@@ -25,7 +25,7 @@
                                 </div>
                                 <ng-template #notieneRecibed>
                                     <div class="col text-white border border-light mb-2">
-                                        Por ahora no tiene nada aquí. 
+                                        No has realizado alguna compra
                                     </div>
                                 </ng-template>
                             </div>
@@ -41,7 +41,7 @@
                     <div class="col p-0">
                         <p class="h4 text-white m-1">En proceso de entrega</p>
                         <div class="container mt-3">
-                            <div class="row" *ngFor="let inProces of productosInProcess.data">
+                            <div class="row" *ngFor="let inProces of productosInProcess">
                                 <div *ngIf="inProces != null; else notProcess" class="col col-12 text-white border border-light mb-3 position-relative mt-3 p-0">
                                     <span class="modify badge bg-light">
                                         <a type="button" [routerLink]="['/cancel-request', inProces.id]">
@@ -65,7 +65,7 @@
                                 </div>
                                 <ng-template #notProcess>
                                     <div class="col text-white border border-light mb-2">
-                                        Por ahora no tiene nada aquí. 
+                                        No has realizado alguna compra
                                     </div>
                                 </ng-template>
                             </div>
@@ -81,7 +81,7 @@
                     <div class="col p-0">
                         <p class="h4 text-white m-1">Pedidos cancelados</p>
                         <div class="container">
-                            <div class="row" *ngFor="let cancel of productosCanceled.data">
+                            <div class="row" *ngFor="let cancel of productosCanceled">
                                 <div *ngIf="cancel != null; else notProcess" class="col text-white border border-light mb-2 p-0">
                                     <p>Fecha: {{cancel.idCompra.fecha_venta}}</p>
                                     <p>Código: {{cancel.idCompra.codigo_compra}}</p>
@@ -102,7 +102,7 @@
                                 </div>
                                 <ng-template #notProcess>
                                     <div class="col text-white border border-light mb-2">
-                                        Por ahora no tiene nada aquí. 
+                                        No has realizado alguna compra
                                     </div>
                                 </ng-template>
                             </div>

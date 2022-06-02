@@ -12,9 +12,9 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ShophistoryComponent implements OnInit {
   //Variables 
-  productosRecibidos: any = {};
-  productosInProcess: any = {};
-  productosCanceled: any = {};
+  productosRecibidos: any = null;
+  productosInProcess: any = null;
+  productosCanceled: any = null;
 
   fecha = "12 de febrero de 2022";
   codigo = "abcdefgh";
@@ -32,14 +32,13 @@ export class ShophistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.persona.historyBuy(parseInt(this.token.getID()), "Realizado").subscribe(response => {
-      this.productosRecibidos = response;
+      this.productosRecibidos = response.data;
     });
     this.persona.historyBuy(parseInt(this.token.getID()), "en proceso").subscribe(response => {
-      this.productosInProcess = response;
+      this.productosInProcess = response.data;
     });
     this.persona.historyBuy(parseInt(this.token.getID()), "Cancelado").subscribe(response => {
-      this.productosCanceled = response;
-      console.log(response);
+      this.productosCanceled = response.data;
     });
   }
 
