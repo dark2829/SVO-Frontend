@@ -12,3 +12,8 @@ form .datosRequeridos{
     height: 100%;
     width: 100%;
 }
+
+.noneProduct{
+    margin-left: 5vw;
+    margin-top: 5vh;
+}

@@ -16,90 +16,89 @@
                         <div class="container-fluid my-2 p-0 border border-primary rounded">
                             <div class="row">
                                 <cdk-virtual-scroll-viewport itemSize="1" class="viewPort">
-                                    <div class="content" *ngFor="let producto of productosAgregados; index as i">
-                                        <div class="container-fluid">
-                                            <div class="row border border-dark alert-primary rounded-3 my-1"
-                                                style="margin: 0 0.01% 0 0.01%;">
-                                                <!-- Imagen -->
-                                                <div class="col col-4 col-sm-4 col-md-5 text-center imagenes">
-                                                    <div *ngIf="producto.idProducto.imagen != null; else noImg">
-                                                        <img [src]="regresarImg(producto.idProducto.imagen)"
-                                                            alt="Imagen de producto" class="img-fluid w-75">
+                                    <div *ngIf="productosAgregados != ''; else noneProduct">
+                                        <div class="content" *ngFor="let producto of productosAgregados; index as i">
+                                            <div class="container-fluid">
+                                                <div class="row border border-dark alert-primary rounded-3 my-1"
+                                                    style="margin: 0 0.01% 0 0.01%;">
+                                                    <!-- Imagen -->
+                                                    <div class="col col-4 col-sm-4 col-md-5 text-center imagenes">
+                                                        <div *ngIf="producto.idProducto.imagen != null; else noImg">
+                                                            <img [src]="regresarImg(producto.idProducto.imagen)"
+                                                                alt="Imagen de producto" class="img-fluid w-75">
+                                                        </div>
+                                                        <ng-template #noImg>
+                                                            <img src="../../assets/img/notFound2.png" class="img-fluid w-75"
+                                                                alt="Card image">
+                                                        </ng-template>
                                                     </div>
-
-                                                    <ng-template #noImg>
-                                                        <img src="../../assets/img/notFound2.png" class="img-fluid w-75"
-                                                            alt="Card image">
-                                                    </ng-template>
-                                                </div>
-                                                <!-- Descripción -->
-                                                <div class="col col-8 col-sm-8 col-md-7">
-                                                    <div class="row" style="height: 60%;">
-                                                        <div class="col-12">
-                                                            <div class="row" style="height: 50%;">
-                                                                <div class="col col-8">
-                                                                    <p class="titulo">{{producto.idProducto.nombre}}</p>
+                                                    <!-- Descripción -->
+                                                    <div class="col col-8 col-sm-8 col-md-7">
+                                                        <div class="row" style="height: 60%;">
+                                                            <div class="col-12">
+                                                                <div class="row" style="height: 50%;">
+                                                                    <div class="col col-8">
+                                                                        <p class="titulo">{{producto.idProducto.nombre}}</p>
+                                                                    </div>
+                                                                    <div class="col col-2 text-center">
+                                                                        <span>
+                                                                            <a class="btn"
+                                                                                (click)="deleteGroup(producto.idProducto.id, idUsuario)">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="25" height="25"
+                                                                                    fill="currentColor"
+                                                                                    class="bi bi-trash3-fill text-dark"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path
+                                                                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                                                </svg>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col col-2 text-center">
-                                                                    <span>
-                                                                        <a class="btn"
-                                                                            (click)="deleteGroup(producto.idProducto.id, idUsuario)">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                width="25" height="25"
-                                                                                fill="currentColor"
-                                                                                class="bi bi-trash3-fill text-dark"
-                                                                                viewBox="0 0 16 16">
-                                                                                <path
-                                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                                            </svg>
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row" style="height: 50%;">
-                                                                <div class="col" style="height: 100%;">
-                                                                    <span>
-                                                                        <div
-                                                                            *ngIf="producto.idProducto.precio_descuento != 0; else descuento">
-                                                                            <small
-                                                                                class="text-secondary tachado small mx-2 mt-2"><del>${{producto.idProducto.precio_venta}}</del></small>
-                                                                            <small
-                                                                                class="h5 text-success mx-2 mt-2">${{producto.idProducto.precio_descuento}}</small>
-                                                                        </div>
-                                                                        <ng-template #descuento>
-                                                                            <small
-                                                                                class="h5 text-success mx-2 mt-2">${{producto.idProducto.precio_venta}}</small>
-                                                                        </ng-template>
-                                                                    </span>
+                                                                <div class="row" style="height: 50%;">
+                                                                    <div class="col" style="height: 100%;">
+                                                                        <span>
+                                                                            <div
+                                                                                *ngIf="producto.idProducto.precio_descuento != 0; else descuento">
+                                                                                <small
+                                                                                    class="text-secondary tachado small mx-2 mt-2"><del>${{producto.idProducto.precio_venta}}</del></small>
+                                                                                <small
+                                                                                    class="h5 text-success mx-2 mt-2">${{producto.idProducto.precio_descuento}}</small>
+                                                                            </div>
+                                                                            <ng-template #descuento>
+                                                                                <small
+                                                                                    class="h5 text-success mx-2 mt-2">${{producto.idProducto.precio_venta}}</small>
+                                                                            </ng-template>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row mb-5" style="height: 40%;">
-                                                        <div class="col-12">
-
-                                                            <div class="row">
-                                                                <div class="col col-12">
-                                                                    <div class="row">
-                                                                        <div class="col">
-                                                                            <input
-                                                                                class="btn btn-danger rounded rounded-pill btn-round"
-                                                                                type="button" name="reducir" value="-"
-                                                                                (click)="actualizarCantidad(producto.idProducto.id, producto.cantidad)">
-                                                                            <span
-                                                                                class="textCant mx-1">{{producto.cantidad}}</span>
-                                                                            <input
-                                                                                class="btn btn-success rounded rounded-pill btn-round"
-                                                                                type="button" name="reducir" value="+"
-                                                                                (click)="addOneProduct(producto.idProducto.id, producto.cantidad)">
+                                                        <div class="row mb-5" style="height: 40%;">
+                                                            <div class="col-12">
+                                                                <div class="row">
+                                                                    <div class="col col-12">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input
+                                                                                    class="btn btn-danger rounded rounded-pill btn-round"
+                                                                                    type="button" name="reducir" value="-"
+                                                                                    (click)="actualizarCantidad(producto.idProducto.id, producto.cantidad)">
+                                                                                <span
+                                                                                    class="textCant mx-1">{{producto.cantidad}}</span>
+                                                                                <input
+                                                                                    class="btn btn-success rounded rounded-pill btn-round"
+                                                                                    type="button" name="reducir" value="+"
+                                                                                    (click)="addOneProduct(producto.idProducto.id, producto.cantidad)">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col col-12 text-end">
-                                                                    <span class="h5 text-success">
-                                                                        ${{(producto.precio_total).toFixed(2)}}
-                                                                    </span>
+                                                                    <div class="col col-12 text-end">
+                                                                        <span class="h5 text-success">
+                                                                            ${{(producto.precio_total).toFixed(2)}}
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -108,6 +107,11 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <ng-template #noneProduct>
+                                        <h3 class="text-primary noneProduct">No hay productos en carrito</h3>
+                                    </ng-template>
+
                                 </cdk-virtual-scroll-viewport>
                             </div>
                         </div>
