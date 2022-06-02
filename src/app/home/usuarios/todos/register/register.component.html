@@ -22,10 +22,10 @@
                                 <div class="container w-75 mt-5">
                                     <form class="row was-validated needs-validation" [formGroup]="formPersona" errorTailor novalidate>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoFname" class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+                                            <input formControlName="persoFname" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoSname" class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+                                            <input formControlName="persoSname" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
                                             <input formControlName="persoEmail" class="form-control" type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
