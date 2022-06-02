@@ -152,7 +152,7 @@ export class PerfilModifyComponent implements OnInit {
         fnaciM: [this.fnaciM],
         genero: [this.genero],
         correo: [this.correo],
-        contas: [null],
+        contas: [null, [Validators.minLength(5), Validators.maxLength(8)]],
         telefo: [this.telefo],
   
         fcalle: [this.fcalle],
@@ -208,7 +208,7 @@ export class PerfilModifyComponent implements OnInit {
           telefono: this.formularioPersona.value.telefo
         }).subscribe(
           response => {
-            this.alerta.showAlert("Registro exitoso", "success", 2000)
+            this.alerta.showAlert("Datos guardados", "success", 2000)
             setTimeout( () => {window.location.reload()}, 2000)
           },
           error => {
