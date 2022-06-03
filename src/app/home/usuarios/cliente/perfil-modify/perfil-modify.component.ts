@@ -70,7 +70,7 @@ export class PerfilModifyComponent implements OnInit {
       fnaciM: [this.fnaciM],
       genero: [this.genero],
       correo: [this.correo],
-      contas: [this.passwo],
+      contas: [this.passwo, [Validators.minLength(5), Validators.maxLength(8)]],
       telefo: [this.telefo],
 
       fcalle: [this.fcalle],
@@ -90,6 +90,7 @@ export class PerfilModifyComponent implements OnInit {
 
     let parsear;
     this.persona.getPerson(this.token.getID()).subscribe(response => {
+      console.log(response);
       if (response.data.idPersona.foto != null) {
         this.fileChange = true;
         this.preView = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+response.data.idPersona.foto)
@@ -116,7 +117,7 @@ export class PerfilModifyComponent implements OnInit {
         this.genero = response.data.idPersona.genero;
       }
       if(response.data.idPersona.correo != null){
-        this.correo = response.data.idPersona.correo; 
+        this.correo = response.data.correo; 
       }
       if(response.data.contraseña){
         this.passwo = response.data.contraseña;
@@ -195,7 +196,8 @@ export class PerfilModifyComponent implements OnInit {
         this.formularioPersona.value.apellP != "" &&
         this.formularioPersona.value.apellM != "" &&
         this.formularioPersona.value.correo != "" &&
-        this.formularioPersona.value.contas != ""
+        this.formularioPersona.value.contas != "" &&
+        this.formularioPersona.value.contas.length >= 5
       ) {
         //? Identificar que tipo de modificacion se hace
         const API_CLIENT = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.token.getID()+this.enlaces.PERSONA_UPDATE_U+this.indexClient;

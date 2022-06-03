@@ -59,7 +59,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="nombre" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control"
+                                        <input formControlName="nombre" maxlength="45" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control"
                                             id="idNombre" placeholder="Nombre" required>
                                     </div>
                                 </div> 
@@ -69,7 +69,7 @@
                                             Paterno</label>
                                     </div>
                                     <div class="col col-8 datosRequeridos">
-                                        <input formControlName="apellP" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text" class="form-control"
+                                        <input formControlName="apellP" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text" class="form-control"
                                             id="idApellidos" placeholder="Apellido Paterno" required>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                             Materno</label>
                                     </div>
                                     <div class="col col-8">
-                                        <input formControlName="apellM" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text" class="form-control"
+                                        <input formControlName="apellM" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text" class="form-control"
                                             id="idApellidos" placeholder="Apellido Materno">
                                     </div>
                                 </div>
