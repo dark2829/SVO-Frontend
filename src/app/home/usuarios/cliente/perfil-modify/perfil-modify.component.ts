@@ -146,14 +146,14 @@ export class PerfilModifyComponent implements OnInit {
       }
 
       this.formularioPersona = this.formBuilder.group({
-        nombre: [this.nombre.trimStart().trimEnd(), [Validators.required]],
-        apellP: [this.apellP.trimStart().trimEnd(), [Validators.required]],
-        apellM: [this.apellM.trimStart().trimEnd(), [Validators.required]],
+        nombre: [this.nombre, [Validators.required]],
+        apellP: [this.apellP, [Validators.required]],
+        apellM: [this.apellM, [Validators.required]],
         fnaciM: [this.fnaciM],
         genero: [this.genero],
-        correo: [this.correo.trimStart().trimEnd()],
+        correo: [this.correo],
         contas: [null, [Validators.minLength(5), Validators.maxLength(8)]],
-        telefo: [this.telefo.trimStart().trimEnd()],
+        telefo: [this.telefo],
   
         fcalle: [this.fcalle],
         fcolon: [this.fcolon],
@@ -188,10 +188,12 @@ export class PerfilModifyComponent implements OnInit {
       if (
         this.formularioPersona.value.nombre != null &&
         this.formularioPersona.value.apellP != null &&
+        this.formularioPersona.value.apellM != null &&
         this.formularioPersona.value.correo != null &&
         this.formularioPersona.value.contas != null &&
         this.formularioPersona.value.nombre != "" &&
         this.formularioPersona.value.apellP != "" &&
+        this.formularioPersona.value.apellM != "" &&
         this.formularioPersona.value.correo != "" &&
         this.formularioPersona.value.contas != ""
       ) {
