@@ -34,7 +34,7 @@
                                         <label for="staticEmail2" class="mt-2">Nombre de Proveedor</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="hproveedorNombre" type="text" class="form-control" id="nombre" placeholder="Nombre" value="{{nombre}}" required >
+                                        <input formControlName="hproveedorNombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required >
                                     </div>
                                 </div>
 
@@ -43,7 +43,7 @@
                                         <label for="staticEmail2" class="mt-2">Numero de contacto</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input [controlErrorsTpl]="phone" formControlName="hproveedorTelefono" type="text" min="10" max="10" class="form-control" id="telefono" placeholder="2418000101" value="{{telefono}}" required oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                        <input [controlErrorsTpl]="phone" maxlength="10" minlength="10" formControlName="hproveedorTelefono" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" id="telefono" placeholder="2418000101" required>
                                         <ng-template let-error let-text="text" #phone>{{text}}</ng-template>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="hproveedorCorreo" type="text" class="form-control" id="correo" placeholder="correo@example.com" value="{{correo}}" required>
+                                        <input formControlName="hproveedorCorreo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$" type="text" class="form-control" id="correo" placeholder="correo@example.com" value="{{correo}}" required>
                                     </div>
                                 </div>
 

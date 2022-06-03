@@ -40,7 +40,7 @@ export class ProveedorModifyComponent implements OnInit {
     this.miFormulario = this.formBuilder.group({      
       hproveedorNombre: [null, [Validators.required]],
       hproveedorTelefono: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      hproveedorCorreo: [null, [Validators.email]],
+      hproveedorCorreo: [null, [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
       hproveedorDireccion: [null],
       hproveedorProvee: [null, [Validators.required]]
     });
@@ -63,7 +63,7 @@ export class ProveedorModifyComponent implements OnInit {
             this.miFormulario = this.formBuilder.group({      
               hproveedorNombre: [elemento.nombre, [Validators.required]],
               hproveedorTelefono: [elemento.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-              hproveedorCorreo: [elemento.correo, [Validators.email]],
+              hproveedorCorreo: [elemento.correo, [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
               hproveedorDireccion: [elemento.direccion],
               hproveedorProvee: [elemento.provee, [Validators.required]]
             });
@@ -82,14 +82,7 @@ export class ProveedorModifyComponent implements OnInit {
       //Mandar Datos
       try {
         if (
-          this.miFormulario.value.hproveedorNombre != null &&
-          this.miFormulario.value.hproveedorTelefono != null &&
-          this.miFormulario.value.hproveedorCorreo != null &&
-          this.miFormulario.value.hproveedorProvee != null &&
-          this.miFormulario.value.hproveedorNombre != "" &&
-          this.miFormulario.value.hproveedorTelefono != "" &&
-          this.miFormulario.value.hproveedorCorreo != "" &&
-          this.miFormulario.value.hproveedorProvee != ""
+          this.miFormulario.valid
         ) {
           this.service.saveProveedor(`${this.enlace.API_ENLACE_PROVEEDOR}${this.enlace.PROVEEDOR_UPDATE}${this.index}`,
             {
@@ -105,11 +98,11 @@ export class ProveedorModifyComponent implements OnInit {
               setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);  
             },
             error => {
-            this.alerta.showAlert("Proveedor Modificado", "success", 2000, error.status);
-          }
-          );
-        } else {
-          // this.errores("Campos invalidos", "warning");
+              this.alerta.showAlert("Proveedor Modificado", "success", 2000, error.status);
+            }
+            );
+          } else {
+            this.alerta.showAlert("Algunos datos no son correctos", "danger", 2000);            
         }
       } catch (error) {
         alert(error);

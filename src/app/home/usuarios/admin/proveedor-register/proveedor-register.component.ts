@@ -33,7 +33,7 @@ export class ProveedorRegisterComponent implements OnInit {
     this.miFormulario = this.formBuilder.group({
         proveedorNombre: [null, [Validators.required]],
         proveedorTelefono: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-        proveedorCorreo: [null, [Validators.email, Validators.pattern("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/")]],
+        proveedorCorreo: [null, [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
         proveedorDireccion: [null],
         proveedorProvee: [null, [Validators.required]]
     });

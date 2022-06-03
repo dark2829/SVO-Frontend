@@ -42,8 +42,7 @@
                                                 <label for="staticEmail2" class="mt-2">Numero de contacto</label>
                                             </div>
                                             <div class="col col-7 datosRequeridos position-relative">
-                                                <input [controlErrorsTpl]="phone" formControlName="proveedorTelefono" type="text" class="form-control" id="telefono" placeholder="2418000101" required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-                                                <!-- <div class="invalid-tooltip" style="top: -1vh; left: 18vh; font-size: 1.6vh; width: 17.5vh;"><small>Se esperan 10 numeros.</small></div> -->
+                                                <input [controlErrorsTpl]="phone" formControlName="proveedorTelefono" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" id="telefono" placeholder="2418000101" required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                                                 <ng-template let-error let-text="text" #phone>{{text}}</ng-template>
                                             </div>
                                         </div>
@@ -52,7 +51,7 @@
                                                 <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                             </div>
                                             <div class="col col-7 datosRequeridos">
-                                                <input formControlName="proveedorCorreo" type="email" class="form-control" id="correo" placeholder="correo@example.com" required>
+                                                <input formControlName="proveedorCorreo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$" type="email" class="form-control" id="correo" placeholder="correo@example.com" required>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
