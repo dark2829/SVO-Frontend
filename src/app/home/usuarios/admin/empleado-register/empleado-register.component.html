@@ -35,7 +35,7 @@
                                         <label for="staticEmail2" class="mt-2">Numero de empleado</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input type="text" class="form-control" id="nombre" placeholder="{{noEmpleado}}"
+                                        <input type="text" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" id="nombre" placeholder="{{noEmpleado}}"
                                             disabled>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                                         <label for="staticEmail2" class="mt-2">Nombre</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empNombre" type="text" class="form-control" id="nombre" placeholder="Alejandro"
+                                        <input formControlName="empNombre" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="nombre" placeholder="Alejandro"
                                             required>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                         <label for="staticEmail2" class="mt-2">Apellido Paterno</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empApePat" type="text" class="form-control" id="apaterno" placeholder="Martínez "
+                                        <input formControlName="empApePat" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="apaterno" placeholder="Martínez "
                                             required>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                         <label for="staticEmail2" class="mt-2">Apellido Materno</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empApeMat" type="text" class="form-control" id="amaterno" placeholder="López "
+                                        <input formControlName="empApeMat" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="amaterno" placeholder="López "
                                             required>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                         <label for="staticEmail2" class="mt-2">Curp</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empCurp" type="text" class="form-control" maxlength="18" minlength="18" id="curp"
+                                        <input formControlName="empCurp" minlength="18" maxlength="18" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" maxlength="18" minlength="18" id="curp"
                                             placeholder="LOMA15000000HTLSLLA3" required>
                                     </div>
                                 </div>
@@ -124,8 +124,10 @@
                                         <label for="staticEmail2" class="mt-2">Teléfono</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empTelefo" type="number" class="form-control" id="telefono" placeholder="2411302419"
-                                            required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                        <input formControlName="empTelefo" type="text" class="form-control" id="telefono" placeholder="2411302419"
+                                            required minlength="10" maxlength="10" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)">
+                                        <!-- <input formControlName="empTelefo" type="number" class="form-control" id="telefono" placeholder="2411302419"
+                                            required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"> -->
                                     </div>
                                 </div>
 
@@ -148,7 +150,7 @@
                                         <label for="staticEmail2" class="mt-2">Salario</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empSalari" min="0.00" type="number" onKeyPress="if(this.value.length==6) return false;" step="0.001" class="form-control" id="precioCompra"
+                                        <input formControlName="empSalari" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" min="0.00" maxlength="6" type="text" step="0.001" class="form-control" id="precioCompra"
                                         placeholder="$00.00" required>
                                     </div>
                                 </div>
@@ -158,7 +160,7 @@
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empCorreo" type="email" class="form-control" id="correo"
+                                        <input formControlName="empCorreo" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$" class="form-control" id="correo"
                                             placeholder="example@exaple.com" required>
                                     </div>
                                 </div>
@@ -168,7 +170,7 @@
                                         <label for="staticEmail2" class="mt-2">Contraseña</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empPass" type="password" maxlength="8" minlength="5s" class="form-control" id="nombre" placeholder="*****"
+                                        <input formControlName="empPass" type="password" maxlength="8" minlength="5" class="form-control" id="nombre" placeholder="*****"
                                             required>
                                     </div>
                                 </div>

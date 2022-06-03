@@ -73,8 +73,8 @@ export class EmpleadoModifyComponent implements OnInit {
         fTelefono:   [null, [Validators.required]],
         fPuesto:     [null, [Validators.required]],
         fSalario:    [null, [Validators.required]],
-        fCorreo:     [null, [Validators.required, Validators.email]],
-        fContra:     [null, [Validators.required]],
+        fCorreo:     [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
+        fContra:     [null, [Validators.required, Validators.minLength(5)]],
         fStatus:     [null, [Validators.required]]
       });
       
@@ -123,8 +123,6 @@ export class EmpleadoModifyComponent implements OnInit {
   enviar(){
     //URL para modificar una persona aplicable a empleado
     const API_MODIFY_EMPLEADO = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.idPersona+this.enlaces.PERSONA_UPDATE_U+this.idUser; 
-
-    try{
       if(
         this.formEmpleado.value.fEmpleado != null &&
         this.formEmpleado.value.fNombre != null &&
@@ -139,19 +137,7 @@ export class EmpleadoModifyComponent implements OnInit {
         this.formEmpleado.value.fCorreo != null &&
         this.formEmpleado.value.fContra != null &&
         this.formEmpleado.value.fStatus != null &&
-        this.formEmpleado.value.fEmpleado != "" &&
-        this.formEmpleado.value.fNombre != "" &&
-        this.formEmpleado.value.fApellidoP != "" &&
-        this.formEmpleado.value.fApellidoM != "" &&
-        this.formEmpleado.value.fCurp != "" &&
-        this.formEmpleado.value.fFnac != "" &&
-        this.formEmpleado.value.fGenero != "" &&
-        this.formEmpleado.value.fTelefono != "" &&
-        this.formEmpleado.value.fPuesto != "" &&
-        this.formEmpleado.value.fSalario != "" &&
-        this.formEmpleado.value.fCorreo != "" &&
-        this.formEmpleado.value.fContra != "" &&
-        this.formEmpleado.value.fStatus != ""
+        this.formEmpleado.value.fContra.length >= 5
       ){
         //? Modificar formato de fecha
         let date = this.formEmpleado.value.fFnac;
@@ -182,12 +168,8 @@ export class EmpleadoModifyComponent implements OnInit {
         });
 
       }else{
-        this.alerta.showAlert("Todos los campos son requeridos", "danger", 2000);
+        this.alerta.showAlert("Error al guardar datos, inténtelo de nuevo", "danger", 2000);
       }
-
-    }catch(error){
-
-    }
 
   }
 

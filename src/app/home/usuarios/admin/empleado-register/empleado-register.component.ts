@@ -61,8 +61,8 @@ export class EmpleadoRegisterComponent implements OnInit {
       empGenero: [null, []],
       empPuesto: [null, [Validators.required]],
       empSalari: [null, [Validators.required]],
-      empCorreo: [null, [Validators.required, Validators.email, Validators.pattern("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/")]],
-      empPass:   [null, [Validators.required]],
+      empCorreo: [null, [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
+      empPass:   [null, [Validators.required, Validators.minLength(5)]],
     });
   }
 
@@ -80,7 +80,8 @@ export class EmpleadoRegisterComponent implements OnInit {
         this.formEmpleado.value.empGenero != null &&
         this.formEmpleado.value.empSalari != null &&
         this.formEmpleado.value.empCorreo != null &&
-        this.formEmpleado.value.empPass != null 
+        this.formEmpleado.value.empPass != null && 
+        this.formEmpleado.value.empPass.length >= 5
       ){
         let day = this.formEmpleado.value.empFechaN;
         day = day.split("-");
