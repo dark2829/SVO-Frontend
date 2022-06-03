@@ -105,7 +105,7 @@ export class EmpleadoRegisterComponent implements OnInit {
           setTimeout(() => {this.listaEmpleado()}, 2500);
         }, error => {
           console.log(error);
-          this.alerta.showAlert(error.errror.message, "danger", 2000, error.status);
+          this.alerta.showAlert("Error al registrar al empleado", "danger", 2000, error.status);
         });
       }else{
         this.alerta.showAlert("Faltan datos", "danger", 2000);
