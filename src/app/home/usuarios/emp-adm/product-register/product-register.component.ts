@@ -60,7 +60,7 @@ export class ProductRegisterComponent implements OnInit {
         this.codigo_producto = this.zfill(this.codigo_producto, 9);
       })
       this.formProducto = this.formBuilder.group({
-        fcodProd:     [this.codigo_producto, [Validators.required, Validators.maxLength(9), Validators.maxLength(9)]],
+        fcodProd:     [this.codigo_producto, [Validators.required, Validators.maxLength(12), Validators.maxLength(12)]],
         fname:        [null, [Validators.required]],
         fcategoria:   [null, [Validators.required]],
         fcantidad:    [null, [Validators.required, Validators.min(0)]],
