@@ -96,7 +96,7 @@ export class ProductRegisterComponent implements OnInit {
         this.formProducto.value.fDescription != ""
       ) {      
         this.productos.saveProducto(loadProductos, {
-          codigo_prod: this.codigo_producto,
+          codigo_prod: this.formProducto.value.fcodProd,
           imagen: this.img ,
           nombre: this.formProducto.value.fname,
           categoria: this.formProducto.value.fcategoria,

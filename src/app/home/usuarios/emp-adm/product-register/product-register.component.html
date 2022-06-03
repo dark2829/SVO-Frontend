@@ -105,7 +105,7 @@
                                         <label for="staticEmail2" class="mt-2">Precio de compra</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpCompra" min="0.00" type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" step="0.001" class="form-control" id="precioCompra"
+                                        <input formControlName="fpCompra" min="0.00" type="text" maxlength="4" minlength="0" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" step="0.001" class="form-control" id="precioCompra"
                                             placeholder="$00.00" required>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                         <label for="staticEmail2" class="mt-2">Precio de venta</label>
                                     </div>
                                     <div class="col col-7"> 
-                                        <input formControlName="fpVenta" min="0.00" type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" step="0.001" class="form-control" id="precioCompra"
+                                        <input formControlName="fpVenta" min="0.00" type="text" maxlength="4" minlength="0" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" step="0.001" class="form-control" id="precioCompra"
                                         placeholder="$00.00" required>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                                         <label for="staticEmail2" class="mt-2">Precio con descuento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpDesc" min="0.00" type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" class="form-control" id="precioDescuento"
+                                        <input formControlName="fpDesc" min="0.00" type="text" maxlength="4" minlength="0" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" class="form-control" id="precioDescuento"
                                             placeholder="$00.00" step="0.001" required>
                                     </div>
                                 </div>
