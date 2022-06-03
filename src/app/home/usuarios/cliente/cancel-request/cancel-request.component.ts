@@ -63,6 +63,7 @@ export class CancelRequestComponent implements OnInit {
   } 
 
   realizarSolicitud(){
+    console.log(this.route.snapshot.params['id'])
     this.pedido.requestCanceled(this.route.snapshot.params['id'].toString(), {
       "motivoCancelacion": this.formCanceled1.value.mensaje
     }).subscribe(response => {
