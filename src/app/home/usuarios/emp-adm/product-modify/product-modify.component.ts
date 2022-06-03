@@ -67,7 +67,7 @@ export class ProductModifyComponent implements OnInit {
         this.estado = response.data.estatus;
 
         this.formProducto = this.formBuilder.group({
-          fcodProd:     [this.codigoProducto, [Validators.required]],
+          fcodProd:     [this.codigoProducto, [Validators.required, Validators.maxLength(9), Validators.maxLength(9)]],
           fname:        [this.nombre,         [Validators.required]],
           fcategoria:   [this.categoria,      [Validators.required]],
           fcantidad:    [this.cantidad,       [Validators.required, Validators.min(0)]],

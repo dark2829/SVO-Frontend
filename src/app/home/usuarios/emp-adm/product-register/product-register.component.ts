@@ -60,7 +60,7 @@ export class ProductRegisterComponent implements OnInit {
         this.codigo_producto = this.zfill(this.codigo_producto, 9);
       })
       this.formProducto = this.formBuilder.group({
-        fcodProd:     [this.codigo_producto, [Validators.required]],
+        fcodProd:     [this.codigo_producto, [Validators.required, Validators.maxLength(9), Validators.maxLength(9)]],
         fname:        [null, [Validators.required]],
         fcategoria:   [null, [Validators.required]],
         fcantidad:    [null, [Validators.required, Validators.min(0)]],
@@ -78,8 +78,8 @@ export class ProductRegisterComponent implements OnInit {
   load(){
     const loadProductos = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_INSERT
     if(this.formProducto.valid == true){
-      if(
-        this.formProducto.value.fname != null &&
+      if (
+        this.formProducto.value.fname != null && 
         this.formProducto.value.fcategoria != null &&
         this.formProducto.value.fcantidad != null &&
         this.formProducto.value.fpCompra != null &&
@@ -93,8 +93,8 @@ export class ProductRegisterComponent implements OnInit {
         this.formProducto.value.fpCompra != "" &&
         this.formProducto.value.fpVenta != "" &&
         this.formProducto.value.fpDesc != "" &&
-        this.formProducto.value.fDescription != "" 
-      ){      
+        this.formProducto.value.fDescription != ""
+      ) {      
         this.productos.saveProducto(loadProductos, {
           codigo_prod: this.codigo_producto,
           imagen: this.img ,
