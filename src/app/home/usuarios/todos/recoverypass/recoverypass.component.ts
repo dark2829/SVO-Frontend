@@ -37,7 +37,7 @@ export class RecoverypassComponent implements OnInit {
     }).subscribe(response => {
       this.alerta.showAlert("Revise su su correo electrónico", "success", 2500);
     },reject => {
-      this.alerta.showAlert("El correo no esta asociado a una cuenta", "danger", 3000);
+      this.alerta.showAlert("No se encontró el correo electrónico ingresado, verifíquelo", "danger", 3000);
     });
   }
 
