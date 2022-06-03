@@ -170,7 +170,7 @@
                                     <div class="form-check mt-2 datosRequeridos">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             <span class="text-dark">No</span>
-                                            <input formControlName="factura" class="form-check-input" type="radio"
+                                            <input formControlName="factura" (click)="returnFalse()"class="form-check-input" type="radio"
                                                 name="factura" id="No" value="0">
                                         </label>
                                     </div>

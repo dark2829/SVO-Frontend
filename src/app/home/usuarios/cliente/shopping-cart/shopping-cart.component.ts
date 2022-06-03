@@ -118,6 +118,10 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
+  returnFalse(){
+    this.activarDownload = false; 
+  }
+
   continieBuy(){
     this.persona.getProduct(this.token.getID()).subscribe(response => {
       if(response.data.carrito != null){
