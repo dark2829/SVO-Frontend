@@ -100,7 +100,7 @@ export class ProductModifyComponent implements OnInit {
       this.productos.updateProducto(enviarActualizacion, {
         codigo_prod: this.formProducto.value.fcodProd,
         imagen: this.img,
-        nombre: this.formProducto.value.fname,
+        nombre: this.formProducto.value.fname.trimStart(),
         categoria: this.formProducto.value.fcategoria,
         cantidad: this.formProducto.value.fcantidad,
         precio_compra: this.formProducto.value.fpCompra,
