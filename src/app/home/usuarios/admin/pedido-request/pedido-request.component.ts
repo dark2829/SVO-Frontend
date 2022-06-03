@@ -25,7 +25,10 @@ export class PedidoRequestComponent implements OnInit {
   idPedido: any;
   urlMini: any; 
   correo: any; 
-  
+
+  soliSend: boolean; 
+  respuesta: any = null; 
+
   constructor(
     private router: Router, 
     private enlaces: EnlacesService,
@@ -46,10 +49,14 @@ export class PedidoRequestComponent implements OnInit {
       this.pagototal = response.data.idCompra.pago_total;
       this.correo = response.data.idCompra.idUsuario.correo;
       this.idPedido = response.data.id;
+      if(response.data.solicitudCancelacion != null){
+        this.soliSend = true; 
+        this.respuesta = response.data.solicitudCancelacion.motivo_resp;
+      }
     })
 
     this.formCanceled = this.formBuilder.group({
-      respuesta: [null, [Validators.required]]
+      respuesta: [this.respuesta , [Validators.required]]
     });
   }
 
