@@ -44,7 +44,7 @@
                                         <label for="staticEmail2" class="mt-2">Nombre</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="fNombre" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="nombre" placeholder="Alejandro"
+                                        <input formControlName="fNombre" maxlength="35" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="nombre" placeholder="Alejandro"
                                             required>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                         <label for="staticEmail2" class="mt-2">Apellido Paterno</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="fApellidoP"  onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="apellidoP" placeholder="Martínez "
+                                        <input formControlName="fApellidoP" maxlength="30"  onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="apellidoP" placeholder="Martínez "
                                             required>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                         <label for="staticEmail2" class="mt-2">Apellido Materno</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="fApellidoM" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="apellidoM" placeholder="López "
+                                        <input formControlName="fApellidoM" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" type="text" class="form-control" id="apellidoM" placeholder="López "
                                             required>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                         <label for="staticEmail2" class="mt-2">Correo electrónico</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="fCorreo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$" type="text" class="form-control" id="correo"
+                                        <input formControlName="fCorreo" maxlength="30" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$" type="text" class="form-control" id="correo"
                                             placeholder="example@exaple.com" required>
                                     </div>
                                 </div>
