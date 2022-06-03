@@ -22,13 +22,13 @@
                                 <div class="container w-75 mt-5">
                                     <form class="row was-validated needs-validation" [formGroup]="formPersona" errorTailor novalidate>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoFname" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+                                            <input formControlName="persoFname" maxlength="45" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoSname" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+                                            <input formControlName="persoSname" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoEmail" class="form-control" type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
+                                            <input formControlName="persoEmail" maxlength="35" class="form-control" type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
                                             <input formControlName="persoPassw" class="form-control" type="password" name="contraseña" id="contrasena" placeholder="Contraseña" required maxlength="8" minlength="5">
