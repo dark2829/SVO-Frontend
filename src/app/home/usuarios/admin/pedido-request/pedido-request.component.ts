@@ -26,7 +26,7 @@ export class PedidoRequestComponent implements OnInit {
   urlMini: any; 
   correo: any; 
 
-  soliSend: boolean; 
+  soliSend: boolean = false; 
   respuesta: any = null; 
 
   constructor(
@@ -50,9 +50,12 @@ export class PedidoRequestComponent implements OnInit {
       this.correo = response.data.idCompra.idUsuario.correo;
       this.idPedido = response.data.id;
       if(response.data.solicitudCancelacion != null){
-        this.soliSend = true; 
+        if(response.data.solicitudCancelacion.motivo_resp != null){
+          this.soliSend = true; 
+        }
         this.respuesta = response.data.solicitudCancelacion.motivo_resp;
       }
+      console.log(response);
     })
 
     this.formCanceled = this.formBuilder.group({
