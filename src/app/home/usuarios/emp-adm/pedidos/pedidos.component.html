@@ -81,12 +81,21 @@
                                                     <td>{{pedido.idCompra.tipo_envio}}</td>
                                                     <td>{{retornarDireccion(pedido.idCompra.direccion)}}</td>
                                                     <td>
-                                                        <select class="form-select" aria-label="Default select example" [ngModel]="pedido.estatus" (ngModelChange)="retornarStatus(pedido.id, $event)">
+                                                        <select class="form-select" aria-label="Default select example" *ngIf="pedido.solicitudCancelacion == null; else cancel "  [ngModel]="pedido.estatus" (ngModelChange)="retornarStatus(pedido.id, $event)">
                                                             <option value="Nuevo">Nuevo</option>
                                                             <option value="En proceso">En proceso</option>
                                                             <option value="Realizado">Realizado</option>
                                                             <option value="Cancelado">Cancelado</option>
                                                         </select>
+
+                                                        <ng-template #cancel>
+                                                            <select class="form-select" aria-label="Default select example" disabled="true" [ngModel]="pedido.estatus" (ngModelChange)="retornarStatus(pedido.id, $event)">
+                                                                <option value="Nuevo">Nuevo</option>
+                                                                <option value="En proceso">En proceso</option>
+                                                                <option value="Realizado">Realizado</option>
+                                                                <option value="Cancelado">Cancelado</option>
+                                                            </select>
+                                                        </ng-template>
                                                     </td>
                                                     <td>6/03/2022</td>
                                                     <td>
