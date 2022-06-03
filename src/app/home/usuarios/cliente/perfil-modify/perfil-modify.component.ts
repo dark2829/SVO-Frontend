@@ -146,14 +146,14 @@ export class PerfilModifyComponent implements OnInit {
       }
 
       this.formularioPersona = this.formBuilder.group({
-        nombre: [this.nombre, [Validators.required]],
-        apellP: [this.apellP, [Validators.required]],
-        apellM: [this.apellM, [Validators.required]],
+        nombre: [this.nombre.trimStart().trimEnd(), [Validators.required]],
+        apellP: [this.apellP.trimStart().trimEnd(), [Validators.required]],
+        apellM: [this.apellM.trimStart().trimEnd(), [Validators.required]],
         fnaciM: [this.fnaciM],
         genero: [this.genero],
-        correo: [this.correo],
+        correo: [this.correo.trimStart().trimEnd()],
         contas: [null, [Validators.minLength(5), Validators.maxLength(8)]],
-        telefo: [this.telefo],
+        telefo: [this.telefo.trimStart().trimEnd()],
   
         fcalle: [this.fcalle],
         fcolon: [this.fcolon],
@@ -198,12 +198,12 @@ export class PerfilModifyComponent implements OnInit {
         //? Identificar que tipo de modificacion se hace
         const API_CLIENT = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_P+this.token.getID()+this.enlaces.PERSONA_UPDATE_U+this.indexClient;
         this.persona.updateClientDataPerson(API_CLIENT, {
-          nombre: this.formularioPersona.value.nombre,
-          apellido_paterno: this.formularioPersona.value.apellP,
-          apellido_materno: this.formularioPersona.value.apellM,
+          nombre: this.formularioPersona.value.nombre.trimStart().trimEnd(),
+          apellido_paterno: this.formularioPersona.value.apellP.trimStart().trimEnd(),
+          apellido_materno: this.formularioPersona.value.apellM.trimStart().trimEnd(),
           fecha_nacimiento: date,
           genero: this.formularioPersona.value.genero,
-          correo: this.formularioPersona.value.correo,
+          correo: this.formularioPersona.value.correo.trimStart().trimEnd(),
           contrasena: this.formularioPersona.value.contas,
           telefono: this.formularioPersona.value.telefo
         }).subscribe(
@@ -243,9 +243,9 @@ export class PerfilModifyComponent implements OnInit {
         console.log(response.data.idPersona.direccion[this.indexToSaved].id)
         this.persona.updateClientDirection(API_ADDRESS, {
           idDireccion: response.data.idPersona.direccion[this.indexToSaved].id,
-          calle: this.formularioPersona.value.fcalle,
-          colonia: this.formularioPersona.value.fcolon,
-          municipio: this.formularioPersona.value.munici,
+          calle: this.formularioPersona.value.fcalle.trimStart().trimEnd(),
+          colonia: this.formularioPersona.value.fcolon.trimStart().trimEnd(),
+          municipio: this.formularioPersona.value.munici.trimStart().trimEnd(),
           estado: this.formularioPersona.value.estado,
           cp: this.formularioPersona.value.codPos,
           n_interior: this.formularioPersona.value.ninter,
