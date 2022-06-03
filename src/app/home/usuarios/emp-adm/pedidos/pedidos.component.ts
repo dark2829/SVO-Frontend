@@ -57,7 +57,7 @@ export class PedidosComponent implements OnInit {
 
   retornarStatus(idPedido: string, evento: any){
     this.pedido.updateSatus(idPedido, evento).subscribe(response => {
-      this.alerta.showAlert("Status de pedido actualizado", "success", 2000);
+      this.alerta.showAlert("Estatus de pedido actualizado", "success", 2000);
       setTimeout(() => {window.location.reload() }, 1000);
     });
     console.log(evento);
