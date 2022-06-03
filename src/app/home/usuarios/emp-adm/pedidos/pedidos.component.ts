@@ -16,7 +16,7 @@ export class PedidosComponent implements OnInit {
   id = 1;  
   selectStatus: any;
   page: number = 1; 
-  pedidos: any = {};
+  pedidos: any = null;
   user: string ; 
 
   formPedido: FormGroup;
@@ -38,6 +38,7 @@ export class PedidosComponent implements OnInit {
     this.pedido.getAllPedidos().subscribe(response => {
       this.pedidos = response; 
     });
+
   }
 
   retornarDireccion(texto: string){
