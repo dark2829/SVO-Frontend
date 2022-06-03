@@ -248,7 +248,7 @@
                                                     class="form-label">Municipio</label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="munici" value="" type="text"
+                                                <input formControlName="munici" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text"
                                                     class="form-control" id="idMunicipio" placeholder="Municipio">
                                             </div>
                                         </div>
@@ -282,7 +282,7 @@
                                                     interior </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="ninter" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" value="" type="text"
+                                                <input formControlName="ninter" maxlength="6" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" value="" type="text"
                                                     class="form-control" id="idNinterior"
                                                     placeholder="Numero interior ">
                                             </div>
@@ -293,7 +293,7 @@
                                                     exterior </label>
                                             </div>
                                             <div class="col col-8">
-                                                <input formControlName="nexter" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" value="" type="text"
+                                                <input formControlName="nexter" maxlength="6" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" value="" type="text"
                                                     class="form-control" id="idNexterior" placeholder="interior">
                                             </div>
                                         </div>
