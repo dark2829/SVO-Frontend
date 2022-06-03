@@ -33,7 +33,7 @@
                                                 <label for="staticEmail2" class="mt-2">Nombre de Proveedor</label>
                                             </div>
                                             <div class="col col-7 datosRequeridos">
-                                                <input formControlName="proveedorNombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                                                <input formControlName="proveedorNombre" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32 || event.charCode == 95 || event.charCode == 46 || event.charCode == 45 || event.charCode == 127)" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
                                             </div>
                                         </div>
                                         
@@ -42,7 +42,7 @@
                                                 <label for="staticEmail2" class="mt-2">Numero de contacto</label>
                                             </div>
                                             <div class="col col-7 datosRequeridos position-relative">
-                                                <input [controlErrorsTpl]="phone" formControlName="proveedorTelefono" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" id="telefono" placeholder="2418000101" required [minlength]="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                                <input [controlErrorsTpl]="phone" formControlName="proveedorTelefono" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" id="telefono" placeholder="2418000101" required [minlength]="10" maxlength="10" >
                                                 <ng-template let-error let-text="text" #phone>{{text}}</ng-template>
                                             </div>
                                         </div>

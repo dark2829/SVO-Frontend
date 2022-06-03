@@ -34,7 +34,7 @@
                                         <label for="staticEmail2" class="mt-2">Nombre de Proveedor</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="hproveedorNombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required >
+                                        <input formControlName="hproveedorNombre" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32 || event.charCode == 95 || event.charCode == 46 || event.charCode == 45 || event.charCode == 127)" type="text" class="form-control" id="nombre" placeholder="Nombre" required >
                                     </div>
                                 </div>
 
