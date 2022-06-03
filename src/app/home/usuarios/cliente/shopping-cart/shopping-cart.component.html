@@ -318,7 +318,7 @@
             <div class="modal-footer">
                 <button [disabled]="activeTarject" (click)="tarjectToBuy(tarjetBuy)" type="button"
                     class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="activeDirectionradio()" data-bs-dismiss="modal">Cerrar</button>
             </div>
 
         </div>
@@ -360,7 +360,7 @@
             <div class="modal-footer">
                 <button [disabled]="activeDirection" (click)="directionToSend(dirToSend)" type="button"
                     class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="activeDirectionradio2()" data-bs-dismiss="modal">Cerrar</button>
             </div>
 
         </div>

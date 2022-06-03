@@ -217,5 +217,19 @@ export class ShoppingCartComponent implements OnInit {
       + `${b64}`);
     }
   }
-
+  
+  activeDirectionradio(){
+    this.fCarrito = this.formBuilder.group({
+      pago:     ['efectivo',[Validators.required]],
+      entrega:  [this.fCarrito.value.entrega,[Validators.required]],
+      factura:  [this.fCarrito.value.factura,[Validators.required]],
+    })
+  }
+  activeDirectionradio2(){
+    this.fCarrito = this.formBuilder.group({
+      pago:     [this.fCarrito.value.pago ,[Validators.required]],
+      entrega:  ['Tienda',[Validators.required]],
+      factura:  [this.fCarrito.value.factura,[Validators.required]],
+    })
+  }
 }
