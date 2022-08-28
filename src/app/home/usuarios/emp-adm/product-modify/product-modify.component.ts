@@ -45,6 +45,18 @@ export class ProductModifyComponent implements OnInit {
 
   // Cargar datos al form
   ngOnInit(): void {
+    this.formProducto = this.formBuilder.group({
+      fcodProd:     [null, [Validators.required, Validators.maxLength(9), Validators.minLength(9)]],
+      fname:        [null, [Validators.required]],
+      fcategoria:   [null, [Validators.required]],
+      fcantidad:    [null, [Validators.required, Validators.min(0)]],
+      fpCompra:     [null, [Validators.required, Validators.min(0.00)]],
+      fpVenta:      [null, [Validators.required, Validators.min(0.00)]],
+      fpDesc:       [null, [Validators.required, Validators.min(0.00)]],
+      fDescription: [null, [Validators.required]],
+      festado:      [null, [Validators.required]]
+    }); 
+
     this.tipImage = "Se recomienda que las imágenes sean png con una dimencion de 1540x1830";
     if (this.tokenService.getToken()) {
       this.index = this.route.snapshot.params['id'].toString();
@@ -65,30 +77,19 @@ export class ProductModifyComponent implements OnInit {
         this.pdesc = response.data.precio_descuento;
         this.description = response.data.descripcion;
         this.estado = response.data.estatus;
-
-        this.formProducto = this.formBuilder.group({
-          fcodProd:     [this.codigoProducto, [Validators.required, Validators.maxLength(12), Validators.maxLength(12)]],
-          fname:        [this.nombre,         [Validators.required]],
-          fcategoria:   [this.categoria,      [Validators.required]],
-          fcantidad:    [this.cantidad,       [Validators.required, Validators.min(0)]],
-          fpCompra:     [this.pcompra,        [Validators.required, Validators.min(0.00)]],
-          fpVenta:      [this.pventa,         [Validators.required, Validators.min(0.00)]],
-          fpDesc:       [this.pdesc,          [Validators.required, Validators.min(0.00)]],
-          fDescription: [this.description,    [Validators.required]],
-          festado:      [this.estado, []]
-        })
+        this.formProducto.patchValue({
+            fcodProd:     this.codigoProducto, 
+            fname:        this.nombre,         
+            fcategoria:   this.categoria,      
+            fcantidad:    this.cantidad,       
+            fpCompra:     this.pcompra,        
+            fpVenta:      this.pventa,         
+            fpDesc:       this.pdesc,          
+            fDescription: this.description,    
+            festado:      this.estado
+          });
       });
-      this.formProducto = this.formBuilder.group({
-          fcodProd:     [this.codigoProducto, [Validators.required]],
-          fname:        [this.nombre,         [Validators.required]],
-          fcategoria:   [this.categoria,      [Validators.required]],
-          fcantidad:    [this.cantidad,       [Validators.required, Validators.min(0)]],
-          fpCompra:     [this.pcompra,        [Validators.required, Validators.min(0.00)]],
-          fpVenta:      [this.pventa,         [Validators.required, Validators.min(0.00)]],
-          fpDesc:       [this.pdesc,          [Validators.required, Validators.min(0.00)]],
-          fDescription: [this.description,    [Validators.required]],
-          festado:      [this.estado, []]
-        })
+      
     } else {
       console.log("No hay token");
     }

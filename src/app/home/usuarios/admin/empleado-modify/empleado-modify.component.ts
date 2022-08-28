@@ -69,13 +69,13 @@ export class EmpleadoModifyComponent implements OnInit {
         fApellidoM:  [null, [Validators.required]],
         fCurp:       [null, [Validators.required]],
         fFnac:       [null, [Validators.required]],
-        fGenero:     [null , [Validators.required]],
+        fGenero:     [null ,[Validators.required]],
         fTelefono:   [null, [Validators.required]],
         fPuesto:     [null, [Validators.required]],
         fSalario:    [null, [Validators.required]],
         fCorreo:     [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
         fContra:     [null, [Validators.required, Validators.minLength(5)]],
-        fStatus:     [null, [Validators.required]]
+        fStatus:     ['',   [Validators.required]]
       });
       
       this.empleado.getAllEmpleadosByID(this.index).subscribe(response => {
@@ -101,20 +101,20 @@ export class EmpleadoModifyComponent implements OnInit {
         this.ePass     = ""
         this.eStatus   = response.data.idEmpleado.estatus;
 
-          this.formEmpleado = this.formBuilder.group({
-            fEmpleado:   [this.nEmpleado, [Validators.required]], 
-            fNombre:     [this.eNombre ,[Validators.required]],
-            fApellidoP:  [this.aPaterno, [Validators.required]],
-            fApellidoM:  [this.aMaterno, [Validators.required]],
-            fCurp:       [this.eCurp, [Validators.required]],
-            fFnac:       [this.fNacimiento, [Validators.required]],
-            fGenero:     [this.eGender , [Validators.required]],
-            fTelefono:   [this.eTelefono, [Validators.required]],
-            fPuesto:     [this.ePuesto, [Validators.required]],
-            fSalario:    [this.eSalario, [Validators.required]],
-            fCorreo:     [this.eCorreo, [Validators.required, Validators.email]],
-            fContra:     [null, [Validators.required]],
-            fStatus:     [this.eStatus, [Validators.required]]
+          this.formEmpleado.patchValue({
+            fEmpleado:   this.nEmpleado, 
+            fNombre:     this.eNombre,
+            fApellidoP:  this.aPaterno,
+            fApellidoM:  this.aMaterno,
+            fCurp:       this.eCurp,
+            fFnac:       this.fNacimiento,
+            fGenero:     this.eGender ,
+            fTelefono:   this.eTelefono,
+            fPuesto:     this.ePuesto,
+            fSalario:    this.eSalario,
+            fCorreo:     this.eCorreo,
+            fContra:     null,
+            fStatus:     this.eStatus
           });
       })
     }
