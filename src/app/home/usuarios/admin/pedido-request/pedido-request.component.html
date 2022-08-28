@@ -106,8 +106,14 @@
                                         <label for="staticEmail2" class="mt-2">Motivo</label>
                                     </div>
                                     <div class="col col-7">
-                                        <textarea formControlName="respuesta" class="form-control border border-primary" [value]="respuesta" rows="5" id="comment"
+                                        <div *ngIf="respuesta == null; else responseOk">
+                                            <textarea formControlName="respuesta" class="form-control border border-primary" [value]="respuesta" rows="5" id="comment"
                                             name="text" required></textarea>
+                                        </div>
+                                        <ng-template #responseOk>
+                                            <textarea formControlName="respuesta" class="form-control border border-primary" [value]="respuesta" rows="5" id="comment"
+                                            name="text" required readonly></textarea>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </form>

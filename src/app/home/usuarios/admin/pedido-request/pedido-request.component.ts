@@ -43,6 +43,9 @@ export class PedidoRequestComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.formCanceled = this.formBuilder.group({
+      respuesta: [this.respuesta , [Validators.required]]
+    });
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
       this.codigoCompra = response.data.idCompra.codigo_compra
       this.motivo = response.data.solicitudCancelacion.motivo_cancel;      
@@ -55,12 +58,10 @@ export class PedidoRequestComponent implements OnInit {
         }
         this.respuesta = response.data.solicitudCancelacion.motivo_resp;
       }
-      console.log(response);
-    })
-
-    this.formCanceled = this.formBuilder.group({
-      respuesta: [this.respuesta , [Validators.required]]
-    });
+      this.formCanceled.patchValue({
+        respuesta: this.respuesta
+      });
+    }); 
   }
 
   sendresponse(respuesta: string){
