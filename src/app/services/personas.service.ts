@@ -98,9 +98,9 @@ export class PersonasService {
     colonia: string; 
     municipio: string; 
     estado: string; 
-    cp: string; 
-    n_interior: number; 
-    n_exterior: number; 
+    cp: any; 
+    n_interior: any; 
+    n_exterior: any; 
     referencia: string; 
   }){
     return this.http.post(url, body);

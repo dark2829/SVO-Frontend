@@ -14,7 +14,10 @@ import { AlertaService } from '../../../../services/alerta.service';
 })
 export class PerfilModifyComponent implements OnInit {  
 
-  formularioPersona: FormGroup;
+  formularioPersona: FormGroup; // Datos personales
+  formularioDirection: FormGroup; // Direcciones
+  formularioCards: FormGroup; // Tarjetas
+
   indexClient: any;
 
   fileChange: boolean = false;
@@ -38,6 +41,7 @@ export class PerfilModifyComponent implements OnInit {
     private alerta: AlertaService
   ) { }
 
+  /* Variables para cargar informacion */
   nombre: any = null; 
   apellP: any = null; 
   apellM: any = null; 
@@ -62,35 +66,39 @@ export class PerfilModifyComponent implements OnInit {
   fvenci: any = null; 
 
   ngOnInit(): void{
-    //?Setear formulario
+    //? Setear formulario
     this.formularioPersona = this.formBuilder.group({
-      nombre: [this.nombre, [Validators.required]],
-      apellP: [this.apellP, [Validators.required]],
-      apellM: [this.apellM, [Validators.required]],
-      fnaciM: [this.fnaciM],
-      genero: [this.genero],
-      correo: [this.correo],
-      contas: [this.passwo, [Validators.minLength(5), Validators.maxLength(8)]],
-      telefo: [this.telefo],
+      nombre: ['', [Validators.required]],
+      apellP: ['', [Validators.required]],
+      apellM: ['', [Validators.required]],
+      fnaciM: [''],
+      genero: [''],
+      correo: [''],
+      contas: ['', [Validators.minLength(5), Validators.maxLength(8)]],
+      telefo: [''],
+    });
 
-      fcalle: [this.fcalle],
-      fcolon: [this.fcolon],
-      munici: [this.munici],
-      estado: [this.estado],
-      codPos: [this.codPos],
-      ninter: [this.ninter],
-      nexter: [this.nexter],
-      refere: [this.refere],
-
-      namePr: [this.namePr],
-      numbeT: [this.numbeT],
-      cvvTar: [this.cvvTar],
-      fvenci: [this.fvenci]
+    this.formularioDirection = this.formBuilder.group({
+      fcalle: [null],
+      fcolon: [null],
+      munici: [null],
+      estado: [null, [Validators.required]],
+      codPos: [null, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+      ninter: [null, [Validators.maxLength(5), Validators.minLength(1)]],
+      nexter: [null, [Validators.required, Validators.maxLength(5), Validators.minLength(1)]],
+      refere: [null],
+    });
+    
+    this.formularioCards = this.formBuilder.group({
+      namePr: [null, [Validators.required]],
+      numbeT: [null, [Validators.required]],
+      cvvTar: [null, [Validators.required]],
+      fvenci: [null, [Validators.required]]
     });
 
     let parsear;
+    //? Obtiene la infromario de la persona
     this.persona.getPerson(this.token.getID()).subscribe(response => {
-      console.log(response);
       if (response.data.idPersona.foto != null) {
         this.fileChange = true;
         this.preView = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+response.data.idPersona.foto)
@@ -130,50 +138,54 @@ export class PerfilModifyComponent implements OnInit {
         this.fcolon = response.data.idPersona.direccion[0].colonia;
         this.munici = response.data.idPersona.direccion[0].municipio;  
         this.estado = response.data.idPersona.direccion[0].estado;  
-        this.codPos = response.data.idPersona.direccion[0].cp;  
-        this.ninter = response.data.idPersona.direccion[0].n_interior;  
-        this.nexter = response.data.idPersona.direccion[0].n_exterior;  
+        this.codPos = (response.data.idPersona.direccion[0].cp === -1) ? null : response.data.idPersona.direccion[0].cp;  
+        this.ninter = (response.data.idPersona.direccion[0].n_interior === -1) ? null : response.data.idPersona.direccion[0].n_interior;  
+        this.nexter = (response.data.idPersona.direccion[0].n_exterior === -1) ? null : response.data.idPersona.direccion[0].n_exterior;  
         this.refere = response.data.idPersona.direccion[0].referencia;  
       }
 
       if(response.data.idPersona.tarjeta[0].numero != null){
         this.namePr = response.data.idPersona.tarjeta[0].nombre_propietario;
         this.numbeT = response.data.idPersona.tarjeta[0].numero;
-        this.cvvTar = response.data.idPersona.tarjeta[0].cvv;
+        this.cvvTar = (response.data.idPersona.tarjeta[0].cvv === -1) ? null : response.data.idPersona.tarjeta[0].cvv;
         parsear = response.data.idPersona.tarjeta[0].fecha_vencimiento;
         parsear = parsear.split("/");
         parsear = parsear[0] + "-" + parsear[1];
         this.fvenci = parsear;
       }
 
-      this.formularioPersona = this.formBuilder.group({
-        nombre: [this.nombre, [Validators.required]],
-        apellP: [this.apellP, [Validators.required]],
-        apellM: [this.apellM, [Validators.required]],
-        fnaciM: [this.fnaciM],
-        genero: [this.genero],
-        correo: [this.correo],
-        contas: [null, [Validators.minLength(5), Validators.maxLength(8)]],
-        telefo: [this.telefo],
-  
-        fcalle: [this.fcalle],
-        fcolon: [this.fcolon],
-        munici: [this.munici],
-        estado: [this.estado],
-        codPos: [this.codPos, [Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]+")]],
-        ninter: [this.ninter, [Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]+")]],
-        nexter: [this.nexter, [Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]+")]],
-        refere: [this.refere],
-  
-        namePr: [this.namePr],
-        numbeT: [this.numbeT],
-        cvvTar: [this.cvvTar],
-        fvenci: [this.fvenci]
+      this.formularioPersona.patchValue({
+        nombre: response.data.idPersona.nombre,
+        apellP: response.data.idPersona.apellido_paterno,
+        apellM: response.data.idPersona.apellido_materno,
+        fnaciM: this.fnaciM,
+        genero: response.data.idPersona.genero,
+        correo: response.data.correo,
+        contas: '',
+        telefo: response.data.idPersona.telefono,
+      });
+
+      this.formularioDirection.patchValue({
+        fcalle: response.data.idPersona.direccion[0].calle,
+        fcolon: response.data.idPersona.direccion[0].colonia,
+        munici: response.data.idPersona.direccion[0].municipio,
+        estado: response.data.idPersona.direccion[0].estado,
+        codPos: this.codPos,
+        ninter: this.ninter,
+        nexter: this.nexter,
+        refere: response.data.idPersona.direccion[0].referencia,
+      });
+
+      this.formularioCards.patchValue({
+        namePr: response.data.idPersona.tarjeta[0].nombre_propietario,
+        numbeT: response.data.idPersona.tarjeta[0].numero,
+        cvvTar: this.cvvTar,
+        fvenci: response.data.idPersona.tarjeta[0].fecha_vencimiento
       });
     });
   }
 
-  public guardarInfo(){
+  public guardarInfo(){ //? Solo informacion basica
     const API_MODIFY_PERSON = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_P + this.token.getID() + this.enlaces.PERSONA_UPDATE_U + this.indexClient;
     
     // Formatear Fecha
@@ -242,19 +254,20 @@ export class PerfilModifyComponent implements OnInit {
     const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSaved;
     console.log("Direccion a guardar: ",this.directionToSaved);
 
-    if(this.formularioPersona.value.munici != null){
+    if(this.formularioDirection.value.munici != null){
       this.persona.getPerson(this.token.getID()).subscribe(response => {
         console.log(response.data.idPersona.direccion[this.indexToSaved].id)
+        const ni = (this.formularioDirection.value.ninter == null || this.formularioDirection.value.ninter == "") ? -1 : this.formularioDirection.value.ninter; 
         this.persona.updateClientDirection(API_ADDRESS, {
           idDireccion: response.data.idPersona.direccion[this.indexToSaved].id,
-          calle: this.formularioPersona.value.fcalle.trimStart().trimEnd(),
-          colonia: this.formularioPersona.value.fcolon.trimStart().trimEnd(),
-          municipio: this.formularioPersona.value.munici.trimStart().trimEnd(),
-          estado: this.formularioPersona.value.estado,
-          cp: this.formularioPersona.value.codPos,
-          n_interior: this.formularioPersona.value.ninter,
-          n_exterior: this.formularioPersona.value.nexter,
-          referencia: this.formularioPersona.value.refere
+          calle: this.formularioDirection.value.fcalle.trimStart().trimEnd(),
+          colonia: this.formularioDirection.value.fcolon.trimStart().trimEnd(),
+          municipio: this.formularioDirection.value.munici.trimStart().trimEnd(),
+          estado: this.formularioDirection.value.estado,
+          cp: this.formularioDirection.value.codPos,
+          n_interior: ni,
+          n_exterior: this.formularioDirection.value.nexter,
+          referencia: this.formularioDirection.value.refere
         }).subscribe(response => {
           this.alerta.showAlert(`Dirección ${this.indexToSaved+1} modificada`, "success", 2000);
         }, error => {
@@ -274,26 +287,18 @@ export class PerfilModifyComponent implements OnInit {
     this.persona.getPerson(this.token.getID()).subscribe(response => {
       console.log(response.data.idPersona.direccion[this.indexToSaved].id)
       this.persona.updateClientDirection(API_ADDRESS, {
+
         idDireccion: response.data.idPersona.direccion[this.indexToSaved].id,
         calle: "",
         colonia: "",
         municipio: "",
         estado: "",
-        cp: "0",
-        n_interior: 0,
-        n_exterior: 0,
+        cp: "-1",
+        n_interior: "-1",
+        n_exterior: "-1",
         referencia: ""
       }).subscribe(response => {
-        this.formularioPersona = this.formBuilder.group({
-          nombre: [this.nombre, [Validators.required]],
-          apellP: [this.apellP, [Validators.required]],
-          apellM: [this.apellM, [Validators.required]],
-          fnaciM: [this.fnaciM],
-          genero: [this.genero],
-          correo: [this.correo],
-          contas: [null],
-          telefo: [this.telefo],
-    
+        this.formularioDirection = this.formBuilder.group({    
           fcalle: [null],
           fcolon: [null],
           munici: [null],
@@ -302,11 +307,6 @@ export class PerfilModifyComponent implements OnInit {
           ninter: [null],
           nexter: [null],
           refere: [null],
-    
-          namePr: [this.namePr],
-          numbeT: [this.numbeT],
-          cvvTar: [this.cvvTar],
-          fvenci: [this.fvenci]
         });
         this.alerta.showAlert(`Dirección ${this.indexToSaved + 1} eliminada`, "success", 2000);
       }, error => {
@@ -326,9 +326,14 @@ export class PerfilModifyComponent implements OnInit {
     
     //? Rellenar formulario con info de la direccion
     this.persona.getPerson(this.token.getID()).subscribe(response => {
+      
+      const cp =     (response.data.idPersona.direccion[id].cp === -1) ? null : response.data.idPersona.direccion[id].cp ;
+      const ninter = (response.data.idPersona.direccion[id].n_interior === -1) ? null : response.data.idPersona.direccion[id].n_interior ;
+      const nexter = (response.data.idPersona.direccion[id].n_exterior === -1) ? null : response.data.idPersona.direccion[id].n_exterior ;
       this.indexToSaved = id;
-      if (response.data.idPersona.direccion[id].estado == null) {
-        this.formularioPersona = this.formBuilder.group({
+
+      if (response.data.idPersona.direccion[id].estado == null || response.data.idPersona.direccion[id].estado == "") {
+        this.formularioDirection = this.formBuilder.group({
           fcalle: [null],
           fcolon: [null],
           munici: [null],
@@ -341,14 +346,14 @@ export class PerfilModifyComponent implements OnInit {
         this.alerta.showAlert("Esta direccion no contiene datos", "warning", 2000);
       }else{
         this.directionToSaved = response.data.idPersona.direccion[id]
-        this.formularioPersona = this.formBuilder.group({
+        this.formularioDirection = this.formBuilder.group({
           fcalle: [response.data.idPersona.direccion[id].calle],
           fcolon: [response.data.idPersona.direccion[id].colonia],
           munici: [response.data.idPersona.direccion[id].municipio],
           estado: [response.data.idPersona.direccion[id].estado],
-          codPos: [response.data.idPersona.direccion[id].cp],
-          ninter: [response.data.idPersona.direccion[id].n_interior],
-          nexter: [response.data.idPersona.direccion[id].n_exterior],
+          codPos: [cp],
+          ninter: [ninter],
+          nexter: [nexter],
           refere: [response.data.idPersona.direccion[id].referencia],
         });  
       }
@@ -358,18 +363,18 @@ export class PerfilModifyComponent implements OnInit {
   public saveCard(){
     const API_TARJETA = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_CARDS+this.token.getID()+this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSavedTarjet;
     let parseDate: any; 
-    if(this.formularioPersona.value.fvenci != null){
-      console.log("Recibe fecha",this.formularioPersona.value.fvenci);
-      parseDate = this.formularioPersona.value.fvenci;
+    if(this.formularioCards.value.fvenci != null){
+      console.log("Recibe fecha",this.formularioCards.value.fvenci);
+      parseDate = this.formularioCards.value.fvenci;
       parseDate = parseDate.replace("/", "-");
       console.log(parseDate);
       this.persona.getPerson(this.token.getID()).subscribe(response => {
         this.persona.updateClientTarget(API_TARJETA, {
           idTarjeta: response.data.idPersona.tarjeta[this.indexToSavedTarjet].id,
-          nombre_propietario: this.formularioPersona.value.namePr,
-          numero_tarjeta: this.formularioPersona.value.numbeT,
-          fecha_vencimiento: this.formularioPersona.value.fvenci,
-          cvv: this.formularioPersona.value.cvvTar
+          nombre_propietario: this.formularioCards.value.namePr,
+          numero_tarjeta: this.formularioCards.value.numbeT,
+          fecha_vencimiento: this.formularioCards.value.fvenci,
+          cvv: this.formularioCards.value.cvvTar
         }).subscribe(response => {
           this.alerta.showAlert("tarjeta registrada", "success", 2500);
         }, reject => {
@@ -387,30 +392,12 @@ export class PerfilModifyComponent implements OnInit {
     this.persona.getPerson(this.token.getID()).subscribe(response => {
       this.persona.updateClientTarget(API_TARJETA, {
         idTarjeta: response.data.idPersona.tarjeta[this.indexToSavedTarjet].id,
-        nombre_propietario: " ",
-        numero_tarjeta: " ",
-        fecha_vencimiento: "000-00",
-        cvv: "0"
+        nombre_propietario: null,
+        numero_tarjeta: null,
+        fecha_vencimiento: "0000-00",
+        cvv: "-1"
       }).subscribe(response => {
-        this.formularioPersona = this.formBuilder.group({
-          nombre: [this.nombre, [Validators.required]],
-          apellP: [this.apellP, [Validators.required]],
-          apellM: [this.apellM, [Validators.required]],
-          fnaciM: [this.fnaciM],
-          genero: [this.genero],
-          correo: [this.correo],
-          contas: [null],
-          telefo: [this.telefo],
-    
-          fcalle: [this.fcalle],
-          fcolon: [this.fcolon],
-          munici: [this.munici],
-          estado: [this.estado],
-          codPos: [this.codPos],
-          ninter: [this.ninter],
-          nexter: [this.nexter],
-          refere: [this.refere],
-    
+        this.formularioCards = this.formBuilder.group({    
           namePr: [null],
           numbeT: [null],
           cvvTar: [null],
@@ -422,36 +409,10 @@ export class PerfilModifyComponent implements OnInit {
         this.alerta.showAlert("Ocurrio un pobema", "danger", 2500);
       });
     });
-
-    this.formularioPersona = this.formBuilder.group({
-      nombre: [this.nombre, [Validators.required]],
-      apellP: [this.apellP, [Validators.required]],
-      apellM: [this.apellM, [Validators.required]],
-      fnaciM: [this.fnaciM],
-      genero: [this.genero],
-      correo: [this.correo],
-      contas: [null],
-      telefo: [this.telefo],
-
-      fcalle: [this.fcalle],
-      fcolon: [this.fcolon],
-      munici: [this.munici],
-      estado: [this.estado],
-      codPos: [this.codPos],
-      ninter: [this.ninter],
-      nexter: [this.nexter],
-      refere: [this.refere],
-
-      namePr: [null],
-      numbeT: [null],
-      cvvTar: [null],
-      fvenci: [null]
-    });
   }
 
   //? Identifica el boton y rellena el formulario con la informacion de direccion
   tarjetActivedButton(id: number) {
-    console.log("tarjeta id: ",id)
     let parseData: any; 
     this.indexToSavedTarjet = id; 
 
@@ -461,8 +422,8 @@ export class PerfilModifyComponent implements OnInit {
     this.activeTarjet[id] = true;
 
     this.persona.getPerson(this.token.getID()).subscribe(response => {
-      if(response.data.idPersona.tarjeta[id].fecha_vencimiento == null){
-        this.formularioPersona = this.formBuilder.group({
+      if(response.data.idPersona.tarjeta[id].fecha_vencimiento == null || response.data.idPersona.tarjeta[id].fecha_vencimiento == ""){
+        this.formularioCards = this.formBuilder.group({
           namePr: [null],
           numbeT: [null],
           cvvTar: [null],
@@ -474,10 +435,10 @@ export class PerfilModifyComponent implements OnInit {
           parseData = response.data.idPersona.tarjeta[id].fecha_vencimiento;
         }
         this.tarjetToSaved = response.data.idPersona.tarjeta[id].id;
-        this.formularioPersona = this.formBuilder.group({
+        this.formularioCards = this.formBuilder.group({
           namePr: [response.data.idPersona.tarjeta[id].nombre_propietario],
           numbeT: [response.data.idPersona.tarjeta[id].numero],
-          cvvTar: [response.data.idPersona.tarjeta[id].cvv],
+          cvvTar: [this.cvvTar],
           fvenci: [parseData]
         });  
       }
