@@ -20,8 +20,14 @@
                                                 <label for="">Código de compra: </label>
                                             </div>
                                             <div class="col col-12 col-sm-12 col-md-9 col-lg-8">
-                                                <input value="{{codigoCompra}}" type="text " class="form-control" placeholder="Código de compra"
-                                                    name="compraCod" disabled>
+                                                <div *ngIf="codigoCompra.length != 0; else emptytext">
+                                                    <input  value="{{codigoCompra}}" type="text " class="form-control" placeholder="Código de compra"
+                                                        name="compraCod" disabled>
+                                                </div>
+                                                <ng-template #emptytext>
+                                                    <input  value="{{codigoCompra}}" type="text " class="form-control" placeholder="Código de compra"
+                                                        name="compraCod">
+                                                </ng-template>
                                             </div>
                                         </div>
                                     </div>
