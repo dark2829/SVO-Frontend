@@ -18,6 +18,7 @@ export class LoginComponent {
   contrasena: string;
   nombre: string;
   roles: string;
+  tipe: any = "password"; 
 
   @ViewChild('alerta') alerta: ElementRef;
   formLoginClient: FormGroup;
@@ -42,6 +43,11 @@ export class LoginComponent {
       formCorreo: [null, [Validators.required, Validators.email]],
       formPassword: [null, [Validators.required, Validators.maxLength(8)]]
     })
+  }
+
+  showpassword = () => {
+    const res = (this.tipe == 'password') ? 'text' : 'password' ;
+    this.tipe = res; 
   }
 
   ingresar() {
