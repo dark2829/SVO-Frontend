@@ -60,12 +60,12 @@ export class ProveedorModifyComponent implements OnInit {
             this.adres = elemento.direccion; 
             this.provee = elemento.provee;    
             
-            this.miFormulario = this.formBuilder.group({      
-              hproveedorNombre: [elemento.nombre, [Validators.required]],
-              hproveedorTelefono: [elemento.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-              hproveedorCorreo: [elemento.correo, [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
-              hproveedorDireccion: [elemento.direccion],
-              hproveedorProvee: [elemento.provee, [Validators.required]]
+            this.miFormulario.patchValue({      
+              hproveedorNombre:   elemento.nombre,
+              hproveedorTelefono: elemento.telefono,
+              hproveedorCorreo:   elemento.correo,
+              hproveedorDireccion:elemento.direccion,
+              hproveedorProvee:   elemento.provee
             });
           }
         });
