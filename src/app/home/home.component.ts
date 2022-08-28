@@ -61,6 +61,7 @@ export class HomeComponent {
 
     this.producto.getAllProductosClient().subscribe(response => {
       this.productos =  response.data;
+      console.log(this.productos);
       this.comunicacion.enviarMensajeObservable.subscribe(response => {
         this.productos =  response;
       });
