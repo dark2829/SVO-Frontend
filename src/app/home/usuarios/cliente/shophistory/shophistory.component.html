@@ -13,22 +13,25 @@
                     <div class="col p-0">
                         <p class="h4 text-white m-1">Pedidos Recibidos</p>
                         <div class="container">
-                            <div class="row" *ngFor="let recibed of productosRecibidos">
-                                <div *ngIf="recibed != null; else notieneRecibed" class="col text-white border border-light mb-2 p-0">
-                                    <p>Fecha: {{recibed.idCompra.fecha_venta}}</p>
-                                    <p>Código: {{recibed.idCompra.codigo_compra}}</p>
-                                    <p class="mt-2">Productos:<br>
-                                        <span>{{formatearProductos(recibed.idCompra.carrito)}}</span>
-                                    </p>                                    
-                                    <p>Precio de compra: $<span *ngIf=""></span> {{recibed.idCompra.pago_total}}
-                                    </p>
-                                </div>
-                                <ng-template #notieneRecibed>
-                                    <div class="col text-white border border-light mb-2">
-                                        No has realizado alguna compra
+
+                            <div *ngIf="productosRecibidos != null; else notieneRecibed">
+                                <div class="row" *ngFor="let recibed of productosRecibidos">
+                                    <div class="col text-white border border-light mb-2 p-0">
+                                        <p>Fecha: {{recibed.idCompra.fecha_venta}}</p>
+                                        <p>Código: {{recibed.idCompra.codigo_compra}}</p>
+                                        <p class="mt-2">Productos:<br>
+                                            <span>{{formatearProductos(recibed.idCompra.carrito)}}</span>
+                                        </p>                                    
+                                        <p>Precio de compra: $<span *ngIf=""></span> {{recibed.idCompra.pago_total}}
+                                        </p>
                                     </div>
-                                </ng-template>
+                                </div>
                             </div>
+                            <ng-template #notieneRecibed>
+                                <div class="col text-white border border-light mb-2">
+                                    No cuenta con compras
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -41,34 +44,36 @@
                     <div class="col p-0">
                         <p class="h4 text-white m-1">En proceso de entrega</p>
                         <div class="container mt-3">
-                            <div class="row" *ngFor="let inProces of productosInProcess">
-                                <div *ngIf="inProces != null; else notProcess" class="col col-12 text-white border border-light mb-3 position-relative mt-3 p-0">
-                                    <span class="modify badge bg-light">
-                                        <a type="button" [routerLink]="['/cancel-request', inProces.idCompra.id]">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20"
-                                                fill="currentColor" class="bi bi-pencil-square text-dark" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                                <path fill-rule="evenodd"
-                                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <p>Fecha: {{inProces.idCompra.fecha_venta}}</p>
-                                    <p>Código: {{inProces.idCompra.codigo_compra}}</p>
-                                    <p class="mt-2">Productos:<br>
-                                        <span>{{formatearProductos(inProces.idCompra.carrito)}}</span>
-                                    </p>
-                                    <p>Precio de compra: $<span *ngIf="inProces.idCompra"></span> {{inProces.idCompra.pago_total}}
-                                    <!-- <p>Precio de compra: ${{inProces.idCompra.pago_total}} -->
-                                    </p>
-                                </div>
-                                <ng-template #notProcess>
-                                    <div class="col text-white border border-light mb-2">
-                                        No has realizado alguna compra
+                            <div *ngIf="productosInProcess != null; else notProcess">
+                                <div class="row" *ngFor="let inProces of productosInProcess">
+                                    <div class="col col-12 text-white border border-light mb-3 position-relative mt-3 p-0">
+                                        <span class="modify badge bg-light">
+                                            <a type="button" [routerLink]="['/cancel-request', inProces.idCompra.id]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20"
+                                                    fill="currentColor" class="bi bi-pencil-square text-dark" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <p>Fecha: {{inProces.idCompra.fecha_venta}}</p>
+                                        <p>Código: {{inProces.idCompra.codigo_compra}}</p>
+                                        <p class="mt-2">Productos:<br>
+                                            <span>{{formatearProductos(inProces.idCompra.carrito)}}</span>
+                                        </p>
+                                        <p>Precio de compra: $<span *ngIf="inProces.idCompra"></span> {{inProces.idCompra.pago_total}}
+                                        <!-- <p>Precio de compra: ${{inProces.idCompra.pago_total}} -->
+                                        </p>
                                     </div>
-                                </ng-template>
+                                </div>
                             </div>
+                            <ng-template #notProcess>
+                                <div class="col text-white border border-light mb-2">
+                                    No cuenta con compras
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -81,31 +86,33 @@
                     <div class="col p-0">
                         <p class="h4 text-white m-1">Pedidos cancelados</p>
                         <div class="container">
-                            <div class="row" *ngFor="let cancel of productosCanceled">
-                                <div *ngIf="cancel != null; else notProcess" class="col text-white border border-light mb-2 p-0">
-                                    <p>Fecha: {{cancel.idCompra.fecha_venta}}</p>
-                                    <p>Código: {{cancel.idCompra.codigo_compra}}</p>
-                                    <p class="mt-2">Productos:<br>
-                                        <span>{{formatearProductos(cancel.idCompra.carrito)}}</span>
-                                    </p>
-                                    <p>
-                                        Precio de compra: <b>$<span *ngIf="cancel.idCompra.tipo_envio == 'Domicilio'; else tienda">{{cancel.idCompra.pago_total}}</span>
-                                        <ng-template #tienda>
-                                            <span>{{cancel.idCompra.pago_total}}</span>
-                                        </ng-template>
-                                        </b>
-                                    </p>
-                                    <p>
-                                        <b>Motivo: </b>
-                                        {{cancel.solicitudCancelacion.motivo_cancel}}
-                                    </p>
-                                </div>
-                                <ng-template #notProcess>
-                                    <div class="col text-white border border-light mb-2">
-                                        No has realizado alguna compra
+                            <div *ngIf="productosCanceled != null; else notProcess2">
+                                <div class="row" *ngFor="let cancel of productosCanceled">
+                                    <div class="col text-white border border-light mb-2 p-0">
+                                        <p>Fecha: {{cancel.idCompra.fecha_venta}}</p>
+                                        <p>Código: {{cancel.idCompra.codigo_compra}}</p>
+                                        <p class="mt-2">Productos:<br>
+                                            <span>{{formatearProductos(cancel.idCompra.carrito)}}</span>
+                                        </p>
+                                        <p>
+                                            Precio de compra: <b>$<span *ngIf="cancel.idCompra.tipo_envio == 'Domicilio'; else tienda">{{cancel.idCompra.pago_total}}</span>
+                                            <ng-template #tienda>
+                                                <span>{{cancel.idCompra.pago_total}}</span>
+                                            </ng-template>
+                                            </b>
+                                        </p>
+                                        <p>
+                                            <b>Motivo: </b>
+                                            {{cancel.solicitudCancelacion.motivo_cancel}}
+                                        </p>
                                     </div>
-                                </ng-template>
+                                </div>
                             </div>
+                            <ng-template #notProcess2>
+                                <div class="col text-white border border-light mb-2">
+                                    No has realizado alguna compra
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
