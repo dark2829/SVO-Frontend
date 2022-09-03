@@ -17,6 +17,8 @@ export class HomeComponent {
 
   productos: any = {
   };
+  viewProd: any = [];
+
   fileChange: boolean [];
   preView: any;
   img: any;
@@ -61,9 +63,16 @@ export class HomeComponent {
 
     this.producto.getAllProductosClient().subscribe(response => {
       this.productos =  response.data;
-      console.log(this.productos);
       this.comunicacion.enviarMensajeObservable.subscribe(response => {
         this.productos =  response;
+      });
+
+      response.data.forEach((index : any) => {
+        if(index.estatus == 'Disponible'){
+          if(index.cantidad > 0){
+            this.viewProd.push(index);
+          }
+        }
       });
     });
     
