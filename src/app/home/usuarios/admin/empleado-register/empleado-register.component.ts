@@ -67,7 +67,6 @@ export class EmpleadoRegisterComponent implements OnInit {
   }
 
   public agregarEmpleado(){
-    //FIXME: Revisar en el back,porque marca error pero aun asi inserta
     const API_SAVEEMPLEADO = this.enlaces.API_ENLACE_EMPLEADO+this.enlaces.EMPLEADO_INSERT; 
     try{
       if(
@@ -105,7 +104,7 @@ export class EmpleadoRegisterComponent implements OnInit {
           setTimeout(() => {this.listaEmpleado()}, 2500);
         }, error => {
           console.log(error);
-          this.alerta.showAlert("Error al registrar al empleado", "danger", 2000, error.status);
+          this.alerta.showAlert(`Error al registrar empleado ${error.message}`, "danger", 2000, error.status);
         });
       }else{
         this.alerta.showAlert("Faltan datos", "danger", 2000);

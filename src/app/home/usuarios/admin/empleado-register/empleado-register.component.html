@@ -150,7 +150,7 @@
                                         <label for="staticEmail2" class="mt-2">Salario</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="empSalari" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" min="0.00" maxlength="6" type="text" step="0.001" class="form-control" id="precioCompra"
+                                        <input formControlName="empSalari" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)" min="0.00" maxlength="6" type="text" step="0.001" class="form-control" id="precioCompra"
                                         placeholder="$00.00" required>
                                     </div>
                                 </div>
