@@ -43,6 +43,11 @@ export class FavoriteComponent implements OnInit {
     this.productos = Object.values(this.productos);
 
     this.index = this.route.snapshot.params['id'];
+
+    if(window.sessionStorage.getItem('Values') == '1'){
+      window.sessionStorage.setItem('Values', '0');
+      window.location.reload();
+    }
   }
 
   like(idProducto: number){

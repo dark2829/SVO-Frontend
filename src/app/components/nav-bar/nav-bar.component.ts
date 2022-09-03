@@ -92,6 +92,9 @@ export class NavBarComponent implements OnInit {
     if(typeruser.includes("Cliente"))
       this.router.navigate(['']);
     
+    if(window.sessionStorage.getItem('Values')){
+      window.sessionStorage.removeItem('Values');
+    }
   }
 
   login() {
@@ -104,10 +107,12 @@ export class NavBarComponent implements OnInit {
   }
 
   shopHistory() {
+    window.sessionStorage.setItem('Values', '1');
     this.router.navigate(['shopHistory']);
   }
 
   favoritos() {
+    window.sessionStorage.setItem('Values', '1');
     this.router.navigate(['favoritos']);
   }
 

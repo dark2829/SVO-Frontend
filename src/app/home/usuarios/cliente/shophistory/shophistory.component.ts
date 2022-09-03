@@ -40,6 +40,10 @@ export class ShophistoryComponent implements OnInit {
     this.persona.historyBuy(parseInt(this.token.getID()), "Cancelado").subscribe(response => {
       this.productosCanceled = response.data;
     });
+    if(window.sessionStorage.getItem('Values') == '1'){
+      window.sessionStorage.setItem('Values', '0');
+      window.location.reload();
+    }
   }
 
   solicitudCancelacion(){
