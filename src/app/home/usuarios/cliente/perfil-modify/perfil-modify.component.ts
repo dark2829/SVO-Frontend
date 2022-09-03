@@ -183,6 +183,11 @@ export class PerfilModifyComponent implements OnInit {
         fvenci: response.data.idPersona.tarjeta[0].fecha_vencimiento
       });
     });
+
+    if(window.sessionStorage.getItem('Values') == '1'){
+      window.sessionStorage.setItem('Values', '0');
+      window.location.reload();
+    }
   }
 
   public guardarInfo(){ //? Solo informacion basica
@@ -252,8 +257,6 @@ export class PerfilModifyComponent implements OnInit {
 
   saveDirection(){
     const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSaved;
-    console.log("Direccion a guardar: ",this.directionToSaved);
-
     if(this.formularioDirection.value.munici != null){
       this.persona.getPerson(this.token.getID()).subscribe(response => {
         console.log(response.data.idPersona.direccion[this.indexToSaved].id)
@@ -298,7 +301,7 @@ export class PerfilModifyComponent implements OnInit {
         n_exterior: "-1",
         referencia: ""
       }).subscribe(response => {
-        this.formularioDirection = this.formBuilder.group({    
+        this.formularioDirection.patchValue({    
           fcalle: [null],
           fcolon: [null],
           munici: [null],
@@ -333,7 +336,7 @@ export class PerfilModifyComponent implements OnInit {
       this.indexToSaved = id;
 
       if (response.data.idPersona.direccion[id].estado == null || response.data.idPersona.direccion[id].estado == "") {
-        this.formularioDirection = this.formBuilder.group({
+        this.formularioDirection.patchValue({
           fcalle: [null],
           fcolon: [null],
           munici: [null],
@@ -346,7 +349,7 @@ export class PerfilModifyComponent implements OnInit {
         this.alerta.showAlert("Esta direccion no contiene datos", "warning", 2000);
       }else{
         this.directionToSaved = response.data.idPersona.direccion[id]
-        this.formularioDirection = this.formBuilder.group({
+        this.formularioDirection.patchValue({
           fcalle: [response.data.idPersona.direccion[id].calle],
           fcolon: [response.data.idPersona.direccion[id].colonia],
           munici: [response.data.idPersona.direccion[id].municipio],
@@ -397,7 +400,7 @@ export class PerfilModifyComponent implements OnInit {
         fecha_vencimiento: "0000-00",
         cvv: "-1"
       }).subscribe(response => {
-        this.formularioCards = this.formBuilder.group({    
+        this.formularioCards.patchValue({    
           namePr: [null],
           numbeT: [null],
           cvvTar: [null],
@@ -423,7 +426,7 @@ export class PerfilModifyComponent implements OnInit {
 
     this.persona.getPerson(this.token.getID()).subscribe(response => {
       if(response.data.idPersona.tarjeta[id].fecha_vencimiento == null || response.data.idPersona.tarjeta[id].fecha_vencimiento == ""){
-        this.formularioCards = this.formBuilder.group({
+        this.formularioCards.patchValue({
           namePr: [null],
           numbeT: [null],
           cvvTar: [null],
@@ -435,7 +438,7 @@ export class PerfilModifyComponent implements OnInit {
           parseData = response.data.idPersona.tarjeta[id].fecha_vencimiento;
         }
         this.tarjetToSaved = response.data.idPersona.tarjeta[id].id;
-        this.formularioCards = this.formBuilder.group({
+        this.formularioCards.patchValue({
           namePr: [response.data.idPersona.tarjeta[id].nombre_propietario],
           numbeT: [response.data.idPersona.tarjeta[id].numero],
           cvvTar: [this.cvvTar],

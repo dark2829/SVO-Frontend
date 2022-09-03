@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="col col-8 datosRequeridos">
                                             <input formControlName="apellP" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text" class="form-control"
-                                                id="idApellidos" placeholder="Apellido Paterno" required>
+                                                id="idApellidoP" placeholder="Apellido Paterno" required>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="col col-8">
                                             <input formControlName="apellM" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" value="" type="text" class="form-control"
-                                                id="idApellidos" placeholder="Apellido Materno">
+                                                id="idApellidoM" placeholder="Apellido Materno">
                                         </div>
                                     </div>
                                     <div class="row mt-2">
@@ -136,7 +136,7 @@
                                             <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                         </div>
                                         <div class="col col-8 datosRequeridos">
-                                            <input formControlName="contas" type="password" class="form-control"
+                                            <input formControlName="contas" type="current-password" class="form-control"
                                                 id="idContraseña" placeholder="Contraseña" required minlength="5" maxlength="8">
                                         </div>
                                     </div>

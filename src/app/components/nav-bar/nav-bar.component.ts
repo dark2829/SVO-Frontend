@@ -99,6 +99,7 @@ export class NavBarComponent implements OnInit {
   }
 
   modificarPerfil() {
+    window.sessionStorage.setItem('Values', '1');
     this.router.navigate(['modifyPerfil']);
   }
 
