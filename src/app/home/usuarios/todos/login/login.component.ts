@@ -47,6 +47,8 @@ export class LoginComponent {
     if(window.sessionStorage.getItem('Values') == '1'){
       window.sessionStorage.setItem('Values', '0');
       window.location.reload();
+    }else if(window.sessionStorage.getItem('Values') == '0'){
+      window.sessionStorage.removeItem('Values');
     }
   }
 
