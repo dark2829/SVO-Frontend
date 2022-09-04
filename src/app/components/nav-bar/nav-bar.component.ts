@@ -81,6 +81,7 @@ export class NavBarComponent implements OnInit {
     this.idRol = "";
     this.rolTipo = "";
     this.isLogged=  false;
+    window.sessionStorage.setItem('Values', '1');
     this.router.navigate(['login']);
   }
   

@@ -43,6 +43,11 @@ export class LoginComponent {
       formCorreo: [null, [Validators.required, Validators.email]],
       formPassword: [null, [Validators.required, Validators.maxLength(8)]]
     })
+
+    if(window.sessionStorage.getItem('Values') == '1'){
+      window.sessionStorage.setItem('Values', '0');
+      window.location.reload();
+    }
   }
 
   showpassword = () => {
