@@ -17,7 +17,7 @@ export class HomeComponent {
 
   productos: any = {
   };
-  viewProd: any = [];
+  viewProd: any = []; //solo mostrar productos que están disponibles y cantidad > 0
 
   fileChange: boolean [];
   preView: any;
@@ -27,6 +27,8 @@ export class HomeComponent {
   index: number; 
 
   likeId = document.getElementsByClassName("targetProduct");
+  pWhitLike: any = [];
+  plikeID = new Array();
   
   tipoProduct: string;
   
@@ -48,16 +50,12 @@ export class HomeComponent {
   
 
   ngOnInit(): void {
-    //FIXME: revisar porque aveces el arreglo es 0
     if(this.token.isLogged() != false){
       this.persona.getProductLike(this.token.getID()).subscribe(response => {
-        for (let carta = 0; carta < this.likeId.length; carta++) {
-          response.data.forEach((element: any) => {
-            if(this.likeId[carta].classList.contains(element.id)){
-              this.likeId[carta].classList.add("bg-danger", "text-white", "lineaBlanca");
-            }
-          })
-        }
+        this.pWhitLike = response.data;
+        this.pWhitLike.forEach((index : any) => {
+          this.plikeID.push(index.id);
+        });
       });
     }
 
