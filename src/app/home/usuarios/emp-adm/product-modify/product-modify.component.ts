@@ -46,7 +46,7 @@ export class ProductModifyComponent implements OnInit {
   // Cargar datos al form
   ngOnInit(): void {
     this.formProducto = this.formBuilder.group({
-      fcodProd:     [null, [Validators.required, Validators.maxLength(9), Validators.minLength(9)]],
+      fcodProd:     [null, [Validators.required, Validators.maxLength(12), Validators.minLength(12)]],
       fname:        [null, [Validators.required]],
       fcategoria:   [null, [Validators.required]],
       fcantidad:    [null, [Validators.required, Validators.min(0)]],
