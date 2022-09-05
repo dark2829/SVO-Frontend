@@ -79,9 +79,9 @@ export class PerfilModifyComponent implements OnInit {
     });
 
     this.formularioDirection = this.formBuilder.group({
-      fcalle: [null],
-      fcolon: [null],
-      munici: [null],
+      fcalle: [null, [Validators.required]],
+      fcolon: [null, [Validators.required]],
+      munici: [null, [Validators.required]],
       estado: [null, [Validators.required]],
       codPos: [null, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
       ninter: [null, [Validators.maxLength(5), Validators.minLength(1)]],
@@ -99,6 +99,7 @@ export class PerfilModifyComponent implements OnInit {
     let parsear;
     //? Obtiene la infromario de la persona
     this.persona.getPerson(this.token.getID()).subscribe(response => {
+      console.log(response.data )
       if (response.data.idPersona.foto != null) {
         this.fileChange = true;
         this.preView = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+response.data.idPersona.foto)
@@ -144,14 +145,23 @@ export class PerfilModifyComponent implements OnInit {
         this.refere = response.data.idPersona.direccion[0].referencia;  
       }
 
-      if(response.data.idPersona.tarjeta[0].numero != null){
-        this.namePr = response.data.idPersona.tarjeta[0].nombre_propietario;
-        this.numbeT = response.data.idPersona.tarjeta[0].numero;
-        this.cvvTar = (response.data.idPersona.tarjeta[0].cvv === -1) ? null : response.data.idPersona.tarjeta[0].cvv;
-        parsear = response.data.idPersona.tarjeta[0].fecha_vencimiento;
-        parsear = parsear.split("/");
-        parsear = parsear[0] + "-" + parsear[1];
-        this.fvenci = parsear;
+      if(response.data.idPersona.tarjeta.length > 0){
+        if(response.data.idPersona.tarjeta[0].numero != null){
+          this.namePr = response.data.idPersona.tarjeta[0].nombre_propietario;
+          this.numbeT = response.data.idPersona.tarjeta[0].numero;
+          this.cvvTar = (response.data.idPersona.tarjeta[0].cvv === -1) ? null : response.data.idPersona.tarjeta[0].cvv;
+          parsear = response.data.idPersona.tarjeta[0].fecha_vencimiento;
+          parsear = parsear.split("/");
+          parsear = parsear[0] + "-" + parsear[1];
+          this.fvenci = parsear;
+        }
+
+        this.formularioCards.patchValue({
+          namePr: response.data.idPersona.tarjeta[0].nombre_propietario,
+          numbeT: response.data.idPersona.tarjeta[0].numero,
+          cvvTar: this.cvvTar,
+          fvenci: response.data.idPersona.tarjeta[0].fecha_vencimiento
+        });
       }
 
       this.formularioPersona.patchValue({
@@ -176,12 +186,6 @@ export class PerfilModifyComponent implements OnInit {
         refere: response.data.idPersona.direccion[0].referencia,
       });
 
-      this.formularioCards.patchValue({
-        namePr: response.data.idPersona.tarjeta[0].nombre_propietario,
-        numbeT: response.data.idPersona.tarjeta[0].numero,
-        cvvTar: this.cvvTar,
-        fvenci: response.data.idPersona.tarjeta[0].fecha_vencimiento
-      });
     });
 
     if(window.sessionStorage.getItem('Values') == '1'){
@@ -256,7 +260,7 @@ export class PerfilModifyComponent implements OnInit {
   }
 
   saveDirection(){
-    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSaved;
+    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getIdPerson() + this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSaved;
     if(this.formularioDirection.value.munici != null){
       this.persona.getPerson(this.token.getID()).subscribe(response => {
         console.log(response.data.idPersona.direccion[this.indexToSaved].id)
@@ -284,7 +288,7 @@ export class PerfilModifyComponent implements OnInit {
   }
 
   clearDirection() {
-    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2 + this.indexToSaved;
+    const API_ADDRESS = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_ADRES + this.token.getIdPerson() + this.enlaces.PERSONA_UPDATE_ADRES_2 + this.indexToSaved;
     console.log("Direccion a guardar: ", this.directionToSaved);
     
     this.persona.getPerson(this.token.getID()).subscribe(response => {
@@ -364,7 +368,7 @@ export class PerfilModifyComponent implements OnInit {
   }
 
   public saveCard(){
-    const API_TARJETA = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_CARDS+this.token.getID()+this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSavedTarjet;
+    const API_TARJETA = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_CARDS+this.token.getIdPerson()+this.enlaces.PERSONA_UPDATE_ADRES_2+this.indexToSavedTarjet;
     let parseDate: any; 
     if(this.formularioCards.value.fvenci != null){
       console.log("Recibe fecha",this.formularioCards.value.fvenci);
@@ -390,7 +394,7 @@ export class PerfilModifyComponent implements OnInit {
     }
   }
   public clearCard() {
-    const API_TARJETA = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_CARDS + this.token.getID() + this.enlaces.PERSONA_UPDATE_ADRES_2 + this.indexToSavedTarjet;
+    const API_TARJETA = this.enlaces.API_ENLACE_PERSONAS + this.enlaces.PERSONA_UPDATE_CARDS + this.token.getIdPerson() + this.enlaces.PERSONA_UPDATE_ADRES_2 + this.indexToSavedTarjet;
     let parseDate: any;
     this.persona.getPerson(this.token.getID()).subscribe(response => {
       this.persona.updateClientTarget(API_TARJETA, {

@@ -6,6 +6,7 @@ const IDENTIFICADOR_KEY = 'AuthIdentificador';
 const NOMBRE_KEY = 'AuthNombre';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const ID_KEY = 'AuthID';
+const ID_PERSON = 'AuthIdPerson';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,17 @@ export class TokenService {
     window.sessionStorage.setItem(ID_KEY, id);
   }
 
+  public setIdPerson(id: string): void{
+    window.sessionStorage.removeItem(ID_PERSON);
+    window.sessionStorage.setItem(ID_PERSON, id);
+  }
+
   public getID(): string{
     return sessionStorage.getItem(ID_KEY)!;
+  }
+
+  public getIdPerson(): string{
+    return sessionStorage.getItem(ID_PERSON)!;
   }
 
   public setIdentificador(identify: string): void{
