@@ -59,10 +59,7 @@
   <h1 class="h1 text-center text-primary mb-4">Descuentos</h1>
   <div class="row">
     <!-- Carta de productos -->
-    <div *ngFor="let producto of viewProd; index as i" class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4 carta">
-      <div *ngIf="producto.estatus === 'Disponible'">
-        <div *ngIf="producto.cantidad != 0">
-
+    <div *ngFor="let producto of productos; index as i" class="col col-12 col-sm-12 col-md-6 col-lg-3 mb-4 carta">
           <div class="card bg-primary bg-opacity-25 w-100">
             <span class="like position-absolute translate-middle badge rounded-pill">
 
@@ -129,10 +126,7 @@
                 </div>
               </div>
             </div>
-  
           </div>
-        </div>
-      </div>
     </div>
 
   </div>
