@@ -32,6 +32,8 @@ export class ShoppingCartComponent implements OnInit {
   urlPedido: any = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_DOWNLOAD_PDF; 
   compra: boolean = false; 
 
+  notDirections: boolean = false; 
+
 
   productosAgregados: any = {};
   total2: number; 
@@ -82,6 +84,11 @@ export class ShoppingCartComponent implements OnInit {
     this.persona.getPerson(this.token.getID()).subscribe(response => {
       this.tarjetas = response.data.idPersona.tarjeta;
       this.directions = response.data.idPersona.direccion;
+      this.directions.forEach((element : any) => {
+        if(element.calle !== "" && element.calle != null){
+          this.notDirections = true;
+        }
+      });
     });
   }
 
@@ -231,5 +238,16 @@ export class ShoppingCartComponent implements OnInit {
       entrega:  ['Tienda',[Validators.required]],
       factura:  [this.fCarrito.value.factura,[Validators.required]],
     })
+  }
+
+  fact(){
+    this.alerta.showAlert("Solo se puede facturar si tiene una direccion", "warning", 2500);
+    if(this.notDirections == false){
+      this.fCarrito.patchValue({
+        pago:     [this.fCarrito.value.pago ,[Validators.required]],
+        entrega:  [this.fCarrito.value.entrega,[Validators.required]],
+        factura:  ["No",[Validators.required]],
+      })
+    }
   }
 }
