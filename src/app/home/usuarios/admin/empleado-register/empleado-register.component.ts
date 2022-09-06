@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EmpleadosService } from '../../../../services/empleados.service';
 import { EnlacesService } from '../../../../services/enlaces.service';
 import { AlertaService } from '../../../../services/alerta.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-empleado-register',
@@ -13,10 +14,12 @@ import { AlertaService } from '../../../../services/alerta.service';
 export class EmpleadoRegisterComponent implements OnInit {
   formEmpleado: FormGroup; 
   noEmpleado: any;
+  parseCurrent: any; 
 
   constructor(
     private empleados: EmpleadosService, 
     private router: Router,
+    private token: TokenService, 
     private formBuilder: FormBuilder, 
     private enlaces: EnlacesService, 
     private alerta: AlertaService
@@ -43,6 +46,7 @@ export class EmpleadoRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.parseCurrent = this.token.valiNac();
     //? Inicializar los campos de entrada del formulario 
     this.empleados.getAllEmpleados().subscribe(response => {
       let cantidad = response.data.length;

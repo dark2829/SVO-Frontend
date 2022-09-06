@@ -47,6 +47,8 @@ export class EmpleadoModifyComponent implements OnInit {
   ePass: string; 
   eStatus: string; 
 
+  parseCurrent: any; 
+
   constructor(
     private empleado: EmpleadosService, 
     private persona: PersonasService, 
@@ -59,6 +61,7 @@ export class EmpleadoModifyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.parseCurrent = this.token.valiNac();
     if(this.token.getToken()){
       this.index = this.route.snapshot.params['id'].toString();
 

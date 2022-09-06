@@ -41,6 +41,19 @@ export class TokenService {
     return parse;
   }
 
+  validNip = () => {
+    const fecha = new Date();
+    const yearActual = fecha.getFullYear();
+    const montActual = fecha.getMonth()+1;  
+    let mes: any ; 
+    if(montActual < 10){
+      mes = `0${montActual}`;
+    }else{
+      mes = montActual; 
+    } 
+    return `${yearActual}-${mes}`
+  }
+
   public setToken(token: string): void{
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);

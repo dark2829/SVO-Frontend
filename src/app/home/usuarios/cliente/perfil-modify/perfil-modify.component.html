@@ -399,7 +399,7 @@
                                     <label for="formVencimiento" class="form-label">Fecha vencimiento</label>
                                 </div>
                                 <div class="col col-8">
-                                    <input formControlName="fvenci" value="" type="month" class="form-control" id="idFven"
+                                    <input formControlName="fvenci" value="" [min]="dateCard" type="month" class="form-control" id="idFven"
                                         placeholder="">
                                 </div>
                             </div>
