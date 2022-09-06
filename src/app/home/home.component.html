@@ -99,7 +99,7 @@
               </div>
   
               <div class="card-body">
-                <h4 class="card-title tituloProducto h5 text-dark">{{producto.nombre}}</h4>
+                <h4 class="card-title tituloProducto h5 text-dark">{{producto.nombre.substring(0, 73)}}</h4>
                 <p class="card-text text-start text-dark">{{producto.descripcion.substring(0, 50)}}</p>
                 <p class="card-text">
                   <span *ngIf="producto.precio_descuento != 0"
