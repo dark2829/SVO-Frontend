@@ -28,7 +28,7 @@ export class NavBarComponent implements OnInit {
   isLogged: boolean = false;
 
   tipoProduct: string; 
-  patas: any = ['/shopHistory', '/modifyPerfil', '/favoritos'];
+  patas: any = ['/shopHistory', '/modifyPerfil', '/favoritos', '/shopping-cart'];
   path: any; 
 
   constructor(
