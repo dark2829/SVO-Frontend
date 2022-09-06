@@ -33,8 +33,8 @@
             <!-- Formulario de búsqueda -->
             <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2 mt-1">
               <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-success" type="button">Buscar</button>
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" (input)="getProduct($event)">
+                <button class="btn btn-success" type="button" (click)="showProduct()">Buscar</button>
               </form>
             </div>
           </div>

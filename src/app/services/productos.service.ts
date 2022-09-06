@@ -99,5 +99,10 @@ export class ProductosService {
     return this.http.get(API_ALERT);
   }
 
+  public findProd(type: string): Observable<any>{
+    const API_ALERT = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FIND_PROD+type;
+    return this.http.get(API_ALERT);
+  }
+
 
 }

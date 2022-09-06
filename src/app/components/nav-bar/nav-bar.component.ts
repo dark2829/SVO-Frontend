@@ -16,6 +16,8 @@ export class NavBarComponent implements OnInit {
   isCliente: boolean | false;
   isEmpleado: boolean | false;
   index: string;   
+
+  searchProd: string;
   
   id: string; 
   nombre: string; 
@@ -54,6 +56,19 @@ export class NavBarComponent implements OnInit {
     }else{
       this.isLogged = false;
       this.nombre = "";
+    }
+  }
+  
+  getProduct = (event: Event) => {
+    this.searchProd = (<HTMLInputElement>event.target).value;
+  }
+
+  showProduct = () => {
+    if(this.searchProd != null && this.searchProd != ""){
+      this.producto.findProd(this.searchProd).subscribe(response => {
+        console.log(response);
+        this.comunicacion.enviarMensaje(response.data);
+      });
     }
   }
 

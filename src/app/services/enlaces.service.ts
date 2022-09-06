@@ -55,6 +55,7 @@ export class EnlacesService {
   public PRODUCTO_STOCKDOWN = "/findStockBajo" //? GET
   public PRODUCTO_CONTACT = "/contactado?idProducto=" //? GET
   public PRODUCTO_TYPE = "/findTipeProducts?categoria=" //? GET
+  public FIND_PROD = "/busquedaProductos?nombre=" //? GET
   //* Carrito 
   public CARRITO_INSERT = "/carrito?idProducto="
   public CARRITO_INSERT_C = "&cantidad="
