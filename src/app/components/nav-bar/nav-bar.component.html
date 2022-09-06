@@ -31,7 +31,7 @@
               </button>
             </div>
             <!-- Formulario de búsqueda -->
-            <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2 mt-1">
+            <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2 mt-1" *ngIf="path == false">
               <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" (input)="getProduct($event)">
                 <button class="btn btn-success" type="button" (click)="showProduct()">Buscar</button>

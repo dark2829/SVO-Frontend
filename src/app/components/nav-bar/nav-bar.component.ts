@@ -28,6 +28,8 @@ export class NavBarComponent implements OnInit {
   isLogged: boolean = false;
 
   tipoProduct: string; 
+  patas: any = ['/shopHistory', '/modifyPerfil', '/favoritos'];
+  path: any; 
 
   constructor(
     private router: Router,
@@ -37,8 +39,10 @@ export class NavBarComponent implements OnInit {
     private comunicacion: ComunicacionService, 
     private producto: ProductosService,
   ) { }
-
+  
   ngOnInit(): void {
+    this.path = this.patas.includes(window.location.pathname);
+
     if(this.token.getToken()){
       this.isLogged = true; 
       this.id = this.token.getID(); 
