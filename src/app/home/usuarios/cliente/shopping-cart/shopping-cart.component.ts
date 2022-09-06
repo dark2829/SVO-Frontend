@@ -219,14 +219,14 @@ export class ShoppingCartComponent implements OnInit {
   }
   
   activeDirectionradio(){
-    this.fCarrito = this.formBuilder.group({
+    this.fCarrito.patchValue({
       pago:     ['efectivo',[Validators.required]],
       entrega:  [this.fCarrito.value.entrega,[Validators.required]],
       factura:  [this.fCarrito.value.factura,[Validators.required]],
     })
   }
   activeDirectionradio2(){
-    this.fCarrito = this.formBuilder.group({
+    this.fCarrito.patchValue({
       pago:     [this.fCarrito.value.pago ,[Validators.required]],
       entrega:  ['Tienda',[Validators.required]],
       factura:  [this.fCarrito.value.factura,[Validators.required]],
