@@ -7,13 +7,13 @@
 <div class="container mb-5 pb-5 position-relative info">
     <div class="row justify-content-center align-items-sart info2">
         <div class="col ">
-            <input type="date" class="form form-control rounded-pill mt-5">
+            <input type="date" class="form form-control rounded-pill mt-5" (change)="datainfo($event, 'Realizado')">
             <div class="container bg-success mt-3 rounded">
                 <div class="row">
                     <div class="col p-0">
                         <p class="h4 text-white m-1">Pedidos Recibidos</p>
                         <div class="container">
-
+                            
                             <div *ngIf="productosRecibidos != null; else notieneRecibed">
                                 <div class="row" *ngFor="let recibed of productosRecibidos">
                                     <div class="col text-white border border-light mb-2 p-0">
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col">
-            <input type="date" class="form form-control rounded-pill mt-5">
+            <input type="date" class="form form-control rounded-pill mt-5" (change)="datainfo($event, 'En proceso')">
             <div class="container bg-primary mt-3 rounded">
                 <div class="row">
                     <div class="col p-0">
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="col">
-            <input type="date" class="form form-control rounded-pill mt-5">
+            <input type="date" class="form form-control rounded-pill mt-5" (change)="datainfo($event, 'Cancelado')">
             <div class="container bg-danger mt-3 rounded mb-3">
                 <div class="row">
                     <div class="col p-0">
@@ -103,7 +103,9 @@
                                         </p>
                                         <p>
                                             <b>Motivo: </b>
-                                            {{cancel.solicitudCancelacion.motivo_cancel}}
+                                            <span *ngIf="cancel.solicitudCancelacion != null">
+                                                {{cancel.solicitudCancelacion.motivo_cancel}}
+                                            </span>
                                         </p>
                                     </div>
                                 </div>

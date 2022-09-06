@@ -20,6 +20,8 @@ export class ShophistoryComponent implements OnInit {
   codigo = "abcdefgh";
   productos = "jabón roma";
 
+  dia: any = ""; 
+
 
   constructor(
     private persona: PersonasService, 
@@ -44,6 +46,23 @@ export class ShophistoryComponent implements OnInit {
       window.sessionStorage.setItem('Values', '0');
       window.location.reload();
     }
+  }
+
+  datainfo = (event: Event, tipe: string) => {
+    this.dia = (<HTMLInputElement>event.target).value;
+    this.persona.historyFetch(parseInt(this.token.getID()), tipe, this.dia).subscribe(response => {
+      switch(tipe){
+        case 'Realizado': 
+          this.productosRecibidos = response.data;
+        break;
+        case 'En proceso': 
+          this.productosInProcess = response.data;
+        break;
+        case 'Cancelado': 
+          this.productosCanceled = response.data;
+        break;
+      }
+    });
   }
 
   solicitudCancelacion(){

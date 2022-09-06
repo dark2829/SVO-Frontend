@@ -181,6 +181,11 @@ export class PersonasService {
     return this.http.get(URL);
   }
 
+  public historyFetch(idUsuario: number, status: string, fecha: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_COMPRAS+this.enlaces.HISTORIAL_SHOW_HIST+idUsuario+this.enlaces.HISTORIAL_SHOW_HOST_C+status+this.enlaces.HISTORIAL_SHOW_HIST_C+fecha;
+    return this.http.get(URL);
+  }
+
   public recovery(body: {
     "mailTo": string
   }){

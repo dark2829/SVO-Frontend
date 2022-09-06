@@ -84,4 +84,7 @@ export class EnlacesService {
   //*Historial de compra
   public HISTORIAL_FOR_STATUS = "/buscarComprasPorUsuario?idUsuario="
   public HISTORIAL_STATUS = "&estatus="
+  public HISTORIAL_SHOW_HIST = `/buscarCompraPorFecha?idUsuario=`; //? POST
+  public HISTORIAL_SHOW_HOST_C= `&estatus=`
+  public HISTORIAL_SHOW_HIST_C = `&fecha=`; //? POST
 }
