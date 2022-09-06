@@ -64,8 +64,14 @@ export class PerfilModifyComponent implements OnInit {
   numbeT: any = null; 
   cvvTar: any = null; 
   fvenci: any = null; 
+  
+  parseCurrent: any; 
 
   ngOnInit(): void{
+
+    //? identificar las fechas 
+    this.parseCurrent = this.token.valiNac();
+
     //? Setear formulario
     this.formularioPersona = this.formBuilder.group({
       nombre: ['', [Validators.required]],

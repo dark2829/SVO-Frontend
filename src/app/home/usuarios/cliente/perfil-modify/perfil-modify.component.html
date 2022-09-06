@@ -89,7 +89,7 @@
                                                 nacimiento</label>
                                         </div>
                                         <div class="col col-7">
-                                            <input formControlName="fnaciM" value="" type="date" class="form-control"
+                                            <input formControlName="fnaciM" value="" type='date' min="1950-12-31" [max]='parseCurrent' class="form-control"
                                                 id="fnacimiento" placeholder="">
                                         </div>
                                     </div>

@@ -15,20 +15,30 @@ export class TokenService {
   
   roles: Array<string> = [];
   rolesExistentes = ['Adminisrador', 'Emppleado', 'Cliente'];
-  curse: any = {
-    "year": "", 
-    "mes": "", 
-    "dia": ""
-  };
 
   constructor() { }
 
-  valiNac = (dia: number, mes: number, year: number) => {
+  valiNac = () => {
     const fecha = new Date();
     const yearActual = fecha.getFullYear();
     const montActual = fecha.getMonth();    
     const diaActual = fecha.getDate();
-    const validYear = yearActual - year >= 18; 
+    const validYear = yearActual - 18; 
+    
+    let mes: any ; 
+    if(montActual < 10){
+      mes = `0${montActual+1}`;
+    }else{
+      mes = montActual+1; 
+    }
+    let dia: any ; 
+    if(diaActual < 10){
+      dia = `0${diaActual}`;
+    }else{
+      dia = diaActual; 
+    }
+    let parse = `${validYear}-${mes}-${dia}`
+    return parse;
   }
 
   public setToken(token: string): void{
