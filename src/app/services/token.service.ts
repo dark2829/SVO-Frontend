@@ -15,8 +15,21 @@ export class TokenService {
   
   roles: Array<string> = [];
   rolesExistentes = ['Adminisrador', 'Emppleado', 'Cliente'];
+  curse: any = {
+    "year": "", 
+    "mes": "", 
+    "dia": ""
+  };
 
   constructor() { }
+
+  valiNac = (dia: number, mes: number, year: number) => {
+    const fecha = new Date();
+    const yearActual = fecha.getFullYear();
+    const montActual = fecha.getMonth();    
+    const diaActual = fecha.getDate();
+    const validYear = yearActual - year >= 18; 
+  }
 
   public setToken(token: string): void{
     window.sessionStorage.removeItem(TOKEN_KEY);
