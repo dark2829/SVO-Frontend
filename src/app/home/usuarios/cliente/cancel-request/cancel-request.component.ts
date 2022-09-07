@@ -17,7 +17,7 @@ export class CancelRequestComponent implements OnInit {
   
   fecha: any;
   codigoCompra: any; 
-  compra: any; 
+  compra: any;  
   productos: any = {}; //variable de comunicacion
 
   formCanceled1: FormGroup; 
@@ -47,6 +47,7 @@ export class CancelRequestComponent implements OnInit {
     }); 
 
     this.pedido.getPedidoById(this.route.snapshot.params['id'].toString()).subscribe(response => {
+      this.compra = response.data.idCompra.id; 
       this.codigoCompra = response.data.idCompra.codigo_compra;
       let motivo = "";
       if(response.data.solicitudCancelacion != null){
@@ -64,7 +65,7 @@ export class CancelRequestComponent implements OnInit {
   } 
 
   realizarSolicitud(){
-    this.pedido.requestCanceled(this.route.snapshot.params['id'].toString(), {
+    this.pedido.requestCanceled(this.compra, {
       "motivoCancelacion": this.formCanceled1.value.mensaje
     }).subscribe(response => {
       this.alerta.showAlert("Solicitud enviada", "success", 2000);

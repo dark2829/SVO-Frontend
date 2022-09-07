@@ -37,6 +37,7 @@ export class PedidosComponent implements OnInit {
 
     this.pedido.getAllPedidos().subscribe(response => {
       this.pedidos = response; 
+      console.log(response);
     });
 
   }

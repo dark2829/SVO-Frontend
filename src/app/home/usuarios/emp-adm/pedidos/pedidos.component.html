@@ -111,7 +111,7 @@
                                                     <td>{{pedido.fecha_entrega}}</td>
                                                     <td>
                                                         <div *ngIf="pedido.solicitudCancelacion != null">
-                                                            <a type="button" aria-valuemax="btn" (click)="cancelacion(pedido.idCompra.id, token.getAuthorieties())">
+                                                            <a type="button" aria-valuemax="btn" (click)="cancelacion(pedido.id, token.getAuthorieties())">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                                     fill="currentColor" class="bi bi-arrows-fullscreen"
                                                                     viewBox="0 0 16 16">
