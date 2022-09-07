@@ -111,7 +111,7 @@ export class ProductRegisterComponent implements OnInit {
           setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
         }, 
         reject => {
-          this.alerta.showAlert(reject.error.message, "danger", 2500, reject.status)
+          this.alerta.showAlert(reject.error.message, "warning", 2500, reject.status)
         });
       }else{
         this.alerta.showAlert("Todos los campos son requeridos", "danger", 2500)

@@ -35,7 +35,7 @@ export class RecoverypassComponent implements OnInit {
     this.persona.recovery({
       mailTo: this.formpassword.value.fcorreo
     }).subscribe(response => {
-      this.alerta.showAlert("Revise su su correo electrónico", "success", 2500);
+      this.alerta.showAlert("Revise su correo electrónico", "success", 2500);
     },reject => {
       this.alerta.showAlert("No se encontró el correo electrónico ingresado, verifíquelo", "danger", 3000);
     });
