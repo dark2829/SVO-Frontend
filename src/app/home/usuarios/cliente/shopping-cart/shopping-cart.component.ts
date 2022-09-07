@@ -228,25 +228,19 @@ export class ShoppingCartComponent implements OnInit {
   activeDirectionradio(){
     this.fCarrito.patchValue({
       pago:     ['efectivo',[Validators.required]],
-      entrega:  [this.fCarrito.value.entrega,[Validators.required]],
-      factura:  [this.fCarrito.value.factura,[Validators.required]],
     })
   }
   activeDirectionradio2(){
     this.fCarrito.patchValue({
-      pago:     [this.fCarrito.value.pago ,[Validators.required]],
-      entrega:  ['Tienda',[Validators.required]],
-      factura:  [this.fCarrito.value.factura,[Validators.required]],
+      entrega:  ['Tienda'],
     })
   }
 
   fact(){
-    this.alerta.showAlert("Solo se puede facturar si tiene una direccion", "warning", 2500);
     if(this.notDirections == false){
+      this.alerta.showAlert("Solo se puede facturar si tiene direcciones", "warning", 2500);
       this.fCarrito.patchValue({
-        pago:     [this.fCarrito.value.pago ,[Validators.required]],
-        entrega:  [this.fCarrito.value.entrega,[Validators.required]],
-        factura:  ["No",[Validators.required]],
+        factura:  ["No"],
       })
     }
   }

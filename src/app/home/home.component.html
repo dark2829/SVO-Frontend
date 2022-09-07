@@ -107,7 +107,10 @@
                   <br>
                   <span class="h4 text-dark">${{producto.precio_venta}}</span>
                   <br>
-                  <span class="text-success">Ahorras ${{producto.precio_descuento}}</span>
+                  <span *ngIf="producto.precio_descuento != 0; else sinahorro" class="text-success">Ahorras ${{producto.precio_descuento}}</span>
+                  <ng-template #sinahorro>
+                    <span class="text-success"></span>
+                  </ng-template>
                 </p>
               </div>
             </a>
