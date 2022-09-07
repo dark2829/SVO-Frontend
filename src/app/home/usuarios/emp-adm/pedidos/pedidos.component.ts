@@ -70,6 +70,7 @@ export class PedidosComponent implements OnInit {
           this.pedido.getAllPedidos().subscribe(response => {
             this.pedidos = response; 
             this.alerta.showAlert(`Mostrando todos los pedidos`, "secondary", 2000)
+            this.page = 1; 
           });
         }else{
           this.pedido.findTypePedido(tipe).subscribe(response => {
@@ -79,6 +80,7 @@ export class PedidosComponent implements OnInit {
             }else{
               this.alerta.showAlert(`No hay pedidos para ${tipe}`, "warning", 2000)
             }
+            this.page = 1; 
           });
         }
       }else{
@@ -92,6 +94,7 @@ export class PedidosComponent implements OnInit {
       this.pedido.findRequestToCode(this.formPedido.value.codigo).subscribe(response => {
         this.pedidos = response; 
         this.alerta.showAlert(`Buscando pedido ${this.formPedido.value.codigo}`, "success", 2000);
+        this.page = 1; 
       }, reject => {
         this.alerta.showAlert("No se encontro el pedido "+this.formPedido.value.codigo, "danger", 2000);
       });

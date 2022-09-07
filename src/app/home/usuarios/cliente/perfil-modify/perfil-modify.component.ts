@@ -260,7 +260,7 @@ export class PerfilModifyComponent implements OnInit {
       this.persona.updatePicture(this.token.getID(), {
         foto: this.img
       }).subscribe(response => {
-        this.alerta.showAlert("Imagen capturada", "success", 2000);
+        //this.alerta.showAlert("Imagen capturada", "success", 2000);
       }, reject => {
         this.alerta.showAlert("Imagen no capturada", "success", 2000);
       });
