@@ -44,7 +44,7 @@ export class ProveedorRegisterComponent implements OnInit {
   public agregarProveedor(){
     const API_SAVEPROVEEDOR = this.enlaces.API_ENLACE_PROVEEDOR.concat(this.enlaces.PROVEEDOR_INSERT);
     if(this.enviarDatos){
-      try{
+    
         if(this.miFormulario.valid == true){
           if(
             this.miFormulario.value.proveedorNombre != null &&
@@ -56,15 +56,24 @@ export class ProveedorRegisterComponent implements OnInit {
             this.miFormulario.value.proveedorCorreo != "" &&
             this.miFormulario.value.proveedorProvee != ""
           ){
+
+            this.miFormulario.value.proveedorNombre = this.miFormulario.value.proveedorNombre.toString().trim(),
+            this.miFormulario.value.proveedorTelefono = this.miFormulario.value.proveedorTelefono.toString().trim(),
+            this.miFormulario.value.proveedorCorreo = this.miFormulario.value.proveedorCorreo.toString().trim(),
+            this.miFormulario.value.proveedorProvee = this.miFormulario.value.proveedorProvee.toString().trim()
+            if(this.miFormulario.value.proveedorDireccion != "" && this.miFormulario.value.proveedorDireccion != null){
+              this.miFormulario.value.proveedorDireccion = this.miFormulario.value.proveedorDireccion.toString().trim();
+            }
+
             this.serviceProveedor.saveProveedor(API_SAVEPROVEEDOR, {
-              nombre: this.miFormulario.value.proveedorNombre.toString().trim(),
-              telefono: this.miFormulario.value.proveedorTelefono.toString().trim(),
-              correo: this.miFormulario.value.proveedorCorreo.toString().trim(),
-              direccion: this.miFormulario.value.proveedorDireccion.toString().trim(),
-              provee: this.miFormulario.value.proveedorProvee.toString().trim()
-            }).subscribe(
-              respuesta => {
-                this.alerta.showAlert("Proveedor registrado", "success", 2000);
+              nombre: this.miFormulario.value.proveedorNombre,
+              telefono: this.miFormulario.value.proveedorTelefono,
+              correo: this.miFormulario.value.proveedorCorreo,
+              direccion: this.miFormulario.value.proveedorDireccion,
+              provee: this.miFormulario.value.proveedorProvee,
+            }).subscribe(respuesta => {
+                console.log("data");
+                this.alerta.showAlert(`Proveedor registrado`, "success", 2000);
                 setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);
               }, 
               error => {
@@ -77,9 +86,6 @@ export class ProveedorRegisterComponent implements OnInit {
         }else{
           this.alerta.showAlert("Algunos datos no son correctos", "danger", 2000);
         }
-      }catch(error){
-        
-      }
     }
   }
 

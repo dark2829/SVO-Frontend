@@ -84,13 +84,22 @@ export class ProveedorModifyComponent implements OnInit {
         if (
           this.miFormulario.valid
         ) {
+          
+          this.miFormulario.value.hproveedorNombre = this.miFormulario.value.hproveedorNombre.toString().trim(),
+          this.miFormulario.value.hproveedorTelefono = this.miFormulario.value.hproveedorTelefono.toString().trim(),
+          this.miFormulario.value.hproveedorCorreo = this.miFormulario.value.hproveedorCorreo.toString().trim(),
+          this.miFormulario.value.hproveedorProvee = this.miFormulario.value.hproveedorProvee.toString().trim()
+          if(this.miFormulario.value.hproveedorDireccion != null && this.miFormulario.value.hproveedorDireccion != ""){
+            this.miFormulario.value.hproveedorDireccion = this.miFormulario.value.hproveedorDireccion.toString().trim();
+          }
+          
           this.service.saveProveedor(`${this.enlace.API_ENLACE_PROVEEDOR}${this.enlace.PROVEEDOR_UPDATE}${this.index}`,
             {
-              nombre: this.miFormulario.value.hproveedorNombre.toString().trim(),
-              telefono: this.miFormulario.value.hproveedorTelefono.toString().trim(),
-              correo: this.miFormulario.value.hproveedorCorreo.toString().trim(),
-              direccion: this.miFormulario.value.hproveedorDireccion.toString().trim(),
-              provee: this.miFormulario.value.hproveedorProvee.toString().trim()
+              nombre: this.miFormulario.value.hproveedorNombre,
+              telefono: this.miFormulario.value.hproveedorTelefono,
+              correo: this.miFormulario.value.hproveedorCorreo,
+              direccion: this.miFormulario.value.hproveedorDireccion,
+              provee: this.miFormulario.value.hproveedorProvee,
             }
           ).subscribe(
             respuesta => {
