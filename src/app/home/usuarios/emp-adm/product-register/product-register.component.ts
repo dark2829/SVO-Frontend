@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EnlacesService } from 'src/app/services/enlaces.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { TokenService } from 'src/app/services/token.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-product-register',
@@ -16,8 +17,9 @@ export class ProductRegisterComponent implements OnInit {
   formProducto: FormGroup;
   fileChange: boolean = false;
   preView: string;  
-
-  @ViewChild('alerta') alerta: ElementRef;
+  img: any; 
+  codigo_producto: any;
+  tipImage: any;
 
   constructor(
     private productos: ProductosService, 
@@ -25,21 +27,48 @@ export class ProductRegisterComponent implements OnInit {
     private router: Router, 
     private enlaces: EnlacesService,
     private token: TokenService, 
-    private sanitizer: DomSanitizer,    
+    private sanitizer: DomSanitizer,    //? Convertir a base64 y -> viceversa
+    private alerta: AlertaService
   ) { }
 
+  zfill(numero: number, tamaño: number) {
+    var numberOutput = Math.abs(numero); /* Valor absoluto del número */
+    var length = numero.toString().length; /* Largo del número */
+    var zero = "0"; /* String de cero */
+
+    if (tamaño <= length) {
+      if (numero < 0) {
+        return ("-" + numberOutput.toString());
+      } else {
+        return numberOutput.toString();
+      }
+    } else {
+      if (numero < 0) {
+        return ("-" + (zero.repeat(tamaño - length)) + numberOutput.toString());
+      } else {
+        return ((zero.repeat(tamaño - length)) + numberOutput.toString());
+      }
+    }
+  }
+
   ngOnInit(): void {
+    this.tipImage = "Se recomienda que las imágenes sean png con una dimencion de 1540x1830"
     if (this.token.getToken()) {
+      this.productos.getAllProductos().subscribe(response => {
+        let cantidad = response.data.length;
+        this.codigo_producto = parseInt(response.data[cantidad-1].codigo_prod)+1;
+        this.codigo_producto = this.zfill(this.codigo_producto, 9);
+      })
       this.formProducto = this.formBuilder.group({
-        fcodProd: [null, [Validators.required]],
-        fname: [null, [Validators.required]],
-        fcategoria: [null, [Validators.required]],
-        fcantidad: [null, [Validators.required]],
-        fpCompra: [null, [Validators.required]],
-        fpVenta: [null, [Validators.required]],
-        fpDesc: [null, [Validators.required]],
+        fcodProd:     [this.codigo_producto, [Validators.required, Validators.maxLength(12), Validators.maxLength(12)]],
+        fname:        [null, [Validators.required]],
+        fcategoria:   [null, [Validators.required]],
+        fcantidad:    [null, [Validators.required, Validators.min(0)]],
+        fpCompra:     [null, [Validators.required, Validators.min(0.00)]],
+        fpVenta:      [null, [Validators.required, Validators.min(0.00)]],
+        fpDesc:       [null, [Validators.required, Validators.min(0.00)]],
         fDescription: [null, [Validators.required]],
-        festado: [null, []]
+        festado:      [null, []]
       })
     } else {
       console.log("No hay token");
@@ -48,80 +77,53 @@ export class ProductRegisterComponent implements OnInit {
 
   load(){
     const loadProductos = this.enlaces.API_ENLACE_PRODUCTOS + this.enlaces.PRODUCTO_INSERT
-    if(
-      this.formProducto.value.fcodProd != null &&
-      this.formProducto.value.fname != null &&
-      this.formProducto.value.fcategoria != null &&
-      this.formProducto.value.fcantidad != null &&
-      this.formProducto.value.fpCompra != null &&
-      this.formProducto.value.fpVenta != null &&
-      this.formProducto.value.fpDesc != null &&
-      this.formProducto.value.fDescription != null &&
-      this.formProducto.value.fcodProd != "" &&
-      this.formProducto.value.fname != "" &&
-      this.formProducto.value.fcategoria != "" &&
-      this.formProducto.value.fcantidad != "" &&
-      this.formProducto.value.fpCompra != "" &&
-      this.formProducto.value.fpVenta != "" &&
-      this.formProducto.value.fpDesc != "" &&
-      this.formProducto.value.fDescription != "" 
-    ){
-      this.productos.saveProducto(loadProductos, {
-        codigo_prod: this.formProducto.value.fcodProd,
-        nombre: this.formProducto.value.fname,
-        categoria: this.formProducto.value.fcategoria,
-        cantidad: this.formProducto.value.fcantidad,
-        precio_compra: this.formProducto.value.fpCompra,
-        precio_venta: this.formProducto.value.fpVenta,
-        precio_descuento: this.formProducto.value.fpDesc,
-        descripcion: this.formProducto.value.fDescription,
-        estatus: 'Disponible'
-      }).subscribe(response => {
-        console.log("Respuesta"+response);
-      }, 
-      reject => {
-        console.log("Error"+reject.error);
-      });
+    if(this.formProducto.valid == true){
+      if (
+        this.formProducto.value.fname != null && 
+        this.formProducto.value.fcategoria != null &&
+        this.formProducto.value.fcantidad != null &&
+        this.formProducto.value.fpCompra != null &&
+        this.formProducto.value.fpVenta != null &&
+        this.formProducto.value.fpDesc != null &&
+        this.formProducto.value.fDescription != null &&
+        this.formProducto.value.fcodProd != "" &&
+        this.formProducto.value.fname != "" &&
+        this.formProducto.value.fcategoria != "" &&
+        this.formProducto.value.fcantidad != "" &&
+        this.formProducto.value.fpCompra != "" &&
+        this.formProducto.value.fpVenta != "" &&
+        this.formProducto.value.fpDesc != "" &&
+        this.formProducto.value.fDescription != ""
+      ) {      
+        this.productos.saveProducto(loadProductos, {
+          codigo_prod: this.formProducto.value.fcodProd,
+          imagen: this.img ,
+          nombre: this.formProducto.value.fname.trimStart(),
+          categoria: this.formProducto.value.fcategoria,
+          cantidad: this.formProducto.value.fcantidad,
+          precio_compra: this.formProducto.value.fpCompra,
+          precio_venta: this.formProducto.value.fpVenta,
+          precio_descuento: this.formProducto.value.fpDesc,
+          descripcion: this.formProducto.value.fDescription,
+          estatus: 'Disponible'
+        }).subscribe(response => {
+          this.alerta.showAlert(response.message, "success", 2000);
+          setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
+        }, 
+        reject => {
+          this.alerta.showAlert(reject.error.message, "warning", 2500, reject.status)
+        });
+      }else{
+        this.alerta.showAlert("Todos los campos son requeridos", "danger", 2500)
+      }
     }else{
-      this.errores("Todos los campos son requeridos", "danger");
+      this.alerta.showAlert("Algunos campos no son validos", "danger", 2000);
     }
   }
-
-  //? Estos metodos funcionan para mostrar las alertas
-  public information(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {} , 1000);
-  }
-
-  public errores(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
+  
+  cancel(){
+    this.alerta.showAlert("Cancelado", "secondary", 2000)
+    setTimeout(() => { this.router.navigate(['inventario']); }, 2100);
   }
 
   public capturarArchivo(event: any): any{
@@ -129,7 +131,7 @@ export class ProductRegisterComponent implements OnInit {
     this.fileChange = true; 
     this.extraerB64(archivoCapturado).then((imagen: any) => {
       this.preView = imagen.base;
-      console.log(imagen)
+      this.img = imagen.base.split(',')[1];      
     })
   }
   

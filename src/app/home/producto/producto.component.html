@@ -8,61 +8,59 @@
     <div class="product container bg-light text-dark rounded border border-dark  mb-5">
         <div class="row">
             <div class="col text-center  d-flex justify-content-center align-items-center">
-                <p class="h4 fw-bold bg-primary w-50 rounded-pill text-white pt-1 pb-1">Limpieza</p>
+                <p class="h4 fw-bold bg-primary w-50 rounded-pill text-white pt-1 pb-1">{{productInfo.categoria}}</p>
             </div>
         </div>
         <div class="row mt-2 mb-2">
             <div class="col col-12 col-sm-12 col-md-6 align-items-center">
-                <p class="text-center"><img src="../../../assets/img/jabon.png" class="img-fluid w-75"
-                        alt="Imagen de producto"></p>
+                <p class="text-center">
+                    <img  *ngIf="productInfo.imagen != null; else sinImagen" [src]="regresarImg(productInfo.imagen)" class="img-fluid w-75" alt="Imagen de producto">
+                    <ng-template #sinImagen>
+                        <img src="../../assets/img/notFound2.png"  class="img-fluid w-50" alt="Imagen de producto">
+                    </ng-template>
+                </p>
             </div>
             <div class="col col-12 col-sm-12 col-md-6 d-flex justify-content-center align-items-center">
                 <div class="container">
                     <div class="card  mx-auto rounded border border-dark w-100">
     
                         <span class="like position-absolute translate-middle badge rounded-pill">
-                            <button class="btn btn-outline-danger rounded-circle p-0 m-0" type="button">
+                            <a class="btn btn-outline-danger rounded-circle p-0 m-0 buttonLike" type="button" (click)="like(productInfo.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="15" fill="currentColor"
                                     class="bi bi-heart" viewBox="0 0 16 16">
                                     <path
                                         d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                                 </svg>
-                            </button>
+                            </a>
                         </span>
     
-                        <div class="card-title h5 p-2 fw-bold">Detergente Roma Multiusos 1kg En Polvo</div>
+                        <div class="card-title h5 p-2 fw-bold">{{productInfo.nombre}}</div>
                         <div class="card-text m-2">
-                            <p>Categoría: <span class="text-primary">Higiene</span></p>
-                            <p><span class="text-decoration-line-through text-secondary">$40.50</span>
+                            <p>Categoría: <span class="text-primary">{{productInfo.categoria}}</span></p>
+                            <p><span class="text-decoration-line-through text-secondary">${{productInfo.precio_venta+productInfo.precio_descuento}}</span>
                                 &nbsp;
                                 <span class="text-success fs-5">
-                                    $26.50
+                                    ${{productInfo.precio_venta}}
                                 </span>
                             </p>
                             <span class="small">
                                 Incluye
                                 <ul>
-                                    <li>Un jabón liquido</li>
+                                    <li>{{productInfo.nombre}}</li>
                                 </ul>
                             </span>
-                            <p class="small">Stock disponible</p>
+                            <p class="small">Stock {{productInfo.estatus}}</p>
                             <div class="row">
                                 <div class="col col-7 ">
-                                    <p>Cantidad: 1 Unidad</p>
+                                    <p>Cantidad: {{formProductoExtend.value.cantidad}} <span *ngIf="formProductoExtend.value.cantidad <= 1; else plural">Unidad</span></p>
+                                    <ng-template #plural>
+                                        <span>Unidades</span>
+                                    </ng-template>
                                 </div>
                                 <div class="col col-5">
-                                    <form class="w-75">
-                                        <select class="form-select form-select-sm w-100">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
+                                    <form class="w-75 was-validated needs-validation" [formGroup]="formProductoExtend" errorTailor novalidate>
+                                        <select formControlName="cantidad" class="form-select form-select-sm w-100">
+                                            <option *ngFor="let valor of cantidad">{{valor}}</option>
                                         </select>
                                     </form>
                                 </div>
@@ -71,7 +69,7 @@
                     </div>
                     <div class="card mx-auto mt-2 rounded border border-dark w-100 text-center">
                         <div class="card-title h6 p-2 m-1">
-                            <button class="btn btn-primary text-white rounded-pill">Agregar a carrito</button>
+                            <button type="button" class="btn btn-primary text-white rounded-pill" (click)="addCarrito(productInfo.id, formProductoExtend.value.cantidad)">Agregar a carrito</button>
                         </div>
                         <div class="card-text">
                         </div>

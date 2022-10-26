@@ -1,5 +1,6 @@
 .jumbo{
-    height: 30vh;
+    height: 50vh;
+    width: 100vw;
     position: absolute;
     background-image: url('../../../../../assets/img/jumbo.png');
 }
@@ -10,4 +11,63 @@
 
 .text{
     margin-top: 20vh;
+}
+
+.tachado{
+    text-decoration: line-through;
+}
+
+.like{
+    position: absolute;
+    top: 8%;
+    left: 88%;
+}
+
+.card{
+    border-radius: 4vh;
+    -webkit-border-radius: 4vh;
+    -moz-border-radius: 4vh;
+    -ms-border-radius: 4vh;
+    -o-border-radius: 4vh;
+}
+
+.tituloProducto{
+    height: 10vh;
+}
+
+.carta{
+    height: 100%;
+}
+
+a{
+    text-decoration: none; 
+    max-height: 100vh;
+}
+
+.card-head{
+    height: 40vh;
+}
+
+.card-body{
+    height: 40vh;
+}
+
+.imgProd{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-head .imgProdImg {
+    width: 32vh;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.lineaBlanca{
+    border-color: white ;
+}
+
+h3{
+    position: relative;
 }

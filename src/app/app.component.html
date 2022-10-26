@@ -1,3 +1,6 @@
-<!-- <app-home></app-home> -->
-<!-- <app-usuarios></app-usuarios> -->
+<!-- Alerta -->
+<div [ngClass]="tipo" class="alert" #alerta id="alerta" *ngIf="showAlert == true">
+    <strong>{{mensaje}}</strong>
+</div>
+
 <router-outlet></router-outlet>

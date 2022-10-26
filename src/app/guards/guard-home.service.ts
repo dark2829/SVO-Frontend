@@ -16,7 +16,6 @@ export class GuardHomeService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
     const expectedRol = route.data['expectedRol']; 
-    console.log(expectedRol);
     const roles = this.token.rolesExistentes;
     // this.realRol = 'Administrador';
     roles.forEach(rol => {

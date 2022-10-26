@@ -1,151 +1,210 @@
 <app-nav-bar></app-nav-bar>
+<!-- 
+    Este apartado es para la pantalla de carrito de compras. 
+ -->
 
-<section class="container-fluid" style="padding-top: 15vh; padding-bottom: 8vh;">
+<section class="container-fluid" style="padding-top: 15vh; padding-bottom: 8vh; height: auto;">
     <div class="row">
         <div class="col">
-            <div class="container">
+            <div class="container p-1">
                 <span>
                     <h3 class="mt-4">Productos</h3>
                 </span>
                 <div class="row border border-dark">
-                    <!-- Productos -->
-                    <div class="col col-12 col-sm-12 col-md-6 col-lg-5 border border-dark">
-                        <div class="container-fluid m-1 mt-2 p-0 border border-primary rounded">
+                    <!-- Productos en carrito dentro del iframe-->
+                    <div class="col col-12 col-sm-12 col-md-6 col-lg-6 border border-dark">
+                        <div class="container-fluid my-2 p-0 border border-primary rounded">
                             <div class="row">
-                                <!-- Imagen -->
-                                <div class="col col-4 col-sm-4 col-md-5">
-                                    <img src="../../../../../assets/img/jabon.png" alt="Imagen de producto"
-                                        class="img-fluid text-start w-75">
-                                </div>
-                                <!-- Descripción -->
-                                <div class="col col-8 col-sm-8 col-md-6">
-                                    <div class="row">
-                                        <div class="col">
-                                            <!-- Nombre y icono -->
-                                            <div class="row">
-                                                <div class="col col-lg-10 col-md-9 col-sm-10 col-8">
-                                                    <h6> {{producto}} </h6>
-                                                </div>
-                                                <div class="col col-lg-2 col-md-3 col-sm-2 col-2">
-                                                    <span >
-                                                        <button class="btn">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" fill="currentColor"
-                                                                class="bi bi-trash3-fill text-dark" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                            </svg>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <!-- Precios -->
-                                            <span class="text-secondary tachado small"><del>${{precioAntes}}</del></span>
-                                            <span class="h6 text-success"> ${{precioReal}}</span>
-
-                                            <div class="row  mt-3 mb-3">
-                                                <div class="col col-6">
-                                                    <select class="form-select form-select" aria-label=".form-select-lg example">
-                                                        <option selected>1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                      </select>
-                                                </div>
-                                                <div class="col col-4"><span class="h5 text-success">${{total}}</span>
+                                <cdk-virtual-scroll-viewport itemSize="1" class="viewPort">
+                                    <div *ngIf="productosAgregados != ''; else noneProduct">
+                                        <div class="content" *ngFor="let producto of productosAgregados; index as i">
+                                            <div class="container-fluid">
+                                                <div class="row border border-dark alert-primary rounded-3 my-1"
+                                                    style="margin: 0 0.01% 0 0.01%;">
+                                                    <!-- Imagen -->
+                                                    <div class="col col-4 col-sm-4 col-md-5 text-center imagenes">
+                                                        <div *ngIf="producto.idProducto.imagen != null; else noImg">
+                                                            <img [src]="regresarImg(producto.idProducto.imagen)"
+                                                                alt="Imagen de producto" class="img-fluid w-75">
+                                                        </div>
+                                                        <ng-template #noImg>
+                                                            <img src="../../assets/img/notFound2.png" class="img-fluid w-75"
+                                                                alt="Card image">
+                                                        </ng-template>
+                                                    </div>
+                                                    <!-- Descripción -->
+                                                    <div class="col col-8 col-sm-8 col-md-7">
+                                                        <div class="row" style="height: 60%;">
+                                                            <div class="col-12">
+                                                                <div class="row" style="height: 50%;">
+                                                                    <div class="col col-8">
+                                                                        <p class="titulo">{{producto.idProducto.nombre}}</p>
+                                                                    </div>
+                                                                    <div class="col col-2 text-center">
+                                                                        <span>
+                                                                            <a class="btn"
+                                                                                (click)="deleteGroup(producto.idProducto.id, idUsuario)">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="25" height="25"
+                                                                                    fill="currentColor"
+                                                                                    class="bi bi-trash3-fill text-dark"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path
+                                                                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                                                </svg>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row" style="height: 50%;">
+                                                                    <div class="col" style="height: 100%;">
+                                                                        <span>
+                                                                            <div
+                                                                                *ngIf="producto.idProducto.precio_descuento != 0; else descuento">
+                                                                                <small
+                                                                                    class="text-secondary tachado small mx-2 mt-2"><del>${{producto.idProducto.precio_venta}}</del></small>
+                                                                                <small
+                                                                                    class="h5 text-success mx-2 mt-2">${{producto.idProducto.precio_descuento}}</small>
+                                                                            </div>
+                                                                            <ng-template #descuento>
+                                                                                <small
+                                                                                    class="h5 text-success mx-2 mt-2">${{producto.idProducto.precio_venta}}</small>
+                                                                            </ng-template>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-5" style="height: 40%;">
+                                                            <div class="col-12">
+                                                                <div class="row">
+                                                                    <div class="col col-12">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input
+                                                                                    class="btn btn-danger rounded rounded-pill btn-round"
+                                                                                    type="button" name="reducir" value="-"
+                                                                                    (click)="actualizarCantidad(producto.idProducto.id, producto.cantidad)">
+                                                                                <span
+                                                                                    class="textCant mx-1">{{producto.cantidad}}</span>
+                                                                                <input
+                                                                                    class="btn btn-success rounded rounded-pill btn-round"
+                                                                                    type="button" name="reducir" value="+"
+                                                                                    (click)="addOneProduct(producto.idProducto.id, producto.cantidad)">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col col-12 text-end">
+                                                                        <span class="h5 text-success">
+                                                                            ${{(producto.precio_total).toFixed(2)}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                    <ng-template #noneProduct>
+                                        <h3 class="text-primary noneProduct">No hay productos en carrito</h3>
+                                    </ng-template>
+
+                                </cdk-virtual-scroll-viewport>
                             </div>
                         </div>
                     </div>
 
                     <!-- Métodos de pago y entrega -->
-                    <div class="col col-12 col-sm-12 col-md-6 col-lg-3 border border-dark">
+                    <div class="col col-12 col-sm-12 col-md-6 col-lg-6 border border-dark">
                         <div class="row mb-3">
-                            <div class="col col-12 mt-3">
-                                <h5>Seleccionar método de pago</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Efectivo
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Tarjeta
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="col col-12 mt-3">
-                                <h5>Método de entrega</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Domicilio
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Recoger en tienda
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col col-12 mt-3">
-                                <h5>¿Su compra sera facturada?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Productos individuales -->
-                    <div class="col col-12 col-sm-12 col-md-12 col-lg-4 border border-dark">
-                        <div class="row">
-                            <div class="col">
-                                <div class="container mt-4 rounded border border-primary">
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>{{producto}}</p>
-                                            <p>Precio unitario: {{precioReal}} </p>
-                                            <p>Cantidad: {{cantidad}}</p>
-                                            <p>Total: {{cantidad * precioReal}}</p>
-                                        </div>
+                            <form class="row was-validated needs-validation" [formGroup]="fCarrito" errorTailor
+                                novalidate>
+                                <div class="col col-12 mt-3">
+                                    <h5>Seleccionar método de pago</h5>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Efectivo</span>
+                                            <input formControlName="pago" class="form-check-input" type="radio"
+                                                name="pago" id="Efectivo" value="efectivo">
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Tarjeta</span>
+                                            <input formControlName="pago" class="form-check-input" type="radio"
+                                                name="pago" (click)="activeTarject = true" id="Tarjeta" value="tarjeta"
+                                                data-bs-toggle="modal" data-bs-target="#whitTarget">
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col col-12 mt-3">
-                                <h5>Total: {{cantidad * precioReal}}</h5>
-                                <hr>
-                                <p>Mas envio: {{cantidad}}</p>
+                                <div class="col col-12 mt-3">
+                                    <h5>Método de entrega</h5>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Domicilio</span>
+                                            <input formControlName="entrega" class="form-check-input" type="radio"
+                                                (click)="activeDirection = true" name="entrega" id="Domicilio"
+                                                value="Domicilio" data-bs-toggle="modal" data-bs-target="#onDirection">
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Tienda</span>
+                                            <input formControlName="entrega" class="form-check-input" type="radio"
+                                                name="entrega" id="Tienda" value="Tienda">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-12 mt-3">
+                                    <h5>Facturar compra</h5>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">Si</span>
+                                            <input (click)="activarDownload = true" (click)="fact()" formControlName="factura"
+                                                class="form-check-input" type="radio" name="factura" id="Si" value="1">
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2 datosRequeridos">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            <span class="text-dark">No</span>
+                                            <input formControlName="factura" (click)="returnFalse()"class="form-check-input" type="radio"
+                                                name="factura" id="No" value="0">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-12 mt-3">
+                                    <h5>Total: <b>${{totalShop}}</b>
+                                        <span *ngIf="fCarrito.value.entrega == 'Domicilio'; else tienda">
+                                            <span *ngIf="totalShop < 500; else tienda">
+                                                Envio: <b>$50</b>
+                                            </span>
+                                        </span>
+                                        <ng-template #tienda>
+                                            Envio: $0
+                                        </ng-template>
+                                    </h5>
+                                </div>
+                                <div class="p-0 mt-4 mb-0 ">
+                                    <p class="text-center m-0">
+                                        <button (click)="continieBuy()" type="submit"
+                                            class="btn btn-success rounded rounded-pill"
+                                            [disabled]="buttonActived || !fCarrito.valid" (click)="compra = true">
+                                            Continuar con la compra
+                                        </button>
+                                    </p>
+                                </div>
 
-                                <p class="text-center">
-                                    <button class="btn btn-success rounded rounded-pill" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Continuar con la compra
-                                    </button>
-                                </p>
-                            </div>
+                                <span class="text-center mt-2">
+                                    <span *ngIf="compra">
+                                        <a *ngIf="activarDownload" class="btn btn-small btn-primary text-center rounded rounded-pill" target="_self" [href]="urlPedido" download="ticketCompra.pdf">Descargar
+                                            Factura
+                                        </a>
+                                    </span>
+                                </span>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -170,17 +229,17 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-check">
-                            <input data-bs-toggle="collapse" data-bs-target="#tarjeta" type="radio" class="form-check-input" id="radio1" name="optradio" value="option1"
-                                >Tarjeta
+                            <input data-bs-toggle="collapse" data-bs-target="#tarjeta" type="radio"
+                                class="form-check-input" id="radio1" name="optradio" value="option1">Tarjeta
                             <label class="form-check-label" for="radio1"></label>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-check">
-                            <input data-bs-toggle="collapse" data-bs-target="#money" type="radio" class="form-check-input" id="radio2" name="optradio"
-                                value="option2">
-                                Efectivo
+                            <input data-bs-toggle="collapse" data-bs-target="#money" type="radio"
+                                class="form-check-input" id="radio2" name="optradio" value="option2">
+                            Efectivo
                             <label class="form-check-label" for="radio2"></label>
                         </div>
                     </div>
@@ -200,7 +259,7 @@
                                         <input type="date" class="form-control w-50" placeholder="Nombre" name="nombre">
                                         <label>CVV</label>
                                         <input type="number" class="form-control w-50" placeholder="CVV" name="nombre">
-                                    </form>                                   
+                                    </form>
 
                                 </div>
                             </div>
@@ -209,7 +268,7 @@
                                     <form class="m-3 border border-primary bg-light rounded p-3 collapse" id="money">
                                         <p>1.- Recibirás un código de barras en tu email </p>
                                         <p>2.- Debes presentar el código antes de 48 hrs </p>
-                                    </form>                                   
+                                    </form>
 
                                 </div>
                             </div>
@@ -221,6 +280,89 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-success rounded rounded-pill">Continuar</button>
             </div>
+        </div>
+    </div>
+</div>
+<!-- The Modal metodo de pago TARJET-->
+<div class="modal" id="whitTarget" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Seleccione la tarjeta a utilizar</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Mostrar todas las tarjetas disponibles -->
+                <div *ngFor="let tarjeta of tarjetas | objectToArray" class="container-fluid m-0 p-0">
+                    <button *ngIf="tarjeta.numero != ' ' && tarjeta.numero != null" (click)="selectTarject(tarjeta.id)"
+                        class="btn btn-outline-primary mt-1 mb-1 w-100">
+                        <div class="row text-start">
+                            <div class="col-8">
+                                <span>Propietario: </span> <span>{{tarjeta.nombre_propietario}}</span>
+                            </div>
+                            <div class="col-4 p-0">
+                                <span>Vencimiento: </span> <span>{{tarjeta.fecha_vencimiento}}</span>
+                            </div>
+                            <div class="col-12">
+                                <span>Numero: </span><span>{{tarjeta.numero}}</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button [disabled]="activeTarject" (click)="tarjectToBuy(tarjetBuy)" type="button"
+                    class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-danger" (click)="activeDirectionradio()" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- The Modal metodo de entrega DOMICILIO-->
+<div class="modal" id="onDirection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Seleccione Domicilio</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- Mostrar todas las tarjetas disponibles -->
+                <div *ngFor="let direction of directions | objectToArray" class="container-fluid m-0 p-0">
+                    <div *ngIf="direction.estado != '' && direction.estado != null">
+                        <button (click)="selectDirection(direction.id)" class="btn btn-outline-primary mt-1 mb-1 w-100">
+                            <div class="row text-start">
+                                <div class="col">
+                                    <div class="fw-bold">Calle: <span class="fw-normal">{{direction.calle}}</span></div>
+                                    <div class="fw-bold">Colonia: <span class="fw-normal">{{direction.colonia}}</span>
+                                    </div>
+                                    <div class="fw-bold">Municipio: <span
+                                            class="fw-normal">{{direction.municipio}}</span></div>
+                                    <div class="fw-bold">Codigo Postal: <span class="fw-normal">{{direction.cp}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button [disabled]="activeDirection" (click)="directionToSend(dirToSend)" type="button"
+                    class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-danger" (click)="activeDirectionradio2()" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+
         </div>
     </div>
 </div>

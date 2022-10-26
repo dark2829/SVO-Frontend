@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { map, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { map, Observable, throwError, Subject } from 'rxjs';
 import { EnlacesService } from './enlaces.service';
-import { error } from '@angular/compiler/src/util';
-import { NewUser} from '../models/newUser';
-import { JwtDTO } from '../models/jwtDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +10,25 @@ export class PersonasService {
 
   idPerson: number; 
   idUser: number; 
-  personInfo: any; 
+  personInfo: any;
 
   authURL = this.enlaces.AUTH_URL; 
+
+  //! Varibale de productos para carrito 
+  productShopping: any = [];
 
   constructor(
     private http: HttpClient, 
     private enlaces: EnlacesService
   ) { }
+
+  public getProduct(idUsuario: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_GET_ALL+idUsuario)
+  }
+
+  public getProductLike(idUsuario: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_GET_ALL+idUsuario)
+  }
 
   //* Métodos get
   public getPerson(id: string): Observable<any>{
@@ -29,9 +36,6 @@ export class PersonasService {
   }
 
   //* Métodos post
-  /* public insertClient(newUser: NewUser): Observable<any>{
-    return this.http.post<any>(this.authURL+'nuevo', newUser);
-  } */
   public insertClient(url: string, body: {
     nombre: string;
     apellido_paterno: string;
@@ -48,12 +52,6 @@ export class PersonasService {
   }): Observable<any>{
     return this.http.post<any>(this.authURL+ 'login/', body)
   }
-  /* public inicioSesion(url: string, body: {
-    identificador: string; 
-    contrasena: string; 
-  }): Observable<any>{
-    return this.http.post(url, body)
-  } */
 
   public updateClientAll(url: string, body: {
     nombre: string; 
@@ -81,6 +79,7 @@ export class PersonasService {
   }){
     return this.http.post(url, body);
   }
+  
   public updateClientDataPerson(url: string, body: {
     nombre: string; 
     apellido_paterno: string; 
@@ -99,48 +98,117 @@ export class PersonasService {
     colonia: string; 
     municipio: string; 
     estado: string; 
+    cp: any; 
+    n_interior: any; 
+    n_exterior: any; 
+    referencia: string; 
+  }){
+    return this.http.post(url, body);
+  }
+  public updateClientDirectionSNId(url: string, body: {
+    calle: string; 
+    colonia: string; 
+    municipio: string; 
+    estado: string; 
     cp: string; 
     n_interio: number; 
     n_exterior: number; 
     referencia: string; 
-    idTarjeta: number; 
-    nombre_propietario: string; 
-    numero_tarjeta: string; 
-    fecha_vencimiento: string; 
-    cvv: number; 
   }){
     return this.http.post(url, body);
   }
   public updateClientTarget(url: string, body: {
-    idTarjeta: number; 
-    nombre_propietario: string; 
-    numero_tarjeta: string; 
-    fecha_vencimiento: string; 
-    cvv: number; 
+    idTarjeta: any; //number
+    nombre_propietario: any; 
+    numero_tarjeta: any; 
+    fecha_vencimiento: any; 
+    cvv: any; //numver
   }){
     return this.http.post(url, body);
   }
 
-/*
-!Metodo opcional para obtener informacion
-
-  public inicioSesion(url: string): Observable<any>{
-    return this.http.get(url).pipe(
-      map(
-        (response: any) => {
-          console.log("respuesta desde inicioSesion: "+response);
-        }
-      ),
-      catchError((error) => this.handleError(error))
-    );
+  public updateClientTargetSNId(url: string, body: {
+    nombre_propietario: string; 
+    numero_tarjeta: string; 
+    fecha_vencimiento: string; 
+    cvv: string; //numver
+  }){
+    return this.http.post(url, body);
   }
 
-  private handleError(error: { message: any; }): Observable<never>{
-    let errorMessage = "Ocurrio un error"; 
-    if(error){
-      errorMessage = `Error: code ${error.message}`
-    }
-    console.log("Error en handleError: "+errorMessage);
-    return throwError(errorMessage);
-  } */
+  public addShopingCar(url: string, body: {
+    id: number,
+    cantidad: number
+  }): Observable<any>{
+    return this.http.post(url, body);
+  }
+
+  public deleteOneGroup(idProducto: string, idUsuario: string): Observable<any>{
+    return this.http.get(this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_DELETE_P+idProducto+this.enlaces.CARRITO_PandU+idUsuario);
+  }
+
+  public deleteOneProductOfGroup(url: string, body: {
+    idProducto: number, 
+    cantidad: number
+  }): Observable<any>{
+    return this.http.post(url, body);
+  }
+
+  public addFavorite(idProducto: string, idUsuario: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_ADD+idProducto+this.enlaces.FAVORITOS_AandU+idUsuario;
+    return this.http.get(URL);
+  }
+
+  public deleteFavorite(idProducto: string, idUsuario: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_PRODUCTOS+this.enlaces.FAVORITOS_DELETE+idProducto+this.enlaces.FAVORITOS_AandU+idUsuario;
+    return this.http.get(URL);
+  }
+
+  public saveVenta(idUsuario: number, body: {
+    "tipo_envio":string,
+    "direccion":string,
+    "fecha_venta": string,
+    "facturado": number, 
+    "tipo_pago":string,
+    "tarjetaUtilizada": string
+  }): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_CARRITO+this.enlaces.CARRITO_SAVE+idUsuario;
+    return this.http.post(URL, body);
+  }
+
+  public historyBuy(idUsuario: number, status: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_COMPRAS+this.enlaces.HISTORIAL_FOR_STATUS+idUsuario+this.enlaces.HISTORIAL_STATUS+status;
+    return this.http.get(URL);
+  }
+
+  public historyFetch(idUsuario: number, status: string, fecha: string): Observable<any>{
+    const URL = this.enlaces.API_ENLACE_COMPRAS+this.enlaces.HISTORIAL_SHOW_HIST+idUsuario+this.enlaces.HISTORIAL_SHOW_HOST_C+status+this.enlaces.HISTORIAL_SHOW_HIST_C+fecha;
+    return this.http.get(URL);
+  }
+
+  public recovery(body: {
+    "mailTo": string
+  }){
+    const URL = this.enlaces.API_ENLACE_RECOVERY; 
+    return this.http.post(URL, body);
+  }
+
+  public changePassword(correo: string, body: {
+    "contraseña": string 
+  }){
+    const URL = this.enlaces.API_ENLACE_USUARIOS+this.enlaces.USUARIO_CHANGE_PASSWORD+correo; 
+    return this.http.post(URL, body);
+  }
+
+  public updatePicture(idPersona: string, body: {
+    foto: string
+  }){
+    const URL = this.enlaces.API_ENLACE_PERSONAS+this.enlaces.PERSONA_UPDATE_PICTU+idPersona;
+    return this.http.post(URL, body);
+  }
+
+  public downloadPedido(idPedido: any){
+    const URL = this.enlaces.API_ENLACE_PEDIDOS+this.enlaces.PEDIDOS_DOWNLOAD_PDF+idPedido;
+    return this.http.get(URL);
+  }
 }

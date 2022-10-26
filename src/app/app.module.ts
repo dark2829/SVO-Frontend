@@ -35,10 +35,16 @@ import { EmpleadosComponent } from './home/usuarios/admin/empleados/empleados.co
 import { EmpleadoRegisterComponent } from './home/usuarios/admin/empleado-register/empleado-register.component';
 import { EmpleadoModifyComponent } from './home/usuarios/admin/empleado-modify/empleado-modify.component';
 import { PedidoRequestComponent } from './home/usuarios/admin/pedido-request/pedido-request.component';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 //Import de servicios
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorTailorModule} from '@ngneat/error-tailor';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProductCarrComponent } from './home/usuarios/cliente/shopping-cart/product-carr/product-carr.component';
+import { PasswordrecoveryComponent } from './home/usuarios/todos/passwordrecovery/passwordrecovery.component';
+import { ProdtocancelComponent } from './home/usuarios/cliente/cancel-request/prodtocancel/prodtocancel.component';
+import { ObjectToArray } from './objectToArray.pipe';
+import { ProductforviewComponent } from './home/producto/productforview/productforview.component';
 
 //Interceptores
 // import { interceptorEmpleado } from './interceptors/interceptorempleado.service';
@@ -73,6 +79,12 @@ import { ErrorTailorModule} from '@ngneat/error-tailor';
     EmpleadoRegisterComponent,
     EmpleadoModifyComponent,
     PedidoRequestComponent,
+    NotFoundComponent,
+    ProductCarrComponent,
+    PasswordrecoveryComponent,
+    ProdtocancelComponent,
+    ObjectToArray,
+    ProductforviewComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +93,7 @@ import { ErrorTailorModule} from '@ngneat/error-tailor';
     HttpClientModule, 
     NgxPaginationModule, 
     ReactiveFormsModule, 
+    ScrollingModule,
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {

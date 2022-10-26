@@ -5,24 +5,24 @@
         <!-- Titulo and botón -->
         <div class="col col-9 col-sm-5 col-md-4 col-lg-2 pb-2">
           <!-- Titulo -->
-          <a class="navbar-brand" type="button" (click)="home()">
+          <a class="navbar-brand" type="button" (click)="home(rol)">
             López Vázquez
           </a>
         </div>
-    
+
         <!-- Icono de menu -->
         <button class="navbar-toggler mb-3 mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
           aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-    
+
         <!-- Colapso -->
         <div class="collapse navbar-collapse" id="navbarScroll">
           <div class="row col-12 col-md-12 col-lg-8  me-5">
             <!-- Boton de menu desplegable izquierdo -->
             <div class="col col-2 col-sm-6 col-md-1 col-lg-3 text-center">
-              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                aria-controls="offcanvasExample">
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                   class="bi bi-list text-white" viewBox="0 0 16 16">
                   <path fill-rule="evenodd"
@@ -31,20 +31,17 @@
               </button>
             </div>
             <!-- Formulario de búsqueda -->
-            <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2 mt-1">
+            <div class="col col-10 col-sm-6 col-md-10 col-lg-9 pb-2 mt-1" *ngIf="path == false">
               <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-success" type="button">Buscar</button>
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" (input)="getProduct($event)">
+                <button class="btn btn-success" type="button" (click)="showProduct()">Buscar</button>
               </form>
             </div>
           </div>
-          
-          {{isAdmin}}
-          <!-- <button (click)="isAdmin = !isAdmin">Admin</button> -->
 
           <ul class="navbar-nav me-0 my-0 my-lg-0 navbar-nav-scroll row w-100" style="--bs-scroll-height: 100vw;">
-            
-            <div class="nav-item col-4 col-sm-2 col-md-6 col-lg-6 text-center" *ngIf="!isOnline; else isinline">
+
+            <div class="nav-item col-4 col-sm-2 col-md-6 col-lg-6 text-center" *ngIf="!isLogged; else isinline">
               <li class="text-center">
                 <a class="nav-link" aria-current="page" type="button" (click)="login()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -55,10 +52,10 @@
                   </svg>
                   <a class="nav-link" aria-current="page" type="button">Iniciar sesión</a>
                 </a>
-            
+
               </li>
             </div>
-            
+
             <li class="nav-item col-4 col-sm-2 col-md-6 col-lg-6 text-center">
               <a class="nav-link" aria-current="page" type="button" (click)="shopping_cart()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -91,133 +88,140 @@
   </div>
   <!-- Cuerpo del menu desplegable-->
   <div class="offcanvas-body">
-    
+
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Carnes frias')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Carnes Frías
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Lacteos')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Lácteos
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Higiene personal')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Higiene Personal
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Botanas')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Botanas
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Farmacia')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Farmacia
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Limpieza del hogar')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Limpieza del hogar
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
+        <a type="button" class="w-100" (click)="categoria('Enlatados')">
         <div class="btn btn-outline-light w-100 text-start">
-          <a>
             Enlatados
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="row mt-1 mb-1">
       <div class="col">
-        <div class="btn btn-outline-light w-100 text-start">
-          <a>
+        <a type="button" class="w-100" (click)="categoria('Frutas y Verduras')">
+          <div class="btn btn-outline-light w-100 text-start">
             Frutas y verduras
-          </a>
-        </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="row mt-1 mb-1">
+      <div class="col">
+        <a type="button" class="w-100" (click)="categoria('all')">
+          <div class="btn btn-outline-light w-100 text-start">
+            Ver todos los productos
+          </div>
+        </a>
       </div>
     </div>
 
-   <div class="row mt-1 mb-1">
+    <div class="row mt-1 mb-1">
       <div class="col">
         <div class="dropdown">
-          <button class="btn btn-outline-light w-100 text-start dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+          <button class="btn btn-outline-light w-100 text-start dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown">
             <span style="margin-right:80%;">Perfil</span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li>
-              <a class="dropdown-item" (click)="modificarPerfil()">Perfil</a>
+              <button class="dropdown-item" (click)="modificarPerfil()">Perfil</button>
             </li>
             <li>
-              <a class="dropdown-item" (click)="shopHistory()">Historial de compra</a>
+              <button class="dropdown-item" (click)="shopHistory()">Historial de compra</button>
             </li>
             <li>
-              <a class="dropdown-item" (click)="favoritos()">Favoritos</a>
+              <button class="dropdown-item" (click)="favoritos()">Favoritos</button>
             </li>
             <li>
-              <a class="dropdown-item" (click)="cancelRequest()">Cerrar sesión</a>
+              <button class="dropdown-item alert-danger" (click)="cerrar()">Cerrar sesión</button>
             </li>
           </ul>
         </div>
       </div>
-    </div> 
+    </div>
 
   </div>
 </div>
 
 <!-- Vistas de cada usuario -->
 <ng-template #vistaAdmin>
-  <!-- <button (click)="onToggleSidenav()">Vista Cliente</button> -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
       <!-- Titulo and botón -->
       <div class="col col-9 col-sm-9 col-md-9 col-lg-9 pb-2">
         <!-- Titulo -->
-        <a class="navbar-brand" type="button" (click)="home()">
+        <a class="navbar-brand" type="button" (click)="home(rol)">
           López Vázquez
         </a>
       </div>
 
-      {{isAdmin}}
-      <button (click)="isAdmin = !isAdmin; isCliente = !isCliente">Admin</button>
       <div class="col col-3">
         <ul class="navbar-nav me-0 my-0 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100vw;">
           <li class="nav-item col-4 col-sm-2 col-md-2 col-lg-6 text-center">
-            <a class="nav-link" aria-current="page" type="button" (click)="cerrar()">
+            <a class="nav-link base" aria-current="page" type="button" (click)="cerrar()">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                 class="bi bi-person-circle text-white" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -225,12 +229,12 @@
                   d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
               </svg>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-              class="bi bi-box-arrow-right exit" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-              <path fill-rule="evenodd"
-                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-            </svg>
+                class="bi bi-box-arrow-right exit" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                <path fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+              </svg>
               <a class="nav-link" aria-current="page" type="button">{{nombre}}</a>
             </a>
           </li>
@@ -247,7 +251,7 @@
       <!-- Titulo and botón -->
       <div class="col col-9 col-sm-9 col-md-9 col-lg-9 pb-2">
         <!-- Titulo -->
-        <a class="navbar-brand" type="button" (click)="home()">
+        <a class="navbar-brand" type="button" (click)="home(rol)">
           López Vázquez
         </a>
       </div>
@@ -265,12 +269,12 @@
                   d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
               </svg>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-              class="bi bi-box-arrow-right exit" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-              <path fill-rule="evenodd"
-                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-            </svg>
+                class="bi bi-box-arrow-right exit" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                <path fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+              </svg>
               <a class="nav-link" aria-current="page" type="button">{{nombre}}</a>
             </a>
           </li>
@@ -283,23 +287,36 @@
 
 <ng-template #isinline>
   <li class="nav-item col-4 col-sm-2 col-md-2 col-lg-6 text-center">
+    <div *ngIf="isCliente; else isntCliente">
+      <a class="nav-link" aria-current="page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+          class="bi bi-person-circle text-white" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+          <path fill-rule="evenodd"
+            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+        </svg>
+        <a class="nav-link" aria-current="page">{{nombre}}</a>
+      </a>
+    </div>
 
-    <a type="button" class="nav-link" aria-current="page" (click)="cerrar()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-        class="bi bi-person-circle text-white" viewBox="0 0 16 16">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-        <path fill-rule="evenodd"
-          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-        class="bi bi-box-arrow-right exit" viewBox="0 0 16 16">
-        <path fill-rule="evenodd"
-          d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-        <path fill-rule="evenodd"
-          d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-      </svg>
-      <a class="nav-link" aria-current="page">{{nombre}}</a>
-    </a>
+    <ng-template #isntCliente>
+      <a type="button" class="nav-link" aria-current="page" (click)="cerrar()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+          class="bi bi-person-circle text-white" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+          <path fill-rule="evenodd"
+            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+          class="bi bi-box-arrow-right exit" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+          <path fill-rule="evenodd"
+            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+        </svg>
+        <a class="nav-link" aria-current="page">{{nombre}}</a>
+      </a>
+    </ng-template>
 
   </li>
 </ng-template>

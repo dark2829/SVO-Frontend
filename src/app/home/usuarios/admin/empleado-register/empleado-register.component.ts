@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmpleadosService } from '../../../../services/empleados.service';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { AlertaService } from '../../../../services/alerta.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-empleado-register',
@@ -10,19 +12,49 @@ import { EnlacesService } from '../../../../services/enlaces.service';
   styleUrls: ['./empleado-register.component.css']
 })
 export class EmpleadoRegisterComponent implements OnInit {
-  
-  @ViewChild('alerta') alerta: ElementRef;
   formEmpleado: FormGroup; 
+  noEmpleado: any;
+  parseCurrent: any; 
 
   constructor(
     private empleados: EmpleadosService, 
     private router: Router,
+    private token: TokenService, 
     private formBuilder: FormBuilder, 
-    private enlaces: EnlacesService
+    private enlaces: EnlacesService, 
+    private alerta: AlertaService
   ) { }
 
+  zfill(numero: number, tamaño: number) {
+    var numberOutput = Math.abs(numero); /* Valor absoluto del número */
+    var length = numero.toString().length; /* Largo del número */
+    var zero = "0"; /* String de cero */
+
+    if (tamaño <= length) {
+      if (numero < 0) {
+        return ("-" + numberOutput.toString());
+      } else {
+        return numberOutput.toString();
+      }
+    } else {
+      if (numero < 0) {
+        return ("-" + (zero.repeat(tamaño - length)) + numberOutput.toString());
+      } else {
+        return ((zero.repeat(tamaño - length)) + numberOutput.toString());
+      }
+    }
+  }
+
   ngOnInit(): void {
+    this.parseCurrent = this.token.valiNac();
     //? Inicializar los campos de entrada del formulario 
+    this.empleados.getAllEmpleados().subscribe(response => {
+      let cantidad = response.data.length;
+      this.noEmpleado = parseInt(response.data[cantidad-1].no_empleado)+1;
+      this.noEmpleado = this.zfill(this.noEmpleado, 4);
+
+    });
+
     this.formEmpleado = this.formBuilder.group({
       empNombre: [null, [Validators.required]],
       empApePat: [null, [Validators.required]],
@@ -33,8 +65,8 @@ export class EmpleadoRegisterComponent implements OnInit {
       empGenero: [null, []],
       empPuesto: [null, [Validators.required]],
       empSalari: [null, [Validators.required]],
-      empCorreo: [null, [Validators.required, Validators.email]],
-      empPass:   [null, [Validators.required]],
+      empCorreo: [null, [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
+      empPass:   [null, [Validators.required, Validators.minLength(5)]],
     });
   }
 
@@ -49,21 +81,10 @@ export class EmpleadoRegisterComponent implements OnInit {
         this.formEmpleado.value.empTelefo != null &&
         this.formEmpleado.value.empFechaN != null &&
         this.formEmpleado.value.empGenero != null &&
-        // this.formEmpleado.value.empPuesto != null &&
         this.formEmpleado.value.empSalari != null &&
         this.formEmpleado.value.empCorreo != null &&
-        this.formEmpleado.value.empPass != null 
-        /*this.formEmpleado.value.empNombre != "" &&
-        this.formEmpleado.value.empApePat != "" &&
-        this.formEmpleado.value.empApeMat != "" &&
-        this.formEmpleado.value.empCurp != "" &&
-        this.formEmpleado.value.empTelefo != "" &&
-        this.formEmpleado.value.empFechaN != "" &&
-        this.formEmpleado.value.empGenero != "" &&
-        // this.formEmpleado.value.empPuesto != "" &&
-        this.formEmpleado.value.empSalari != "" &&
-        this.formEmpleado.value.empCorreo != "" &&
-        this.formEmpleado.value.empPass != "" */
+        this.formEmpleado.value.empPass != null && 
+        this.formEmpleado.value.empPass.length >= 5
       ){
         let day = this.formEmpleado.value.empFechaN;
         day = day.split("-");
@@ -83,13 +104,13 @@ export class EmpleadoRegisterComponent implements OnInit {
           contrasena:        this.formEmpleado.value.empPass.toString().trim(),    
           idRol:             2        
         }).subscribe(response => {
-          this.information("Registro exitoso", "success");
+          this.alerta.showAlert(response.message, "success", 2000);
           setTimeout(() => {this.listaEmpleado()}, 2500);
         }, error => {
-          console.log(error);
+          this.alerta.showAlert(`Error al registrar empleado ${error.error.message}`, "danger", 2000, error.status);
         });
       }else{
-        this.errores("Campos invalidos", "warning");
+        this.alerta.showAlert("Faltan datos", "danger", 2000);
       }
     }catch(e){
       console.log(e);
@@ -101,43 +122,8 @@ export class EmpleadoRegisterComponent implements OnInit {
   }
 
   public cancelar(){
-    this.errores("Cancelado", "danger");
+    this.alerta.showAlert("Cancelado", "secondary", 2000);
     setTimeout(() => {this.listaEmpleado()} , 2500);
-  }
-
-
-  public information(texto: string, tipo: string){
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
-  }
-
-  public errores(texto: string, tipo: string){
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
   }
 
   public listaEmpleado(){

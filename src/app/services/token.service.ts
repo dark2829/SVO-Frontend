@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY: string = 'AuthToken';
@@ -5,6 +6,7 @@ const IDENTIFICADOR_KEY = 'AuthIdentificador';
 const NOMBRE_KEY = 'AuthNombre';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const ID_KEY = 'AuthID';
+const ID_PERSON = 'AuthIdPerson';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,47 @@ export class TokenService {
 
   constructor() { }
 
+  valiNac = () => {
+    const fecha = new Date();
+    const yearActual = fecha.getFullYear();
+    const montActual = fecha.getMonth();    
+    const diaActual = fecha.getDate();
+    const validYear = yearActual - 18; 
+    
+    let mes: any ; 
+    if(montActual < 10){
+      mes = `0${montActual+1}`;
+    }else{
+      mes = montActual+1; 
+    }
+    let dia: any ; 
+    if(diaActual < 10){
+      dia = `0${diaActual}`;
+    }else{
+      dia = diaActual; 
+    }
+    let parse = `${validYear}-${mes}-${dia}`
+    return parse;
+  }
+
+  validNip = () => {
+    const fecha = new Date();
+    const yearActual = fecha.getFullYear();
+    const montActual = fecha.getMonth()+1;  
+    let mes: any ; 
+    if(montActual < 10){
+      mes = `0${montActual}`;
+    }else{
+      mes = montActual; 
+    } 
+    return `${yearActual}-${mes}`
+  }
+
   public setToken(token: string): void{
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.setItem(TOKEN_KEY, token);
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
-    // window.sessionStorage.removeItem(TOKEN_KEY);
   }
 
   public isLogged(): boolean{
@@ -31,7 +70,7 @@ export class TokenService {
   }
 
   public getToken(): string{
-    return localStorage.getItem(TOKEN_KEY)!;
+    return sessionStorage.getItem(TOKEN_KEY)!;
   }
 
   public setID(id: string): void{
@@ -39,8 +78,17 @@ export class TokenService {
     window.sessionStorage.setItem(ID_KEY, id);
   }
 
+  public setIdPerson(id: string): void{
+    window.sessionStorage.removeItem(ID_PERSON);
+    window.sessionStorage.setItem(ID_PERSON, id);
+  }
+
   public getID(): string{
     return sessionStorage.getItem(ID_KEY)!;
+  }
+
+  public getIdPerson(): string{
+    return sessionStorage.getItem(ID_PERSON)!;
   }
 
   public setIdentificador(identify: string): void{
@@ -66,15 +114,8 @@ export class TokenService {
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));    
   }
 
-  public getAuthorieties(): string[]{
-    this.roles = [];
-    if(sessionStorage.getItem(AUTHORITIES_KEY)){
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)!).forEach((auth: any) => {
-        this.roles.push(auth.auth)
-      });
-    }
-
-    return this.roles; 
+  public getAuthorieties(): string{
+    return sessionStorage.getItem(AUTHORITIES_KEY)!;
   }
 
   public logout(): void{
@@ -83,5 +124,10 @@ export class TokenService {
     window.localStorage.removeItem(IDENTIFICADOR_KEY);
     window.localStorage.removeItem(NOMBRE_KEY);
     window.localStorage.removeItem(AUTHORITIES_KEY);
+    window.sessionStorage.clear();
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(IDENTIFICADOR_KEY);
+    window.sessionStorage.removeItem(NOMBRE_KEY);
+    window.sessionStorage.removeItem(AUTHORITIES_KEY);
   }
 }

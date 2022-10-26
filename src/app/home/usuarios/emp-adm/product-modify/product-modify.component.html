@@ -8,9 +8,6 @@
         <div class="col col-12 col-sm-12 col-md-6 " style="margin-top: 25vh;">
             <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
                 <div class="container">
-                    <!-- Alerta -->
-                    <div class="alert" #alerta id="alerta"></div>
-
                     <!-- Titulo and icon -->
                     <div class="row m-2 ms-0">
                         <div class="col col-9">
@@ -27,12 +24,29 @@
 
                     <!-- Img and changre img -->
                     <div class="row justify-content-center">
-                        <div class="col col-5 col-sm-5 col-md-3">
-                            <div class="producto-img bg-white">
+                        <div class=" text-center">
+                            <div>
+                                <div *ngIf="!fileChange; else Conimagen">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="165" height="165" fill="currentColor"
+                                        class="bi bi-person-circle border border-primary text-primary p-2 mb-1" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                    <p>{{tipImage}}</p> 
+                                </div>
+        
+                                <ng-template #Conimagen>
+                                    <div>
+                                        <img [src]="preView" alt="" class="img-perfil">
+                                    </div>
+                                </ng-template>
                             </div>
-                        </div>
-                        <div class="col col-12 text-center">
-                            <button class="btn btn-primary w-50 rounded-pill mt-3"> Cambiar imagen</button>
+                            <div class="row">
+                                <div class="col text-center m-2">
+                                    <input type="file" class="btn btn-primary rounded rounded-pill inpFile" name="" id="" (change)="capturarArchivo($event)">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -40,14 +54,12 @@
                     <div class="row mt-4">
                         <div class="col">
                             <form class="row was-validated needs-validation" [formGroup]="formProducto" errorTailor novalidate>
-                                {{formProducto.value | json}}
                                 <div class="row mt-2">
                                     <div class="col col-5">
                                         <label for="staticEmail2" class="mt-2">Código de producto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input  type="text" class="form-control" id="codigo" placeholder="00000001"
-                                            value="{{codigoProducto}}">
+                                        <input formControlName="fcodProd" type="text" class="form-control" minlength="12" maxlength="12" id="codigo" placeholder="00000001" required value="{{codigoProducto}}">
                                     </div>
                                 </div>
 
@@ -56,7 +68,7 @@
                                         <label for="staticEmail2" class="mt-2">Nombre de producto</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fname" type="text" class="form-control" id="nombre"
+                                        <input formControlName="fname" maxlength="60"required type="text" class="form-control" id="nombre"
                                             placeholder="Nombre" value="{{nombre}}">
                                     </div>
                                 </div>
@@ -66,7 +78,7 @@
                                         <label for="staticEmail2" class="mt-2">Categoría</label>
                                     </div>
                                     <div class="col col-7">
-                                        <select formControlName="fcategoria" class="form-select" aria-label="Default select example"
+                                        <select formControlName="fcategoria" required class="form-select" aria-label="Default select example"
                                             [value]="categoria">
                                             <option selected><small>Selecciona una opción del menu</small></option>
                                             <option value="Carnes frias">Carnes frías</option>
@@ -85,8 +97,7 @@
                                         <label for="staticEmail2" class="mt-2">Cantidad</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fcantidad" type="number" class="form-control"
-                                            id="cantidad" placeholder="00.00" value="{{cantidad}}">
+                                        <input formControlName="fcantidad" min="0" minlength="1" maxlength="6"  type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" id="cantidad" placeholder="00" required>
                                     </div>
                                 </div>
 
@@ -95,8 +106,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio de compra</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpCompra" type="number" class="form-control"
-                                            id="precioCompra" placeholder="$00.00" value="{{pcompra}}">
+                                        <input formControlName="fpCompra" min="0.00" minlength="1" maxlength="6" type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -105,8 +116,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio de venta</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpVenta" type="number" class="form-control"
-                                            id="precioVenta" placeholder="$00.00" value="{{pventa}}">
+                                        <input formControlName="fpVenta" min="0.00" minlength="1" maxlength="6" type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -115,8 +126,8 @@
                                         <label for="staticEmail2" class="mt-2">Precio con descuento</label>
                                     </div>
                                     <div class="col col-7">
-                                        <input formControlName="fpDesc" type="number" class="form-control"
-                                            id="precioDescuento" placeholder="$00.00" value="{{pdesc}}">
+                                        <input formControlName="fpDesc" min="0.00" minlength="1" maxlength="6" type="text" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)" step="0.001" class="form-control" id="precioCompra"
+                                        placeholder="$00.00" required>
                                     </div>
                                 </div>
 
@@ -158,8 +169,8 @@
                                         <div class="form-check mt-2">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 <input formControlName="festado" class="form-check-input" type="radio"
-                                                    name="festado" id="Dado de baja" value="Dado de baja">
-                                                <span class="small">Dado de baja</span>
+                                                    name="festado" id="Dado de baja" value="Inexistente">
+                                                <span class="small">Inexistente</span>
                                             </label>
                                         </div>
                                     </div>
@@ -178,7 +189,7 @@
                                         </button>
                                     </div>
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger rounded rounded-pill">
+                                        <button type="button" class="btn btn-danger rounded rounded-pill" (click)="cancel()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                 fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                                 <path

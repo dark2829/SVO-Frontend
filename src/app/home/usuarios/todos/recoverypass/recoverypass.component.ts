@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertaService } from 'src/app/services/alerta.service';
+import { EnlacesService } from 'src/app/services/enlaces.service';
+import { PersonasService } from 'src/app/services/personas.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-recoverypass',
@@ -8,15 +13,32 @@ import { Router } from '@angular/router';
 })
 export class RecoverypassComponent implements OnInit {
 
+  formpassword: FormGroup;
+
   constructor(
-    private router: Router
+    private router: Router,
+    private persona: PersonasService,//AuthService
+    private formBuilder: FormBuilder,
+    private enlaces: EnlacesService,
+    private token: TokenService,
+    private alerta: AlertaService, 
   ) { }
 
   ngOnInit(): void {
+    this.formpassword = this.formBuilder.group({
+      fcorreo: [null, [Validators.required, Validators.email, Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)]]
+    });
   }
   
   login(){
-    this.router.navigate(['login']);
+    console.log(this.formpassword.value.fcorreo);
+    this.persona.recovery({
+      mailTo: this.formpassword.value.fcorreo
+    }).subscribe(response => {
+      this.alerta.showAlert("Revise su correo electrónico", "success", 2500);
+    },reject => {
+      this.alerta.showAlert("No se encontró el correo electrónico ingresado, verifíquelo", "danger", 3000);
+    });
   }
 
 }

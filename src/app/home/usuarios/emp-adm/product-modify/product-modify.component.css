@@ -14,3 +14,9 @@
     position: absolute;
     background-image: url('../../../../../assets/img/Papel-Tapiz-Isabel-EN3501.png');
 }
+
+.img-perfil{
+    max-width: 30vh;
+    max-width: 200px;
+    max-height: 200px;
+}

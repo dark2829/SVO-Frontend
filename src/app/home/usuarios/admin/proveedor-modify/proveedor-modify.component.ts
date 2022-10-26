@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormGroupName, Validators } from '@angular/form
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { EnlacesService } from '../../../../services/enlaces.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-proveedor-modify',
@@ -12,7 +13,6 @@ import { EnlacesService } from '../../../../services/enlaces.service';
 export class ProveedorModifyComponent implements OnInit {
   //* Salida
   //* Entrada
-  @ViewChild('alerta') alerta: ElementRef;
   
   //* Variables
   index: number | undefined; 
@@ -32,10 +32,19 @@ export class ProveedorModifyComponent implements OnInit {
     private route: ActivatedRoute, //Buscar con indice
     private formBuilder: FormBuilder, 
     private router: Router,
-    private enlace: EnlacesService
+    private enlace: EnlacesService, 
+    private alerta: AlertaService
   ) { }
 
   ngOnInit(): void {
+    this.miFormulario = this.formBuilder.group({      
+      hproveedorNombre: [null, [Validators.required]],
+      hproveedorTelefono: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      hproveedorCorreo: [null, [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$")]],
+      hproveedorDireccion: [null],
+      hproveedorProvee: [null, [Validators.required]]
+    });
+
     this.index = this.route.snapshot.params['id'];//obtiene el id de la ruta
     
     //? Si id es verdadero entonces: se obtiene toda la informacion del proveedor 
@@ -51,12 +60,12 @@ export class ProveedorModifyComponent implements OnInit {
             this.adres = elemento.direccion; 
             this.provee = elemento.provee;    
             
-            this.miFormulario = this.formBuilder.group({      
-              hproveedorNombre: [elemento.nombre, [Validators.required]],
-              hproveedorTelefono: [elemento.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-              hproveedorCorreo: [elemento.correo, [Validators.email]],
-              hproveedorDireccion: [elemento.direccion],
-              hproveedorProvee: [elemento.provee, [Validators.required]]
+            this.miFormulario.patchValue({      
+              hproveedorNombre:   elemento.nombre,
+              hproveedorTelefono: elemento.telefono,
+              hproveedorCorreo:   elemento.correo,
+              hproveedorDireccion:elemento.direccion,
+              hproveedorProvee:   elemento.provee
             });
           }
         });
@@ -73,42 +82,36 @@ export class ProveedorModifyComponent implements OnInit {
       //Mandar Datos
       try {
         if (
-          this.miFormulario.value.hproveedorNombre != null &&
-          this.miFormulario.value.hproveedorTelefono != null &&
-          this.miFormulario.value.hproveedorCorreo != null &&
-          this.miFormulario.value.hproveedorProvee != null &&
-          this.miFormulario.value.hproveedorNombre != "" &&
-          this.miFormulario.value.hproveedorTelefono != "" &&
-          this.miFormulario.value.hproveedorCorreo != "" &&
-          this.miFormulario.value.hproveedorProvee != ""
+          this.miFormulario.valid
         ) {
+          
+          this.miFormulario.value.hproveedorNombre = this.miFormulario.value.hproveedorNombre.toString().trim(),
+          this.miFormulario.value.hproveedorTelefono = this.miFormulario.value.hproveedorTelefono.toString().trim(),
+          this.miFormulario.value.hproveedorCorreo = this.miFormulario.value.hproveedorCorreo.toString().trim(),
+          this.miFormulario.value.hproveedorProvee = this.miFormulario.value.hproveedorProvee.toString().trim()
+          if(this.miFormulario.value.hproveedorDireccion != null && this.miFormulario.value.hproveedorDireccion != ""){
+            this.miFormulario.value.hproveedorDireccion = this.miFormulario.value.hproveedorDireccion.toString().trim();
+          }
+          
           this.service.saveProveedor(`${this.enlace.API_ENLACE_PROVEEDOR}${this.enlace.PROVEEDOR_UPDATE}${this.index}`,
             {
-              nombre: this.miFormulario.value.hproveedorNombre.toString().trim(),
-              telefono: this.miFormulario.value.hproveedorTelefono.toString().trim(),
-              correo: this.miFormulario.value.hproveedorCorreo.toString().trim(),
-              direccion: this.miFormulario.value.hproveedorDireccion.toString().trim(),
-              provee: this.miFormulario.value.hproveedorProvee.toString().trim()
+              nombre: this.miFormulario.value.hproveedorNombre,
+              telefono: this.miFormulario.value.hproveedorTelefono,
+              correo: this.miFormulario.value.hproveedorCorreo,
+              direccion: this.miFormulario.value.hproveedorDireccion,
+              provee: this.miFormulario.value.hproveedorProvee,
             }
           ).subscribe(
-            respuesta => this.information("Registro exitoso", "success"), 
-          error => {
-            switch(error.status){
-              case 0:
-                this.errores("Error de conexión", "danger");
-              break;
-              case 400: 
-                this.errores("El correo ya está registrado", "warning");
-              break; 
-              case 500: 
-                this.errores("Error en el servidor", "danger");
-              break; 
+            respuesta => {
+              this.alerta.showAlert("Proveedor Modificado", "success", 2000);
+              setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);  
+            },
+            error => {
+              this.alerta.showAlert("Proveedor Modificado", "success", 2000, error.status);
             }
-            console.log("reject"+error.status);
-          }
-          );
-        } else {
-          this.errores("Campos invalidos", "warning");
+            );
+          } else {
+            this.alerta.showAlert("Algunos datos no son correctos", "danger", 2000);            
         }
       } catch (error) {
         alert(error);
@@ -129,52 +132,8 @@ export class ProveedorModifyComponent implements OnInit {
   public cancel(){
     this.cancelar = true; 
     this.informacion = false; 
-    this.information("Cancelado", "danger");
-  }
-  
-  //? Estos metodos funcionan para mostrar las alertas
-  public information(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong> redirigiendo a lista.
-                          </div>
-    `;
-    setTimeout(() => {this.listaProveedores()} , 1000);
-  }
-
-  public errores(texto: string, tipo: string){
-    //? Agregar opciones de mensajes en vista    
-    const alertas: any = this.alerta.nativeElement; 
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => {alertas.innerHTML = ""} , 2000);
-  }
-  //* Métodos post
-  //* Métodos update
-  //* Métodos delete
-  
-  //* Métodos navegación
-  public listaProveedores(){
-    this.router.navigate(['proveedores']);
+    this.alerta.showAlert("Cancelado", "secondary", 2000);  
+    setTimeout(() => {this.router.navigate(['proveedores'])} , 2500);    
   }
 }
 

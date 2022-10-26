@@ -20,23 +20,21 @@
                                     <h3>Registro</h3>
                                 </span>
                                 <div class="container w-75 mt-5">
-                                    <!-- Alerta -->
-                                    <div class="alert" #alerta id="alerta"></div>
                                     <form class="row was-validated needs-validation" [formGroup]="formPersona" errorTailor novalidate>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoFname" class="form-control" type="text" name="nombre" id="" placeholder="Nombre" required>
+                                            <input formControlName="persoFname" maxlength="45" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoSname" class="form-control" type="text" name="apellido" id="" placeholder="Apellido" required>
+                                            <input formControlName="persoSname" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoEmail" class="form-control" type="text" name="correo" id="" placeholder="Correo" required>
+                                            <input formControlName="persoEmail" maxlength="35" class="form-control" type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
                                         </div>
                                         <div class="mb-3 datosRequeridos">
-                                            <input formControlName="persoPassw" class="form-control" type="password" name="contraseña" id="" placeholder="Contraseña" required maxlength="8">
+                                            <input formControlName="persoPassw" class="form-control" type="password" name="contraseña" id="contrasena" placeholder="Contraseña" required maxlength="8" minlength="5">
                                         </div>
                                         <!-- Botón de enviar formulario -->
-                                        <button type="submit" class="btn btn-success rounded-pill" (click)="enviar()">Registrarse</button>
+                                        <button type="submit" [disabled]="!formPersona.valid" class="btn btn-success rounded-pill" (click)="enviar()">Registrarse</button>
                                     </form>
                                 </div>
                             </div>

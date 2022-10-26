@@ -25,11 +25,11 @@
                                     </svg>
                                 </span>
                                 <div class="container w-75 mt-3">
-                                    <form class="">
+                                    <form [formGroup]="formpassword" errorTailor novalidate>
                                         <div class="mb-3">
-                                            <input class="form-control" type="text" name="correo" id="" placeholder="Correo electrónico">
+                                            <input formControlName="fcorreo" class="form-control" type="text" name="correo" id="" placeholder="Correo electrónico">
                                         </div>
-                                        <button class="btn btn-success mt-5 rounded-pill" (click)="login()">Recuperar contraseña</button>
+                                        <button [disabled]="!formpassword.valid" class="btn btn-success mt-5 rounded-pill" (click)="login()">Recuperar contraseña</button>
                                     </form>
                                 </div>
                             </div>

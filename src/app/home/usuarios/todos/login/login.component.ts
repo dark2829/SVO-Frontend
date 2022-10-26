@@ -4,7 +4,7 @@ import { PersonasService } from '../../../../services/personas.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnlacesService } from 'src/app/services/enlaces.service';
 import { TokenService } from '../../../../services/token.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AlertaService } from '../../../../services/alerta.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,8 @@ export class LoginComponent {
   identify: string;
   contrasena: string;
   nombre: string;
-  roles: string[] = [];
+  roles: string;
+  tipe: any = "password"; 
 
   @ViewChild('alerta') alerta: ElementRef;
   formLoginClient: FormGroup;
@@ -28,6 +29,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private enlaces: EnlacesService,
     private tokenService: TokenService,
+    private alertService: AlertaService
   ) { }
 
   ngOnInit(): void {
@@ -41,30 +43,21 @@ export class LoginComponent {
       formCorreo: [null, [Validators.required, Validators.email]],
       formPassword: [null, [Validators.required, Validators.maxLength(8)]]
     })
+
+    if(window.sessionStorage.getItem('Values') == '1'){
+      window.sessionStorage.setItem('Values', '0');
+      window.location.reload();
+    }else if(window.sessionStorage.getItem('Values') == '0'){
+      window.sessionStorage.removeItem('Values');
+    }
   }
 
-  /* ingresar(): void{
-    this.loginUser = new LoginUser(this.correo, this.contrasena);
-    console.log(this.loginUser);
-    this.persona.inicioSesion(this.loginUser).subscribe(
-      data => {
-        this.isLogged = true; 
-        this.isLoginFail = false; 
-        
-        this.tokenService.setToken(data.token);
-        this.tokenService.setCorreo(data.correo);
-        this.tokenService.setAuthorities(data.autorities);
-      }, 
-      err => {
-        this.isLogged = false; 
-        this.isLoginFail = true; 
-        console.log("mensaje de error"+err.error.message);
-      }
-    );
-  } */
+  showpassword = () => {
+    const res = (this.tipe == 'password') ? 'text' : 'password' ;
+    this.tipe = res; 
+  }
 
   ingresar() {
-    //! Solo falta el token
     try {
       if (
         this.formLoginClient.value.formCorreo != null &&
@@ -80,7 +73,7 @@ export class LoginComponent {
         }).subscribe(
           response => {
             if (response != null) {
-              this.information("Bienvenido", "success");
+              this.alertService.showAlert(response.message, "success", 2000, "200");
               this.isLogged = true;
               this.isLoginFail = false;
 
@@ -88,8 +81,9 @@ export class LoginComponent {
               this.tokenService.setIdentificador(response.data.idUser.correo);
               this.tokenService.setAuthorities(response.data.rol[0].authority);
               this.tokenService.setNombre(response.data.idPerson.nombre);
-              this.tokenService.setID(response.data.idPerson.id)
-              this.roles = response.data.rol[0].authority;;
+              this.tokenService.setID(response.data.idUser.id);
+              this.tokenService.setIdPerson(response.data.idPerson.id);
+              this.roles = response.data.rol[0].authority;
 
               if (response.data.rol[0].authority == "Administrador") {
                 setTimeout(() => { this.router.navigate(['userAdmin/' + response.data.idPerson.id]) }, 2000);
@@ -102,43 +96,13 @@ export class LoginComponent {
                 setTimeout(() => { this.router.navigate(['user/' + response.data.idPerson.id]) }, 2000);
               }
             } else {
-              this.information("Usuario o contraseña incorrectos", "warning")
-              console.log("Respuesta desde login.component.ts " + response);
+              this.alertService.showAlert(response.message, "success", 2000, "200");
             }
           },
-          reject => {
-            switch (reject.status) {
-              case 0:
-                this.errores("Error de conexión", "danger");
-                break;
-              case 400:
-                this.errores("El correo ya está registrado", "warning");
-                break;
-              case 500:
-                this.errores("Error en el servidor", "danger");
-                break;
-            }
+          reject => {                   
+            this.alertService.showAlert(reject.error.message, "warning", 2500, reject.status);
           }
         );
-        /* funcional 
-        this.persona.inicioSesion(API_LOGIN, {
-          identificador: this.formLoginClient.value.formCorreo,
-          contrasena: this.formLoginClient.value.formPassword
-        }).subscribe(
-          response => {
-          if(response != null) {
-            this.information("Bienvenido", "success");
-            this.persona.personInfo = response;
-            setTimeout(() => {this.router.navigate(['user/'+response.id])} , 2000);
-          }else{
-            this.information("Usuario o contraseña incorrectos", "warning")
-            console.log("Respuesta desde login.component.ts "+response);
-          }
-        },
-        reject => {
-          this.errores("Usuario o contraseña incorrecto", "danger");
-        }
-        ); */
       }
     } catch (error) {
       console.log(error);
@@ -151,39 +115,5 @@ export class LoginComponent {
 
   recovery() {
     this.router.navigate(['recovery']);
-  }
-
-  public information(texto: string, tipo: string) {
-    const alertas: any = this.alerta.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => { alertas.innerHTML = "" }, 2000);
-  }
-
-  public errores(texto: string, tipo: string) {
-    const alertas: any = this.alerta.nativeElement;
-    alertas.innerHTML = `
-                          <div 
-                          class="alert alert-${tipo} alert-dismissible" 
-                          style=
-                            "
-                            position: fixed; top:25vh; right:0%;
-                              
-                            ">
-                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                          <strong>¡${texto}!</strong>
-                          </div>
-    `;
-    setTimeout(() => { alertas.innerHTML = "" }, 2000);
   }
 }
