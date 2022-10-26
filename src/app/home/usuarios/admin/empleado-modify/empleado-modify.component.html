@@ -118,8 +118,10 @@
                                         <label for="staticEmail2" class="mt-2">Teléfono</label>
                                     </div>
                                     <div class="col col-7 datosRequeridos">
-                                        <input formControlName="fTelefono" type="text" class="form-control" id="telefono" placeholder="2411302419"
-                                            required minlength="10" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                        
+
+                                            <input formControlName="fTelefono" type="text" class="form-control" id="telefono" placeholder="2411302419"
+                                            required minlength="10" maxlength="10" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)">
                                     </div>
                                 </div>
 
