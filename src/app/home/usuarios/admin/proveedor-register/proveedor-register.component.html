@@ -1,0 +1,107 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid text-center jumbo">
+</div>
+
+<div class="container position-relative">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col col-12 col-sm-12 col-md-6 " style="margin-top: 25vh;">
+            <div class="card w-100 bg-secondary bg-opacity-75 border rounded">
+                <div class="container">
+                    <!-- Titulo and icon -->
+                    <div class="row m-2 ms-0">
+                        <div class="col col-9">
+                            <h4>Registrar Proveedor</h4>
+                        </div>
+                        <div class="col col-3 text-end">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-truck m-2 pt-1 text-primary" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                </svg>
+                        </div>
+                    </div>
+
+                    <!-- Formulario -->
+                    <div class="row mt-4">
+                        <div class="col">
+                            <form class="row was-validated needs-validation" [formGroup]="miFormulario" errorTailor novalidate>
+                                <div class="position-relative">
+                                    <div class="form-outline">
+                                        <div class="row mt-2">
+                                            <div class="col col-5">
+                                                <label for="staticEmail2" class="mt-2">Nombre de Proveedor</label>
+                                            </div>
+                                            <div class="col col-7 datosRequeridos">
+                                                <input formControlName="proveedorNombre" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32 || event.charCode == 95 || event.charCode == 46 || event.charCode == 45 || event.charCode == 127)" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-2">
+                                            <div class="col col-5">
+                                                <label for="staticEmail2" class="mt-2">Numero de contacto</label>
+                                            </div>
+                                            <div class="col col-7 datosRequeridos position-relative">
+                                                <input [controlErrorsTpl]="phone" formControlName="proveedorTelefono" onkeypress="return ( event.charCode >= 48 && event.charCode <= 57)" type="text" class="form-control" id="telefono" placeholder="2418000101" required [minlength]="10" maxlength="10" >
+                                                <ng-template let-error let-text="text" #phone>{{text}}</ng-template>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col col-5">
+                                                <label for="staticEmail2" class="mt-2">Correo electrónico</label>
+                                            </div>
+                                            <div class="col col-7 datosRequeridos">
+                                                <input formControlName="proveedorCorreo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]{2,10}\.[a-z]{2,4}$" type="email" class="form-control" id="correo" placeholder="correo@example.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col col-5">
+                                                <label for="staticEmail2" class="mt-2">Dirección de la empresa </label>
+                                            </div>
+                                            <div class="col col-7">
+                                                <input formControlName="proveedorDireccion" type="text" class="form-control" id="direccion" placeholder="Avenida 2001 tetla " >
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 mb-2">
+                                            <div class="col col-5">
+                                                <label for="staticEmail2" class="mt-2">Provee</label>
+                                            </div>
+                                            <div class="col col-7 datosRequeridos">
+                                                <input formControlName="proveedorProvee" type="text" class="form-control" id="provee" placeholder="Ajos" required>
+                                            </div>
+                                        </div>
+                                        <!-- Botones -->
+                                        <div class="row m-3">
+                                            <div class="col text-center">
+                                                <!-- [disabled]="miFormulario.invalid" -->
+                                                {{miFormulario.valid }}
+                                                <button  type="submit" class="btn btn-success rounded rounded-pill" (click)="enviar()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                    </svg>
+                                                    Aceptar
+                                                </button>
+                                            </div>
+                                            <div class="col text-center">
+                                                <button type="button" class="btn btn-danger rounded rounded-pill" (click)="cancelar()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                    </svg>
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

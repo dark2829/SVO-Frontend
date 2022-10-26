@@ -1,0 +1,144 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid text-center jumbo">
+</div>
+
+<div class="container position-relative">
+    <div class="row vh-100 justify-content-center align-items-center" style="padding-top: 20vh;">
+        <div class="col w-100">
+
+            <h1 class="text-center mt-1 text-white mb-3">Inventario</h1>
+
+            <div class="container bg-secondary bg-opacity-75 border border-secondary rounded" style="margin-top: 8vh;">
+                <!-- Botones and icon -->
+                <div class="row">
+                    <div class="col col-12 col-sm-12 col-md-8 col-lg-8 mt-2 mb-2">
+                        <button class="btn btn-light rounded-pill w-75 border border-primary" (click)="registro()">
+                            <div class="row">
+                                <div class="col col-9">Registrar Producto</div>
+                                <div class="col col-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-plus rounded rounded-circle text-white bg-success m-0 p-0 me-2"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col col-12 col-sm-12 col-md-4 text-end">
+                        <span class="text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                class="bi bi-box2 m-2 pt-1 text-primary" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3L2.95.4ZM7.5 1H3.75L1.5 4h6V1Zm1 0v3h6l-2.25-3H8.5ZM15 5H1v10h14V5Z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <!-- Table content -->
+                <div class="row w-100">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Código de producto</th>
+                                        <th scope="col">Nombre de producto</th>
+                                        <th scope="col">Categoría</th>
+                                        <th scope="col">Cantidad </th>
+                                        <th scope="col">Precio de compra</th>
+                                        <th scope="col">Precio de venta</th>
+                                        <th scope="col">Precio descuento</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let producto of productos.data | paginate: { itemsPerPage: 5, currentPage: page}; let i = index">
+                                        <th scope="row">{{producto.codigo_prod}}</th>
+                                        <td>{{producto.nombre}}</td>
+                                        <td>{{producto.categoria}}</td>
+                                        <td>{{producto.cantidad}}</td>
+                                        <td>{{producto.precio_compra}}</td>
+                                        <td>{{producto.precio_venta}}</td>
+                                        <td>{{producto.precio_descuento}}</td>
+                                        <td>{{producto.descripcion}}</td>
+                                        <td>{{producto.estatus}}</td>
+                                        <td>
+                                            <!-- Botones de ver y editar -->
+                                            <div class="row">
+                                                <!-- Editar -->
+                                                <div class="col col-6">
+                                                    <a type="submit" class="btn"
+                                                        [routerLink]="['/producto', producto.id]">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            fill="currentColor" class="bi bi-pencil-square text-primary"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                            <path fill-rule="evenodd"
+                                                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <!-- Ver -->
+                                                <div class="col col-6">
+                                                    <button (click)="showProduct(producto)" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModal">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                            fill="currentColor" class="bi bi-eye text-primary"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                            <path
+                                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col text-center w-75">
+                                    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
+                                        nextLabel="Siguiente">
+                                    </pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Producto</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="height: 60vh;">
+                <div *ngIf="infoProduct != null">
+                    <iframe [src]="urlProd" height="300vh" width="100%">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

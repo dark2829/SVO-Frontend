@@ -1,0 +1,93 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid text-center jumbo">
+</div>
+
+<div class="container position-relative mt-5 pt-5 mb-1 pb-1 info">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col">
+            <div class="container w-100 rounded border border-primary bg-light">
+                <div class="row mt-2 mb-2 ">
+                    <div class="col col-12 col-sm-12 col-md-12 col-lg-6">
+                        <h4 class="mt-2 mb-4">Solicitud de cancelación de pedido</h4>
+                        <!--Fila titulo, y form-->
+                        <div class="row">
+                            <form id="CreateForm" class="row was-validated needs-validation" [formGroup]="formCanceled1" errorTailor novalidate>
+                                <div class="row">
+                                    <div class="col col-12">
+                                        <div class="row">
+                                            <div class="col col-12 col-sm-12 col-md-3 col-lg-4">
+                                                <label for="">Código de compra: </label>
+                                            </div>
+                                            <div class="col col-12 col-sm-12 col-md-9 col-lg-8">
+                                                <div *ngIf="codigoCompra.length != 0; else emptytext">
+                                                    <input  value="{{codigoCompra}}" type="text " class="form-control" placeholder="Código de compra"
+                                                        name="compraCod" disabled>
+                                                </div>
+                                                <ng-template #emptytext>
+                                                    <input  value="{{codigoCompra}}" type="text " class="form-control" placeholder="Código de compra"
+                                                        name="compraCod">
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="comment" class="text-bold">Motivo de cancelación:</label>
+                                        <textarea formControlName="mensaje" class="form-control border border-primary" rows="5" id="comment"
+                                            name="text" required></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col col-12 col-sm-12 col-md-12 col-lg-6 ">
+                        <!-- Borde -->
+                        <div class="container-fluid border border-primary rounded mt-3 ">
+                            <div class="row">
+                                <!-- Contenedor de cartitas azules -->
+                                <div class="container my-3">
+                                    <div class="row">
+                                        <!-- La carta como tal -->
+                                        <div class="col col-12 text-white border border-light rounded pt-1 px-1">
+                                            <iframe [src]="urlMini" height="220vh" width="100%">
+                                            </iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col text-end">
+                            <button (click)="realizarSolicitud()"  [disabled]="solicitudEnviada || !formCanceled1.valid" form="CreateForm" class="btn btn-success rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-check2" viewBox="0 0 16 16">
+                                    <path
+                                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                </svg>
+                                Enviar
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button (click)="regresar()" class="btn btn-danger rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
+                                    class="bi bi-x-lg mt-0 pt-0" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                                    <path fill-rule="evenodd"
+                                        d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                                </svg>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>

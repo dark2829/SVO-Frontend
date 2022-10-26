@@ -1,0 +1,58 @@
+<!-- <app-nav-bar></app-nav-bar> -->
+
+<div class="containter-fluid bg-primary">
+    <div class="row" style="height: 10vh;">
+        <div class="col">
+            <h2 class="h2 text-white text-center p-2 ">Bienvenido a López Vásquez </h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid vh-100 mb-3" style="margin-top: 0vh;">
+    <div class="row justify-content-center align-items-center">
+        <div class="col">
+            <div class="container">
+                <div class="row vh-100 justify-content-center align-items-center">
+                    <div class="col col-12 col-sm-12 col-md-9 col-lg-6">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center roundes-bottom">
+                                <span class="mt-5 mb-5">
+                                    <h3>Registro</h3>
+                                </span>
+                                <div class="container w-75 mt-5">
+                                    <form class="row was-validated needs-validation" [formGroup]="formPersona" errorTailor novalidate>
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoFname" maxlength="45" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+                                        </div>
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoSname" maxlength="30" onkeypress="return ( event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 180 || event.charCode == 32)" class="form-control" type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+                                        </div>
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoEmail" maxlength="35" class="form-control" type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
+                                        </div>
+                                        <div class="mb-3 datosRequeridos">
+                                            <input formControlName="persoPassw" class="form-control" type="password" name="contraseña" id="contrasena" placeholder="Contraseña" required maxlength="8" minlength="5">
+                                        </div>
+                                        <!-- Botón de enviar formulario -->
+                                        <button type="submit" [disabled]="!formPersona.valid" class="btn btn-success rounded-pill" (click)="enviar()">Registrarse</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-light text-primary text-center">
+                                <div class="container">
+                                    <h6>Si tienes una cuenta puedes iniciar sesión</h6>
+                                    <button class="btn btn-success rounded-pill" (click)="login()">
+                                        <span class="small">Iniciar sesión</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

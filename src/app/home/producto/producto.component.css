@@ -1,0 +1,36 @@
+.product{
+    margin-top: 24vh;
+    border-radius: 5vh !important;
+    -webkit-border-radius: 5vh !important;
+    -moz-border-radius: 5vh !important;
+    -ms-border-radius: 5vh !important;
+    -o-border-radius: 5vh !important;
+}
+
+.card{
+    border-radius: 2vh !important;
+    -webkit-border-radius: 2vh !important;
+    -moz-border-radius: 2vh !important;
+    -ms-border-radius: 2vh !important;
+    -o-border-radius: 2vh !important;
+}
+
+.like{
+    position: absolute;
+    top: 7%;
+    left: 90%;
+}
+
+.jumbo{
+    height: 50vh;
+    position: absolute;
+    background-image: url('../../../assets/img/jumbo.png');
+}
+
+.info{
+    padding-top: 1vh;
+}
+
+.lineaBlanca{
+    border-color: white ;
+}

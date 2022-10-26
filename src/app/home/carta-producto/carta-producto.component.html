@@ -1,0 +1,40 @@
+<div  class="card bg-primary bg-opacity-25" id="#">
+    <span class="like position-absolute translate-middle badge rounded-pill">
+        <button class="btn btn-outline-danger rounded-circle p-0 m-0" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="15" fill="currentColor" class="bi bi-heart"
+                viewBox="0 0 16 16">
+                <path
+                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+            </svg>
+        </button>
+    </span>
+    <a type="submit" (click)="product()">
+        <img class="card-img-top img-fluid w-50 mx-auto d-block m-2" src="../../assets/img/jabon.png" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title h5">Detergente Roma Multiusos 1kg En Polvo</h4>
+            <p class="card-text text-start ">Jabón en polvo Roma de un kilogramo</p>
+            <p class="card-text">
+                <span class="text-secondary small"><del>$60.50</del></span>
+                <br>
+                <span class="h4">$49.50</span>
+                <br>
+                <span class="text-success">Ahorras $11</span>
+            </p>
+        </div>
+    </a>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="container-fluid">
+                <div class="row text-center">
+                    <div class="col">
+                        <a class="btn btn-primary rounded-pill" (click)="alert()">
+                            <span class="small boton-info">
+                                Agregar a carrito
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

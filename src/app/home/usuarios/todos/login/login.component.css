@@ -1,0 +1,11 @@
+.eie{
+    border: 2px solid white;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    width: 6vh;
+    height: 6vh;
+    padding: 0.2vh;
+}

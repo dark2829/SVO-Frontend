@@ -1,0 +1,11 @@
+.jumbo{
+    height: 50vh;
+    position: absolute;
+    background-image: url('../../../../../assets/img/Papel-Tapiz-Isabel-EN3501.png');
+}
+
+.modify{
+    position: absolute;
+    top: -8%;
+    left: 90%;
+}

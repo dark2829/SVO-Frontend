@@ -1,0 +1,18 @@
+.jumbo{
+    height: 50vh;
+    width: 100vw;
+    position: absolute;
+    background-image: url('../../../../../assets/img/Papel-Tapiz-Isabel-EN3501.png');
+}
+
+.imgProd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body .imgProdImg {
+    width: 20vh;
+    max-width: 250px;
+    max-height: 250px;
+}

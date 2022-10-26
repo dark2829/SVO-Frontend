@@ -1,0 +1,99 @@
+<div class="containter-fluid bg-primary">
+    <div class="row" style="height: 10vh;">
+        <div class="col">
+            <h2 class="h2 text-white text-center p-2 ">Bienvenido a López Vásquez </h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid vh-100" style="margin-top: 0vh;">
+    <div class="row justify-content-center align-items-center">
+        <div class="col">
+            <div class="container">
+                <div class="row vh-100 justify-content-center align-items-center">
+                    <div class="col col-12 col-sm-12 col-md-9 col-lg-6">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center roundes-bottom">
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30%" height="30%" fill="currentColor"
+                                        class="bi bi-person-circle m-4" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                </span>
+                                <div class="container w-75 mt-3">
+                                    <form class="" [formGroup]="formLoginClient" errorTailor novalidate>                                        
+                                        <div class="mb-3">
+                                            <input formControlName="formCorreo" class="form-control" type="text" name="correo" id="correo"
+                                                placeholder="Correo electrónico o N° empleado">
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="row w-100">
+                                                <div class="col-9 col-sm-10 col-lg-10">
+                                                    <input id="pass" formControlName="formPassword" maxlength="8" class="form-control" [type]="tipe" name="password" id="password"
+                                                        placeholder="Contraseña">
+                                                </div>
+                                                <div class="col-1">
+                                                    <button  type="button" class="btn btn-outline-light eie" (click)="showpassword()">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-success rounded-pill" (click)="ingresar()">Iniciar
+                                            sesión</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light text-primary text-center">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col col-12">
+                                                    <p class="">¿Olvidaste tu contraseña?</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col col-12 text-center">
+                                                            <button class="btn btn-success rounded-pill" (click)="recovery()">
+                                                                <span>Recuperar contraseña</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col col-12">
+                                                    <p class="">¿No tienes una cuenta?</p>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col col-12 text-center">
+                                                            <button class="btn btn-success rounded-pill" (click)="registro()">
+                                                                <span>Registrate aquí</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

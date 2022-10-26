@@ -1,0 +1,19 @@
+form .datosRequeridos{
+    color: red;
+}
+
+.viewPort{
+    height: 30vw;
+    width: 100vh;
+    border: 1px dotted balck;
+}
+
+.content{
+    height: 100%;
+    width: 100%;
+}
+
+.noneProduct{
+    margin-left: 5vw;
+    margin-top: 5vh;
+}

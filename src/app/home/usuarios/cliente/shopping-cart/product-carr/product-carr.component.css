@@ -1,0 +1,17 @@
+.textCant{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn{
+    height: 10vh;    
+}
+
+.titulo{
+    font-size: medium;
+}
+
+.imagenes{
+    padding-top: 10vh;
+}

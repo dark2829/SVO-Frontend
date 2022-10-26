@@ -1,0 +1,26 @@
+.producto-img{
+    width: 15vh;
+    height: 15vh;
+    border-radius: 2vh;
+    -webkit-border-radius: 2vh;
+    -moz-border-radius: 2vh;
+    -ms-border-radius: 2vh;
+    -o-border-radius: 2vh;
+}
+
+.jumbo{
+    height: 50vh;
+    width: 100vw;
+    position: absolute;
+    background-image: url('../../../../../assets/img/Papel-Tapiz-Isabel-EN3501.png');
+}
+
+.img-perfil{
+    max-width: 30vh;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.inpFile{
+    width: 28vh;
+}
